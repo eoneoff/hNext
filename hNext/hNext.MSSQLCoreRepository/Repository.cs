@@ -1,0 +1,30 @@
+﻿using hNext.IRepository;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace hNext.MSSQLCoreRepository
+{
+    public class Repository<T> : Poster<T>, IRepository<T> where T : class
+    {
+        public async Task<T> Put(T item)
+        {
+            db.Entry(item).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return item;
+        }
+
+        public async Task<T> Delete(int id)
+        {
+            T item = await dbSet.FindAsync(id);
+            if(item!=null)
+            {
+                dbSet.Remove(item);
+                await db.SaveChangesAsync();
+            }
+            return item;
+        }
+    }
+}
