@@ -13,17 +13,36 @@ namespace hNext.Model
         public int Id { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.Resources),
             ErrorMessageResourceName = nameof(Resources.Resources.EnterFirstName))]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.FirstName))]
         public string FirstName { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.Resources),
             ErrorMessageResourceName = nameof(Resources.Resources.EnterFamilyName))]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.FamilyName))]
         public string FamilyName { get; set; }
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Patronimic))]
         public string Patronimic { get; set; }
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Address))]
         public int AddressId { get; set; }
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.DateOfBirth))]
         public DateTime DateOfBirth { get; set; }
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.CountryOfBirth))]
         public int CountryOfBirthId { get; set; }
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.PlaceOfBirth))]
         public int PlaceOfBirthId { get; set; }
+
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Gender))]
         public int GenderId { get; set; }
         [MaxLength(20)]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.TaxId))]
         public string TaxId { get; set; }
         [MaxLength(50)]
         public string eHealthId { get; set; }

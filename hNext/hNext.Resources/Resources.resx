@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="Apartment" xml:space="preserve">
+    <value>Квартира</value>
+  </data>
+  <data name="Building" xml:space="preserve">
+    <value>Дом</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Населений пункт</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Країна</value>
+  </data>
+  <data name="CountryOfBirth" xml:space="preserve">
+    <value>Країна народження</value>
+  </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Дата народження</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>Район</value>
+  </data>
   <data name="EnterCityName" xml:space="preserve">
     <value>Введіть назву міста</value>
   </data>
@@ -138,6 +162,27 @@
   <data name="EnterStreetName" xml:space="preserve">
     <value>Введіть назву вулиці</value>
   </data>
+  <data name="FamilyName" xml:space="preserve">
+    <value>Фамілія</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Стать</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="Patronimic" xml:space="preserve">
+    <value>По-батькові</value>
+  </data>
+  <data name="PlaceOfBirth" xml:space="preserve">
+    <value>Місце народження</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Область</value>
+  </data>
   <data name="SelectCity" xml:space="preserve">
     <value>Оберіть населений пункт</value>
   </data>
@@ -152,5 +197,17 @@
   </data>
   <data name="SelectStreetType" xml:space="preserve">
     <value>Оберіть тип вулиці</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Вулиця</value>
+  </data>
+  <data name="TaxId" xml:space="preserve">
+    <value>Ідентифікаційний код</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Zip" xml:space="preserve">
+    <value>Індекс</value>
   </data>
 </root>

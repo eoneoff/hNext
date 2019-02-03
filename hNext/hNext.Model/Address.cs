@@ -11,19 +11,37 @@ namespace hNext.Model
         public int Id { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.Resources),
             ErrorMessageResourceName = nameof(Resources.Resources.SelectCountry))]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Country))]
         public int CountryId { get; set; }
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Region))]
         public int RegionId { get; set; }
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.District))]
         public int DistrictId { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.Resources),
             ErrorMessageResourceName =nameof(Resources.Resources.SelectCity))]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.City))]
         public int CityId { get; set; }
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Street))]
         public int StreetId { get; set; }
         [MaxLength(50)]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Building))]
         public string Building { get; set; }
         [MaxLength(50)]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Apartment))]
         public string Apartment { get; set; }
         [MaxLength(10)]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Zip))]
         public string Zip { get; set; }
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Type))]
         public int AddressTypeId { get; set; }
 
         [ForeignKey(nameof(CountryId))]

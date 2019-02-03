@@ -13,6 +13,8 @@ namespace hNext.Model
         public int Id { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.Resources),
             ErrorMessageResourceName = nameof(Resources.Resources.EnterCountryName))]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Name))]
         public string Name { get; set; }
         [MaxLength(50)]
         public string eHealthId { get; set; }

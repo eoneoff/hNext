@@ -13,12 +13,18 @@ namespace hNext.Model
         public int Id { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.Resources),
             ErrorMessageResourceName = nameof(Resources.Resources.EnterStreetName))]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Name))]
         public string Name { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.Resources),
             ErrorMessageResourceName = nameof(Resources.Resources.SelectCity))]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.City))]
         public int CityId { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.Resources),
             ErrorMessageResourceName = nameof(Resources.Resources.SelectStreetType))]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Type))]
         public int StreetTypeId { get; set; }
         [MaxLength(50)]
         public string eHealthId { get; set; }
