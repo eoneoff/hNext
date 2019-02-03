@@ -6,7 +6,7 @@ using System.Text;
 
 namespace hNext.Model
 {
-    public class Patient:IModel
+    public class Patient
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -6,16 +6,19 @@ using System.Text;
 
 namespace hNext.Model
 {
-    public class Street:IModel
+    public class Street
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = nameof(Resources.Resources.EnterStreetName))]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = nameof(Resources.Resources.SelectCity))]
         public int CityId { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = nameof(Resources.Resources.SelectStreetType))]
         public int StreetTypeId { get; set; }
         [MaxLength(50)]
         public string eHealthId { get; set; }

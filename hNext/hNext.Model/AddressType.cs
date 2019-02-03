@@ -5,7 +5,7 @@ using System.Text;
 
 namespace hNext.Model
 {
-    public class AddressType:IModel
+    public class AddressType
     {
         [Key]
         public int Id { get; set; }

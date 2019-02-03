@@ -6,14 +6,16 @@ using System.Text;
 
 namespace hNext.Model
 {
-    public class District:IModel
+    public class District
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = nameof(Resources.Resources.EnterDistrictName))]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = nameof(Resources.Resources.SelectRegion))]
         public int RegionId { get; set; }
         [MaxLength(50)]
         public string eHealthId { get; set; }

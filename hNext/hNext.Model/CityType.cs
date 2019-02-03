@@ -5,7 +5,7 @@ using System.Text;
 
 namespace hNext.Model
 {
-    public class CityType:IModel
+    public class CityType
     {
         [Key]
         public int Id { get; set; }

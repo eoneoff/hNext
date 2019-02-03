@@ -6,14 +6,16 @@ using System.Text;
 
 namespace hNext.Model
 {
-    public class Person:IModel
+    public class Person
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = nameof(Resources.Resources.EnterFirstName))]
         public string FirstName { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = nameof(Resources.Resources.EnterFamilyName))]
         public string FamilyName { get; set; }
         public string Patronimic { get; set; }
         public int AddressId { get; set; }
