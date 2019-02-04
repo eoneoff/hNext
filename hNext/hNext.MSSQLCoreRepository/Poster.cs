@@ -1,4 +1,5 @@
-﻿using hNext.IRepository;
+﻿using hNext.DbAccessMSSQLCore;
+using hNext.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,8 @@ namespace hNext.MSSQLCoreRepository
 {
     public class Poster<T>:Getter<T>, IPoster<T> where T:class
     {
+        public Poster(hNextDbContext db) : base(db) { }
+
         public async Task<T> Post(T item)
         {
             dbSet.Add(item);

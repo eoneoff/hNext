@@ -1,4 +1,5 @@
-﻿using hNext.IRepository;
+﻿using hNext.DbAccessMSSQLCore;
+using hNext.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ namespace hNext.MSSQLCoreRepository
 {
     public class Repository<T> : Poster<T>, IRepository<T> where T : class
     {
+        public Repository(hNextDbContext db) : base(db) { }
+
         public async Task<T> Put(T item)
         {
             db.Entry(item).State = EntityState.Modified;

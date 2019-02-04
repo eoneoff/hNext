@@ -11,11 +11,12 @@ namespace hNext.MSSQLCoreRepository
 {
     public class Getter<T> : IGetter<T> where T:class
     {
-        protected hNextDbContext db = new hNextDbContext();
+        protected hNextDbContext db;
         protected DbSet<T> dbSet;
 
-        public Getter()
+        public Getter(hNextDbContext db)
         {
+            this.db = db;
             dbSet = db.Set<T>();
         }
 

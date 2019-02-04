@@ -9,9 +9,10 @@ namespace hNext.DbAccessMSSQLCore
 {
     public class hNextDbContext:DbContext
     {
+        public hNextDbContext(DbContextOptions<hNextDbContext> options) : base(options) { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["hNextConnectionString"].ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
