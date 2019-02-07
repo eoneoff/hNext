@@ -11,7 +11,7 @@ namespace hNext.MSSQLCoreRepository
     {
         public Poster(hNextDbContext db) : base(db) { }
 
-        public async Task<T> Post(T item)
+        public virtual async Task<T> Post(T item)
         {
             dbSet.Add(item);
             await db.SaveChangesAsync();

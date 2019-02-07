@@ -20,12 +20,12 @@ namespace hNext.MSSQLCoreRepository
             dbSet = db.Set<T>();
         }
 
-        public async Task<IEnumerable<T>> Get()
+        public virtual async Task<IEnumerable<T>> Get()
         {
             return await dbSet.AsNoTracking().ToListAsync();
         }
 
-        public async Task<T> Get(int id)
+        public virtual async Task<T> Get(int id)
         {
             return await dbSet.FindAsync(id);
         }

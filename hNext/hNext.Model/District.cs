@@ -11,20 +11,22 @@ namespace hNext.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resources.Resources),
             ErrorMessageResourceName = nameof(Resources.Resources.EnterDistrictName))]
         [Display(ResourceType = typeof(Resources.Resources),
             Name = nameof(Resources.Resources.Name))]
         public string Name { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resources.Resources),
             ErrorMessageResourceName = nameof(Resources.Resources.SelectRegion))]
         [Display(ResourceType = typeof(Resources.Resources),
             Name = nameof(Resources.Resources.District))]
         public int RegionId { get; set; }
+
         [MaxLength(50)]
         public string eHealthId { get; set; }
 
-        [ForeignKey(nameof(RegionId))]
         public virtual Region Region { get; set; }
         public virtual ICollection<City> Cities { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }

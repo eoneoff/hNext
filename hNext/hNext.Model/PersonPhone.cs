@@ -6,20 +6,16 @@ using System.Text;
 
 namespace hNext.Model
 {
-    public class Patient
+    public class PersonPhone
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
-
-        [Required]
         public long PersonId { get; set; }
 
-        [MaxLength(50)]
-        public string eHealthId { get; set; }
-        public string Login { get; set; }
+        public long PhoneId { get; set; }
 
         [ForeignKey(nameof(PersonId))]
         public virtual Person Person { get; set; }
+
+        [ForeignKey(nameof(PhoneId))]
+        public virtual Phone Phone { get; set; }
     }
 }

@@ -6,20 +6,21 @@ using System.Text;
 
 namespace hNext.Model
 {
-    public class Patient
+    public class Phone
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         [Required]
-        public long PersonId { get; set; }
+        [MaxLength(15)]
+        public string Number { get; set; }
 
-        [MaxLength(50)]
-        public string eHealthId { get; set; }
-        public string Login { get; set; }
+        [Required]
+        public int PhoneTypeId { get; set; }
 
-        [ForeignKey(nameof(PersonId))]
-        public virtual Person Person { get; set; }
+        [ForeignKey(nameof(PhoneTypeId))]
+        public virtual PhoneType PhoneType { get; set; }
+        public virtual ICollection<PersonPhone> People { get; set; }
     }
 }

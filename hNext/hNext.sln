@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.MSSQLCoreRepository",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.IRepository", "hNext.IRepository\hNext.IRepository.csproj", "{7C9E6847-8C50-4912-827D-6CB999940EAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hNext.Resources", "hNext.Resources\hNext.Resources.csproj", "{C2E57AC1-08CA-4FA2-96DC-20DDDC66917A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.Resources", "hNext.Resources\hNext.Resources.csproj", "{C2E57AC1-08CA-4FA2-96DC-20DDDC66917A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.DataService", "hNext.DataService\hNext.DataService.csproj", "{D4B0E918-7AAB-43A8-BF54-A8C5F656D50E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{C2E57AC1-08CA-4FA2-96DC-20DDDC66917A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2E57AC1-08CA-4FA2-96DC-20DDDC66917A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2E57AC1-08CA-4FA2-96DC-20DDDC66917A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4B0E918-7AAB-43A8-BF54-A8C5F656D50E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4B0E918-7AAB-43A8-BF54-A8C5F656D50E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4B0E918-7AAB-43A8-BF54-A8C5F656D50E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4B0E918-7AAB-43A8-BF54-A8C5F656D50E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

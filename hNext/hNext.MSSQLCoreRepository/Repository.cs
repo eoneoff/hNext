@@ -12,14 +12,14 @@ namespace hNext.MSSQLCoreRepository
     {
         public Repository(hNextDbContext db) : base(db) { }
 
-        public async Task<T> Put(T item)
+        public virtual async Task<T> Put(T item)
         {
             db.Entry(item).State = EntityState.Modified;
             await db.SaveChangesAsync();
             return item;
         }
 
-        public async Task<T> Delete(int id)
+        public virtual async Task<T> Delete(int id)
         {
             T item = await dbSet.FindAsync(id);
             if(item!=null)
