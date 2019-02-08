@@ -36,6 +36,8 @@ namespace hNext.Model
         [ForeignKey(nameof(StreetTypeId))]
         public virtual StreetType StreetType { get; set; }
         public virtual City City { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<Address> Addresses { get; set; }
     }
 }

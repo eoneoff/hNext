@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -49,6 +50,8 @@ namespace hNext.Model
             Name = nameof(Resources.Resources.Zip))]
         public string Zip { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = nameof(Resources.Resources.EnterAddressType))]
         [Display(ResourceType = typeof(Resources.Resources),
             Name = nameof(Resources.Resources.Type))]
         public int AddressTypeId { get; set; }
@@ -62,6 +65,7 @@ namespace hNext.Model
         [ForeignKey(nameof(AddressTypeId))]
         public virtual AddressType AddressType { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Person> People { get; set; }
     }
 }

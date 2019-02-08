@@ -12,8 +12,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 name: "AddressTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     eHealthId = table.Column<string>(maxLength: 50, nullable: true)
                 },
@@ -26,8 +25,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 name: "CityTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     eHealthId = table.Column<string>(maxLength: 10, nullable: true)
                 },
@@ -51,6 +49,32 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DocumentType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    eHealthId = table.Column<string>(maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocumentType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Email",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Address = table.Column<string>(maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Email", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Genders",
                 columns: table => new
                 {
@@ -68,8 +92,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 name: "PhoneTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     eHealthName = table.Column<string>(maxLength: 50, nullable: true)
                 },
@@ -82,8 +105,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 name: "StreetTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     eHealthId = table.Column<string>(maxLength: 50, nullable: true)
                 },
@@ -327,6 +349,60 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Document",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DocumentTypeId = table.Column<int>(nullable: false),
+                    Number = table.Column<string>(maxLength: 20, nullable: true),
+                    PersonId = table.Column<long>(nullable: false),
+                    IssuedBy = table.Column<string>(maxLength: 100, nullable: true),
+                    DateOfIssue = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Document", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Document_DocumentType_DocumentTypeId",
+                        column: x => x.DocumentTypeId,
+                        principalTable: "DocumentType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Document_People_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "People",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GuardianWard",
+                columns: table => new
+                {
+                    GuardianId = table.Column<long>(nullable: false),
+                    WardId = table.Column<long>(nullable: false),
+                    Relation = table.Column<string>(maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GuardianWard", x => new { x.GuardianId, x.WardId });
+                    table.ForeignKey(
+                        name: "FK_GuardianWard_People_GuardianId",
+                        column: x => x.GuardianId,
+                        principalTable: "People",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GuardianWard_People_WardId",
+                        column: x => x.WardId,
+                        principalTable: "People",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
@@ -341,6 +417,30 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     table.PrimaryKey("PK_Patients", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Patients_People_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "People",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonEmails",
+                columns: table => new
+                {
+                    PersonId = table.Column<long>(nullable: false),
+                    EmailId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonEmails", x => new { x.PersonId, x.EmailId });
+                    table.ForeignKey(
+                        name: "FK_PersonEmails_Email_EmailId",
+                        column: x => x.EmailId,
+                        principalTable: "Email",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PersonEmails_People_PersonId",
                         column: x => x.PersonId,
                         principalTable: "People",
                         principalColumn: "Id",
@@ -417,14 +517,39 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 column: "DistrictId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cities_Name",
+                table: "Cities",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cities_RegionId",
                 table: "Cities",
                 column: "RegionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Districts_Name",
+                table: "Districts",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Districts_RegionId",
                 table: "Districts",
                 column: "RegionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Document_DocumentTypeId",
+                table: "Document",
+                column: "DocumentTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Document_PersonId",
+                table: "Document",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GuardianWard_WardId",
+                table: "GuardianWard",
+                column: "WardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Patients_PersonId",
@@ -443,6 +568,16 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 column: "CountryOfBirthId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_People_DateOfBirth",
+                table: "People",
+                column: "DateOfBirth");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_People_FamilyName",
+                table: "People",
+                column: "FamilyName");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_People_GenderId",
                 table: "People",
                 column: "GenderId");
@@ -453,9 +588,19 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 column: "PlaceOfBirthId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PersonEmails_EmailId",
+                table: "PersonEmails",
+                column: "EmailId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PersonPhones_PhoneId",
                 table: "PersonPhones",
                 column: "PhoneId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Phones_Number",
+                table: "Phones",
+                column: "Number");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Phones_PhoneTypeId",
@@ -473,6 +618,11 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Streets_Name",
+                table: "Streets",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Streets_StreetTypeId",
                 table: "Streets",
                 column: "StreetTypeId");
@@ -481,10 +631,25 @@ namespace hNext.DbAccessMSSQLCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Document");
+
+            migrationBuilder.DropTable(
+                name: "GuardianWard");
+
+            migrationBuilder.DropTable(
                 name: "Patients");
 
             migrationBuilder.DropTable(
+                name: "PersonEmails");
+
+            migrationBuilder.DropTable(
                 name: "PersonPhones");
+
+            migrationBuilder.DropTable(
+                name: "DocumentType");
+
+            migrationBuilder.DropTable(
+                name: "Email");
 
             migrationBuilder.DropTable(
                 name: "People");

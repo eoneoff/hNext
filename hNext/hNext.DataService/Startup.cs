@@ -34,8 +34,8 @@ namespace hNext.DataService
                 options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"]));
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IPatientsRepository, PatientsRepository>();
-            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.PreserveReferencesHandling =
-            Newtonsoft.Json.PreserveReferencesHandling.Objects);
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

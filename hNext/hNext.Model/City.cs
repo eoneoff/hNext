@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -48,8 +49,13 @@ namespace hNext.Model
         public virtual Region Region { get; set; }
         public virtual District District { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Street> Streets { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Address> Addresses { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Person> PeopleBorn { get; set; }
     }
 }

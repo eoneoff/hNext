@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,9 +22,16 @@ namespace hNext.Model
         [MaxLength(50)]
         public string eHealthId { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Region> Regions { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<City> Cities { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Address> Addresses { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Person> PeopleBorn { get; set; }
     }
 }

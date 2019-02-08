@@ -6,7 +6,7 @@ using System.Text;
 
 namespace hNext.Model
 {
-    public class PhoneType
+    public class DocumentType
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -16,9 +16,9 @@ namespace hNext.Model
         public string Name { get; set; }
 
         [MaxLength(50)]
-        public string eHealthName { get; set; }
+        public string eHealthId { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<Phone> Phones { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }

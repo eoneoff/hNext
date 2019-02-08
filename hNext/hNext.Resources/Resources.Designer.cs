@@ -133,6 +133,24 @@ namespace hNext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Документи.
+        /// </summary>
+        public static string Documents {
+            get {
+                return ResourceManager.GetString("Documents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введіть тип адресу.
+        /// </summary>
+        public static string EnterAddressType {
+            get {
+                return ResourceManager.GetString("EnterAddressType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введіть назву міста.
         /// </summary>
         public static string EnterCityName {
@@ -160,6 +178,15 @@ namespace hNext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введіть e-mail.
+        /// </summary>
+        public static string EnterEmail {
+            get {
+                return ResourceManager.GetString("EnterEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введіть фамілію.
         /// </summary>
         public static string EnterFamilyName {
@@ -178,11 +205,29 @@ namespace hNext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введіть номер.
+        /// </summary>
+        public static string EnterNumber {
+            get {
+                return ResourceManager.GetString("EnterNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введіть назву області.
         /// </summary>
         public static string EnterRegionName {
             get {
                 return ResourceManager.GetString("EnterRegionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введіть ким приходиться.
+        /// </summary>
+        public static string EnterRelation {
+            get {
+                return ResourceManager.GetString("EnterRelation", resourceCulture);
             }
         }
         
@@ -223,6 +268,15 @@ namespace hNext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Опекуни.
+        /// </summary>
+        public static string Guardians {
+            get {
+                return ResourceManager.GetString("Guardians", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Назва.
         /// </summary>
         public static string Name {
@@ -232,11 +286,29 @@ namespace hNext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Номер.
+        /// </summary>
+        public static string Number {
+            get {
+                return ResourceManager.GetString("Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to По-батькові.
         /// </summary>
         public static string Patronimic {
             get {
                 return ResourceManager.GetString("Patronimic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Телефони.
+        /// </summary>
+        public static string Phones {
+            get {
+                return ResourceManager.GetString("Phones", resourceCulture);
             }
         }
         
@@ -255,6 +327,15 @@ namespace hNext.Resources {
         public static string Region {
             get {
                 return ResourceManager.GetString("Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ким приходиться.
+        /// </summary>
+        public static string Relation {
+            get {
+                return ResourceManager.GetString("Relation", resourceCulture);
             }
         }
         
@@ -304,6 +385,15 @@ namespace hNext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Оберіть тип.
+        /// </summary>
+        public static string SelectType {
+            get {
+                return ResourceManager.GetString("SelectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вулиця.
         /// </summary>
         public static string Street {
@@ -327,6 +417,15 @@ namespace hNext.Resources {
         public static string Type {
             get {
                 return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Підопічні.
+        /// </summary>
+        public static string Wards {
+            get {
+                return ResourceManager.GetString("Wards", resourceCulture);
             }
         }
         

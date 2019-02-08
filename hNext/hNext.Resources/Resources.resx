@@ -141,6 +141,12 @@
   <data name="District" xml:space="preserve">
     <value>Район</value>
   </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Документи</value>
+  </data>
+  <data name="EnterAddressType" xml:space="preserve">
+    <value>Введіть тип адресу</value>
+  </data>
   <data name="EnterCityName" xml:space="preserve">
     <value>Введіть назву міста</value>
   </data>
@@ -150,14 +156,23 @@
   <data name="EnterDistrictName" xml:space="preserve">
     <value>Введіть назву району</value>
   </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Введіть e-mail</value>
+  </data>
   <data name="EnterFamilyName" xml:space="preserve">
     <value>Введіть фамілію</value>
   </data>
   <data name="EnterFirstName" xml:space="preserve">
     <value>Введіть ім'я</value>
   </data>
+  <data name="EnterNumber" xml:space="preserve">
+    <value>Введіть номер</value>
+  </data>
   <data name="EnterRegionName" xml:space="preserve">
     <value>Введіть назву області</value>
+  </data>
+  <data name="EnterRelation" xml:space="preserve">
+    <value>Введіть ким приходиться</value>
   </data>
   <data name="EnterStreetName" xml:space="preserve">
     <value>Введіть назву вулиці</value>
@@ -171,17 +186,29 @@
   <data name="Gender" xml:space="preserve">
     <value>Стать</value>
   </data>
+  <data name="Guardians" xml:space="preserve">
+    <value>Опекуни</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Назва</value>
   </data>
+  <data name="Number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
   <data name="Patronimic" xml:space="preserve">
     <value>По-батькові</value>
+  </data>
+  <data name="Phones" xml:space="preserve">
+    <value>Телефони</value>
   </data>
   <data name="PlaceOfBirth" xml:space="preserve">
     <value>Місце народження</value>
   </data>
   <data name="Region" xml:space="preserve">
     <value>Область</value>
+  </data>
+  <data name="Relation" xml:space="preserve">
+    <value>Ким приходиться</value>
   </data>
   <data name="SelectCity" xml:space="preserve">
     <value>Оберіть населений пункт</value>
@@ -198,6 +225,9 @@
   <data name="SelectStreetType" xml:space="preserve">
     <value>Оберіть тип вулиці</value>
   </data>
+  <data name="SelectType" xml:space="preserve">
+    <value>Оберіть тип</value>
+  </data>
   <data name="Street" xml:space="preserve">
     <value>Вулиця</value>
   </data>
@@ -206,6 +236,9 @@
   </data>
   <data name="Type" xml:space="preserve">
     <value>Тип</value>
+  </data>
+  <data name="Wards" xml:space="preserve">
+    <value>Підопічні</value>
   </data>
   <data name="Zip" xml:space="preserve">
     <value>Індекс</value>

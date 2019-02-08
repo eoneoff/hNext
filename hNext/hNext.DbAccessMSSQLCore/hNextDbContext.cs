@@ -75,6 +75,14 @@ namespace hNext.DbAccessMSSQLCore
             modelBuilder.Entity<Phone>().HasIndex(p => p.Number);
 
             modelBuilder.Entity<PersonPhone>().HasKey(pp => new { pp.PersonId, pp.PhoneId });
+
+            modelBuilder.Entity<PersonEmails>().HasKey(pe => new { pe.PersonId, pe.EmailId });
+
+            modelBuilder.Entity<GuardianWard>().HasKey(gw => new {gw.GuardianId, gw.WardId });
+            modelBuilder.Entity<GuardianWard>().HasOne(gw => gw.Guardian).WithMany(p => p.Wards)
+                .HasForeignKey(gw => gw.GuardianId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<GuardianWard>().HasOne(gw => gw.Ward).WithMany(p => p.Guardians)
+                .HasForeignKey(gw => gw.WardId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

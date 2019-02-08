@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -30,8 +31,14 @@ namespace hNext.Model
 
         [ForeignKey(nameof(CountryId))]
         public virtual Country Country { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<District> Districts { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<City> Cities { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Address> Addresses { get; set; }
     }
 }

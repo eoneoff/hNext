@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace hNext.Model
@@ -16,6 +17,7 @@ namespace hNext.Model
         [MaxLength(50)]
         public string eHealthId { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<Person> People { get; set; }
     }
 }

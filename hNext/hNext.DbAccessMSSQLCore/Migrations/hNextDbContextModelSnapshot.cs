@@ -65,9 +65,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.AddressType", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -117,9 +115,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.CityType", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -172,6 +168,63 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.ToTable("Districts");
                 });
 
+            modelBuilder.Entity("hNext.Model.Document", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DateOfIssue");
+
+                    b.Property<int>("DocumentTypeId");
+
+                    b.Property<string>("IssuedBy")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Number")
+                        .HasMaxLength(20);
+
+                    b.Property<long>("PersonId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentTypeId");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("Document");
+                });
+
+            modelBuilder.Entity("hNext.Model.DocumentType", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("eHealthId")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DocumentType");
+                });
+
+            modelBuilder.Entity("hNext.Model.Email", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Email");
+                });
+
             modelBuilder.Entity("hNext.Model.Gender", b =>
                 {
                     b.Property<int>("Id")
@@ -187,6 +240,23 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genders");
+                });
+
+            modelBuilder.Entity("hNext.Model.GuardianWard", b =>
+                {
+                    b.Property<long>("GuardianId");
+
+                    b.Property<long>("WardId");
+
+                    b.Property<string>("Relation")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("GuardianId", "WardId");
+
+                    b.HasIndex("WardId");
+
+                    b.ToTable("GuardianWard");
                 });
 
             modelBuilder.Entity("hNext.Model.Patient", b =>
@@ -254,6 +324,19 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.ToTable("People");
                 });
 
+            modelBuilder.Entity("hNext.Model.PersonEmails", b =>
+                {
+                    b.Property<long>("PersonId");
+
+                    b.Property<long>("EmailId");
+
+                    b.HasKey("PersonId", "EmailId");
+
+                    b.HasIndex("EmailId");
+
+                    b.ToTable("PersonEmails");
+                });
+
             modelBuilder.Entity("hNext.Model.PersonPhone", b =>
                 {
                     b.Property<long>("PersonId");
@@ -290,9 +373,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.PhoneType", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -355,9 +436,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.StreetType", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -434,6 +513,32 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("hNext.Model.Document", b =>
+                {
+                    b.HasOne("hNext.Model.DocumentType", "DocumentType")
+                        .WithMany("Documents")
+                        .HasForeignKey("DocumentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Person", "Person")
+                        .WithMany("Documents")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("hNext.Model.GuardianWard", b =>
+                {
+                    b.HasOne("hNext.Model.Person", "Guardian")
+                        .WithMany("Wards")
+                        .HasForeignKey("GuardianId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("hNext.Model.Person", "Ward")
+                        .WithMany("Guardians")
+                        .HasForeignKey("WardId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("hNext.Model.Patient", b =>
                 {
                     b.HasOne("hNext.Model.Person", "Person")
@@ -463,6 +568,19 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .WithMany("PeopleBorn")
                         .HasForeignKey("PlaceOfBirthId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("hNext.Model.PersonEmails", b =>
+                {
+                    b.HasOne("hNext.Model.Email", "Email")
+                        .WithMany("People")
+                        .HasForeignKey("EmailId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Person", "Person")
+                        .WithMany("Emails")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("hNext.Model.PersonPhone", b =>

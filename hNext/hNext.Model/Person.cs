@@ -65,8 +65,26 @@ namespace hNext.Model
         public virtual Gender Gender { get; set; }
 
         [ForeignKey(nameof(PersonPhone.PersonId))]
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Phones))]
         public virtual ICollection<PersonPhone> Phones { get; set; }
 
+        [ForeignKey(nameof(PersonEmails.PersonId))]
+        public virtual ICollection<PersonEmails> Emails { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
         public virtual Patient Patient { get; set; }
+
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Wards))]
+        public virtual ICollection<GuardianWard> Wards { get; set; }
+
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Guardians))]
+        public virtual ICollection<GuardianWard> Guardians { get; set; }
+
+        [Display(ResourceType = typeof(Resources.Resources),
+            Name = nameof(Resources.Resources.Documents))]
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }
