@@ -189,6 +189,9 @@
   <data name="Guardians" xml:space="preserve">
     <value>Опекуни</value>
   </data>
+  <data name="MedicalInformationSystem" xml:space="preserve">
+    <value>Медична Інформаційна Система</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Назва</value>
   </data>

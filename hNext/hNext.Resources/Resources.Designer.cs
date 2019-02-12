@@ -277,6 +277,15 @@ namespace hNext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Медична Інформаційна Система.
+        /// </summary>
+        public static string MedicalInformationSystem {
+            get {
+                return ResourceManager.GetString("MedicalInformationSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Назва.
         /// </summary>
         public static string Name {

@@ -1,0 +1,144 @@
+﻿@import "partials/_colors.scss";
+
+
+
+body {
+    background-color: $base-back-color;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.header-panel{
+    background-color:$base-back-color;
+}
+
+.header-text{
+    color:$header-text-color;
+}
+
+.content-wrapper {
+    margin: 10px;
+}
+
+.main-panel {
+    background-color: $neutral-background-color;
+    min-height: 90vh;
+}
+
+.header-image{
+    height:5vh;
+    width:5vh;
+}
+
+.nav-link.active{
+    background-color:$active-tab!important;
+    color:$active-tab-text!important;
+}
+
+footer{
+    margin:10px;
+    color:$footer-text-color;
+}
+
+.tab-item{
+    margin:5px;
+}
+
+.selected-table-row{
+    background-color:$selected-grid-row-color!important;
+}
+
+.side-tab-selector{
+    background-color:$neutral-background-color;
+    writing-mode:vertical-lr;
+    margin-bottom: 2px;
+}
+
+.modal-window {
+    border-style:solid;
+    border-width:1px;
+    border-color:$neutral-background-color;
+    position: fixed;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    background-color: $base-back-color;
+    z-index: 1000;
+    padding: 10px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.show-panel {
+    background-color: $neutral-background-color;
+    padding: 5px;    
+}
+
+.field-validation-error{
+    color:$error-text-color;
+}
+
+.field-validation-valid{
+    display:none;
+}
+
+.input-validation-error{
+    border:1px solid $error-text-color;
+    background-color:$error-background-color;
+}
+
+.validation-summary-errors{
+    font-weight:bold;
+    color:$error-text-color;
+}
+
+.validation-summary-valid{
+    display:none;
+}
+
+.btn{
+    height:35px;
+    padding-top:3px;
+}
+
+.btn:active{
+    transform:scale(0.95, 0.95)
+}
+
+.btn-primary{
+    background-image:$default-button-background;
+    border-color:$default-button-border-color;
+    border-width:1px 2px 2px 1px;
+}
+
+.btn-primary:hover{
+    background-image:$default-button-hover-background;
+}
+
+.btn-danger{
+    background-image:$danger-button-background;
+    border-color:$default-button-border-color;
+    border-width: 1px 2px 2px 1px;
+}
+
+.btn-danger:hover{
+    background-image:$danger-button-hover-background;
+}
