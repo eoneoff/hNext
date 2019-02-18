@@ -304,6 +304,15 @@ namespace hNext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пацієнти.
+        /// </summary>
+        public static string Patients {
+            get {
+                return ResourceManager.GetString("Patients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to По-батькові.
         /// </summary>
         public static string Patronimic {

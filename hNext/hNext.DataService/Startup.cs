@@ -36,6 +36,8 @@ namespace hNext.DataService
             services.AddTransient<IPatientsRepository, PatientsRepository>();
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +50,7 @@ namespace hNext.DataService
 
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseMvcWithDefaultRoute();
         }
     }

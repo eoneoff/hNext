@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.Resources", "hNext.Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.DataService", "hNext.DataService\hNext.DataService.csproj", "{D4B0E918-7AAB-43A8-BF54-A8C5F656D50E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hNext.WebClient", "hNext.WebClient\hNext.WebClient.csproj", "{0A57309B-A63B-4998-A1DE-312CFECE0808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.WebClient", "hNext.WebClient\hNext.WebClient.csproj", "{0A57309B-A63B-4998-A1DE-312CFECE0808}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

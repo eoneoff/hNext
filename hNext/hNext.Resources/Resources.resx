@@ -198,6 +198,9 @@
   <data name="Number" xml:space="preserve">
     <value>Номер</value>
   </data>
+  <data name="Patients" xml:space="preserve">
+    <value>Пацієнти</value>
+  </data>
   <data name="Patronimic" xml:space="preserve">
     <value>По-батькові</value>
   </data>
