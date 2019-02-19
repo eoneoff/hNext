@@ -18,7 +18,6 @@ namespace hNext.Model
         [MaxLength(100)]
         public string Address { get; set; }
 
-        [ForeignKey(nameof(PersonEmails.EmailId))]
         [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<PersonEmails> People { get; set; }
     }

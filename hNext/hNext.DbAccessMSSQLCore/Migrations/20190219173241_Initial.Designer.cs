@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hNext.DbAccessMSSQLCore;
 
 namespace hNext.DbAccessMSSQLCore.Migrations
 {
     [DbContext(typeof(hNextDbContext))]
-    partial class hNextDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190219173241_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

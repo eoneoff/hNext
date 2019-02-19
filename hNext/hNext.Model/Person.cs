@@ -64,12 +64,10 @@ namespace hNext.Model
         [ForeignKey(nameof(GenderId))]
         public virtual Gender Gender { get; set; }
 
-        [ForeignKey(nameof(PersonPhone.PersonId))]
         [Display(ResourceType = typeof(Resources.Resources),
             Name = nameof(Resources.Resources.Phones))]
         public virtual ICollection<PersonPhone> Phones { get; set; }
 
-        [ForeignKey(nameof(PersonEmails.PersonId))]
         public virtual ICollection<PersonEmails> Emails { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]
