@@ -10,5 +10,7 @@ namespace hNext.WebClient.Models
     {
         public PatientSearchModel Search { get; set; }
         public IEnumerable<Patient> Found { get; set; }
+
+        public IEnumerable<Region> Regions { get; set; }
     }
 }

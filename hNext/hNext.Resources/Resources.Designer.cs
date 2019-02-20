@@ -295,6 +295,15 @@ namespace hNext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Новий пацієнт.
+        /// </summary>
+        public static string NewPatient {
+            get {
+                return ResourceManager.GetString("NewPatient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Номер.
         /// </summary>
         public static string Number {
@@ -358,6 +367,15 @@ namespace hNext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пошук.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Оберіть населений пункт.
         /// </summary>
         public static string SelectCity {
@@ -381,6 +399,15 @@ namespace hNext.Resources {
         public static string SelectCountry {
             get {
                 return ResourceManager.GetString("SelectCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Оберіть район.
+        /// </summary>
+        public static string SelectDistrict {
+            get {
+                return ResourceManager.GetString("SelectDistrict", resourceCulture);
             }
         }
         
@@ -444,6 +471,15 @@ namespace hNext.Resources {
         public static string Wards {
             get {
                 return ResourceManager.GetString("Wards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Рік народження.
+        /// </summary>
+        public static string YearOfBirth {
+            get {
+                return ResourceManager.GetString("YearOfBirth", resourceCulture);
             }
         }
         

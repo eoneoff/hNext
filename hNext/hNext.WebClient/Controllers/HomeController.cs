@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using hNext.WebClient.Models;
 using R = hNext.Resources;
+using hNext.WebClient.Components;
 
 namespace hNext.WebClient.Controllers
 {
@@ -14,7 +15,7 @@ namespace hNext.WebClient.Controllers
         public IActionResult Index()
         {
             ApplicationViewModel model = new ApplicationViewModel();
-            model.Tabs.Add("Patients", R.Resources.Patients);
+            model.Tabs.Add(nameof(PatientSearchViewComponent).Replace("ViewComponent", ""), R.Resources.Patients);
             return View(model);
         }
 

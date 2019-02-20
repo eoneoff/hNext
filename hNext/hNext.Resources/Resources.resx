@@ -195,6 +195,9 @@
   <data name="Name" xml:space="preserve">
     <value>Назва</value>
   </data>
+  <data name="NewPatient" xml:space="preserve">
+    <value>Новий пацієнт</value>
+  </data>
   <data name="Number" xml:space="preserve">
     <value>Номер</value>
   </data>
@@ -216,6 +219,9 @@
   <data name="Relation" xml:space="preserve">
     <value>Ким приходиться</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
   <data name="SelectCity" xml:space="preserve">
     <value>Оберіть населений пункт</value>
   </data>
@@ -224,6 +230,9 @@
   </data>
   <data name="SelectCountry" xml:space="preserve">
     <value>Оберіть країну</value>
+  </data>
+  <data name="SelectDistrict" xml:space="preserve">
+    <value>Оберіть район</value>
   </data>
   <data name="SelectRegion" xml:space="preserve">
     <value>Оберіть область</value>
@@ -245,6 +254,9 @@
   </data>
   <data name="Wards" xml:space="preserve">
     <value>Підопічні</value>
+  </data>
+  <data name="YearOfBirth" xml:space="preserve">
+    <value>Рік народження</value>
   </data>
   <data name="Zip" xml:space="preserve">
     <value>Індекс</value>

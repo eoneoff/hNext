@@ -32,8 +32,8 @@ namespace hNext.DataService
             DbContextOptionsBuilder builder = new DbContextOptionsBuilder();
             services.AddDbContext<hNextDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"]));
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
-            services.AddTransient<IPatientsRepository, PatientsRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IPatientsRepository, PatientsRepository>();
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddMemoryCache();
