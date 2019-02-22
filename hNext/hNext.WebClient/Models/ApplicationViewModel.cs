@@ -8,5 +8,6 @@ namespace hNext.WebClient.Models
     public class ApplicationViewModel
     {
         public Dictionary<string, string> Tabs { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> SideBar { get; set; } = new Dictionary<string, string>();
     }
 }

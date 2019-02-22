@@ -19,7 +19,7 @@
     <ProjectReference Include="..\hNext.IRepository\hNext.IRepository.csproj" />
     <ProjectReference Include="..\hNext.Model\hNext.Model.csproj" />
     <ProjectReference Include="..\hNext.MSSQLCoreRepository\hNext.MSSQLCoreRepository.csproj" />
-    <ProjectReference Include="..\hNext.Resources\hNext.Resources.csproj" />
+    <ProjectReference Include="..\hNext.ResourceLibrary\hNext.ResourceLibrary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using hNext.ResourceLibrary.Resources;
 
 namespace hNext.Model
 {
@@ -15,11 +16,11 @@ namespace hNext.Model
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long WardId { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.EnterRelation))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterRelation))]
         [MaxLength(100)]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Relation))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Relation))]
         public string Relation { get; set; }
 
         public virtual Person Guardian { get; set; }

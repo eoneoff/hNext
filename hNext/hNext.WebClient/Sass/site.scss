@@ -23,7 +23,7 @@ body {
 input,
 select,
 textarea {
-    //max-width: 280px;
+    
 }
 
 .header-panel{
@@ -119,6 +119,15 @@ footer{
     padding-top:3px;
 }
 
+.btn:focus,
+.btn:active,
+.btn:active:focus,
+.btn.active:focus,
+.btn.active.focus {
+    outline: none !important;
+    box-shadow: none;
+}
+
 .btn:active{
     transform:scale(0.95, 0.95)
 }
@@ -141,4 +150,8 @@ footer{
 
 .btn-danger:hover{
     background-image:$danger-button-hover-background;
+}
+
+.side-tab-field {
+    min-width: 150px;
 }

@@ -1,50 +1,63 @@
-﻿@model PatientSearchViewModel
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+@model PatientSearchViewModel
 
-<div class="d-flex flex-column flex-grow-1">
-    <div class="container">
-        <div class="d-flex justify-content-md-between flex-column flex-md-row flex-wrap mt-1">
-            <div class="form-group row">
-                <label class="col-md-auto col-form-label text-md-right" asp-for="Search.Name"></label>
-                <div class="col-md-auto">
-                    <input class="form-control" asp-for="Search.Name" />
-                </div>
+<div class="d-flex flex-column flex-grow-1 mt-2">
+    <div class="d-flex justify-content-md-between flex-column flex-md-row flex-wrap">
+        <div class="form-group row">
+            <label class="col-md-auto col-form-label text-md-right" asp-for="Search.Name"></label>
+            <div class="col-md-auto">
+                <input class="form-control" asp-for="Search.Name" />
             </div>
-            <div class="form-group row">
-                <label class="col-md-auto col-form-label text-md-right" asp-for="Search.YearOfBirth"></label>
-                <div class="col-md-auto mr-md-2">
-                    <select class="form-control" asp-for="Search.YearOfBirth"
-                    asp-items="@new SelectList(Enumerable.Range(DateTime.Today.Year-119, 120).Reverse())">
-                        <option value=""></option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-auto col-form-label text-md-right" asp-for="Search.RegionId"></label>
-                <div class="col-md-auto mr-md-2">
-                    <select class="form-control" asp-for="Search.RegionId"
-                        asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))">
-                        <option value="">@Resources.SelectRegion</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-auto col-form-label text-md-right" asp-for="Search.DistrictId"></label>
-                <div class="col-md-auto mr-md-2">
-                    <select class="form-control" asp-for="Search.DistrictId">
-                        <option value="">@Resources.SelectDistrict</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-auto col-form-label text-md-right" asp-for="Search.CityId"></label>
-                <div class="col-md-auto">
-                    <select class="form-control" asp-for="Search.CityId">
-                        <option value="">@Resources.SelectCity</option>
-                    </select>
-                </div>
-            </div>
-            <button class="btn btn-primary ml-md-auto mr-md-1 mb-2 mb-md-0">@Resources.Search</button>
-            <button class="btn btn-primary mr-md-2">@Resources.NewPatient</button>
         </div>
+        <div class="form-group row">
+            <label class="col-md-auto col-form-label text-md-right" asp-for="Search.YearOfBirth"></label>
+            <div class="col-md-auto mr-md-2">
+                <select class="form-control" asp-for="Search.YearOfBirth"
+                        asp-items="@new SelectList(Enumerable.Range(DateTime.Today.Year-119, 120).Reverse())">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-auto col-form-label text-md-right" asp-for="Search.RegionId"></label>
+            <div class="col-md-auto mr-md-2">
+                <select class="form-control" asp-for="Search.RegionId"
+                        asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))">
+                    <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-auto col-form-label text-md-right" asp-for="Search.DistrictId"></label>
+            <div class="col-md-auto mr-md-2">
+                <select class="form-control" asp-for="Search.DistrictId">
+                    <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-auto col-form-label text-md-right" asp-for="Search.CityId"></label>
+            <div class="col-md-auto mr-md-2">
+                <select class="form-control" asp-for="Search.CityId">
+                    <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex flex-column flex-md-row flex-md-nowrap ml-md-auto">
+            <button class="btn btn-primary mr-md-1 mb-2 mb-md-0">@Localizer[nameof(Resources.Search)]</button>
+            <button class="btn btn-primary mr-md-2">@Localizer[nameof(Resources.NewPatient)]</button>
+        </div>
+    </div>
+    <div class="mt-2">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>@Localizer[nameof(Resources.FullName)]</th>
+                    <th>@Localizer[nameof(Resources.YearOfBirth)]</th>
+                    <th>@Localizer[nameof(Resources.Address)]</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 </div>

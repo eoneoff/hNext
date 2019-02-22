@@ -3,26 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using hNext.ResourceLibrary.Resources;
 
 namespace hNext.Model
 {
     public class PatientSearchModel
     {
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.FamilyName))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.FamilyName))]
         public string Name { get; set; }
         [CurrentYearRange(120)]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.YearOfBirth))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.YearOfBirth))]
         public int? YearOfBirth { get; set; }
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Region))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Region))]
         public int? RegionId { get; set; }
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.District))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.District))]
         public int? DistrictId { get; set; }
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.City))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.City))]
         public int? CityId { get; set; }
     }
 }

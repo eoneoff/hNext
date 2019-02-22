@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using hNext.ResourceLibrary.Resources;
 
 namespace hNext.Model
 {
@@ -13,16 +14,16 @@ namespace hNext.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof (Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.EnterRegionName))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Name))]
+        [Required(ErrorMessageResourceType = typeof (Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterRegionName))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Name))]
         public string Name { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.SelectCountry))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Country))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.SelectCountry))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Country))]
         public int CountryId { get; set; }
 
         [MaxLength(50)]

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using hNext.ResourceLibrary.Resources;
 
 namespace hNext.Model
 {
@@ -13,10 +14,10 @@ namespace hNext.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.EnterCountryName))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Name))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterCountryName))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Name))]
         public string Name { get; set; }
 
         [MaxLength(50)]

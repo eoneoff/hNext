@@ -1,7 +1,8 @@
-﻿@model ApplicationViewModel
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+@model ApplicationViewModel
 
 @{
-    ViewData["Title"] = $"hNext — {Resources.MedicalInformationSystem}";
+    ViewData["Title"] = $"hNext — {Localizer[nameof(Resources.MedicalInformationSystem)]}";
 }
 
 <div class="d-flex flex-row justify-content-start">
@@ -10,7 +11,7 @@
             @foreach(var tab in Model.Tabs)
             {
                 <li class="nav-item">
-                    <a class="nav-link active side-tab-selector" id="@String.Format("{0}Tab", tab.Key.ToLower())">
+                    <a class="nav-link active side-tab-selector p-1" id="@String.Format("{0}Tab", tab.Key.ToLower())">
                         @tab.Value
                     </a>
                 </li>
@@ -25,7 +26,34 @@
             </div>
         }
     </main>
-    <aside class="d-flex flex-column">
-
+    <aside class="d-flex flex-row">
+        <div>
+            @foreach (var sideTab in Model.SideBar)
+            {
+                <div id='@String.Format("{0}SidePanel", sideTab.Key.ToLower())' class="d-flex flex-row flex-grow-1">
+                    @await Component.InvokeAsync(sideTab.Key)
+                </div>
+            }
+        </div>
+        <nav>
+            <ul class="nav nav-tabs flex-column">
+                @foreach (var sideTab in Model.SideBar)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active side-tab-selector p-1" id="@String.Format("{0}SideTab", sideTab.Key.ToLower())">
+                            @sideTab.Value
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
     </aside>
 </div>
+
+@section Scripts
+{
+    @foreach(var tab in Model.Tabs)
+    {
+
+    }
+}

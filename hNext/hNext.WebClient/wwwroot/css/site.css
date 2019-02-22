@@ -88,6 +88,14 @@ footer {
   height: 35px;
   padding-top: 3px; }
 
+.btn:focus,
+.btn:active,
+.btn:active:focus,
+.btn.active:focus,
+.btn.active.focus {
+  outline: none !important;
+  box-shadow: none; }
+
 .btn:active {
   transform: scale(0.95, 0.95); }
 
@@ -106,3 +114,6 @@ footer {
 
 .btn-danger:hover {
   background-image: linear-gradient(#FF8367, #FF2020 70%); }
+
+.side-tab-field {
+  min-width: 150px; }

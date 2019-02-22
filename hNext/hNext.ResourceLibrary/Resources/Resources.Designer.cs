@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace hNext.Resources {
+namespace hNext.ResourceLibrary.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace hNext.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("hNext.Resources.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("hNext.ResourceLibrary.Resources.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -79,7 +79,7 @@ namespace hNext.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дом.
+        ///   Looks up a localized string similar to Дім.
         /// </summary>
         public static string Building {
             get {
@@ -318,6 +318,15 @@ namespace hNext.Resources {
         public static string Number {
             get {
                 return ResourceManager.GetString("Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пацієнт.
+        /// </summary>
+        public static string Patient {
+            get {
+                return ResourceManager.GetString("Patient", resourceCulture);
             }
         }
         

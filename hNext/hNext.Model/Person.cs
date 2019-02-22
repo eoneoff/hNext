@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using hNext.ResourceLibrary.Resources;
 
 namespace hNext.Model
 {
@@ -12,45 +13,45 @@ namespace hNext.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.EnterFirstName))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.FirstName))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterFirstName))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.FirstName))]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.EnterFamilyName))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.FamilyName))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterFamilyName))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.FamilyName))]
         public string FamilyName { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Patronimic))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Patronimic))]
         public string Patronimic { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Address))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Address))]
         public long AddressId { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.DateOfBirth))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.DateOfBirth))]
         public DateTime? DateOfBirth { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.CountryOfBirth))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.CountryOfBirth))]
         public int? CountryOfBirthId { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.PlaceOfBirth))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PlaceOfBirth))]
         public int? PlaceOfBirthId { get; set; }
 
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Gender))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Gender))]
         public int GenderId { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.TaxId))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.TaxId))]
         [MaxLength(10)]
         public string TaxId { get; set; }
 
@@ -64,8 +65,8 @@ namespace hNext.Model
         [ForeignKey(nameof(GenderId))]
         public virtual Gender Gender { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Phones))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Phones))]
         public virtual ICollection<PersonPhone> Phones { get; set; }
 
         public virtual ICollection<PersonEmails> Emails { get; set; }
@@ -73,16 +74,16 @@ namespace hNext.Model
         [Newtonsoft.Json.JsonIgnore]
         public virtual Patient Patient { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Wards))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Wards))]
         public virtual ICollection<GuardianWard> Wards { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Guardians))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Guardians))]
         public virtual ICollection<GuardianWard> Guardians { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Documents))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Documents))]
         public virtual ICollection<Document> Documents { get; set; }
     }
 }

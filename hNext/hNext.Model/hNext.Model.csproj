@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\hNext.Infrastructure\hNext.Infrastructure.csproj" />
-    <ProjectReference Include="..\hNext.Resources\hNext.Resources.csproj" />
+    <ProjectReference Include="..\hNext.ResourceLibrary\hNext.ResourceLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

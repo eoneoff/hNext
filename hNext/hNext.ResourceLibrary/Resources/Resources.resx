@@ -124,7 +124,7 @@
     <value>Квартира</value>
   </data>
   <data name="Building" xml:space="preserve">
-    <value>Дом</value>
+    <value>Дім</value>
   </data>
   <data name="City" xml:space="preserve">
     <value>Населений пункт</value>
@@ -203,6 +203,9 @@
   </data>
   <data name="Number" xml:space="preserve">
     <value>Номер</value>
+  </data>
+  <data name="Patient" xml:space="preserve">
+    <value>Пацієнт</value>
   </data>
   <data name="Patients" xml:space="preserve">
     <value>Пацієнти</value>

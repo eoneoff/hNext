@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using hNext.ResourceLibrary.Resources;
 
 namespace hNext.Model
 {
@@ -12,22 +13,22 @@ namespace hNext.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.EnterStreetName))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Name))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterStreetName))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Name))]
         public string Name { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.SelectCity))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.City))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.SelectCity))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.City))]
         public int CityId { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.SelectStreetType))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Type))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.SelectStreetType))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Type))]
         public int StreetTypeId { get; set; }
 
         [MaxLength(50)]

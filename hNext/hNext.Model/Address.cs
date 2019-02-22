@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using hNext.ResourceLibrary.Resources;
+
 
 namespace hNext.Model
 {
@@ -11,49 +13,49 @@ namespace hNext.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.SelectCountry))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Country))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.SelectCountry))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Country))]
         public int CountryId { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Region))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Region))]
         public int? RegionId { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.District))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.District))]
         public int? DistrictId { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName =nameof(Resources.Resources.SelectCity))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.City))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName =nameof(Resources.SelectCity))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.City))]
         public int CityId { get; set; }
 
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Street))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Street))]
         public int? StreetId { get; set; }
 
         [MaxLength(50)]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Building))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Building))]
         public string Building { get; set; }
 
         [MaxLength(50)]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Apartment))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Apartment))]
         public string Apartment { get; set; }
 
         [MaxLength(10)]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Zip))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Zip))]
         public string Zip { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
-            ErrorMessageResourceName = nameof(Resources.Resources.EnterAddressType))]
-        [Display(ResourceType = typeof(Resources.Resources),
-            Name = nameof(Resources.Resources.Type))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterAddressType))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Type))]
         public int AddressTypeId { get; set; }
 
         public virtual Country Country { get; set; }
