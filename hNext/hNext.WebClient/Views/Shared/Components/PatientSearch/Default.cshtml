@@ -35,7 +35,7 @@
                 <select class="form-control" asp-for="Search.DistrictId"
                     v-model="districtId">
                     <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
-                    <option v-for="d in districts" :key="Id" :value="d.Id">{{ d.Name }}</option>
+                    <option v-for="d in districts" :key="d.id" :value="d.id">{{ d.name }}</option>
                 </select>
             </div>
         </div>
@@ -44,7 +44,7 @@
             <div class="col-md-auto mr-md-2">
                 <select class="form-control" asp-for="Search.CityId" v-model="cityId">
                     <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
-                    <option v-for="c in cities" :key="Id" :value="c.Id">{{ c.Name }}</option>
+                    <option v-for="c in cities" :key="c.id" :value="c.id">{{ c.name }}</option>
                 </select>
             </div>
         </div>

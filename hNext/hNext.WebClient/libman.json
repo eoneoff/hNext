@@ -5,6 +5,10 @@
     {
       "library": "vue@2.6.4",
       "destination": "wwwroot/lib/vue/"
+    },
+    {
+      "library": "axios@0.18.0",
+      "destination": "wwwroot/lib/axios/"
     }
   ]
 }

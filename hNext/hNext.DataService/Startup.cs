@@ -29,11 +29,26 @@ namespace hNext.DataService
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            DbContextOptionsBuilder builder = new DbContextOptionsBuilder();
             services.AddDbContext<hNextDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"]));
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IPatientsRepository, PatientsRepository>();
+            services.AddScoped<IRegionsRepository, RegionsRepository>();
+            services.AddScoped<IDistrictsRepository, DistrictsRepository>();
+
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                });
+            });
+
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddMemoryCache();
@@ -48,6 +63,7 @@ namespace hNext.DataService
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("AllowAll");
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();

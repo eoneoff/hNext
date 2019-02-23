@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using hNext.IRepository;
 using hNext.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace hNext.DataService.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class PatientsController : Controller
     {
         private IPatientsRepository _repository;
@@ -21,14 +23,12 @@ namespace hNext.DataService.Controllers
         }
 
         // GET: api/<controller>
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Patient>))]
         [HttpGet]
-        public async Task<IActionResult> Get() => Ok(await _repository.Get());
+        public async Task<IEnumerable<Patient>> Get() => await _repository.Get();
 
         // GET api/<controller>/5
-        [ProducesResponseType(200, Type = typeof(Patient))]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) => Ok(await _repository.Get(id));
+        [HttpGet("{id:int}")]
+        public async Task<Patient> Get(int id) => await _repository.Get(id);
 
         // POST api/<controller>
         [HttpPost]
@@ -37,13 +37,13 @@ namespace hNext.DataService.Controllers
         }
 
         // PUT api/<controller>/5
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
         // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
         }

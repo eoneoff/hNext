@@ -57,7 +57,7 @@
     {
         <script src="@($"/js/{tab.Key.ToCamelCase()}.js")"></script>
         <script>
-            window["@($"{tab.Key.ToCamelCase()}Model")"]("@($"{tab.Key.ToCamelCase()}Panel")");
+            let @($"{tab.Key.ToCamelCase()}Vue") = window["@($"{tab.Key.ToCamelCase()}Model")"]("@($"{tab.Key.ToCamelCase()}Panel")");
         </script>
    }
 }
