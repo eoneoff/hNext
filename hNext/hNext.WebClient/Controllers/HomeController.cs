@@ -8,6 +8,7 @@ using hNext.WebClient.Models;
 using hNext.ResourceLibrary.Resources;
 using hNext.WebClient.Components;
 using Microsoft.Extensions.Localization;
+using hNext.WebClient.Infrastructure;
 
 namespace hNext.WebClient.Controllers
 {
@@ -23,8 +24,8 @@ namespace hNext.WebClient.Controllers
         public IActionResult Index()
         {
             ApplicationViewModel model = new ApplicationViewModel();
-            model.Tabs.Add(nameof(PatientSearchViewComponent).Replace("ViewComponent", ""), _localizer[nameof(Resources.Patients)]);
-            model.SideBar.Add(nameof(PatientDetailsViewComponent).Replace("ViewComponent", ""), _localizer[nameof(Resources.Patient)]);
+            model.Tabs.Add(nameof(PatientSearchViewComponent).VewComponentName(), _localizer[nameof(Resources.Patients)]);
+            model.SideBar.Add(nameof(PatientDetailsViewComponent).VewComponentName(), _localizer[nameof(Resources.Patient)]);
             return View(model);
         }
 

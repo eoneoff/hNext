@@ -6,14 +6,15 @@
         <div class="form-group row">
             <label class="col-md-auto col-form-label text-md-right" asp-for="Search.Name"></label>
             <div class="col-md-auto">
-                <input class="form-control" asp-for="Search.Name" />
+                <input class="form-control" asp-for="Search.Name" v-model="name"/>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-auto col-form-label text-md-right" asp-for="Search.YearOfBirth"></label>
             <div class="col-md-auto mr-md-2">
                 <select class="form-control" asp-for="Search.YearOfBirth"
-                        asp-items="@new SelectList(Enumerable.Range(DateTime.Today.Year-119, 120).Reverse())">
+                        asp-items="@new SelectList(Enumerable.Range(DateTime.Today.Year-119, 120).Reverse())"
+                        v-model="yearOfBirth">
                     <option value=""></option>
                 </select>
             </div>
@@ -22,7 +23,8 @@
             <label class="col-md-auto col-form-label text-md-right" asp-for="Search.RegionId"></label>
             <div class="col-md-auto mr-md-2">
                 <select class="form-control" asp-for="Search.RegionId"
-                        asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))">
+                        asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))"
+                        v-model="regionId">
                     <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
                 </select>
             </div>
@@ -30,16 +32,19 @@
         <div class="form-group row">
             <label class="col-md-auto col-form-label text-md-right" asp-for="Search.DistrictId"></label>
             <div class="col-md-auto mr-md-2">
-                <select class="form-control" asp-for="Search.DistrictId">
+                <select class="form-control" asp-for="Search.DistrictId"
+                    v-model="districtId">
                     <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
+                    <option v-for="d in districts" :key="Id" :value="d.Id">{{ d.Name }}</option>
                 </select>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-auto col-form-label text-md-right" asp-for="Search.CityId"></label>
             <div class="col-md-auto mr-md-2">
-                <select class="form-control" asp-for="Search.CityId">
+                <select class="form-control" asp-for="Search.CityId" v-model="cityId">
                     <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
+                    <option v-for="c in cities" :key="Id" :value="c.Id">{{ c.Name }}</option>
                 </select>
             </div>
         </div>

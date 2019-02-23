@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
@@ -13,9 +14,13 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="/>
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
     </environment>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script>
+        "use strict"
+        const API_SERVER = '@Configuration["AppSettings:ApiServer"]';
+    </script>
 </head>
 <body>
     <div>
@@ -24,7 +29,7 @@
                 <img src="~/images/headerlogo.png" class="m-auto mx-lg-1 align-middle header-image" />
                 <div class="d-flex flex-column flex-grow-1">
                     <h3 class="display-4 text-center flex-grow-1 align-text-middle mx-auto">@Resources.MedicalInformationSystem hNext</h3>
-                    
+
                 </div>
             </div>
         </header>

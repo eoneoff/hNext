@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using hNext.DbAccessMSSQLCore;
 using hNext.IRepository;
 using hNext.MSSQLCoreRepository;
+using hNext.WebClient.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,9 +36,9 @@ namespace hNext.WebClient
             {
                 CultureInfo[] supportedCultures = new[]
                 {
-                    new CultureInfo("uk-UA")
+                    new CultureInfo("uk")
                 };
-                options.DefaultRequestCulture = new RequestCulture("uk-UA");
+                options.DefaultRequestCulture = new RequestCulture("uk");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });

@@ -8,10 +8,10 @@
 <div class="d-flex flex-row justify-content-start">
     <nav>
         <ul class="nav nav-tabs flex-column">
-            @foreach(var tab in Model.Tabs)
+            @foreach (var tab in Model.Tabs)
             {
                 <li class="nav-item">
-                    <a class="nav-link active side-tab-selector p-1" id="@String.Format("{0}Tab", tab.Key.ToLower())">
+                    <a class="nav-link active side-tab-selector p-1" id="@($"{tab.Key.ToCamelCase()}Tab")">
                         @tab.Value
                     </a>
                 </li>
@@ -19,9 +19,9 @@
         </ul>
     </nav>
     <main class="container-fluid flex-grow-1 main-panel">
-        @foreach(var tab in Model.Tabs)
+        @foreach (var tab in Model.Tabs)
         {
-            <div id="@String.Format("{0}Panel", tab.Key.ToLower())" class="d-flex flex-row flex-grow-1">
+            <div id="@($"{tab.Key.ToCamelCase()}Panel")" class="d-flex flex-row flex-grow-1">
                 @await Component.InvokeAsync(tab.Key)
             </div>
         }
@@ -30,7 +30,7 @@
         <div>
             @foreach (var sideTab in Model.SideBar)
             {
-                <div id='@String.Format("{0}SidePanel", sideTab.Key.ToLower())' class="d-flex flex-row flex-grow-1">
+                <div id='@($"{sideTab.Key.ToCamelCase()}SidePanel")' class="d-flex flex-row flex-grow-1">
                     @await Component.InvokeAsync(sideTab.Key)
                 </div>
             }
@@ -40,7 +40,7 @@
                 @foreach (var sideTab in Model.SideBar)
                 {
                     <li class="nav-item">
-                        <a class="nav-link active side-tab-selector p-1" id="@String.Format("{0}SideTab", sideTab.Key.ToLower())">
+                        <a class="nav-link active side-tab-selector p-1" id="@($"{sideTab.Key.ToCamelCase()}SideTab")">
                             @sideTab.Value
                         </a>
                     </li>
@@ -51,9 +51,13 @@
 </div>
 
 @section Scripts
-{
-    @foreach(var tab in Model.Tabs)
     {
 
-    }
+    @foreach (var tab in Model.Tabs)
+    {
+        <script src="@($"/js/{tab.Key.ToCamelCase()}.js")"></script>
+        <script>
+            window["@($"{tab.Key.ToCamelCase()}Model")"]("@($"{tab.Key.ToCamelCase()}Panel")");
+        </script>
+   }
 }
