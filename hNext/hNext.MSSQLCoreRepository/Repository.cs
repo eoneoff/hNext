@@ -22,7 +22,7 @@ namespace hNext.MSSQLCoreRepository
         public virtual async Task<T> Delete(int id)
         {
             T item = await dbSet.FindAsync(id);
-            if(item!=null)
+            if (item != null)
             {
                 dbSet.Remove(item);
                 await db.SaveChangesAsync();

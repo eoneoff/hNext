@@ -17,7 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.WebClient", "hNext.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.Infrastructure", "hNext.Infrastructure\hNext.Infrastructure.csproj", "{06764809-DC83-4E67-9D2C-6A98CFB48D53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hNext.ResourceLibrary", "hNext.ResourceLibrary\hNext.ResourceLibrary.csproj", "{6B99B50C-EF73-4B92-ADD2-EC6BB55F06AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.ResourceLibrary", "hNext.ResourceLibrary\hNext.ResourceLibrary.csproj", "{6B99B50C-EF73-4B92-ADD2-EC6BB55F06AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hNext.DataService.Tests", "hNext.DataService.Tests\hNext.DataService.Tests.csproj", "{03DC768E-CC7E-4E85-A127-3558092929EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hNext.WebClient.Tests", "hNext.WebClient.Tests\hNext.WebClient.Tests.csproj", "{2594BA82-6E84-4FB7-9186-836408858B56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hNext.MSSQLCoreRepository.Tests", "hNext.MSSQLCoreRepository.Tests\hNext.MSSQLCoreRepository.Tests.csproj", "{E90DDB24-BC46-4D58-8DBD-9813D12D73B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +63,18 @@ Global
 		{6B99B50C-EF73-4B92-ADD2-EC6BB55F06AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B99B50C-EF73-4B92-ADD2-EC6BB55F06AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B99B50C-EF73-4B92-ADD2-EC6BB55F06AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03DC768E-CC7E-4E85-A127-3558092929EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03DC768E-CC7E-4E85-A127-3558092929EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03DC768E-CC7E-4E85-A127-3558092929EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03DC768E-CC7E-4E85-A127-3558092929EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2594BA82-6E84-4FB7-9186-836408858B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2594BA82-6E84-4FB7-9186-836408858B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2594BA82-6E84-4FB7-9186-836408858B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2594BA82-6E84-4FB7-9186-836408858B56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E90DDB24-BC46-4D58-8DBD-9813D12D73B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E90DDB24-BC46-4D58-8DBD-9813D12D73B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E90DDB24-BC46-4D58-8DBD-9813D12D73B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E90DDB24-BC46-4D58-8DBD-9813D12D73B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

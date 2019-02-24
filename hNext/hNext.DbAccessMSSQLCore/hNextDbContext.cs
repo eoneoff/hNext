@@ -15,21 +15,21 @@ namespace hNext.DbAccessMSSQLCore
         {
         }
 
-        public DbSet<Patient> Patients { get; set; }
-        public DbSet<Person> People { get; set; }
-        public DbSet<Gender> Genders { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<AddressType> AddressTypes { get; set; }
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<Region> Regions { get; set; }
-        public DbSet<District> Districts { get; set; }
-        public DbSet<City> Cities { get; set; }
-        public DbSet<CityType> CityTypes { get; set; }
-        public DbSet<Street> Streets { get; set; }
-        public DbSet<StreetType> StreetTypes { get; set; }
-        public DbSet<Phone> Phones { get; set; }
-        public DbSet<PersonPhone> PersonPhones { get; set; }
-        public DbSet<PhoneType> PhoneTypes { get; set; }
+        public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<Gender> Genders { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<AddressType> AddressTypes { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<CityType> CityTypes { get; set; }
+        public virtual DbSet<Street> Streets { get; set; }
+        public virtual DbSet<StreetType> StreetTypes { get; set; }
+        public virtual DbSet<Phone> Phones { get; set; }
+        public virtual DbSet<PersonPhone> PersonPhones { get; set; }
+        public virtual DbSet<PhoneType> PhoneTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
