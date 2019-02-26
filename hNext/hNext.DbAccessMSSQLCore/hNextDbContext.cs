@@ -7,7 +7,7 @@ using System.Text;
 
 namespace hNext.DbAccessMSSQLCore
 {
-    public class hNextDbContext:DbContext
+    public partial class hNextDbContext:DbContext
     {
         public hNextDbContext(DbContextOptions<hNextDbContext> options) : base(options) { }
 

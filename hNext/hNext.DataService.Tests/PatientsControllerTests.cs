@@ -44,5 +44,20 @@ namespace hNext.DataService.Tests
             Assert.IsInstanceOfType(result, typeof(Patient));
             Assert.AreEqual(patientId, result.Id);
         }
+
+        [TestMethod]
+        public void PatientSearchTest()
+        {
+            //Arrange
+            var moq = new Mock<IPatientsRepository>();
+            moq.Setup(m => m.SearchPatients(It.IsAny<PatientSearchModel>())).Returns(Task.FromResult(new List<Patient>() as IEnumerable<Patient>));
+            PatientsController controller = new PatientsController(moq.Object);
+
+            //Act
+            var result = controller.Search(new PatientSearchModel()).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<Patient>));
+        }
     }
 }
