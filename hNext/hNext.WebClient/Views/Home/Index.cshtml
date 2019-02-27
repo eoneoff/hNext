@@ -5,7 +5,7 @@
     ViewData["Title"] = $"hNext — {Localizer[nameof(Resources.MedicalInformationSystem)]}";
 }
 
-<div class="d-flex flex-row justify-content-start">
+<div class="d-flex flex-row justify-content-start align-items-stretch">
     <nav>
         <ul class="nav nav-tabs flex-column">
             @foreach (var tab in Model.Tabs)
@@ -30,7 +30,7 @@
         <div>
             @foreach (var sideTab in Model.SideBar)
             {
-                <div id='@($"{sideTab.Key.ToCamelCase()}SidePanel")' class="d-flex flex-row flex-grow-1">
+                <div id='@($"{sideTab.Key.ToCamelCase()}SidePanel")' class="d-flex flex-row flex-grow-1 h-100">
                     @await Component.InvokeAsync(sideTab.Key)
                 </div>
             }

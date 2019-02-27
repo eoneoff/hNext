@@ -4,31 +4,40 @@ function patientSearchModel(id) {
     return new Vue({
         el: `#${id}`,
         data: function () {
-           return {
-               name: "",
-               yearOfBirth: "",
-               regionId: "",
-               districtId: "",
-               cityId: "",
-               districts: [],
-               cities: []
+            return {
+                model: {
+                    name: "",
+                    yearOfBirth: "",
+                    regionId: "",
+                    districtId: "",
+                    cityId: ""
+                },
+                districts: [],
+                cities: [],
+                foundPatients: []
             }
         },
         watch: {
-            regionId: async function (val) {
+            'model.regionId': async function (val) {
                 if (val != "") {
                     this.districts.splice(0);
                     this.districts.push(...await DATA_CLIENT.getDistrictsByRegion(val));
-                    this.districtId = "";
+                    this.model.districtId = "";
                     this.cities.splice(0);
                     this.cities.push(...await DATA_CLIENT.getCitiesByRegion(val));
-                    this.cityId = "";
+                    this.model.cityId = "";
                 }
             },
-            districtId: async function (val) {
+            'model.districtId': async function (val) {
                 this.cities.splice(0);
                 this.cities.push(...await DATA_CLIENT.getCitiesByDistrict(val));
-                this.cityId = "";
+                this.model.cityId = "";
+            }
+        },
+        methods: {
+            searchPatients: async function () {
+                this.foundPatients.splice(0);
+                this.foundPatients.push(...await DATA_CLIENT.searchPatients(this.model));
             }
         }
     });

@@ -29,6 +29,7 @@ namespace hNext.Model
         [MaxLength(50)]
         public string eHealthId { get; set; }
 
+        [JsonIgnore]
         public virtual Region Region { get; set; }
 
         [JsonIgnore]

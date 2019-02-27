@@ -31,6 +31,7 @@ namespace hNext.Model
 
 
         [ForeignKey(nameof(CountryId))]
+        [JsonIgnore]
         public virtual Country Country { get; set; }
 
         [JsonIgnore]

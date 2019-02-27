@@ -46,8 +46,13 @@ namespace hNext.Model
         [ForeignKey(nameof(CityTypeId))]
         public virtual CityType CityType { get; set; }
 
+        [JsonIgnore]
         public virtual Country Country { get; set; }
+
+        [JsonIgnore]
         public virtual Region Region { get; set; }
+
+        [JsonIgnore]
         public virtual District District { get; set; }
 
         [JsonIgnore]

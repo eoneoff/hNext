@@ -35,18 +35,15 @@ namespace hNext.MSSQLCoreRepository
             .Include(p => p.Person).ThenInclude(p => p.Gender)
             .AsNoTracking().SingleOrDefaultAsync(p => p.Id == id);
 
-        public async Task<IEnumerable<Patient>> SearchPatients(PatientSearchModel model)
-        {
-            return await db.SearchPatients(model)
-                .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Country)
-                .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Region)
-                .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.District)
-                .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.City)
-                .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Street)
-                .Include(p => p.Person).ThenInclude(p => p.CountryOfBirth)
-                .Include(p => p.Person).ThenInclude(p => p.PlaceOfBirth)
-                .Include(p => p.Person).ThenInclude(p => p.Gender)
-                .ToListAsync();
-        }
+        public async Task<IEnumerable<Patient>> SearchPatients(PatientSearchModel model) => await db.SearchPatients(model)
+            .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Country)
+            .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Region)
+            .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.District)
+            .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.City).ThenInclude(c => c.CityType)
+            .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
+            .Include(p => p.Person).ThenInclude(p => p.CountryOfBirth)
+            .Include(p => p.Person).ThenInclude(p => p.PlaceOfBirth)
+            .Include(p => p.Person).ThenInclude(p => p.Gender)
+            .AsNoTracking().ToListAsync();
     }
 }

@@ -32,7 +32,8 @@ namespace hNext.DataService.Controllers
 
         //api/<controller>/search
         [HttpPost("search")]
-        public async Task<IEnumerable<Patient>> Search(PatientSearchModel model) =>
+        [Consumes("application/json")]
+        public async Task<IEnumerable<Patient>> Search([FromBody]PatientSearchModel model) =>
             await _repository.SearchPatients(model);
 
         // POST api/<controller>
