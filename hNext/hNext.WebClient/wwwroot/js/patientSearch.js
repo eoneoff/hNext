@@ -1,4 +1,4 @@
-﻿"use string"
+﻿"use strict";
 
 function patientSearchModel(id) {
     return new Vue({
@@ -34,8 +34,19 @@ function patientSearchModel(id) {
                 this.model.cityId = "";
             }
         },
+        computed: {
+            selectedPatient: {
+                get: function () {
+                    return store.state.patient;
+                },
+                set: function (patient) {
+                    store.commit('setPatient', patient);
+                }
+            }
+        },
         methods: {
             searchPatients: async function () {
+                store.state.patient = { id: 0 };
                 this.foundPatients.splice(0);
                 this.foundPatients.push(...await DATA_CLIENT.searchPatients(this.model));
             }

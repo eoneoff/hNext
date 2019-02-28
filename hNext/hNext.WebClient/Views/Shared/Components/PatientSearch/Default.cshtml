@@ -63,7 +63,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="p in foundPatients" v-cloak>
+                <tr v-for="p in foundPatients" :class="{'selected-table-row' : p.id == selectedPatient.id}"
+                    @@click="selectedPatient = p" v-cloak>
                     <td>{{ `${p.person.familyName} ${p.person.firstName} ${p.person.patronimic}` }}</td>
                     <td>{{ p.person.dateOfBirth | shortDate }}</td>
                     <td>{{ `${p.person.address.country.name}`

@@ -22,7 +22,7 @@
     </environment>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script>
-        "use strict"
+        "use strict";
         const API_SERVER = '@Configuration["AppSettings:ApiServer"]';
     </script>
 </head>
@@ -47,6 +47,7 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
         <script src="~/lib/vue/vue.js"></script>
+        <script src="~/lib/vuex/vuex.js"></script>
         <script src="~/lib/axios/axios.js"></script>
         <script src="~/lib/moment.js/moment-with-locales.js"></script>
     </environment>
@@ -72,6 +73,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"
                 asp-fallback-src="~/lib/moment.js/moment-with-locales.min.js"
                 asp-fallback-test="window.moment"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.0/vuex.min.js"
+                asp-fallback-src="~/lib/vuex/vuex.min.js"
+                asp-fallback-test="window.Vuex"></script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
 

@@ -3,36 +3,46 @@
 
 // Write your JavaScript code.
 
-"use strict"
+"use strict";
 
 class DataClient {
 
     constructor(apiServer) {
-        this.apiServer = apiServer;
+        this._apiServer = apiServer;
     }
 
     async getDistrictsByRegion(regionId) {
-        return (await axios.get(`${this.apiServer}regions/${regionId}/districts`)).data;
+        return (await axios.get(`${this._apiServer}regions/${regionId}/districts`)).data;
     }
 
     async getCitiesByRegion(regionId) {
-        return (await axios.get(`${this.apiServer}regions/${regionId}/cities`)).data;
+        return (await axios.get(`${this._apiServer}regions/${regionId}/cities`)).data;
     }
 
     async getCitiesByDistrict(districtId) {
-        return (await axios.get(`${this.apiServer}districts/${districtId}/cities`)).data;
+        return (await axios.get(`${this._apiServer}districts/${districtId}/cities`)).data;
     }
 
     async searchPatients(model) {
-        return (await axios({
-            method: 'post',
-            url: `${this.apiServer}patients/search`,
-            data: model
-        })).data;
+        return (await axios.post(
+            `${this._apiServer}patients/search`,
+            {data: model}
+        )).data;
     }
 }
 
 const DATA_CLIENT = new DataClient(API_SERVER);
+
+const store = new Vuex.Store({
+    state: {
+        patient: { id:0 }
+    },
+    mutations: {
+        setPatient(state, patient) {
+            state.patient = patient;
+        }
+    }
+});
 
 Vue.filter('shortDate', (date) => {
     if (moment(date).isValid()) {
