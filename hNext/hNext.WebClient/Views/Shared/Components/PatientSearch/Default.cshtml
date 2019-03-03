@@ -3,15 +3,15 @@
 
 <div class="f-flex flex-column flex-grow-1 mt-2">
     <div class="d-flex justify-content-md-between flex-column flex-md-row flex-wrap">
-        <div class="form-group row">
-            <label class="col-md-auto col-form-label text-md-right" asp-for="Search.Name"></label>
-            <div class="col-md-auto">
+        <div class="form-group row flex-md-nowrap flex-fill">
+            <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.Name"></label>
+            <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
                 <input class="form-control" asp-for="Search.Name" v-model="model.name"/>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-md-auto col-form-label text-md-right" asp-for="Search.YearOfBirth"></label>
-            <div class="col-md-auto mr-md-2">
+        <div class="form-group row flex-md-nowrap flex-sm-fill">
+            <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.YearOfBirth"></label>
+            <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
                 <select class="form-control" asp-for="Search.YearOfBirth"
                         asp-items="@new SelectList(Enumerable.Range(DateTime.Today.Year-119, 120).Reverse())"
                         v-model="model.yearOfBirth">
@@ -19,9 +19,9 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-md-auto col-form-label text-md-right" asp-for="Search.RegionId"></label>
-            <div class="col-md-auto mr-md-2">
+        <div class="form-group row flex-md-nowrap flex-fill">
+            <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.RegionId"></label>
+            <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
                 <select class="form-control" asp-for="Search.RegionId"
                         asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))"
                         v-model="model.regionId">
@@ -29,9 +29,9 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-md-auto col-form-label text-md-right" asp-for="Search.DistrictId"></label>
-            <div class="col-md-auto mr-md-2">
+        <div class="form-group row flex-md-nowrap flex-fill">
+            <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.DistrictId"></label>
+            <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
                 <select class="form-control" asp-for="Search.DistrictId"
                     v-model="model.districtId">
                     <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
@@ -39,9 +39,9 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-md-auto col-form-label text-md-right" asp-for="Search.CityId"></label>
-            <div class="col-md-auto mr-md-2">
+        <div class="form-group row flex-md-nowrap flex-fill">
+            <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.CityId"></label>
+            <div class="col-md-auto mr-md-2 flex-grow-1 pl-2" >
                 <select class="form-control" asp-for="Search.CityId" v-model="model.cityId">
                     <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
                     <option v-for="c in cities" :key="c.id" :value="c.id" v-cloak>{{ c.name }}</option>

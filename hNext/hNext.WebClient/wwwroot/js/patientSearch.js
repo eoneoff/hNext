@@ -19,18 +19,20 @@ function patientSearchModel(id) {
         },
         watch: {
             'model.regionId': async function (val) {
+                this.districts.splice(0);
+                this.cities.splice(0);
                 if (val != "") {
-                    this.districts.splice(0);
                     this.districts.push(...await DATA_CLIENT.getDistrictsByRegion(val));
-                    this.model.districtId = "";
-                    this.cities.splice(0);
                     this.cities.push(...await DATA_CLIENT.getCitiesByRegion(val));
-                    this.model.cityId = "";
                 }
+                this.model.districtId = "";
+                this.model.cityId = "";
             },
             'model.districtId': async function (val) {
                 this.cities.splice(0);
-                this.cities.push(...await DATA_CLIENT.getCitiesByDistrict(val));
+                if (val != "") {
+                    this.cities.push(...await DATA_CLIENT.getCitiesByDistrict(val));
+                }
                 this.model.cityId = "";
             }
         },

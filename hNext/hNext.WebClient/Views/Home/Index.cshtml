@@ -55,7 +55,7 @@
 
     @foreach (var tab in Model.Tabs)
     {
-        <script src="@($"/js/{tab.Key.ToCamelCase()}.js")"></script>
+        <script src="@($"/js/{tab.Key.ToCamelCase()}.js")" asp-append-version="true"></script>
         <script>
             let @($"{tab.Key.ToCamelCase()}Vue") = window["@($"{tab.Key.ToCamelCase()}Model")"]("@($"{tab.Key.ToCamelCase()}Panel")");
         </script>
