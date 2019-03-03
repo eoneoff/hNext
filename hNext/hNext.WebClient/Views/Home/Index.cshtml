@@ -51,7 +51,7 @@
 </div>
 
 @section Scripts
-    {
+{
 
     @foreach (var tab in Model.Tabs)
     {
@@ -59,5 +59,12 @@
         <script>
             let @($"{tab.Key.ToCamelCase()}Vue") = window["@($"{tab.Key.ToCamelCase()}Model")"]("@($"{tab.Key.ToCamelCase()}Panel")");
         </script>
-   }
+    }
+    @foreach(var sideTab in Model.SideBar)
+    {
+        <script src="@($"/js/{sideTab.Key.ToCamelCase()}.js")" asp-append-version="true"></script>
+        <script>
+            let @($"{sideTab.Key.ToCamelCase()}Vue") = window["@($"{sideTab.Key.ToCamelCase()}Model")"]("@($"{sideTab.Key.ToCamelCase()}SidePanel")");
+        </script>
+    }
 }
