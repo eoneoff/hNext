@@ -26,7 +26,7 @@ class DataClient {
     async searchPatients(model) {
         return (await axios.post(
             `${this._apiServer}patients/search`,
-            {data: model}
+            model
         )).data;
     }
 }
