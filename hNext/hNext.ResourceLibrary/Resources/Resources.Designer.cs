@@ -88,6 +88,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Відміна.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Населений пункт.
         /// </summary>
         public static string City {
@@ -381,6 +390,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Relation {
             get {
                 return ResourceManager.GetString("Relation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Зберегти.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         

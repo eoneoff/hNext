@@ -126,6 +126,9 @@
   <data name="Building" xml:space="preserve">
     <value>Дім</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Відміна</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>Населений пункт</value>
   </data>
@@ -224,6 +227,9 @@
   </data>
   <data name="Relation" xml:space="preserve">
     <value>Ким приходиться</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Зберегти</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Пошук</value>

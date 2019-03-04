@@ -14,7 +14,8 @@ function patientSearchModel(id) {
                 },
                 districts: [],
                 cities: [],
-                foundPatients: []
+                foundPatients: [],
+                searching: false
             }
         },
         watch: {
@@ -48,9 +49,18 @@ function patientSearchModel(id) {
         },
         methods: {
             searchPatients: async function () {
-                store.state.patient = { id: 0 };
-                this.foundPatients.splice(0);
-                this.foundPatients.push(...await DATA_CLIENT.searchPatients(this.model));
+                this.searching = true;
+                try {
+                    store.state.patient = { id: 0 };
+                    this.foundPatients.splice(0);
+                    this.foundPatients.push(...await DATA_CLIENT.searchPatients(this.model));
+                }
+                finally {
+                    this.searching = false;
+                }
+            },
+            showPatientEditor: function () {
+                store.commit('setModalState', {key: 'patientEditorModal', value: true});
             }
         }
     });
