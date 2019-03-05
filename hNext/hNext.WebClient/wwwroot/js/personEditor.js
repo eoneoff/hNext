@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-function patientEditorModel(id) {
+function personEditorModel(id) {
     return new Vue({
         el: `#${id}`,
         data: function () {

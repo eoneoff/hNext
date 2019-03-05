@@ -448,11 +448,29 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Оберіть стать.
+        /// </summary>
+        public static string SelectGender {
+            get {
+                return ResourceManager.GetString("SelectGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Оберіть область.
         /// </summary>
         public static string SelectRegion {
             get {
                 return ResourceManager.GetString("SelectRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Оберіть вулицю.
+        /// </summary>
+        public static string SelectStreet {
+            get {
+                return ResourceManager.GetString("SelectStreet", resourceCulture);
             }
         }
         

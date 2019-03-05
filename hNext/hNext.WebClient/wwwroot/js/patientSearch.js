@@ -60,7 +60,7 @@ function patientSearchModel(id) {
                 }
             },
             showPatientEditor: function () {
-                store.commit('setModalState', {key: 'patientEditorModal', value: true});
+                store.commit('setModalState', {key: 'personEditorModal', value: true});
             }
         }
     });
