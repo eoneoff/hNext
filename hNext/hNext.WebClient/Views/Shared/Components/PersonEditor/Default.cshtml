@@ -1,0 +1,136 @@
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+@model PersonEditorViewModel
+
+<div v-cloak>
+    <div v-if="display" class="d-flex flex-column modal-window w-75">
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" @@click="display = false">
+                <i class="fa fa-times"></i>
+            </button>
+        </div> 
+        <div class="show-panel flex-column">
+            <div class="d-none d-md-flex flex-column">
+                <div class="d-flex flex-row">
+                    <table>
+                        <tr>
+                            <td class="text-right pr-2"><label asp-for="Person.FamilyName"></label></td>
+                            <td><input class="form-control" asp-for="Person.FamilyName"/></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right pr-2"><label asp-for="Person.FirstName"></label></td>
+                            <td><input class="form-control" asp-for="Person.FirstName"/></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right pr-2"><label asp-for="Person.Patronimic"></label></td>
+                            <td><input class="form-control" asp-for="Person.Patronimic" /></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right pr-2"><label asp-for="Person.GenderId"></label></td>
+                            <td>
+                                <select class="form-control" asp-for="Person.GenderId"
+                                    asp-items="@new SelectList(Model.Genders, nameof(Gender.Id), nameof(Gender.Name))">
+                                    <option value="">@Localizer[nameof(Resources.SelectGender)]</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right pr-2"><label asp-for="Person.DateOfBirth"></label></td>
+                            <td><input class="form-control" asp-for="Person.DateOfBirth" /></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right pr-2"><label asp-for="Person.CountryOfBirthId"></label></td>
+                            <td>
+                                <select class="form-control" asp-for="Person.CountryOfBirthId"
+                                    asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))">
+                                    <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right pr-2"><label asp-for="Person.PlaceOfBirthId"></label></td>
+                            <td>
+                                <select class="form-control" asp-for="Person.PlaceOfBirthId"
+                                    asp-items="@new SelectList(Model.PlacesOfBirth, nameof(City.Id), nameof(City.Name))">
+                                    <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right pr-2"><label asp-for="Person.TaxId"></label></td>
+                            <td><input asp-for="Person.TaxId" class="form-control"/></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td class="text-right px-2"><label asp-for="Person.Address.CountryId"></label></td>
+                            <td>
+                                <select class="form-control" asp-for="Person.Address.CountryId"
+                                    asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))">
+                                    <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right px-2"><label asp-for="Person.Address.RegionId"></label></td>
+                            <td>
+                                <select class="form-control" asp-for="Person.Address.RegionId"
+                                    asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))">
+                                    <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right px-2"><label asp-for="Person.Address.DistrictId"></label></td>
+                            <td>
+                                <select class="form-control" asp-for="Person.Address.DistrictId"
+                                    asp-items="@new SelectList(Model.Districts, nameof(District.Id),nameof(District.Name))">
+                                    <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right px-2">
+                                <select class="form-control" asp-for="Person.Address.City.CityTypeId"
+                                    asp-items="@new SelectList(Model.CityTypes, nameof(CityType.Id), nameof(CityType.Name), Model.CityTypes.First())"></select>
+                            </td>
+                            <td>
+                                <select class="form-control" asp-for="Person.Address.CityId"
+                                    asp-items="@new SelectList(Model.Cities, nameof(City.Id), nameof(City.Name))">
+                                    <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right px-2">
+                                <select class="form-control" asp-for="Person.Address.Street.StreetTypeId"
+                                    asp-items="@new SelectList(Model.StreetTypes, nameof(StreetType.Id), nameof(StreetType.Name), Model.StreetTypes.First())"></select>
+                            </td>
+                            <td>
+                                <select class="form-control" asp-for="Person.Address.StreetId"
+                                    asp-items="@new SelectList(Model.Streets, nameof(Street.Id), nameof(Street.Name))">
+                                    <option value="">@Localizer[nameof(Resources.SelectStreet)]</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right px-2"><label asp-for="Person.Address.Building"></label></td>
+                            <td><input class="form-control" asp-for="Person.Address.Building" /></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right px-2"><label asp-for="Person.Address.Apartment"></label></td>
+                            <td><input class="form-control" asp-for="Person.Address.Apartment" /></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right px-2"><label asp-for="Person.Address.Zip"></label></td>
+                            <td><input class="form-control" asp-for="Person.Address.Zip" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="d-flex flex-nowrap mt-2">
+                    <button class="btn btn-primary">@Localizer[nameof(Resources.Save)]</button>
+                    <button class="btn btn-danger ml-auto" @@click="display = false">@Localizer[nameof(Resources.Cancel)]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

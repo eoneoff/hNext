@@ -88,6 +88,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Відміна.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Населений пункт.
         /// </summary>
         public static string City {
@@ -385,6 +394,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Зберегти.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пошук.
         /// </summary>
         public static string Search {
@@ -430,11 +448,29 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Оберіть стать.
+        /// </summary>
+        public static string SelectGender {
+            get {
+                return ResourceManager.GetString("SelectGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Оберіть область.
         /// </summary>
         public static string SelectRegion {
             get {
                 return ResourceManager.GetString("SelectRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Оберіть вулицю.
+        /// </summary>
+        public static string SelectStreet {
+            get {
+                return ResourceManager.GetString("SelectStreet", resourceCulture);
             }
         }
         

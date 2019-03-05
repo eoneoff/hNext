@@ -126,6 +126,9 @@
   <data name="Building" xml:space="preserve">
     <value>Дім</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Відміна</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>Населений пункт</value>
   </data>
@@ -225,6 +228,9 @@
   <data name="Relation" xml:space="preserve">
     <value>Ким приходиться</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Пошук</value>
   </data>
@@ -240,8 +246,14 @@
   <data name="SelectDistrict" xml:space="preserve">
     <value>Оберіть район</value>
   </data>
+  <data name="SelectGender" xml:space="preserve">
+    <value>Оберіть стать</value>
+  </data>
   <data name="SelectRegion" xml:space="preserve">
     <value>Оберіть область</value>
+  </data>
+  <data name="SelectStreet" xml:space="preserve">
+    <value>Оберіть вулицю</value>
   </data>
   <data name="SelectStreetType" xml:space="preserve">
     <value>Оберіть тип вулиці</value>

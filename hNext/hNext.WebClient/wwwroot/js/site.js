@@ -35,11 +35,15 @@ const DATA_CLIENT = new DataClient(API_SERVER);
 
 const store = new Vuex.Store({
     state: {
-        patient: { id:0 }
+        patient: { id: 0 },
+        modals: {}
     },
     mutations: {
         setPatient(state, patient) {
             state.patient = patient;
+        },
+        setModalState(state, modalState) {
+            Vue.set(state.modals, modalState.key, modalState.value);
         }
     }
 });
