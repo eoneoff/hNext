@@ -6,7 +6,7 @@
         <div class="form-group row flex-md-nowrap flex-fill">
             <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.Name"></label>
             <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
-                <input class="form-control" asp-for="Search.Name" v-model="model.name"/>
+                <input class="form-control" asp-for="Search.Name" :disabled="!enabled" v-model="model.name"/>
             </div>
         </div>
         <div class="form-group row flex-md-nowrap flex-sm-fill">
@@ -14,7 +14,7 @@
             <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
                 <select class="form-control" asp-for="Search.YearOfBirth"
                         asp-items="@new SelectList(Enumerable.Range(DateTime.Today.Year-119, 120).Reverse())"
-                        v-model="model.yearOfBirth">
+                        v-model="model.yearOfBirth" :disabled="!enabled">
                     <option value=""></option>
                 </select>
             </div>
@@ -24,7 +24,7 @@
             <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
                 <select class="form-control" asp-for="Search.RegionId"
                         asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))"
-                        v-model="model.regionId">
+                        v-model="model.regionId" :disabled="!enabled">
                     <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
                 </select>
             </div>
@@ -33,7 +33,7 @@
             <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.DistrictId"></label>
             <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
                 <select class="form-control" asp-for="Search.DistrictId"
-                    v-model="model.districtId">
+                    v-model="model.districtId" :disabled="!enabled">
                     <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
                     <option v-for="d in districts" :key="d.id" :value="d.id" v-cloak>{{ d.name }}</option>
                 </select>
@@ -42,15 +42,15 @@
         <div class="form-group row flex-md-nowrap flex-fill">
             <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.CityId"></label>
             <div class="col-md-auto mr-md-2 flex-grow-1 pl-2" >
-                <select class="form-control" asp-for="Search.CityId" v-model="model.cityId">
+                <select class="form-control" asp-for="Search.CityId" v-model="model.cityId" :disabled="!enabled">
                     <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
                     <option v-for="c in cities" :key="c.id" :value="c.id" v-cloak>{{ c.name }}</option>
                 </select>
             </div>
         </div>
         <div class="d-flex flex-column flex-md-row flex-md-nowrap ml-md-auto">
-            <button class="btn btn-primary mr-md-1 mb-2 mb-md-0" @@click="searchPatients" :disabled="searching">@Localizer[nameof(Resources.Search)]</button>
-            <button class="btn btn-primary mr-md-2" @@click="showPatientEditor">@Localizer[nameof(Resources.NewPatient)]</button>
+            <button class="btn btn-primary mr-md-1 mb-2 mb-md-0" @@click="searchPatients" :disabled="searching || !enabled">@Localizer[nameof(Resources.Search)]</button>
+            <button class="btn btn-primary mr-md-2" :disabled="!enabled" @@click="showPatientEditor">@Localizer[nameof(Resources.NewPatient)]</button>
         </div>
     </div>
     <div class="mt-2 table-responsive-vertical">
@@ -64,7 +64,7 @@
             </thead>
             <tbody>
                 <tr v-for="p in foundPatients" :class="{'selected-table-row' : p.id == selectedPatient.id}"
-                    @@click="selectedPatient = p" v-cloak>
+                    @@click="selectPatient(p)" v-cloak>
                     <td>{{ `${p.person.familyName} ${p.person.firstName} ${p.person.patronimic}` }}</td>
                     <td>{{ p.person.dateOfBirth | shortDate }}</td>
                     <td>{{ `${p.person.address.country.name}`

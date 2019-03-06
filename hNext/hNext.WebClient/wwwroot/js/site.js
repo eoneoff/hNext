@@ -36,7 +36,8 @@ const DATA_CLIENT = new DataClient(API_SERVER);
 const store = new Vuex.Store({
     state: {
         patient: { id: 0 },
-        modals: {}
+        modals: {},
+        openModals: 0
     },
     mutations: {
         setPatient(state, patient) {
@@ -44,6 +45,12 @@ const store = new Vuex.Store({
         },
         setModalState(state, modalState) {
             Vue.set(state.modals, modalState.key, modalState.value);
+        },
+        openModal(state) {
+            state.openModals++;
+        },
+        closeModal(state) {
+            state.openModals--;
         }
     }
 });
