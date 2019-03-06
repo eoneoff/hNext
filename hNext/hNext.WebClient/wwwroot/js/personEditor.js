@@ -1,11 +1,11 @@
 ﻿"use strict";
 
-function personEditorModel(id) {
+function personEditorModel(id, level = 1) {
     return new Vue({
         el: `#${id}`,
         data: function () {
             return {
-                
+                modalLevel: level
             }
         },
         computed: {
@@ -16,6 +16,15 @@ function personEditorModel(id) {
                 set: function(display) {
                     store.commit('setModalState', {key:this.$el.id, value:display});
                 }
+            },
+            enabled: function() {
+                return store.state.openModals = this.modalLevel;
+            }
+        },
+        methods: {
+            close: function () {
+                store.commit('closeModal');
+                this.display = false;
             }
         }
     });

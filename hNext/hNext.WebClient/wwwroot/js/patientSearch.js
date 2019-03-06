@@ -45,6 +45,9 @@ function patientSearchModel(id) {
                 set: function (patient) {
                     store.commit('setPatient', patient);
                 }
+            },
+            enabled: function () {
+                return store.state.openModals == 0;
             }
         },
         methods: {
@@ -59,8 +62,14 @@ function patientSearchModel(id) {
                     this.searching = false;
                 }
             },
+            selectPatient: function (patient) {
+                if (this.enabled) {
+                    this.selectedPatient = patient;
+                }
+            },
             showPatientEditor: function () {
-                store.commit('setModalState', {key: 'personEditorModal', value: true});
+                store.commit('openModal');
+                store.commit('setModalState', { key: 'personEditorModal', value: true });
             }
         }
     });

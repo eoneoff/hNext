@@ -4,7 +4,7 @@
 <div v-cloak>
     <div v-if="display" class="d-flex modal-window flex-column">
         <div class="d-flex flex-column mb-1">
-            <button class="btn btn-danger ml-auto" @@click="display = false">
+            <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click="close">
                 <i class="fa fa-times"></i>
             </button>
         </div> 
@@ -14,34 +14,36 @@
                     <table>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.FamilyName"></label></td>
-                            <td><input class="form-control" asp-for="Person.FamilyName"/></td>
+                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.FamilyName"/></td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.FirstName"></label></td>
-                            <td><input class="form-control" asp-for="Person.FirstName"/></td>
+                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.FirstName"/></td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.Patronimic"></label></td>
-                            <td><input class="form-control" asp-for="Person.Patronimic" /></td>
+                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.Patronimic" /></td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.GenderId"></label></td>
                             <td>
                                 <select class="form-control" asp-for="Person.GenderId"
-                                    asp-items="@new SelectList(Model.Genders, nameof(Gender.Id), nameof(Gender.Name))">
+                                    asp-items="@new SelectList(Model.Genders, nameof(Gender.Id), nameof(Gender.Name))"
+                                    :disabled="!enabled">
                                     <option value="">@Localizer[nameof(Resources.SelectGender)]</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.DateOfBirth"></label></td>
-                            <td><input class="form-control" asp-for="Person.DateOfBirth" /></td>
+                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.DateOfBirth" /></td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.CountryOfBirthId"></label></td>
                             <td>
                                 <select class="form-control" asp-for="Person.CountryOfBirthId"
-                                    asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))">
+                                    asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
+                                    :disabled="!enabled">
                                     <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
                                 </select>
                             </td>
@@ -50,14 +52,15 @@
                             <td class="text-right pr-2"><label asp-for="Person.PlaceOfBirthId"></label></td>
                             <td>
                                 <select class="form-control" asp-for="Person.PlaceOfBirthId"
-                                    asp-items="@new SelectList(Model.PlacesOfBirth, nameof(City.Id), nameof(City.Name))">
+                                    asp-items="@new SelectList(Model.PlacesOfBirth, nameof(City.Id), nameof(City.Name))"
+                                    :disabled="!enabled">
                                     <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.TaxId"></label></td>
-                            <td><input asp-for="Person.TaxId" class="form-control"/></td>
+                            <td><input asp-for="Person.TaxId" :disabled="!enabled" class="form-control"/></td>
                         </tr>
                     </table>
                     <table>
@@ -65,7 +68,8 @@
                             <td class="text-right px-2"><label asp-for="Person.Address.CountryId"></label></td>
                             <td>
                                 <select class="form-control" asp-for="Person.Address.CountryId"
-                                    asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))">
+                                    asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
+                                    :disabled="!enabled">
                                     <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
                                 </select>
                             </td>
@@ -74,7 +78,8 @@
                             <td class="text-right px-2"><label asp-for="Person.Address.RegionId"></label></td>
                             <td>
                                 <select class="form-control" asp-for="Person.Address.RegionId"
-                                    asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))">
+                                    asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))"
+                                    :disabled="!enabled">
                                     <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
                                 </select>
                             </td>
@@ -83,7 +88,8 @@
                             <td class="text-right px-2"><label asp-for="Person.Address.DistrictId"></label></td>
                             <td>
                                 <select class="form-control" asp-for="Person.Address.DistrictId"
-                                    asp-items="@new SelectList(Model.Districts, nameof(District.Id),nameof(District.Name))">
+                                    asp-items="@new SelectList(Model.Districts, nameof(District.Id),nameof(District.Name))"
+                                    :disabled="!enabled">
                                     <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
                                 </select>
                             </td>
@@ -91,11 +97,13 @@
                         <tr>
                             <td class="text-right px-2">
                                 <select class="form-control" asp-for="Person.Address.City.CityTypeId"
-                                    asp-items="@new SelectList(Model.CityTypes, nameof(CityType.Id), nameof(CityType.Name), Model.CityTypes.First())"></select>
+                                    asp-items="@new SelectList(Model.CityTypes, nameof(CityType.Id), nameof(CityType.Name), Model.CityTypes.First())"
+                                    :disabled="!enabled"></select>
                             </td>
                             <td>
                                 <select class="form-control" asp-for="Person.Address.CityId"
-                                    asp-items="@new SelectList(Model.Cities, nameof(City.Id), nameof(City.Name))">
+                                    asp-items="@new SelectList(Model.Cities, nameof(City.Id), nameof(City.Name))"
+                                    :disabled="!enabled">
                                     <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
                                 </select>
                             </td>
@@ -103,32 +111,34 @@
                         <tr>
                             <td class="text-right px-2">
                                 <select class="form-control" asp-for="Person.Address.Street.StreetTypeId"
-                                    asp-items="@new SelectList(Model.StreetTypes, nameof(StreetType.Id), nameof(StreetType.Name), Model.StreetTypes.First())"></select>
+                                    asp-items="@new SelectList(Model.StreetTypes, nameof(StreetType.Id), nameof(StreetType.Name), Model.StreetTypes.First())"
+                                    :disabled="!enabled"></select>
                             </td>
                             <td>
                                 <select class="form-control" asp-for="Person.Address.StreetId"
-                                    asp-items="@new SelectList(Model.Streets, nameof(Street.Id), nameof(Street.Name))">
+                                    asp-items="@new SelectList(Model.Streets, nameof(Street.Id), nameof(Street.Name))"
+                                    :disabled="!enabled">
                                     <option value="">@Localizer[nameof(Resources.SelectStreet)]</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-right px-2"><label asp-for="Person.Address.Building"></label></td>
-                            <td><input class="form-control" asp-for="Person.Address.Building" /></td>
+                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.Address.Building" /></td>
                         </tr>
                         <tr>
                             <td class="text-right px-2"><label asp-for="Person.Address.Apartment"></label></td>
-                            <td><input class="form-control" asp-for="Person.Address.Apartment" /></td>
+                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.Address.Apartment" /></td>
                         </tr>
                         <tr>
                             <td class="text-right px-2"><label asp-for="Person.Address.Zip"></label></td>
-                            <td><input class="form-control" asp-for="Person.Address.Zip" /></td>
+                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.Address.Zip" /></td>
                         </tr>
                     </table>
                 </div>
                 <div class="d-flex flex-nowrap mt-2">
-                    <button class="btn btn-primary">@Localizer[nameof(Resources.Save)]</button>
-                    <button class="btn btn-danger ml-auto" @@click="display = false">@Localizer[nameof(Resources.Cancel)]</button>
+                    <button class="btn btn-primary" :disabled="!enabled">@Localizer[nameof(Resources.Save)]</button>
+                    <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click="close">@Localizer[nameof(Resources.Cancel)]</button>
                 </div>
             </div>
         </div>
