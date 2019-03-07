@@ -11,6 +11,14 @@ class DataClient {
         this._apiServer = apiServer;
     }
 
+    async getRegionsByCountry(countryId) {
+        return (await axios.get(`${this._apiServer}countries/${countryId}/regions`)).data;
+    }
+
+    async getCitiesByCountry(countryId) {
+        return (await axios.get(`${this._apiServer}countries/${countryId}/cities`)).data;
+    }
+
     async getDistrictsByRegion(regionId) {
         return (await axios.get(`${this._apiServer}regions/${regionId}/districts`)).data;
     }
@@ -21,6 +29,10 @@ class DataClient {
 
     async getCitiesByDistrict(districtId) {
         return (await axios.get(`${this._apiServer}districts/${districtId}/cities`)).data;
+    }
+
+    async getStreetsByCity(cityId) {
+        return (await axios.get(`${this._apiServer}cities/${cityId}/streets`)).data;
     }
 
     async searchPatients(model) {

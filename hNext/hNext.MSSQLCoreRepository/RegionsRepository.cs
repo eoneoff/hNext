@@ -21,7 +21,9 @@ namespace hNext.MSSQLCoreRepository
 
         public async Task<IEnumerable<City>> GetCities(int id)
         {
-            return await db.Cities.Where(c => c.RegionId == id).AsNoTracking().ToListAsync();
+            return await db.Cities.Where(c => c.RegionId == id)
+                .Include(c => c.CityType)
+                .AsNoTracking().ToListAsync();
         }
     }
 }

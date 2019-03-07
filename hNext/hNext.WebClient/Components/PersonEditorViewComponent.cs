@@ -11,12 +11,12 @@ namespace hNext.WebClient.Components
 {
     public class PersonEditorViewComponent : ViewComponent
     {
-        private IRepository<Country> _countryRepository;
+        private ICountryRepository _countryRepository;
         private IRepository<Gender> _genderRepository;
         private IRepository<CityType> _cityTypeRepository;
         private IRepository<StreetType> _streetTypeRepository;
 
-        public PersonEditorViewComponent(IRepository<Country> countryRepository,
+        public PersonEditorViewComponent(ICountryRepository countryRepository,
                                         IRepository<Gender> genderRepository,
                                         IRepository<StreetType> streetTypeRepository,
                                         IRepository<CityType> cityTypeRepository)

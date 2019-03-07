@@ -29,7 +29,7 @@ namespace hNext.DataService.Tests
         }
 
         [TestMethod]
-        public void GetIdReturnsPatient()
+        public void GetIdReturnsDistrict()
         {
             //Arrange
             var moq = new Mock<IDistrictsRepository>();

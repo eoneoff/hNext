@@ -19,7 +19,7 @@ namespace hNext.WebClient.Tests
         public void InvokeReturnsCorrectModel()
         {
             //Arrange
-            var cRep = new Mock<IRepository<Country>>();
+            var cRep = new Mock<ICountryRepository>();
             cRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Country>() as IEnumerable<Country>));
             var gRep = new Mock<IRepository<Gender>>();
             gRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Gender>() as IEnumerable<Gender>));
@@ -42,7 +42,7 @@ namespace hNext.WebClient.Tests
         public void InvokeSetsCollertions()
         {
             //Arrange
-            var cRep = new Mock<IRepository<Country>>();
+            var cRep = new Mock<ICountryRepository>();
             cRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Country>
             {
                 new Country(),

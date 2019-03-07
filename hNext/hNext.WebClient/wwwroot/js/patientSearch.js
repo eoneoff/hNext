@@ -68,6 +68,7 @@ function patientSearchModel(id) {
                 }
             },
             showPatientEditor: function () {
+                store.state.patient = { id: 0 };
                 store.commit('openModal');
                 store.commit('setModalState', { key: 'personEditorModal', value: true });
             }
