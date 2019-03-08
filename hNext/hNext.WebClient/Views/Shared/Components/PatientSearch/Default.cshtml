@@ -50,7 +50,7 @@
         </div>
         <div class="d-flex flex-column flex-md-row flex-md-nowrap ml-md-auto">
             <button class="btn btn-primary mr-md-1 mb-2 mb-md-0" @@click="searchPatients" :disabled="searching || !enabled">@Localizer[nameof(Resources.Search)]</button>
-            <button class="btn btn-primary mr-md-2" :disabled="!enabled" @@click="showPatientEditor">@Localizer[nameof(Resources.NewPatient)]</button>
+            <button class="btn btn-primary mr-md-2" :disabled="!enabled" @@click="createNewPatient">@Localizer[nameof(Resources.NewPatient)]</button>
         </div>
     </div>
     <div class="mt-2 table-responsive-vertical">
@@ -64,7 +64,7 @@
             </thead>
             <tbody>
                 <tr v-for="p in foundPatients" :class="{'selected-table-row' : p.id == selectedPatient.id}"
-                    @@click="selectPatient(p)" v-cloak>
+                    @@click="selectPatient(p)" @@dblclick="editPatient" v-cloak>
                     <td>{{ `${p.person.familyName} ${p.person.firstName} ${p.person.patronimic}` }}</td>
                     <td>{{ p.person.dateOfBirth | shortDate }}</td>
                     <td>{{ `${p.person.address.country.name}`

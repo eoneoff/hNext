@@ -14,36 +14,36 @@
                     <table>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.FamilyName"></label></td>
-                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.FamilyName"/></td>
+                            <td><input :disabled="!enabled" v-model="person.familyName" class="form-control" asp-for="Person.FamilyName"/></td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.FirstName"></label></td>
-                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.FirstName"/></td>
+                            <td><input :disabled="!enabled" v-model="person.firstName" class="form-control" asp-for="Person.FirstName"/></td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.Patronimic"></label></td>
-                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.Patronimic" /></td>
+                            <td><input :disabled="!enabled" v-model="person.patronimic" class="form-control" asp-for="Person.Patronimic" /></td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.GenderId"></label></td>
                             <td>
                                 <select class="form-control" asp-for="Person.GenderId"
                                     asp-items="@new SelectList(Model.Genders, nameof(Gender.Id), nameof(Gender.Name))"
-                                    :disabled="!enabled">
+                                    :disabled="!enabled" v-model="person.genderId">
                                     <option value="">@Localizer[nameof(Resources.SelectGender)]</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.DateOfBirth"></label></td>
-                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.DateOfBirth" /></td>
+                            <td><input :disabled="!enabled" v-model="dateOfBirth" class="form-control" asp-for="Person.DateOfBirth" /></td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.CountryOfBirthId"></label></td>
                             <td>
                                 <select class="form-control" asp-for="Person.CountryOfBirthId"
                                     asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
-                                    :disabled="!enabled">
+                                    :disabled="!enabled" v-model="person.countryOfBirthId">
                                     <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
                                 </select>
                             </td>
@@ -53,14 +53,15 @@
                             <td>
                                 <select class="form-control" asp-for="Person.PlaceOfBirthId"
                                     asp-items="@new SelectList(Model.PlacesOfBirth, nameof(City.Id), nameof(City.Name))"
-                                    :disabled="!enabled">
+                                    :disabled="!enabled" v-model="person.placeOfBirthId">
                                     <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
+                                    <option v-for="c in placesOfBirth" :key="c.id" :value="c.id">{{ c.name }}</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.TaxId"></label></td>
-                            <td><input asp-for="Person.TaxId" :disabled="!enabled" class="form-control"/></td>
+                            <td><input asp-for="Person.TaxId" :disabled="!enabled" v-model="person.taxId" class="form-control"/></td>
                         </tr>
                     </table>
                     <table>
@@ -69,7 +70,7 @@
                             <td>
                                 <select class="form-control" asp-for="Person.Address.CountryId"
                                     asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
-                                    :disabled="!enabled">
+                                    :disabled="!enabled" v-model="person.address.countryId">
                                     <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
                                 </select>
                             </td>
@@ -79,8 +80,9 @@
                             <td>
                                 <select class="form-control" asp-for="Person.Address.RegionId"
                                     asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))"
-                                    :disabled="!enabled">
+                                    :disabled="!enabled" v-model="person.address.regionId">
                                     <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
+                                    <option v-for="r in regions" :key="r.id" :value="r.id">{{ r.name }}</option>
                                 </select>
                             </td>
                         </tr>
@@ -89,50 +91,49 @@
                             <td>
                                 <select class="form-control" asp-for="Person.Address.DistrictId"
                                     asp-items="@new SelectList(Model.Districts, nameof(District.Id),nameof(District.Name))"
-                                    :disabled="!enabled">
+                                    :disabled="!enabled" v-model="person.address.districtId">
                                     <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
+                                    <option v-for="d in districts" :key="d.id" :value="d.id">{{ d.name }}</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-right px-2">
-                                <select class="form-control" asp-for="Person.Address.City.CityTypeId"
-                                    asp-items="@new SelectList(Model.CityTypes, nameof(CityType.Id), nameof(CityType.Name), Model.CityTypes.First())"
-                                    :disabled="!enabled"></select>
+                                {{ (person.address.city ? person.address.city.cityType.name : '') || '@Localizer[nameof(Resources.City)]' }}
                             </td>
                             <td>
                                 <select class="form-control" asp-for="Person.Address.CityId"
                                     asp-items="@new SelectList(Model.Cities, nameof(City.Id), nameof(City.Name))"
-                                    :disabled="!enabled">
+                                    :disabled="!enabled" v-model="person.address.cityId">
                                     <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
+                                    <option v-for="c in cities" :key="c.id" :value="c.id">{{ c.name }}</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-right px-2">
-                                <select class="form-control" asp-for="Person.Address.Street.StreetTypeId"
-                                    asp-items="@new SelectList(Model.StreetTypes, nameof(StreetType.Id), nameof(StreetType.Name), Model.StreetTypes.First())"
-                                    :disabled="!enabled"></select>
+                                {{ (person.address.street ? person.address.street.streetType.name : '') || '@Localizer[nameof(Resources.Street)]' }}
                             </td>
                             <td>
                                 <select class="form-control" asp-for="Person.Address.StreetId"
                                     asp-items="@new SelectList(Model.Streets, nameof(Street.Id), nameof(Street.Name))"
-                                    :disabled="!enabled">
+                                    :disabled="!enabled" v-model="person.address.streetId">
                                     <option value="">@Localizer[nameof(Resources.SelectStreet)]</option>
+                                    <option v-for="s in streets" :key="s.id" :value="s.id">{{ s.name }}</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-right px-2"><label asp-for="Person.Address.Building"></label></td>
-                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.Address.Building" /></td>
+                            <td><input :disabled="!enabled" v-model="person.address.building" class="form-control" asp-for="Person.Address.Building" /></td>
                         </tr>
                         <tr>
                             <td class="text-right px-2"><label asp-for="Person.Address.Apartment"></label></td>
-                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.Address.Apartment" /></td>
+                            <td><input :disabled="!enabled" v-model="person.address.apartment" class="form-control" asp-for="Person.Address.Apartment" /></td>
                         </tr>
                         <tr>
                             <td class="text-right px-2"><label asp-for="Person.Address.Zip"></label></td>
-                            <td><input :disabled="!enabled" class="form-control" asp-for="Person.Address.Zip" /></td>
+                            <td><input :disabled="!enabled" v-model="person.address.zip" class="form-control" asp-for="Person.Address.Zip" /></td>
                         </tr>
                     </table>
                 </div>

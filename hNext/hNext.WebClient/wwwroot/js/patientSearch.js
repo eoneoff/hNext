@@ -67,10 +67,31 @@ function patientSearchModel(id) {
                     this.selectedPatient = patient;
                 }
             },
-            showPatientEditor: function () {
+            createNewPatient: function () {
                 store.state.patient = { id: 0 };
                 store.commit('openModal');
-                store.commit('setModalState', { key: 'personEditorModal', value: true });
+
+                let modalState = store.state.modals['personEditorModal'] || {};
+                modalState.open = true;
+                modalState.rootItem = 'patient';
+
+                let closeHandler = function () { };
+                if (!modalState.onClose) {
+                    modalState.onClose = [closeHandler];
+                } else {
+                    modalState.onClose.push(closeHandler);
+                }
+
+                store.commit('setModalState', { key: 'personEditorModal', value: modalState });
+            },
+            editPatient: function () {
+                store.commit('openModal');
+
+                let modalState = store.state.modals['personEditorModal'] || {};
+                modalState.open = true;
+                modalState.rootItem = 'patient';
+
+                store.commit('setModalState', { key: 'personEditorModal', value: modalState });
             }
         }
     });

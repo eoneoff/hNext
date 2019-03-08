@@ -35,6 +35,7 @@ namespace hNext.Model
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.DateOfBirth))]
+        [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 
         [Display(ResourceType = typeof(Resources),

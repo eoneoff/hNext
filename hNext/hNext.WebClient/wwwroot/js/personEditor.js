@@ -5,70 +5,7 @@ function personEditorModel(id, level = 1) {
         el: `#${id}`,
         data: function () {
             return {
-                person: {
-                    firstName: '',
-                    familyName: '',
-                    patronimic: '',
-                    genderId:0,
-                    dateOfBirth: (new Date()).getDate(),
-                    countryOfBirthId: 0,
-                    placeOfBirthId: '',
-                    taxId: '',
-                    addressId: '',
-                    gender: {
-                        id: 0,
-                        name:''
-                    },
-                    countryOfBirth: {
-                        id: 0,
-                        name: ''
-                    },
-                    placeOfBirth: {
-                        id: 0,
-                        name:''
-                    },
-                    address: {
-                        id: 0,
-                        countryId: 0,
-                        regionId: 0,
-                        districtId: 0,
-                        cityId: 0,
-                        streetId: 0,
-                        building: '',
-                        apartment: '',
-                        zip: '',
-                        country: {
-                            id: 0,
-                            name:''
-                        },
-                        region: {
-                            id: 0,
-                            name:''
-                        },
-                        district: {
-                            id: 0,
-                            name:''
-                        },
-                        city: {
-                            id: 0,
-                            name: '',
-                            cityTypeId: 0,
-                            cityType: {
-                                id: 0,
-                                name:''
-                            }
-                        },
-                        street: {
-                            id: 0,
-                            name: '',
-                            streetTypeId: 0,
-                            streetType: {
-                                id: 0,
-                                name:''
-                            }
-                        }
-                    }
-                },
+                person: this.newPerson(),
                 regions: [],
                 districts: [],
                 cities: [],
@@ -80,10 +17,20 @@ function personEditorModel(id, level = 1) {
         computed: {
             display: {
                 get: function () {
-                    return store.state.modals[this.$el.id];
+                    return (store.state.modals[(this.$el || {}).id] || {})['open'];
                 },
-                set: function(display) {
-                    store.commit('setModalState', {key:this.$el.id, value:display});
+                set: function (display) {
+                    let modalState = store.state.modals[this.$el.id];
+                    modalState['open'] = display;
+                    store.commit('setModalState', {key:this.$el.id, value:modalState});
+                }
+            },
+            dateOfBirth: {
+                get: function () {
+                    return moment(this.person.dateOfBirth).format('YYYY-MM-DD')
+                },
+                set: function (date) {
+                    person.dateOfBirth = Date.parse(date);
                 }
             },
             enabled: function() {
@@ -92,49 +39,145 @@ function personEditorModel(id, level = 1) {
         },
         methods: {
             close: function () {
+                let closeHandlers = store.state.modals[this.$el.id].onClose;
+                if (closeHandlers) {
+                    for (let handler of closeHandlers) {
+                        handler();
+                    }
+                }
+                this.regions.splice(0);
+                this.districts.splice(0);
+                this.cities.splice(0);
+                this.placesOfBirth.splice(0);
+                this.streets.splice(0);
                 store.commit('closeModal');
                 this.display = false;
-            }
-        },
-        created: function () {
-            if (store.state.patient.id != 0) {
-                this.person = store.state.patient.person;
+            },
+            newPerson: function () {
+                return {
+                    firstName: '',
+                    familyName: '',
+                    patronimic: '',
+                    genderId: '',
+                    dateOfBirth: new Date(),
+                    countryOfBirthId: '',
+                    placeOfBirthId: '',
+                    taxId: '',
+                    addressId: '',
+                    address: {
+                        id: '',
+                        countryId: '',
+                        regionId: '',
+                        districtId: '',
+                        cityId: '',
+                        streetId: '',
+                        building: '',
+                        apartment: '',
+                        zip: ''
+                    }
+                }
             }
         },
         watch: {
-            'person.address.countryId': async function (val) {
-                this.regions.splice(0);
-                this.cities.splice(0);
-                if (val != '') {
-                    this.regions.push(...await DATA_CLIENT.getRegionsByCountry(val));
-                    this.cities.push(...await DATA_CLIENT.getCitiesByCountry(val);
+            display: function (val) {
+                if (val && store.state.patient.id != 0) {
+                    this.person = $.extend(true, {}, store.state.patient.person);
+                } else {
+                    this.person = this.newPerson();
                 }
-                this.person.address.regionId = '';
-                this.person.address.cityId = '';
+            },
+            'person.address.countryId': async function (val) {
+                let reg = [];
+                let cit = []
+                if (this.regions.length) {
+                    this.person.address.regionId = '';
+                }
+                if (this.cities.length) {
+                    this.person.address.cityId = '';
+                }
+                if (val) {
+                    reg = await DATA_CLIENT.getRegionsByCountry(val);
+                    cit = await DATA_CLIENT.getCitiesByCountry(val);
+                }
+
+                this.regions.splice(0);
+                this.regions.push(...reg);
+                this.cities.splice(0);
+                this.cities.push(...cit);
+
+                this.person.address.regionId = this.person.address.regionId || '';
+                this.person.address.cityId = this.person.address.cityId || '';
+            },
+            'person.countryOfBirthId': async function (val) {
+                if (this.placesOfBirth.length) {
+                    this.placesOfBirth.splice(0);
+                    this.person.placeOfBirthId = '';
+                }
+                if (val) {
+                    this.placesOfBirth.push(...await DATA_CLIENT.getCitiesByCountry(val));
+                }
+
+                this.person.placeOfBirthId = this.person.placeOfBirthId || '';
             },
             'person.address.regionId': async function (val) {
-                this.districts.splice(0);
-                this.cities.splice(0);
-                if (val != '') {
-                    this.districts.push(...await DATA_CLIENT.getDistrictsByRegion(val));
-                    this.cities.push(...await DATA_CLIENT.getCitiesByRegion(val));
+                let dist = [];
+                let cit = [];
+                if (this.districts.length) {
+                    this.person.address.districtId = '';
                 }
-                this.person.address.districtId = '';
-                this.person.address.cityId = '';
+                if (this.cities.length) {
+                    this.person.address.cityId = '';
+                }
+                if (val != 0) {
+                    dist = await DATA_CLIENT.getDistrictsByRegion(val);
+                    cit = await DATA_CLIENT.getCitiesByRegion(val);
+                }
+
+                this.districts.splice(0);
+                this.districts.push(...dist);
+                this.cities.splice(0);
+                this.cities.push(...cit);
+
+                this.person.address.districtId = this.person.address.districtId || '';
+                this.person.address.cityId = this.person.address.cityId || '';
             },
             'person.address.districtId': async function (val) {
+                let cit = [];
+                if (this.cities.length) {
+                    this.person.address.cityId = '';
+                }
+                if (val) {
+                    cit = await DATA_CLIENT.getCitiesByDistrict(val);
+                }
+
                 this.cities.splice(0);
-                if (val != '') {
-                    this.cities.push(...await DATA_CLIENT.getCitiesByDistrict(val));
-                }
-                this.person.address.cityId = '';
+                this.cities.push(...cit);
+
+                this.person.address.cityId = this.person.address.cityId || '';
             },
-            'person.address.cityId': async function () {
-                this.streets.splice(0);
-                if (val != '') {
-                    this.street.push(...await DATA_CLIENT.getStreetsByCity(val));
+            'person.address.cityId': async function (val) {
+                if (this.streets.length) {
+                    this.streets.splice(0);
+                    this.person.address.streetId = '';
                 }
-                this.person.address.streetId = '';
+                if (val) {
+                    this.streets.push(...await DATA_CLIENT.getStreetsByCity(val));                    
+                }
+
+                this.person.address.streetId = this.person.address.streetId || '';
+
+                if (!this.person.address.city
+                    || this.person.address.city.id != this.person.address.cityId) {
+                    this.person.address.city = this.cities.find(city => city.id == val);
+                }
+            },
+            'person.address.streetId': function (val) {
+                if (val) {
+                    if (!this.person.address.street
+                        || this.person.address.street.id != this.person.address.streetId) {
+                        this.person.address.street = this.streets.find(street => street.id == val);
+                    }
+                }
             }
         }
     });

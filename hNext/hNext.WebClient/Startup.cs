@@ -45,6 +45,7 @@ namespace hNext.WebClient
             services.AddDbContext<hNextDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"]));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<ICountryRepository, CountryRepository>();
             //services.Configure<CookiePolicyOptions>(options =>
             //{
             //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
