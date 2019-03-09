@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using hNext.Model;
 using hNext.IRepository;
+using hNext.WebClient.Infrastructure;
 
 namespace hNext.WebClient.Components
 {
@@ -18,8 +19,9 @@ namespace hNext.WebClient.Components
             _repository = repository;
         }
 
-        public async  Task<IViewComponentResult> InvokeAsync()
+        public async  Task<IViewComponentResult> InvokeAsync(HashSet<string> modules)
         {
+            modules.Add(nameof(PersonEditorViewComponent).VewComponentName());
             return View(new PatientSearchViewModel
             {
                 Regions = await _repository.Get()

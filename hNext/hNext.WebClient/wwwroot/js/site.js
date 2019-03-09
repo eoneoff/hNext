@@ -45,24 +45,19 @@ class DataClient {
 
 const DATA_CLIENT = new DataClient(API_SERVER);
 
+Vue.use(Vuex);
+
 const store = new Vuex.Store({
     state: {
         patient: { id: 0 },
-        modals: {},
-        openModals: 0
+        enabled: true
     },
     mutations: {
         setPatient(state, patient) {
             state.patient = patient;
         },
-        setModalState(state, modalState) {
-            Vue.set(state.modals, modalState.key, modalState.value);
-        },
-        openModal(state) {
-            state.openModals++;
-        },
-        closeModal(state) {
-            state.openModals--;
+        enable(state, show) {
+            state.enabled = show;
         }
     }
 });

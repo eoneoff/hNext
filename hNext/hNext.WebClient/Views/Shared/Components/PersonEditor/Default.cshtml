@@ -2,7 +2,7 @@
 @model PersonEditorViewModel
 
 <template id="person-editor-template">
-    <div v-if="display" class="d-flex modal-window flex-column">
+    <div class="d-flex modal-window flex-column">
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click="close">
                 <i class="fa fa-times"></i>

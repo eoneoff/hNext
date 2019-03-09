@@ -14,7 +14,8 @@ Vue.component('PatientSearch', {
             districts: [],
             cities: [],
             foundPatients: [],
-            searching: false
+            searching: false,
+            showPersonEditor: false
         }
     },
     watch: {
@@ -45,8 +46,13 @@ Vue.component('PatientSearch', {
                 store.commit('setPatient', patient);
             }
         },
-        enabled: function () {
-            return store.state.openModals == 0;
+        enabled: {
+            get: function() {
+                return store.state.enabled;
+            },
+            set: function(show) {
+                store.commit('enable', show);
+            }
         }
     },
     methods: {
@@ -67,30 +73,15 @@ Vue.component('PatientSearch', {
             }
         },
         createNewPatient: function () {
-            store.state.patient = { id: 0 };
-            store.commit('openModal');
-
-            let modalState = store.state.modals['personEditorModal'] || {};
-            modalState.open = true;
-            modalState.rootItem = 'patient';
-
-            let closeHandler = function () { };
-            if (!modalState.onClose) {
-                modalState.onClose = [closeHandler];
-            } else {
-                modalState.onClose.push(closeHandler);
-            }
-
-            store.commit('setModalState', { key: 'personEditorModal', value: modalState });
+            this.showPersonEditor = true;
+            this.enabled = false;
         },
         editPatient: function () {
-            store.commit('openModal');
-
-            let modalState = store.state.modals['personEditorModal'] || {};
-            modalState.open = true;
-            modalState.rootItem = 'patient';
-
-            store.commit('setModalState', { key: 'personEditorModal', value: modalState });
+            
+        },
+        patientEditorQuited: function () {
+            this.enabled = true;
+            this.showPersonEditor = false;
         }
     }
 });

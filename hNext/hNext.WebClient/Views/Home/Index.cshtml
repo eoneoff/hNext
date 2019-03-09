@@ -10,9 +10,11 @@
     const START_SIDE_TAB = '@Model.SideBar.First().Key';
 </script>
 
+@await Component.InvokeAsync("MainView", new { model = Model })
+
 @foreach (var tab in Model.Tabs)
 {
-    @await Component.InvokeAsync(tab.Key)
+    @await Component.InvokeAsync(tab.Key, new { modules = Model.Modules })
 }
 
 @foreach (var sideTab in Model.SideBar)
@@ -20,12 +22,10 @@
     @await Component.InvokeAsync(sideTab.Key)
 }
 
-@foreach (var modal in Model.Modals)
+@foreach (var module in Model.Modules)
 {
-    @await Component.InvokeAsync(modal.Key)
+    @await Component.InvokeAsync(module)
 }
-
-@await Component.InvokeAsync("MainView", new { model = Model })
 
 <div id="app">
     <main-view></main-view>
@@ -36,6 +36,11 @@
 {
     <script src="~/js/mainView.js" asp-append-version="true"></script>
 
+    @foreach (var module in Model.Modules)
+    {
+        <script src="@($"/js/{module.ToCamelCase()}.js")" asp-append-version="true"></script>
+    }
+
     @foreach (var tab in Model.Tabs)
     {
         <script src="@($"/js/{tab.Key.ToCamelCase()}.js")" asp-append-version="true"></script>
@@ -43,10 +48,6 @@
     @foreach (var sideTab in Model.SideBar)
     {
         <script src="@($"/js/{sideTab.Key.ToCamelCase()}.js")" asp-append-version="true"></script>
-    }
-    @foreach (var modal in Model.Modals)
-    {
-        <script src="@($"/js/{modal.Key.ToCamelCase()}.js")" asp-append-version="true"></script>
     }
 
     <script>
