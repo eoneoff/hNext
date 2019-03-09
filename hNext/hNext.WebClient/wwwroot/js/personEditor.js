@@ -1,8 +1,8 @@
 ﻿"use strict";
 
-function personEditorModel(id, level = 1) {
-    return new Vue({
-        el: `#${id}`,
+function personEditorComponent(level = 1) {
+    return {
+        template:"#person-editor-template",
         data: function () {
             return {
                 person: this.newPerson(),
@@ -10,7 +10,7 @@ function personEditorModel(id, level = 1) {
                 districts: [],
                 cities: [],
                 streets: [],
-                placesOfBirth:[],
+                placesOfBirth: [],
                 modalLevel: level
             }
         },
@@ -22,7 +22,7 @@ function personEditorModel(id, level = 1) {
                 set: function (display) {
                     let modalState = store.state.modals[this.$el.id];
                     modalState['open'] = display;
-                    store.commit('setModalState', {key:this.$el.id, value:modalState});
+                    store.commit('setModalState', { key: this.$el.id, value: modalState });
                 }
             },
             dateOfBirth: {
@@ -33,7 +33,7 @@ function personEditorModel(id, level = 1) {
                     person.dateOfBirth = Date.parse(date);
                 }
             },
-            enabled: function() {
+            enabled: function () {
                 return store.state.openModals = this.modalLevel;
             }
         },
@@ -161,7 +161,7 @@ function personEditorModel(id, level = 1) {
                     this.person.address.streetId = '';
                 }
                 if (val) {
-                    this.streets.push(...await DATA_CLIENT.getStreetsByCity(val));                    
+                    this.streets.push(...await DATA_CLIENT.getStreetsByCity(val));
                 }
 
                 this.person.address.streetId = this.person.address.streetId || '';
@@ -180,5 +180,5 @@ function personEditorModel(id, level = 1) {
                 }
             }
         }
-    });
+    };
 }

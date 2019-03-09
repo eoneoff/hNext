@@ -1,7 +1,7 @@
 ﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
 @model PersonEditorViewModel
 
-<div v-cloak>
+<template id="person-editor-template">
     <div v-if="display" class="d-flex modal-window flex-column">
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click="close">
@@ -144,4 +144,4 @@
             </div>
         </div>
     </div>
-</div>
+</template>
