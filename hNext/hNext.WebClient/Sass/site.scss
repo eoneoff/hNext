@@ -26,12 +26,24 @@ textarea {
     
 }
 
+/*header style*/
 .header-panel{
     background-color:$base-back-color;
 }
 
 .header-text{
     color:$header-text-color;
+}
+
+.header-image {
+    height: 5vh;
+    width: 5vh;
+}
+
+
+/*main view style*/
+[v-cloak] {
+    display: none;
 }
 
 .content-wrapper {
@@ -43,35 +55,48 @@ textarea {
     min-height: 90vh;
 }
 
-.header-image{
-    height:5vh;
-    width:5vh;
+.show-panel {
+    background-color: $neutral-background-color;
+    padding: 5px;
 }
 
+/*tab styles*/
 .nav-link.active{
     background-color:$active-tab!important;
     color:$active-tab-text!important;
 }
 
+.tab-item {
+    margin: 5px;
+}
+
+.side-tab-selector {
+    background-color: $neutral-background-color;
+    writing-mode: vertical-lr;
+    margin-bottom: 2px;
+}
+
+.side-tab-field {
+    min-width: 150px;
+}
+
+/*footer style*/
 footer{
     margin:10px;
     color:$footer-text-color;
 }
 
-.tab-item{
-    margin:5px;
-}
-
+/*selectable table style*/
 .selected-table-row{
     background-color:$selected-grid-row-color!important;
 }
 
-.side-tab-selector{
-    background-color:$neutral-background-color;
-    writing-mode:vertical-lr;
-    margin-bottom: 2px;
+.table-responsive-vertical {
+    max-height: 50vh;
+    overflow-y: auto;
 }
 
+/*modal window style*/
 .modal-window {
     border-style:solid;
     border-width:1px;
@@ -88,11 +113,7 @@ footer{
     overflow-y: auto;
 }
 
-.show-panel {
-    background-color: $neutral-background-color;
-    padding: 5px;    
-}
-
+/*validation styles*/
 .field-validation-error{
     color:$error-text-color;
 }
@@ -115,6 +136,7 @@ footer{
     display:none;
 }
 
+/*button styles*/
 .btn{
     height:35px;
     padding-top:3px;
@@ -151,17 +173,4 @@ footer{
 
 .btn-danger:hover{
     background-image:$danger-button-hover-background;
-}
-
-.side-tab-field {
-    min-width: 150px;
-}
-
-.table-responsive-vertical {
-    max-height: 50vh;
-    overflow-y:auto;
-}
-
-[v-cloak] {
-    display: none;
 }

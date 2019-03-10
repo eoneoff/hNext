@@ -73,11 +73,15 @@ Vue.component('PatientSearch', {
             }
         },
         createNewPatient: function () {
-            this.showPersonEditor = true;
-            this.enabled = false;
+            this.selectedPatient = { id: 0 };
+            this.showPatientEditor();
         },
         editPatient: function () {
             
+        },
+        showPatientEditor() {
+            this.showPersonEditor = true;
+            this.enabled = false;
         },
         patientEditorQuited: function () {
             this.enabled = true;

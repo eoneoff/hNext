@@ -3,7 +3,7 @@
 
 <template id="patient-search-template">
     <div>
-        <person-editor v-if="showPersonEditor" @@quit="patientEditorQuited"></person-editor>
+        <person-editor v-if="showPersonEditor" @@quit="patientEditorQuited" :initial-person="selectedPatient.person"></person-editor>
         <div class="f-flex flex-column flex-grow-1 mt-2">
             <div class="d-flex justify-content-md-between flex-column flex-md-row flex-wrap">
                 <div class="form-group row flex-md-nowrap flex-fill">
@@ -67,7 +67,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="p in foundPatients" :class="{'selected-table-row' : p.id == selectedPatient.id}"
-                            @@click="selectPatient(p)" @@dblclick="editPatient">
+                            @@click="selectPatient(p)" @@dblclick="showPatientEditor">
                             <td>{{ `${p.person.familyName} ${p.person.firstName} ${p.person.patronimic}` }}</td>
                             <td>{{ p.person.dateOfBirth | shortDate }}</td>
                             <td>
