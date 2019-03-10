@@ -129,6 +129,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Відміна</value>
   </data>
+  <data name="CancelAndExit" xml:space="preserve">
+    <value>Відмінити зміни та вийти</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>Населений пункт</value>
   </data>
@@ -204,6 +207,9 @@
   <data name="NewPatient" xml:space="preserve">
     <value>Новий пацієнт</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Ні</value>
+  </data>
   <data name="Number" xml:space="preserve">
     <value>Номер</value>
   </data>
@@ -230,6 +236,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Зберегти</value>
+  </data>
+  <data name="SaveAndExit" xml:space="preserve">
+    <value>Зберегти зміни та вийти</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Пошук</value>
@@ -275,6 +284,9 @@
   </data>
   <data name="YearOfBirth" xml:space="preserve">
     <value>Рік народження</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Так</value>
   </data>
   <data name="Zip" xml:space="preserve">
     <value>Індекс</value>

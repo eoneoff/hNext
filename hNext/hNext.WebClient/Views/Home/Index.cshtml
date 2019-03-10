@@ -12,20 +12,31 @@
 
 @await Component.InvokeAsync("MainView", new { model = Model })
 
-@foreach (var tab in Model.Tabs)
-{
-    @await Component.InvokeAsync(tab.Key, new { modules = Model.Modules })
-}
+    @foreach (var tab in Model.Tabs)
+    {
+        @await Component.InvokeAsync(tab.Key, new { modules = Model.Modules })
+    }
 
-@foreach (var sideTab in Model.SideBar)
-{
-    @await Component.InvokeAsync(sideTab.Key)
-}
+    @foreach (var sideTab in Model.SideBar)
+    {
+        @await Component.InvokeAsync(sideTab.Key)
+    }
 
-@foreach (var module in Model.Modules)
-{
-    @await Component.InvokeAsync(module)
-}
+    @{ HashSet<string> modulesForModules = new HashSet<string>(); }
+    @foreach (var module in Model.Modules)
+    {
+        @await Component.InvokeAsync(module, new { modules = modulesForModules })
+    }
+
+    @{ modulesForModules.ExceptWith(Model.Modules);}
+
+    @foreach(var module in modulesForModules)
+    {
+        @await Component.InvokeAsync(module, new { modules = new HashSet<string>()})
+    }
+
+    @{ Model.Modules.UnionWith(modulesForModules);}
+
 
 <div id="app">
     <main-view></main-view>
@@ -33,7 +44,7 @@
 
 
 @section Scripts
-{
+    {
     <script src="~/js/mainView.js" asp-append-version="true"></script>
 
     @foreach (var module in Model.Modules)

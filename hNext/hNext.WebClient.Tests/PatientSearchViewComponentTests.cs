@@ -64,7 +64,7 @@ namespace hNext.WebClient.Tests
             var result = component.InvokeAsync(modules).Result;
 
             //Assert
-            Assert.IsTrue(modules.Contains(nameof(PersonEditorViewComponent).VewComponentName()));
+            Assert.IsTrue(modules.Contains(nameof(PersonEditorViewComponent).ViewComponentName()));
         }
     }
 }

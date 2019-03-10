@@ -97,6 +97,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Відмінити зміни та вийти.
+        /// </summary>
+        public static string CancelAndExit {
+            get {
+                return ResourceManager.GetString("CancelAndExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Населений пункт.
         /// </summary>
         public static string City {
@@ -322,6 +331,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ні.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Номер.
         /// </summary>
         public static string Number {
@@ -399,6 +417,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Зберегти зміни та вийти.
+        /// </summary>
+        public static string SaveAndExit {
+            get {
+                return ResourceManager.GetString("SaveAndExit", resourceCulture);
             }
         }
         
@@ -534,6 +561,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string YearOfBirth {
             get {
                 return ResourceManager.GetString("YearOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Так.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         

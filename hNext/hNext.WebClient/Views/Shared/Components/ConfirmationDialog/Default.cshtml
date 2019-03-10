@@ -1,0 +1,20 @@
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+
+<template id="confirmation-dialog-template">
+    <div class="d-flex modal-window flex-column" :style="{zIndex: level*1000}">
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" @@click="$emit('no')">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="show-panel flex-column">
+            <div class="px-1 pt-2 pb-5">
+                {{ message }}
+            </div>
+            <div class="d-flex flex-row flex-nowrap mt-2">
+                <button class="btn btn-primary" @@click="$emit('yes')">@Localizer[nameof(Resources.Yes)]</button>
+                <button class="btn btn-danger ml-auto" @@click="$emit('no')">@Localizer[nameof(Resources.No)]</button>
+            </div>
+        </div>
+    </div>
+</template>

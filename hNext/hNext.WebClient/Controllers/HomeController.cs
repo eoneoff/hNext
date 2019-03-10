@@ -24,8 +24,8 @@ namespace hNext.WebClient.Controllers
         public IActionResult Index()
         {
             ApplicationViewModel model = new ApplicationViewModel();
-            model.Tabs.Add(nameof(PatientSearchViewComponent).VewComponentName(), _localizer[nameof(Resources.Patients)]);
-            model.SideBar.Add(nameof(PatientDetailsViewComponent).VewComponentName(), _localizer[nameof(Resources.Patient)]);
+            model.Tabs.Add(nameof(PatientSearchViewComponent).ViewComponentName(), _localizer[nameof(Resources.Patients)]);
+            model.SideBar.Add(nameof(PatientDetailsViewComponent).ViewComponentName(), _localizer[nameof(Resources.Patient)]);
             return View(model);
         }
 

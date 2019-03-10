@@ -1,5 +1,7 @@
 ﻿using hNext.IRepository;
 using hNext.Model;
+using hNext.WebClient.Components;
+using hNext.WebClient.Infrastructure;
 using hNext.WebClient.Models;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,6 +21,7 @@ namespace hNext.WebClient.Tests
         public void InvokeReturnsCorrectModel()
         {
             //Arrange
+            HashSet<string> modules = new HashSet<string>();
             var cRep = new Mock<ICountryRepository>();
             cRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Country>() as IEnumerable<Country>));
             var gRep = new Mock<IRepository<Gender>>();
@@ -31,7 +34,7 @@ namespace hNext.WebClient.Tests
             Components.PersonEditorViewComponent component = new Components.PersonEditorViewComponent(cRep.Object, gRep.Object, sTRep.Object, cTRep.Object);
 
             //Act
-            var result = component.InvokeAsync().Result as ViewViewComponentResult;
+            var result = component.InvokeAsync(modules).Result as ViewViewComponentResult;
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(ViewViewComponentResult));
@@ -42,6 +45,7 @@ namespace hNext.WebClient.Tests
         public void InvokeSetsCollertions()
         {
             //Arrange
+            HashSet<string> modules = new HashSet<string>();
             var cRep = new Mock<ICountryRepository>();
             cRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Country>
             {
@@ -74,7 +78,7 @@ namespace hNext.WebClient.Tests
             Components.PersonEditorViewComponent component = new Components.PersonEditorViewComponent(cRep.Object, gRep.Object, sTRep.Object, cTRep.Object);
 
             //Act
-            var result = (component.InvokeAsync().Result as ViewViewComponentResult).ViewData.Model as PersonEditorViewModel;
+            var result = (component.InvokeAsync(modules).Result as ViewViewComponentResult).ViewData.Model as PersonEditorViewModel;
 
             //Arrange
             Assert.IsNotNull(result);
@@ -82,6 +86,29 @@ namespace hNext.WebClient.Tests
             Assert.AreEqual(result.Genders.Count(), 2);
             Assert.AreEqual(result.CityTypes.Count(), 3);
             Assert.AreEqual(result.StreetTypes.Count(), 3);
+        }
+
+        [TestMethod]
+        public void InvokePopulatesModulesSet()
+        {
+            //Arrange
+            HashSet<string> modules = new HashSet<string>();
+            var cRep = new Mock<ICountryRepository>();
+            cRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Country>() as IEnumerable<Country>));
+            var gRep = new Mock<IRepository<Gender>>();
+            gRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Gender>() as IEnumerable<Gender>));
+            var cTRep = new Mock<IRepository<CityType>>();
+            cTRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<CityType>() as IEnumerable<CityType>));
+            var sTRep = new Mock<IRepository<StreetType>>();
+            sTRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<StreetType>() as IEnumerable<StreetType>));
+
+            Components.PersonEditorViewComponent component = new Components.PersonEditorViewComponent(cRep.Object, gRep.Object, sTRep.Object, cTRep.Object);
+
+            //Act
+            var result = component.InvokeAsync(modules);
+
+            //Assert
+            Assert.IsTrue(modules.Contains(nameof(ConfirmationDialogViewComponent).ViewComponentName()));
         }
     }
 }

@@ -10,7 +10,9 @@ Vue.component('PersonEditor', {
             cities: [],
             streets: [],
             placesOfBirth: [],
-            enabled: true
+            enabled: true,
+            quitConfirmation: false,
+            saveConfirmation: false
         }
     },
     props:["initialPerson", "level"],
@@ -26,10 +28,24 @@ Vue.component('PersonEditor', {
     },
     methods: {
         close: function () {
-            this.$emit('quit');
+            this.enabled = false;
+            this.quitConfirmation = true;
         },
         save: function () {
             this.$emit('save', this.person);
+        },
+        closeConfirmed: function() {
+            this.$emit('quit');
+        },
+        closeQuited: function () {
+            this.quitConfirmation = false;
+            this.enabled = true;
+        },
+        saveConfirmed: function () {
+
+        },
+        saveQuitted() {
+
         },
         newPerson: function () {
             return {

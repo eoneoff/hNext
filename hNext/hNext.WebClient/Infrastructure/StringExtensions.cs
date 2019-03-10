@@ -7,7 +7,7 @@ namespace hNext.WebClient.Infrastructure
 {
     public static class StringExtensions
     {
-        public static string VewComponentName(this string name)
+        public static string ViewComponentName(this string name)
         {
             return name.Replace("ViewComponent", "");
         }

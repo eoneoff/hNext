@@ -21,7 +21,7 @@ namespace hNext.WebClient.Components
 
         public async  Task<IViewComponentResult> InvokeAsync(HashSet<string> modules)
         {
-            modules.Add(nameof(PersonEditorViewComponent).VewComponentName());
+            modules.Add(nameof(PersonEditorViewComponent).ViewComponentName());
             return View(new PatientSearchViewModel
             {
                 Regions = await _repository.Get()

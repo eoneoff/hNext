@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using hNext.IRepository;
+using hNext.WebClient.Infrastructure;
 
 namespace hNext.WebClient.Components
 {
@@ -27,8 +28,9 @@ namespace hNext.WebClient.Components
             _streetTypeRepository = streetTypeRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(HashSet<string> modules)
         {
+            modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
             PersonEditorViewModel model = new PersonEditorViewModel
             {
                 Genders = await _genderRepository.Get(),

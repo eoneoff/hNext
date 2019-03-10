@@ -3,6 +3,9 @@
 
 <template id="person-editor-template">
     <div class="d-flex modal-window flex-column" :style="{zIndex: level*1000}">
+        <confirmation-dialog v-if="quitConfirmation" :level="level+1"
+            @@yes="closeConfirmed" @@no="closeQuited" message="@Resources.CancelAndExit?"></confirmation-dialog>
+        <confirmation-dialog v-if="saveConfirmation" :level="level+1"></confirmation-dialog>
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click="close">
                 <i class="fa fa-times"></i>
