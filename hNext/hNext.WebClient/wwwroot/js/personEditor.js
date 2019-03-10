@@ -32,7 +32,10 @@ Vue.component('PersonEditor', {
             this.quitConfirmation = true;
         },
         save: function () {
-            this.$emit('save', this.person);
+            if ($(this.$el).valid()) {
+                this.enabled = false;
+                this.saveConfirmation = true;
+            }
         },
         closeConfirmed: function() {
             this.$emit('quit');
@@ -42,10 +45,11 @@ Vue.component('PersonEditor', {
             this.enabled = true;
         },
         saveConfirmed: function () {
-
+            this.$emit('save', this.person);
         },
         saveQuitted() {
-
+            this.saveConfirmation = false;
+            this.enabled = true;
         },
         newPerson: function () {
             return {
@@ -73,9 +77,6 @@ Vue.component('PersonEditor', {
         }
     },
     watch: {
-        display: function (val) {
-            
-        },
         'person.address.countryId': async function (val) {
             let tempRegions = [];
             let tempCities = [];
@@ -197,5 +198,8 @@ Vue.component('PersonEditor', {
                 this.placesOfBirth.push(...await DATA_CLIENT.getCitiesByCountry(this.initialPerson.countryOfBirthId));
             }
         }
+    },
+    mounted: function () {
+        $.validator.unobtrusive.parse($(this.$el))
     }
 });

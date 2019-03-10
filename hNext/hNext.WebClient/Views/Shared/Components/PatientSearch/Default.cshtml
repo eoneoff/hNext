@@ -6,7 +6,7 @@
         <person-editor v-if="showPersonEditor" @@quit="patientEditorQuited" @@save="savePatient"
             :initial-person="selectedPatient.person" level="1"></person-editor>
         <div class="f-flex flex-column flex-grow-1 mt-2">
-            <div class="d-flex justify-content-md-between flex-column flex-md-row flex-wrap">
+            <form class="d-flex justify-content-md-between flex-column flex-md-row flex-wrap">
                 <div class="form-group row flex-md-nowrap flex-fill">
                     <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.Name"></label>
                     <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
@@ -53,10 +53,10 @@
                     </div>
                 </div>
                 <div class="d-flex flex-column flex-md-row flex-md-nowrap ml-md-auto">
-                    <button class="btn btn-primary mr-md-1 mb-2 mb-md-0" @@click="searchPatients" :disabled="searching || !enabled">@Localizer[nameof(Resources.Search)]</button>
+                    <button class="btn btn-primary mr-md-1 mb-2 mb-md-0" @@click.stop.prevent ="searchPatients" :disabled="searching || !enabled">@Localizer[nameof(Resources.Search)]</button>
                     <button class="btn btn-primary mr-md-2" :disabled="searching || !enabled" @@click="createNewPatient">@Localizer[nameof(Resources.NewPatient)]</button>
                 </div>
-            </div>
+            </form>
             <div class="mt-2 table-responsive-vertical">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-light">

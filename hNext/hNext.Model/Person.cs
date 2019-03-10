@@ -49,6 +49,8 @@ namespace hNext.Model
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Gender))]
+        [Required(ErrorMessageResourceType =typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.SelectGender))]
         public int GenderId { get; set; }
 
         [Display(ResourceType = typeof(Resources),
