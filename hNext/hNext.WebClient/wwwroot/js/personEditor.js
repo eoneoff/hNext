@@ -97,6 +97,8 @@ Vue.component('PersonEditor', {
             if (val) {
                 tempDistricts = await DATA_CLIENT.getDistrictsByRegion(val);
                 tempCities = await DATA_CLIENT.getCitiesByRegion(val);
+            } else if (this.person.address.countryId) {
+                tempCities = await DATA_CLIENT.getCitiesByCountry(this.person.address.countryId);
             }
 
             if (this.districts.length) {
@@ -116,6 +118,12 @@ Vue.component('PersonEditor', {
             
             if (val) {
                 tempCities = await DATA_CLIENT.getCitiesByDistrict(val);
+            } else {
+                if (this.person.address.regionId) {
+                    tempCities = await DATA_CLIENT.getCitiesByRegion(this.person.address.regionId);
+                } else if(this.person.address.countryId) {
+                    tempCities = await DATA_CLIENT.getCitiesByCountry(this.person.address.countryId);
+                }
             }
 
             if (this.cities.length) {
