@@ -3,7 +3,8 @@
 
 <template id="patient-search-template">
     <div>
-        <person-editor v-if="showPersonEditor" @@quit="patientEditorQuited" :initial-person="selectedPatient.person"></person-editor>
+        <person-editor v-if="showPersonEditor" @@quit="patientEditorQuited" @@save="savePatient"
+            :initial-person="selectedPatient.person" level="1"></person-editor>
         <div class="f-flex flex-column flex-grow-1 mt-2">
             <div class="d-flex justify-content-md-between flex-column flex-md-row flex-wrap">
                 <div class="form-group row flex-md-nowrap flex-fill">

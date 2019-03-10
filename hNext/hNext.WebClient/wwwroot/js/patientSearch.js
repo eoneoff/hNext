@@ -76,12 +76,17 @@ Vue.component('PatientSearch', {
             this.selectedPatient = { id: 0 };
             this.showPatientEditor();
         },
-        editPatient: function () {
-            
-        },
         showPatientEditor() {
             this.showPersonEditor = true;
             this.enabled = false;
+        },
+        savePatient(person) {
+            this.patientEditorQuited();
+            if (this.selectedPatient.person) {
+                this.selectedPatient.person = person;
+            } else {
+                
+            }
         },
         patientEditorQuited: function () {
             this.enabled = true;

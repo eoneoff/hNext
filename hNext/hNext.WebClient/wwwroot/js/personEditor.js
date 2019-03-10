@@ -9,27 +9,27 @@ Vue.component('PersonEditor', {
             districts: [],
             cities: [],
             streets: [],
-            placesOfBirth: []
+            placesOfBirth: [],
+            enabled: true
         }
     },
-    props:["initialPerson"],
+    props:["initialPerson", "level"],
     computed: {
         dateOfBirth: {
             get: function () {
                 return moment(this.person.dateOfBirth).format('YYYY-MM-DD')
             },
             set: function (date) {
-                person.dateOfBirth = Date.parse(date);
+                this.person.dateOfBirth = Date.parse(date);
             }
-        },
-        enabled: function () {
-            return true;
-        },
-
+        }
     },
     methods: {
         close: function () {
             this.$emit('quit');
+        },
+        save: function () {
+            this.$emit('save', this.person);
         },
         newPerson: function () {
             return {
