@@ -22,7 +22,7 @@ namespace hNext.WebClient.Tests
         public void DefaultReturnsView()
         {
             //Arrange
-            HashSet<string> modules = new HashSet<string>();
+            List<string> modules = new List<string>();
             var moq = new Mock<IRepository<Region>>();
             moq.Setup(m => m.Get()).Returns(Task.FromResult(default(IEnumerable<Region>)));
             Components.PatientSearchViewComponent component = new Components.PatientSearchViewComponent(moq.Object);

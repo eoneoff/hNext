@@ -3,13 +3,15 @@
 
 <template id="person-editor-template">
     <form class="d-flex modal-window flex-column" :style="{zIndex: level*1000}" id="patientEditorForm">
-        <confirmation-dialog v-if="quitConfirmation" :level="level+1"
-                             @@yes="closeConfirmed" @@no="closeQuited" message="@Resources.CancelAndExit?"></confirmation-dialog>
-        <confirmation-dialog v-if="saveConfirmation" :level="level+1"
-                             @@yes="saveConfirmed" @@no="saveQuitted" message="@Resources.SaveAndExit?"></confirmation-dialog>
+        <confirmation-dialog v-if="quitConfirmation" :level="level+1" @@yes="closeConfirmed" @@no="closeQuited">
+            @Resources.CancelAndExit?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="saveConfirmation" :level="level+1" @@yes="saveConfirmed" @@no="saveQuitted">
+            @Resources.SaveAndExit?
+        </confirmation-dialog>
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click="close">
-                <i class="fa fa-times"></i>
+                <i class="fas fa-times"></i>
             </button>
         </div>
         <div class="show-panel flex-column">

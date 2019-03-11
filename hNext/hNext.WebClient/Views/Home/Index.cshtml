@@ -5,59 +5,35 @@
     ViewData["Title"] = $"hNext — {Localizer[nameof(Resources.MedicalInformationSystem)]}";
 }
 
-<script>
-    const START_TAB = '@Model.Tabs.First().Key';
-    const START_SIDE_TAB = '@Model.SideBar.First().Key';
-</script>
-
-@await Component.InvokeAsync("MainView", new { model = Model })
-
-    @foreach (var tab in Model.Tabs)
-    {
-        @await Component.InvokeAsync(tab.Key, new { modules = Model.Modules })
-    }
-
-    @foreach (var sideTab in Model.SideBar)
-    {
-        @await Component.InvokeAsync(sideTab.Key)
-    }
-
-    @{ HashSet<string> modulesForModules = new HashSet<string>(); }
-    @foreach (var module in Model.Modules)
-    {
-        @await Component.InvokeAsync(module, new { modules = modulesForModules })
-    }
-
-    @{ modulesForModules.ExceptWith(Model.Modules);}
-
-    @foreach(var module in modulesForModules)
-    {
-        @await Component.InvokeAsync(module, new { modules = new HashSet<string>()})
-    }
-
-    @{ Model.Modules.UnionWith(modulesForModules);}
-
-
 <div id="app">
     <main-view></main-view>
 </div>
 
 
 @section Scripts
-    {
+{
+    <script>
+        const START_TAB = '@Model.Tabs.First().Key';
+        const START_SIDE_TAB = '@Model.SideBar.First().Key';
+    </script>
+
+    @await Component.InvokeAsync("MainView", new { model = Model })
     <script src="~/js/mainView.js" asp-append-version="true"></script>
 
-    @foreach (var module in Model.Modules)
+    @for (int i = 0; i < Model.Modules.Count; i++)
     {
-        <script src="@($"/js/{module.ToCamelCase()}.js")" asp-append-version="true"></script>
+        @await Component.InvokeAsync(Model.Modules[i], new { modules = Model.Modules })
+        <script src="@($"/js/{Model.Modules[i].ToCamelCase()}.js")" asp-append-version="true"></script>
     }
 
     @foreach (var tab in Model.Tabs)
     {
+        @await Component.InvokeAsync(tab.Key, new { modules = Model.Modules })
         <script src="@($"/js/{tab.Key.ToCamelCase()}.js")" asp-append-version="true"></script>
     }
     @foreach (var sideTab in Model.SideBar)
     {
+        @await Component.InvokeAsync(sideTab.Key)
         <script src="@($"/js/{sideTab.Key.ToCamelCase()}.js")" asp-append-version="true"></script>
     }
 

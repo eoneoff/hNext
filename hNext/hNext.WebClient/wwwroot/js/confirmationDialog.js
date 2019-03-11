@@ -2,5 +2,5 @@
 
 Vue.component('ConfirmationDialog', {
     template: '#confirmation-dialog-template',
-    props:['message','level']
+    props:['level']
 });

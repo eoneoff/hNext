@@ -3,7 +3,7 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "library": "vue@2.6.4",
+      "library": "vue@2.6.8",
       "destination": "wwwroot/lib/vue/"
     },
     {
@@ -15,7 +15,7 @@
       "destination": "wwwroot/lib/moment.js/"
     },
     {
-      "library": "font-awesome@4.7.0",
+      "library": "font-awesome@5.7.2",
       "destination": "wwwroot/lib/font-awesome/"
     },
     {

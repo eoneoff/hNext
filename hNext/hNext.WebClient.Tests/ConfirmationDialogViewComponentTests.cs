@@ -14,7 +14,7 @@ namespace hNext.WebClient.Tests
         public void IvokeReturnsCorrectResult()
         {
             //Arrange
-            HashSet<string> modules = new HashSet<string>();
+            List<string> modules = new List<string>();
             ConfirmationDialogViewComponent component = new ConfirmationDialogViewComponent();
 
             //Act
