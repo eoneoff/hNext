@@ -37,20 +37,31 @@ namespace hNext.DataService.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<ActionResult<Patient>> Post(Patient patient)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return await _repository.Post(patient);
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id:int}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<ActionResult<Patient>> Put(long id, Patient patient)
         {
-        }
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        // DELETE api/<controller>/5
-        [HttpDelete("{id:int}")]
-        public void Delete(int id)
-        {
+            if(!await _repository.Exists(id))
+            {
+                return BadRequest();
+            }
+
+            return await _repository.Put(patient);
         }
     }
 }

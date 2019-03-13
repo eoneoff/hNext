@@ -45,7 +45,7 @@ namespace hNext.WebClient.Tests
         public void InvokeSetsCollertions()
         {
             //Arrange
-            HashSet<string> modules = new HashSet<string>();
+            List<string> modules = new List<string>();
             var cRep = new Mock<ICountryRepository>();
             cRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Country>
             {
@@ -75,7 +75,7 @@ namespace hNext.WebClient.Tests
                 new StreetType()
             } as IEnumerable<StreetType>));
 
-            Components.PersonEditorViewComponent component = new Components.PersonEditorViewComponent(cRep.Object, gRep.Object, sTRep.Object, cTRep.Object);
+            PersonEditorViewComponent component = new PersonEditorViewComponent(cRep.Object, gRep.Object, sTRep.Object, cTRep.Object);
 
             //Act
             var result = (component.InvokeAsync(modules).Result as ViewViewComponentResult).ViewData.Model as PersonEditorViewModel;
@@ -92,7 +92,7 @@ namespace hNext.WebClient.Tests
         public void InvokePopulatesModulesSet()
         {
             //Arrange
-            HashSet<string> modules = new HashSet<string>();
+            List<string> modules = new List<string>();
             var cRep = new Mock<ICountryRepository>();
             cRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Country>() as IEnumerable<Country>));
             var gRep = new Mock<IRepository<Gender>>();
@@ -102,7 +102,7 @@ namespace hNext.WebClient.Tests
             var sTRep = new Mock<IRepository<StreetType>>();
             sTRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<StreetType>() as IEnumerable<StreetType>));
 
-            Components.PersonEditorViewComponent component = new Components.PersonEditorViewComponent(cRep.Object, gRep.Object, sTRep.Object, cTRep.Object);
+            PersonEditorViewComponent component = new PersonEditorViewComponent(cRep.Object, gRep.Object, sTRep.Object, cTRep.Object);
 
             //Act
             var result = component.InvokeAsync(modules);

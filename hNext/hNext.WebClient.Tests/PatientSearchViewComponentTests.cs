@@ -25,7 +25,7 @@ namespace hNext.WebClient.Tests
             List<string> modules = new List<string>();
             var moq = new Mock<IRepository<Region>>();
             moq.Setup(m => m.Get()).Returns(Task.FromResult(default(IEnumerable<Region>)));
-            Components.PatientSearchViewComponent component = new Components.PatientSearchViewComponent(moq.Object);
+            PatientSearchViewComponent component = new PatientSearchViewComponent(moq.Object);
 
             //Act
             var result = component.InvokeAsync(modules).Result;
@@ -38,10 +38,10 @@ namespace hNext.WebClient.Tests
         public void DefaultReturnsCorrectModel()
         {
             //Arrange
-            HashSet<string> modules = new HashSet<string>();
+            List<string> modules = new List<string>();
             var moq = new Mock<IRepository<Region>>();
             moq.Setup(m => m.Get()).Returns(Task.FromResult(new List<Region> { new Region(), new Region()} as IEnumerable<Region>));
-            Components.PatientSearchViewComponent component = new Components.PatientSearchViewComponent(moq.Object);
+            PatientSearchViewComponent component = new PatientSearchViewComponent(moq.Object);
 
             //Act
             var result = (component.InvokeAsync(modules).Result as ViewViewComponentResult).ViewData.Model as PatientSearchViewModel;
@@ -55,10 +55,10 @@ namespace hNext.WebClient.Tests
         public void DefaultPopulatesModules()
         {
             //Arrange
-            HashSet<string> modules = new HashSet<string>();
+            List<string> modules = new List<string>();
             var moq = new Mock<IRepository<Region>>();
             moq.Setup(m => m.Get()).Returns(Task.FromResult(default(IEnumerable<Region>)));
-            Components.PatientSearchViewComponent component = new PatientSearchViewComponent(moq.Object);
+            PatientSearchViewComponent component = new PatientSearchViewComponent(moq.Object);
 
             //Act
             var result = component.InvokeAsync(modules).Result;

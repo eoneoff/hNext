@@ -34,10 +34,12 @@ namespace hNext.DataService
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IPatientsRepository, PatientsRepository>();
+
+            services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
-            services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IRegionsRepository, RegionsRepository>();
             services.AddScoped<IDistrictsRepository, DistrictsRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
 
 
             services.AddCors(options =>

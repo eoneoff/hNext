@@ -14,11 +14,10 @@ namespace hNext.WebClient.Tests
         public void IvokeReturnsCorrectResult()
         {
             //Arrange
-            List<string> modules = new List<string>();
             ConfirmationDialogViewComponent component = new ConfirmationDialogViewComponent();
 
             //Act
-            var result = component.Invoke(modules) as ViewViewComponentResult;
+            var result = component.Invoke() as ViewViewComponentResult;
 
             //Assert
             Assert.IsNotNull(result);

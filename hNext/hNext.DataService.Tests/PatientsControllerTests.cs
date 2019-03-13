@@ -33,7 +33,7 @@ namespace hNext.DataService.Tests
         {
             //Arrange
             var moq = new Mock<IPatientsRepository>();
-            moq.Setup(m => m.Get(It.IsAny<int>())).Returns<int>(id => Task.FromResult(new Patient { Id = id }));
+            moq.Setup(m => m.Get(It.IsAny<long>())).Returns<long>(id => Task.FromResult(new Patient { Id = (int)id }));
             PatientsController controller = new PatientsController(moq.Object);
             int patientId = 3;
 

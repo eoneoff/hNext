@@ -33,7 +33,7 @@ namespace hNext.DataService.Tests
         {
             //Arrange
             var moq = new Mock<ICountryRepository>();
-            moq.Setup(m => m.Get(It.IsAny<int>())).Returns<int>(id => Task.FromResult(new Country { Id = id }));
+            moq.Setup(m => m.Get(It.IsAny<long>())).Returns<long>(id => Task.FromResult(new Country { Id = (int)id }));
             CountriesController controller = new CountriesController(moq.Object);
             int districtId = 3;
 

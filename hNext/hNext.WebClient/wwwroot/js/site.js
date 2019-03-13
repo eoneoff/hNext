@@ -35,6 +35,27 @@ class DataClient {
         return (await axios.get(`${this._apiServer}cities/${cityId}/streets`)).data;
     }
 
+    async checkAddressExists(address) {
+        return (await axios.post(
+            `${this._apiServer}addresses/exists`,
+            address
+        )).data;
+    }
+
+    async savePatient(patient) {
+        return (await axios.post(
+            `${this._apiServer}patients/${patient.id}`,
+            patient
+        )).data;
+    }
+
+    async editPatient(patient) {
+        return (await axios.put(
+            `${this._apiServer}patients`,
+            patient
+        )).data;
+    }
+
     async searchPatients(model) {
         return (await axios.post(
             `${this._apiServer}patients/search`,

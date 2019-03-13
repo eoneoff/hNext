@@ -25,9 +25,14 @@ namespace hNext.MSSQLCoreRepository
             return await dbSet.AsNoTracking().ToListAsync();
         }
 
-        public virtual async Task<T> Get(int id)
+        public virtual async Task<T> Get(long id)
         {
             return await dbSet.FindAsync(id);
+        }
+
+        public virtual async Task<bool> Exists(long id)
+        {
+            return await dbSet.FindAsync(id) != null; 
         }
     }
 }

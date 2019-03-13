@@ -8,7 +8,7 @@ namespace hNext.WebClient.Components
 {
     public class ConfirmationDialogViewComponent: ViewComponent
     {
-        public IViewComponentResult Invoke(List<string> modules)
+        public IViewComponentResult Invoke()
         {
             return View();
         }

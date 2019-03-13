@@ -11,7 +11,7 @@
 
 
 @section Scripts
-{
+    {
     <script>
         const START_TAB = '@Model.Tabs.First().Key';
         const START_SIDE_TAB = '@Model.SideBar.First().Key';
@@ -20,12 +20,6 @@
     @await Component.InvokeAsync("MainView", new { model = Model })
     <script src="~/js/mainView.js" asp-append-version="true"></script>
 
-    @for (int i = 0; i < Model.Modules.Count; i++)
-    {
-        @await Component.InvokeAsync(Model.Modules[i], new { modules = Model.Modules })
-        <script src="@($"/js/{Model.Modules[i].ToCamelCase()}.js")" asp-append-version="true"></script>
-    }
-
     @foreach (var tab in Model.Tabs)
     {
         @await Component.InvokeAsync(tab.Key, new { modules = Model.Modules })
@@ -33,8 +27,14 @@
     }
     @foreach (var sideTab in Model.SideBar)
     {
-        @await Component.InvokeAsync(sideTab.Key)
+        @await Component.InvokeAsync(sideTab.Key, new { modules = Model.Modules })
         <script src="@($"/js/{sideTab.Key.ToCamelCase()}.js")" asp-append-version="true"></script>
+    }
+
+    @for (int i = 0; i < Model.Modules.Count; i++)
+    {
+        @await Component.InvokeAsync(Model.Modules[i], new { modules = Model.Modules })
+        <script src="@($"/js/{Model.Modules[i].ToCamelCase()}.js")" asp-append-version="true"></script>
     }
 
     <script>

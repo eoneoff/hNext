@@ -17,7 +17,7 @@ namespace hNext.MSSQLCoreRepository
         public override async Task<IEnumerable<City>> Get() =>
             await dbSet.Include(c => c.CityType).AsNoTracking().ToListAsync();
 
-        public override async Task<City> Get(int id) =>
+        public override async Task<City> Get(long id) =>
             await dbSet.Include(c => c.CityType).SingleOrDefaultAsync(c => c.Id == id);
 
         public async Task<IEnumerable<Street>> GetStreets(int id)

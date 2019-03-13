@@ -47,7 +47,7 @@ namespace hNext.MSSQLCoreRepository.Tests
 
             var dbSet = patients.AsQueryable().BuildMockDbSet();
             int patientId = 2;
-            dbSet.Setup(d => d.FindAsync(It.IsAny<int>()))
+            dbSet.Setup(d => d.FindAsync(It.IsAny<long>()))
                 .Returns<object>(id => Task.FromResult(new Patient { Id = patientId}));
             var context = new Mock<hNextDbContext>(new DbContextOptions<hNextDbContext>());
             context.Setup(c => c.Set<Patient>()).Returns(dbSet.Object);
