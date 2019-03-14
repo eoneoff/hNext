@@ -35,62 +35,43 @@ namespace hNext.MSSQLCoreRepository
 
         public override async Task<Person> Post(Person item)
         {
-            return await PersonChange(item, (person) => dbSet.Add(person),
-                async (address) => await new AddressRepository(db).Post(address));
+            dbSet.Update(item);
+            await db.SaveChangesAsync();
+            return await dbSet
+                .Include(p => p.Address).ThenInclude(a => a.Country)
+                .Include(p => p.Address).ThenInclude(a => a.Region)
+                .Include(p => p.Address).ThenInclude(a => a.District)
+                .Include(p => p.Address).ThenInclude(a => a.City).ThenInclude(c => c.CityType)
+                .Include(p => p.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
+                .Include(p => p.CountryOfBirth)
+                .Include(p => p.PlaceOfBirth)
+                .Include(p => p.Gender)
+                .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 
         public override async Task<Person> Put(Person item)
         {
-            return await PersonChange(item, (person) => db.Entry(person).State = EntityState.Modified,
-                async (address) => await new AddressRepository(db).Put(address));
-        }
-
-        private async Task<Person> PersonChange(Person person, Action<Person> action, Func<Address, Task<Address>> addressAction)
-        {
-            Person propertyStore = new Person();
-            StoreDependencyProperties(person, propertyStore);
-            Address address = person.Address;
-            if (address != null)
-            {
-                address = await addressAction(address);
-                person.Address = null;
-                person.AddressId = address.Id;
-            }
-
-            action(person);
+            dbSet.Update(item);
             await db.SaveChangesAsync();
-
             return await dbSet
-            .Include(p => p.Address).ThenInclude(a => a.Region)
-            .Include(p => p.Address).ThenInclude(a => a.District)
-            .Include(p => p.Address).ThenInclude(a => a.City).ThenInclude(c => c.CityType)
-            .Include(p => p.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
-            .Include(p => p.CountryOfBirth)
-            .Include(p => p.PlaceOfBirth)
-            .Include(p => p.Gender)
-            .AsNoTracking().SingleOrDefaultAsync(p => p.Id == person.Id);
+                .Include(p => p.Address).ThenInclude(a => a.Country)
+                .Include(p => p.Address).ThenInclude(a => a.Region)
+                .Include(p => p.Address).ThenInclude(a => a.District)
+                .Include(p => p.Address).ThenInclude(a => a.City).ThenInclude(c => c.CityType)
+                .Include(p => p.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
+                .Include(p => p.CountryOfBirth)
+                .Include(p => p.PlaceOfBirth)
+                .Include(p => p.Gender)
+                .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 
-        private void StoreDependencyProperties(Person source, Person destination)
+        public async Task<long?> Exists(Person person)
         {
-            destination.CountryOfBirth = source.CountryOfBirth;
-            source.CountryOfBirth = null;
-            destination.PlaceOfBirth = source.PlaceOfBirth;
-            source.PlaceOfBirth = null;
-            destination.Gender = source.Gender;
-            source.Gender = null;
-            destination.Phones = source.Phones;
-            source.Phones = null;
-            destination.Emails = source.Emails;
-            source.Emails = null;
-            destination.Patient = source.Patient;
-            source.Patient = null;
-            destination.Guardians = source.Guardians;
-            source.Guardians = null;
-            destination.Wards = source.Wards;
-            source.Wards = null;
-            destination.Documents = source.Documents;
-            source.Documents = null;
+            return (await dbSet.SingleOrDefaultAsync(p => p.Id != person.Id
+                                                    && p.FirstName == person.FirstName
+                                                    && p.FamilyName == person.FamilyName
+                                                    && p.Patronimic == person.Patronimic
+                                                    && p.DateOfBirth == person.DateOfBirth))?.Id;
         }
     }
 }

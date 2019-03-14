@@ -132,3 +132,7 @@ footer {
 
 .btn-danger:hover {
   background-image: linear-gradient(#FF8367, #FF2020 70%); }
+
+/*confirmation dialog*/
+.confirmation-dialog {
+  width: 400px; }

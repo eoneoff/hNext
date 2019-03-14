@@ -42,16 +42,37 @@ class DataClient {
         )).data;
     }
 
+    async createPerson(person) {
+        return (await axios.post(
+            `${this._apiServer}people`,
+            person
+        )).data;
+    }
+
+    async savePerson(person) {
+        return (await axios.put(
+            `${this._apiServer}people/${person.id}`,
+            person
+        )).data;
+    }
+
+    async checkPersonExists(person) {
+        return (await axios.post(
+            `${this._apiServer}people/exists`,
+            person
+        )).data;
+    }
+
     async savePatient(patient) {
         return (await axios.post(
-            `${this._apiServer}patients/${patient.id}`,
+            `${this._apiServer}patients`,
             patient
         )).data;
     }
 
     async editPatient(patient) {
         return (await axios.put(
-            `${this._apiServer}patients`,
+            `${this._apiServer}patients/${patient.id}`,
             patient
         )).data;
     }

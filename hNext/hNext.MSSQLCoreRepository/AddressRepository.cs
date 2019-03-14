@@ -16,55 +16,38 @@ namespace hNext.MSSQLCoreRepository
 
         public override async Task<Address> Post(Address item)
         {
-            return await AddressChange(item, (address) => dbSet.Add(address));
+            dbSet.Update(item);
+            await db.SaveChangesAsync();
+            return await dbSet
+                .Include(a=> a.Country)
+                .Include(a => a.Region)
+                .Include(a => a.District)
+                .Include(a => a.City).ThenInclude(c => c.CityType)
+                .Include(a => a.Street).ThenInclude(s => s.StreetType)
+                .AsNoTracking().SingleOrDefaultAsync(a => a.Id == item.Id);
         }
 
         public override async Task<Address> Put(Address item)
         {
-            return await AddressChange(item, (address) => db.Entry(address).State = EntityState.Modified);
+            dbSet.Update(item);
+            await db.SaveChangesAsync();
+            return await dbSet
+                .Include(a => a.Country)
+                .Include(a => a.Region)
+                .Include(a => a.District)
+                .Include(a => a.City).ThenInclude(c => c.CityType)
+                .Include(a => a.Street).ThenInclude(s => s.StreetType)
+                .AsNoTracking().SingleOrDefaultAsync(a => a.Id == item.Id);
         }
 
         public async Task<long?> Exists(Address address)
         {
-            return (await dbSet.SingleOrDefaultAsync(a => a.CountryId == address.CountryId
+            return (await dbSet.SingleOrDefaultAsync(a => a.Id != address.Id
+                                                    && a.CountryId == address.CountryId
                                                     && a.CityId == address.CityId
                                                     && a.StreetId == address.StreetId
                                                     && a.Building == address.Building
                                                     && a.Apartment == address.Apartment))?.Id;
-        }
-
-        private async Task<Address> AddressChange(Address address, Action<Address> action)
-        {
-            Address properyStore = new Address();
-            StoreDependencyProperties(address, properyStore);
-
-            action(address);
-            await db.SaveChangesAsync();
-
-            return await dbSet
-            .Include(a => a.Region)
-            .Include(a => a.District)
-            .Include(a => a.City).ThenInclude(c => c.CityType)
-            .Include(a => a.Street).ThenInclude(s => s.StreetType)
-            .AsNoTracking().SingleOrDefaultAsync(a => a.Id == address.Id);
-        }
-
-        private void StoreDependencyProperties(Address source, Address destination)
-        {
-            destination.Country = source.Country;
-            source.Country = null;
-            destination.Region = source.Region;
-            source.Region = null;
-            destination.District = source.District;
-            source.District = null;
-            destination.City = source.City;
-            source.City = null;
-            destination.Street = source.Street;
-            source.Street = null;
-            destination.AddressType = source.AddressType;
-            source.AddressType = null;
-            destination.People = source.People;
-            source.People = null;
         }
     }
 }

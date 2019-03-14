@@ -1,7 +1,7 @@
 ﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
 
 <template id="confirmation-dialog-template">
-    <div class="d-flex modal-window flex-column" :style="{zIndex: level*1000}">
+    <div class="d-flex modal-window flex-column confirmation-dialog" :style="{zIndex: level*1000}">
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" @@click="$emit('no')">
                 <i class="fa fa-times"></i>
@@ -12,8 +12,8 @@
                 <slot></slot>
             </div>
             <div class="d-flex flex-row flex-nowrap mt-2">
-                <button class="btn btn-primary" @@click.stop.prevent="$emit('yes')">@Localizer[nameof(Resources.Yes)]</button>
-                <button class="btn btn-danger ml-auto" @@click.stop.prevent="$emit('no')">@Localizer[nameof(Resources.No)]</button>
+                <button class="btn btn-primary" @@click.stop.prevent="$emit('yes')"><slot name='yes-button'>@Localizer[nameof(Resources.Yes)]</slot></button>
+                <button class="btn btn-danger ml-auto" @@click.stop.prevent="$emit('no')"><slot name="no-button">@Localizer[nameof(Resources.No)]</slot></button>
             </div>
         </div>
     </div>

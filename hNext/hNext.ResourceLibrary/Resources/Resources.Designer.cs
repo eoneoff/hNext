@@ -70,6 +70,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to вже існує.
+        /// </summary>
+        public static string AlreadyExists {
+            get {
+                return ResourceManager.GetString("AlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Квартира.
         /// </summary>
         public static string Apartment {
@@ -516,6 +525,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SelectType {
             get {
                 return ResourceManager.GetString("SelectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Присвоїти цю адресу новій особі.
+        /// </summary>
+        public static string SetExistingAddress {
+            get {
+                return ResourceManager.GetString("SetExistingAddress", resourceCulture);
             }
         }
         

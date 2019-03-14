@@ -9,6 +9,18 @@
         <confirmation-dialog v-if="saveConfirmation" :level="level+1" @@yes="saveConfirmed" @@no="saveQuitted">
             @Resources.SaveAndExit?
         </confirmation-dialog>
+        <confirmation-dialog v-if="addressConfirmation" :level="level+1" @@yes="addressConfirmed" @@no="addressQuitted">
+            @Resources.Address
+            + {{ ` ${person.address.country.name}`
+                + person.address.region ? ` ${person.address.region.name}` : ''
+                + person.address.district ? ` ${person.address.district.name}` : ''
+                + ` ${person.address.city.cityType.name} ${person.address.city.name}`
+                + person.address.street ? ` ${person.address.street.streetType.name} ${person.address.street.name}` : ''
+                + person.address.building ? ` ${person.address.building}` : ''
+                + person.address.apartment ? ` ${person.address.apartment}` : ''}}
+            + &nbsp;@Resources.AlreadyExists. @Resources.SetExistingAddress?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="addressChangedConfirmation"></confirmation-dialog>
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click="close">
                 <i class="fas fa-times"></i>

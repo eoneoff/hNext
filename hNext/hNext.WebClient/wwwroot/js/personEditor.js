@@ -12,7 +12,9 @@ Vue.component('PersonEditor', {
             placesOfBirth: [],
             enabled: true,
             quitConfirmation: false,
-            saveConfirmation: false
+            saveConfirmation: false,
+            addressConfirmation: false,
+            addressChangedConfirmation: false
         }
     },
     props:["initialPerson", "level"],
@@ -37,6 +39,7 @@ Vue.component('PersonEditor', {
                 this.saveConfirmation = true;
             }
         },
+
         closeConfirmed: function() {
             this.$emit('quit');
         },
@@ -44,12 +47,66 @@ Vue.component('PersonEditor', {
             this.quitConfirmation = false;
             this.enabled = true;
         },
-        saveConfirmed: function () {
+
+        saveConfirmed: async function () {
+            this.saveConfirmation = false;
+            if (!this.person.id) {
+                let person = await this.createPerson();
+                if (!person) {
+                    return;
+                } else {
+                    this.person = person;
+                }
+            } else {
+                this.person = await this.editPerson();
+            }
             this.$emit('save', this.person);
         },
-        saveQuitted() {
+        saveQuitted: function() {
             this.saveConfirmation = false;
             this.enabled = true;
+        },
+
+        createPerson: async function() {
+            let addressId = DATA_CLIENT.checkAddressExists(this.editPerson.address);
+            if (addressId) {
+                this.person.addressId = addressId;
+                this.confirmAddress();
+                return;
+            }
+            return await DATA_CLIENT.createPerson(person);
+        },
+
+        confirmAddress: function () {
+            this.addressConfirmation = true;
+            this.enabled = false;
+        },
+        addressConfirmed: async function () {
+            this.person.address = {};
+            this.person = await DATA_CLIENT.createPerson(person);
+            this.$emit('save', this.person);
+        },
+        addressQuitted: function () {
+            this.addressConfirmation = false;
+            this.enabled = true;
+        },
+        
+        editPerson: async function() {
+            if (this.addressChanged()) {
+
+            }
+            this.person = await DATA_CLIENT.savePerson(this.person);
+            this.$emit('save', this.person);
+        },
+
+        addressChanged: function () {
+            return this.initialPerson.address.countryId != this.person.address.countryId
+                || this.initialPerson.address.regionId != this.person.address.regionId
+                || this.initialPerson.address.districtId != this.person.address.districtId
+                || this.initialPerson.address.cityId != this.person.address.cityId
+                || this.initialPerson.address.streetId != this.persson.address.streetId
+                || this.initialPerson.address.building != this.person.address.building
+                || this.initialPerson.address.apartment != this.person.address.apartment;
         },
         newPerson: function () {
             return {
