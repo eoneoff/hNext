@@ -76,16 +76,21 @@ Vue.component('PatientSearch', {
             this.selectedPatient = { id: 0 };
             this.showPatientEditor();
         },
-        showPatientEditor() {
+        showPatientEditor: function() {
             this.showPersonEditor = true;
             this.enabled = false;
         },
-        savePatient(person) {
+        savePatient: async function(person) {
             this.patientEditorQuited();
-            if (this.selectedPatient.person) {
-                this.selectedPatient.person = person;
+            if (this.selectedPatient.personId) {
+                this.selectedPatient.personId = person.id;
+                this.selectedPatient = await DATA_CLIENT.editPatient(this.selectedPatient);
             } else {
-                
+                let patient = { personId: person.id };
+                this.foundPatients.splice(0);
+                patient = await DATA_CLIENT.savePatient(patient);
+                this.foundPatients.push(patient);
+                this.selectedPatient = patient;
             }
         },
         patientEditorQuited: function () {

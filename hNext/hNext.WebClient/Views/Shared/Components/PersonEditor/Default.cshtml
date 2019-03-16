@@ -20,7 +20,11 @@
                 + person.address.apartment ? ` ${person.address.apartment}` : ''}}
             + &nbsp;@Resources.AlreadyExists. @Resources.SetExistingAddress?
         </confirmation-dialog>
-        <confirmation-dialog v-if="addressChangedConfirmation"></confirmation-dialog>
+        <confirmation-dialog v-if="addressChangedConfirmation" @@yes="changeAddress" @@no="createAddress">
+            <template #yes-button>@Resources.Create</template>
+            <template #no-button>@Resources.Change</template>
+            @Resources.AddressChanged @Resources.ChangeOrCreate?
+        </confirmation-dialog>
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click="close">
                 <i class="fas fa-times"></i>

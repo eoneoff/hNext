@@ -120,6 +120,9 @@
   <data name="Address" xml:space="preserve">
     <value>Адреса</value>
   </data>
+  <data name="AddressChanged" xml:space="preserve">
+    <value>Адресу змінено</value>
+  </data>
   <data name="AlreadyExists" xml:space="preserve">
     <value>вже існує</value>
   </data>
@@ -135,6 +138,12 @@
   <data name="CancelAndExit" xml:space="preserve">
     <value>Відмінити зміни та вийти</value>
   </data>
+  <data name="Change" xml:space="preserve">
+    <value>Змінити</value>
+  </data>
+  <data name="ChangeOrCreate" xml:space="preserve">
+    <value>Ви бажаєте змінити існуючий запис чи створити новий</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>Населений пункт</value>
   </data>
@@ -143,6 +152,9 @@
   </data>
   <data name="CountryOfBirth" xml:space="preserve">
     <value>Країна народження</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Створити</value>
   </data>
   <data name="DateOfBirth" xml:space="preserve">
     <value>Дата народження</value>

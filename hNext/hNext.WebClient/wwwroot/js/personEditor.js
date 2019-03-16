@@ -21,10 +21,10 @@ Vue.component('PersonEditor', {
     computed: {
         dateOfBirth: {
             get: function () {
-                return moment(this.person.dateOfBirth).format('YYYY-MM-DD')
+                return this.person.dateOfBirth;
             },
             set: function (date) {
-                this.person.dateOfBirth = Date.parse(date);
+                this.person.dateOfBirth = date;
             }
         }
     },
@@ -33,14 +33,7 @@ Vue.component('PersonEditor', {
             this.enabled = false;
             this.quitConfirmation = true;
         },
-        save: function () {
-            if ($(this.$el).valid()) {
-                this.enabled = false;
-                this.saveConfirmation = true;
-            }
-        },
-
-        closeConfirmed: function() {
+        closeConfirmed: function () {
             this.$emit('quit');
         },
         closeQuited: function () {
@@ -48,55 +41,33 @@ Vue.component('PersonEditor', {
             this.enabled = true;
         },
 
+        save: function () {
+            if ($(this.$el).valid()) {
+                this.enabled = false;
+                this.saveConfirmation = true;
+            }
+        },
         saveConfirmed: async function () {
             this.saveConfirmation = false;
-            if (!this.person.id) {
-                let person = await this.createPerson();
-                if (!person) {
-                    return;
-                } else {
-                    this.person = person;
-                }
-            } else {
-                this.person = await this.editPerson();
+            let person = this.person.id ? this.editPerson() : await this.createPerson();
+            if (person) {
+                this.person = person;
+                this.$emit('save', this.person);
             }
-            this.$emit('save', this.person);
         },
         saveQuitted: function() {
             this.saveConfirmation = false;
             this.enabled = true;
         },
 
-        createPerson: async function() {
-            let addressId = DATA_CLIENT.checkAddressExists(this.editPerson.address);
-            if (addressId) {
-                this.person.addressId = addressId;
-                this.confirmAddress();
-                return;
-            }
-            return await DATA_CLIENT.createPerson(person);
+        createPerson: async function () {
+            this.person.addressId = 0;
+            this.person.address.id = 0;
+            this.person.address.addressTypeId = 2;
+            return await DATA_CLIENT.createPerson(this.person);
         },
+        editPerson: async function () {
 
-        confirmAddress: function () {
-            this.addressConfirmation = true;
-            this.enabled = false;
-        },
-        addressConfirmed: async function () {
-            this.person.address = {};
-            this.person = await DATA_CLIENT.createPerson(person);
-            this.$emit('save', this.person);
-        },
-        addressQuitted: function () {
-            this.addressConfirmation = false;
-            this.enabled = true;
-        },
-        
-        editPerson: async function() {
-            if (this.addressChanged()) {
-
-            }
-            this.person = await DATA_CLIENT.savePerson(this.person);
-            this.$emit('save', this.person);
         },
 
         addressChanged: function () {
@@ -114,7 +85,7 @@ Vue.component('PersonEditor', {
                 familyName: '',
                 patronimic: '',
                 genderId: '',
-                dateOfBirth: new Date(),
+                dateOfBirth: moment(new Date()).format('YYYY-MM-DD'),
                 countryOfBirthId: '',
                 placeOfBirthId: '',
                 taxId: '',

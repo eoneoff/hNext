@@ -37,19 +37,19 @@ namespace hNext.DataService.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public async Task<ActionResult<Patient>> Post(Patient patient)
+        public async Task<IActionResult> Post(Patient patient)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            return await _repository.Post(patient);
+            return Ok(await _repository.Post(patient));
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Patient>> Put(long id, Patient patient)
+        public async Task<IActionResult> Put(long id, Patient patient)
         {
             if(!ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace hNext.DataService.Controllers
                 return BadRequest();
             }
 
-            return await _repository.Put(patient);
+            return Ok(await _repository.Put(patient));
         }
     }
 }

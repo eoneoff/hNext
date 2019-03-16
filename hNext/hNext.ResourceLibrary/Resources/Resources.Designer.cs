@@ -70,6 +70,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Адресу змінено.
+        /// </summary>
+        public static string AddressChanged {
+            get {
+                return ResourceManager.GetString("AddressChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to вже існує.
         /// </summary>
         public static string AlreadyExists {
@@ -115,6 +124,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Змінити.
+        /// </summary>
+        public static string Change {
+            get {
+                return ResourceManager.GetString("Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ви бажаєте змінити існуючий запис чи створити новий.
+        /// </summary>
+        public static string ChangeOrCreate {
+            get {
+                return ResourceManager.GetString("ChangeOrCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Населений пункт.
         /// </summary>
         public static string City {
@@ -138,6 +165,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string CountryOfBirth {
             get {
                 return ResourceManager.GetString("CountryOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Створити.
+        /// </summary>
+        public static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
             }
         }
         

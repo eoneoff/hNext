@@ -34,6 +34,7 @@ namespace hNext.DataService
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IPatientsRepository, PatientsRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
