@@ -40,14 +40,28 @@ namespace hNext.MSSQLCoreRepository
                 .AsNoTracking().SingleOrDefaultAsync(a => a.Id == item.Id);
         }
 
-        public async Task<long?> Exists(Address address)
+        public async Task<Address> Exists(Address address)
         {
-            return (await dbSet.SingleOrDefaultAsync(a => a.Id != address.Id
+            if(string.IsNullOrWhiteSpace(address.Building))
+            {
+                address.Building = null;
+            }
+            if(string.IsNullOrWhiteSpace(address.Apartment))
+            {
+                address.Apartment = null;
+            }
+            return await dbSet
+                .Include(a => a.Country)
+                .Include(a => a.Region)
+                .Include(a => a.District)
+                .Include(a => a.City).ThenInclude(c => c.CityType)
+                .Include(a => a.Street).ThenInclude(s => s.StreetType)
+                .SingleOrDefaultAsync(a => a.Id != address.Id
                                                     && a.CountryId == address.CountryId
                                                     && a.CityId == address.CityId
                                                     && a.StreetId == address.StreetId
                                                     && a.Building == address.Building
-                                                    && a.Apartment == address.Apartment))?.Id;
+                                                    && a.Apartment == address.Apartment);
         }
     }
 }

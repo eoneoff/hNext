@@ -24,6 +24,6 @@ namespace hNext.DataService.Controllers
         public async Task<Address> Get(long id) => await _repository.Get(id);
 
         [HttpPost("exists")]
-        public async Task<long?> Exists(Address address) => await _repository.Exists(address);
+        public async Task<Address> Exists(Address address) => await _repository.Exists(address);
     }
 }

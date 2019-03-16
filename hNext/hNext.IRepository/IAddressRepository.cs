@@ -8,6 +8,6 @@ namespace hNext.IRepository
 {
     public interface IAddressRepository : IRepository<Address>
     {
-        Task<long?> Exists(Address address);
+        Task<Address> Exists(Address address);
     }
 }

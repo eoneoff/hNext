@@ -26,6 +26,14 @@ Vue.component('PersonEditor', {
             set: function (date) {
                 this.person.dateOfBirth = date;
             }
+        },
+        districtId: {
+            get: function () {
+                return this.person.districtId || '';
+            },
+            set: function (data) {
+                this.person.districtId = data;
+            }
         }
     },
     methods: {
@@ -61,11 +69,29 @@ Vue.component('PersonEditor', {
         },
 
         createPerson: async function () {
-            this.person.addressId = 0;
             this.person.address.id = 0;
-            this.person.address.addressTypeId = 2;
-            return await DATA_CLIENT.createPerson(this.person);
+            let address = await DATA_CLIENT.checkAddressExists(this.person.address);
+            if (address) {
+                this.person.address = address;
+                this.addressConfirmation = true;
+            } else {
+                this.person.addressId = 0;
+                this.person.address.addressTypeId = 2;
+                return await DATA_CLIENT.createPerson(this.person);
+            }
         },
+
+        addressConfirmed: async function () {
+            this.person.addressId = this.person.address.id;
+            this.person = await DATA_CLIENT.createPerson(this.person);
+            this.$emit('save', this.person);
+        },
+        addressQuitted: function () {
+            this.person.addressId = 0;
+            this.addressConfirmation = false;
+            this.enabled = true;
+        },
+
         editPerson: async function () {
 
         },
@@ -114,17 +140,21 @@ Vue.component('PersonEditor', {
                 tempCities = await DATA_CLIENT.getCitiesByCountry(val);
             }
 
-            if (this.regions.length) {
-                this.person.address.regionId = '';
-                this.regions.splice(0);
+            if ((this.person.address.region || {}).id != this.person.address.regionId) {
+                if (this.regions.length) {
+                    this.person.address.regionId = '';
+                    this.regions.splice(0);
+                }
+                this.regions.push(...tempRegions);
             }
-            this.regions.push(...tempRegions);
 
-            if (this.cities.length) {
-                this.person.address.cityId = '';
-                this.cities.splice(0);
+            if ((this.person.address.city || {}).id != this.person.address.cityId) {
+                if (this.cities.length) {
+                    this.person.address.cityId = '';
+                    this.cities.splice(0);
+                }
+                this.cities.push(...tempCities);
             }
-            this.cities.push(...tempCities);
         },
         'person.countryOfBirthId': async function (val) {
             if (this.placesOfBirth.length) {
@@ -146,17 +176,21 @@ Vue.component('PersonEditor', {
                 tempCities = await DATA_CLIENT.getCitiesByCountry(this.person.address.countryId);
             }
 
-            if (this.districts.length) {
-                this.person.address.districtId = '';
-                this.districts.splice(0);
+            if ((this.person.address.district || {}).regionId != val) {
+                if (this.districts.length) {
+                    this.person.address.districtId = '';
+                    this.districts.splice(0);
+                }
+                this.districts.push(...tempDistricts);
             }
-            this.districts.push(...tempDistricts);
 
-            if (this.cities.length) {
-                this.person.address.cityId = '';
-                this.cities.splice(0);
+            if ((this.person.address.city || {}).regionId != val) {
+                if (this.cities.length) {
+                    this.person.address.cityId = '';
+                    this.cities.splice(0);
+                }
+                this.cities.push(...tempCities);
             }
-            this.cities.push(...tempCities);
         },
         'person.address.districtId': async function (val) {
             let tempCities = [];
@@ -171,11 +205,13 @@ Vue.component('PersonEditor', {
                 }
             }
 
-            if (this.cities.length) {
-                this.person.address.cityId = '';
-                this.cities.splice(0);
+            if ((this.person.address.city || {}).districtId != val) {
+                if (this.cities.length) {
+                    this.person.address.cityId = '';
+                    this.cities.splice(0);
+                }
+                this.cities.push(...tempCities);
             }
-            this.cities.push(...tempCities);
         },
         'person.address.cityId': async function (val) {
             if (this.streets.length) {
@@ -189,6 +225,13 @@ Vue.component('PersonEditor', {
             if (!this.person.address.city
                 || this.person.address.city.id != this.person.address.cityId) {
                 this.person.address.city = this.cities.find(city => city.id == val);
+            }
+
+            if (!this.person.address.regionId) {
+                this.person.address.regionId = (this.person.address.city || {}).regionId || '';
+            }
+            if (!this.person.address.districtId) {
+                this.person.address.districtId = (this.person.address.city || {}).districtId || '';
             }
         },
         'person.address.streetId': function (val) {

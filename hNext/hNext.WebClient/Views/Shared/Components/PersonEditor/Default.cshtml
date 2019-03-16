@@ -11,14 +11,14 @@
         </confirmation-dialog>
         <confirmation-dialog v-if="addressConfirmation" :level="level+1" @@yes="addressConfirmed" @@no="addressQuitted">
             @Resources.Address
-            + {{ ` ${person.address.country.name}`
-                + person.address.region ? ` ${person.address.region.name}` : ''
-                + person.address.district ? ` ${person.address.district.name}` : ''
-                + ` ${person.address.city.cityType.name} ${person.address.city.name}`
-                + person.address.street ? ` ${person.address.street.streetType.name} ${person.address.street.name}` : ''
-                + person.address.building ? ` ${person.address.building}` : ''
-                + person.address.apartment ? ` ${person.address.apartment}` : ''}}
-            + &nbsp;@Resources.AlreadyExists. @Resources.SetExistingAddress?
+            {{ ` ${person.address.country.name}`
+                + (person.address.region ? `, ${person.address.region.name} @Resources.Region.ToLower()` : '')
+                + (person.address.district ? `, ${person.address.district.name} @Resources.District.ToLower()` : '')
+                + `, ${person.address.city.cityType.name} ${person.address.city.name}`
+                + (person.address.street ? `, ${person.address.street.streetType.name} ${person.address.street.name}` : '')
+                + (person.address.building ? `, @Resources.Building.ToLower() ${person.address.building}` : '')
+                + (person.address.apartment ? `, @Resources.Apartment.ToLower() ${person.address.apartment}` : '') }}
+             @Resources.AlreadyExists. @Resources.SetExistingAddress?
         </confirmation-dialog>
         <confirmation-dialog v-if="addressChangedConfirmation" @@yes="changeAddress" @@no="createAddress">
             <template #yes-button>@Resources.Create</template>
@@ -121,7 +121,7 @@
                             <td>
                                 <select class="form-control" asp-for="Person.Address.DistrictId"
                                         asp-items="@new SelectList(Model.Districts, nameof(District.Id),nameof(District.Name))"
-                                        :disabled="!enabled" v-model="person.address.districtId">
+                                        :disabled="!enabled" v-model="districtId">
                                     <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
                                     <option v-for="d in districts" :key="d.id" :value="d.id">{{ d.name }}</option>
                                 </select>
