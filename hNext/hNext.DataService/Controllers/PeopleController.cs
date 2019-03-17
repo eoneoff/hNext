@@ -24,7 +24,7 @@ namespace hNext.DataService.Controllers
         public async Task<Person> Get(int id) => await _repository.Get(id);
 
         [HttpPost("exists")]
-        public async Task<long?> Exists(Person person) => await _repository.Exists(person);
+        public async Task<Person> Exists(Person person) => await _repository.Exists(person);
 
         [HttpPost]
         public async Task<IActionResult> Post(Person person)
@@ -37,7 +37,7 @@ namespace hNext.DataService.Controllers
             return Ok(await _repository.Post(person));
         }
 
-        [HttpPut]
+        [HttpPut("{id:long}")]
         public async Task<IActionResult> Put(long id, Person person)
         {
             if(!ModelState.IsValid)

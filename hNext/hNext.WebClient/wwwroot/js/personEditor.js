@@ -21,10 +21,10 @@ Vue.component('PersonEditor', {
     computed: {
         dateOfBirth: {
             get: function () {
-                return this.person.dateOfBirth;
+                return moment(this.person.dateOfBirth).format('YYYY-MM-DD')
             },
-            set: function (date) {
-                this.person.dateOfBirth = date;
+            set: function (data) {
+                this.person.dateOfBirth = data;
             }
         },
         districtId: {
@@ -57,7 +57,7 @@ Vue.component('PersonEditor', {
         },
         saveConfirmed: async function () {
             this.saveConfirmation = false;
-            let person = this.person.id ? this.editPerson() : await this.createPerson();
+            let person = this.person.id ? await this.editPerson() : await this.createPerson();
             if (person) {
                 this.person = person;
                 this.$emit('save', this.person);
@@ -83,7 +83,7 @@ Vue.component('PersonEditor', {
 
         addressConfirmed: async function () {
             this.person.addressId = this.person.address.id;
-            this.person = await DATA_CLIENT.createPerson(this.person);
+            this.person = this.person.id ? await DATA_CLIENT.savePerson(this.person) : await DATA_CLIENT.createPerson(this.person);
             this.$emit('save', this.person);
         },
         addressQuitted: function () {
@@ -93,15 +93,38 @@ Vue.component('PersonEditor', {
         },
 
         editPerson: async function () {
-
+            if (this.addressChanged()) {
+                this.addressChangedConfirmation = true;
+            } else {
+                return await DATA_CLIENT.savePerson(this.person);
+            }
+        },
+        createAddress: async function () {
+            this.person.addressId = 0;
+            this.person.address.id = 0;
+            await this.changeAddress();
+        },
+        changeAddress: async function () {
+            let address = await DATA_CLIENT.checkAddressExists(this.person.address);
+            if (address) {
+                this.person.address = address;
+                this.addressConfirmation = true;
+            } else {
+                await DATA_CLIENT.savePerson(this.person);
+                this.$emit('save', this.person);
+            }
+        },
+        cancelAddressChanged: function () {
+            this.addressChangedConfirmation = false;
+            this.enabled = true;
         },
 
         addressChanged: function () {
-            return this.initialPerson.address.countryId != this.person.address.countryId
+            return  this.initialPerson.address.countryId != this.person.address.countryId
                 || this.initialPerson.address.regionId != this.person.address.regionId
                 || this.initialPerson.address.districtId != this.person.address.districtId
                 || this.initialPerson.address.cityId != this.person.address.cityId
-                || this.initialPerson.address.streetId != this.persson.address.streetId
+                || this.initialPerson.address.streetId != this.person.address.streetId
                 || this.initialPerson.address.building != this.person.address.building
                 || this.initialPerson.address.apartment != this.person.address.apartment;
         },

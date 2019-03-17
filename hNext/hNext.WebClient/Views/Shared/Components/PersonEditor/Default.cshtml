@@ -20,7 +20,7 @@
                 + (person.address.apartment ? `, @Resources.Apartment.ToLower() ${person.address.apartment}` : '') }}
              @Resources.AlreadyExists. @Resources.SetExistingAddress?
         </confirmation-dialog>
-        <confirmation-dialog v-if="addressChangedConfirmation" @@yes="changeAddress" @@no="createAddress">
+        <confirmation-dialog v-if="addressChangedConfirmation" cancel-button="true" @@yes="createAddress" @@no="changeAddress" @@cancel='cancelAddressChanged'>
             <template #yes-button>@Resources.Create</template>
             <template #no-button>@Resources.Change</template>
             @Resources.AddressChanged @Resources.ChangeOrCreate?

@@ -20,7 +20,7 @@ namespace hNext.DataService.Controllers
         [HttpGet]
         public async Task<IEnumerable<Address>> Get() => await _repository.Get();
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:long}")]
         public async Task<Address> Get(long id) => await _repository.Get(id);
 
         [HttpPost("exists")]

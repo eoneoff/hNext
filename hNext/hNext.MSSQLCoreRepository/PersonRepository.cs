@@ -65,13 +65,13 @@ namespace hNext.MSSQLCoreRepository
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 
-        public async Task<long?> Exists(Person person)
+        public async Task<Person> Exists(Person person)
         {
-            return (await dbSet.SingleOrDefaultAsync(p => p.Id != person.Id
+            return (await dbSet.AsNoTracking().SingleOrDefaultAsync(p => p.Id != person.Id
                                                     && p.FirstName == person.FirstName
                                                     && p.FamilyName == person.FamilyName
                                                     && p.Patronimic == person.Patronimic
-                                                    && p.DateOfBirth == person.DateOfBirth))?.Id;
+                                                    && p.DateOfBirth == person.DateOfBirth));
         }
     }
 }

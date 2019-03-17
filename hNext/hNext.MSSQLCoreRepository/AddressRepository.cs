@@ -50,7 +50,7 @@ namespace hNext.MSSQLCoreRepository
             {
                 address.Apartment = null;
             }
-            return await dbSet
+            return await dbSet.AsNoTracking()
                 .Include(a => a.Country)
                 .Include(a => a.Region)
                 .Include(a => a.District)

@@ -8,6 +8,6 @@ namespace hNext.IRepository
 {
     public interface IPersonRepository:IRepository<Person>
     {
-        Task<long?> Exists(Person person);
+        Task<Person> Exists(Person person);
     }
 }

@@ -32,7 +32,13 @@ namespace hNext.MSSQLCoreRepository
 
         public virtual async Task<bool> Exists(long id)
         {
-            return await dbSet.FindAsync(id) != null; 
+            var result = await dbSet.FindAsync(id);
+            if(result != null)
+            {
+                db.Entry(result).State = EntityState.Detached;
+            }
+
+            return result != null;
         }
     }
 }

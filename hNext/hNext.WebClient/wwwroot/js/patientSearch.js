@@ -83,8 +83,7 @@ Vue.component('PatientSearch', {
         savePatient: async function(person) {
             this.patientEditorQuited();
             if (this.selectedPatient.personId) {
-                this.selectedPatient.personId = person.id;
-                this.selectedPatient = await DATA_CLIENT.editPatient(this.selectedPatient);
+                this.selectedPatient.person = person;
             } else {
                 let patient = {  personId: person.id };
                 this.foundPatients.splice(0);

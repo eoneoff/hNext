@@ -2,5 +2,5 @@
 
 Vue.component('ConfirmationDialog', {
     template: '#confirmation-dialog-template',
-    props:['level']
+    props:['level', 'cancelButton']
 });

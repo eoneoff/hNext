@@ -48,7 +48,7 @@ namespace hNext.DataService.Controllers
         }
 
         // PUT api/<controller>/5
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:long}")]
         public async Task<IActionResult> Put(long id, Patient patient)
         {
             if(!ModelState.IsValid)
