@@ -29,10 +29,10 @@ Vue.component('PersonEditor', {
         },
         districtId: {
             get: function () {
-                return this.person.districtId || '';
+                return this.person.address.districtId || '';
             },
             set: function (data) {
-                this.person.districtId = data;
+                this.person.address.districtId = data;
             }
         }
     },
@@ -135,13 +135,13 @@ Vue.component('PersonEditor', {
                 patronimic: '',
                 genderId: '',
                 dateOfBirth: moment(new Date()).format('YYYY-MM-DD'),
-                countryOfBirthId: '',
+                countryOfBirthId: 71,
                 placeOfBirthId: '',
                 taxId: '',
                 addressId: '',
                 address: {
                     id: '',
-                    countryId: '',
+                    countryId: 71,
                     regionId: '',
                     districtId: '',
                     cityId: '',
@@ -291,6 +291,8 @@ Vue.component('PersonEditor', {
             if (this.initialPerson.countryOfBirthId) {
                 this.placesOfBirth.push(...await DATA_CLIENT.getCitiesByCountry(this.initialPerson.countryOfBirthId));
             }
+        } else {
+            this.regions.push(...await DATA_CLIENT.getRegionsByCountry(71));
         }
     },
     mounted: function () {

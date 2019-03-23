@@ -15,7 +15,7 @@ namespace hNext.MSSQLCoreRepository
         public CityRepository(hNextDbContext db) : base(db) { }
 
         public override async Task<IEnumerable<City>> Get() =>
-            await dbSet.Include(c => c.CityType).AsNoTracking().ToListAsync();
+            await dbSet.Include(c => c.CityType).OrderBy(c => c.Name).AsNoTracking().ToListAsync();
 
         public override async Task<City> Get(long id) =>
             await dbSet.Include(c => c.CityType).SingleOrDefaultAsync(c => c.Id == id);
@@ -24,6 +24,7 @@ namespace hNext.MSSQLCoreRepository
         {
             return await db.Streets.Where(s => s.CityId == id)
                 .Include(s => s.StreetType)
+                .OrderBy(s => s.Name)
                 .AsNoTracking().ToListAsync();
         }
     }

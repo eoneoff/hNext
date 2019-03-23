@@ -49,16 +49,16 @@ namespace hNext.DataService.Tests
         public void ExistsChecksCorrectly()
         {
             var moq = new Mock<IAddressRepository>();
-            long? id = 3;
-            moq.Setup(m => m.Exists(It.IsAny<Address>())).Returns(Task.FromResult(id));
+            Address address = new Address { Id = 5 };
+            moq.Setup(m => m.Exists(It.IsAny<Address>())).Returns(Task.FromResult(address));
             AddressesController controller = new AddressesController(moq.Object);
 
             //Act
             var result = controller.Exists(new Address()).Result;
 
             //Assert
-            Assert.IsInstanceOfType(result, typeof(long?));
-            Assert.AreEqual(id, result);
+            Assert.IsInstanceOfType(result, typeof(Address));
+            Assert.AreEqual(address.Id, result.Id);
         }
     }
 }

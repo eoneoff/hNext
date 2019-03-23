@@ -14,16 +14,22 @@ namespace hNext.MSSQLCoreRepository
     {
         public CountryRepository(hNextDbContext db) : base(db) { }
 
+        public override async Task<IEnumerable<Country>> Get()
+        {
+            return await dbSet.OrderBy(c => c.Name).AsNoTracking().ToListAsync();
+        }
+
         public async Task<IEnumerable<City>> GetCities(int id)
         {
             return await db.Cities.Where(c => c.CountryId == id).AsNoTracking()
                 .Include(c => c.CityType)
+                .OrderBy(c => c.Name)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Region>> GetRegions(int id)
         {
-            return await db.Regions.Where(r => r.CountryId == id).AsNoTracking().ToListAsync();
+            return await db.Regions.Where(r => r.CountryId == id).OrderBy(r => r.Name).AsNoTracking().ToListAsync();
         }
     }
 }
