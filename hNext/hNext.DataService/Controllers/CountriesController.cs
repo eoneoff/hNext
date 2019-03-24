@@ -29,5 +29,8 @@ namespace hNext.DataService.Controllers
 
         [HttpGet("{id:int}/cities")]
         public async Task<IEnumerable<City>> GetCities(int id) => await _repository.GetCities(id);
+
+        [HttpGet("{id:int}/byname/{starts}")]
+        public async Task<IEnumerable<City>> GetCitiesByName(int id, string starts) => await _repository.GetCitiesByName(id, starts);
     }
 }

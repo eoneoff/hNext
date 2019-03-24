@@ -32,8 +32,8 @@
         </div>
         <div class="show-panel flex-column">
             <div class="d-flex flex-column">
-                <div class="d-flex flex-row">
-                    <table>
+                <div class="d-flex flex-column flex-md-row align-items-md-stretch">
+                    <table class="table table-borderless table-sm">
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.FamilyName"></label></td>
                             <td>
@@ -80,11 +80,13 @@
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.PlaceOfBirthId"></label></td>
                             <td>
-                                <select class="form-control" asp-for="Person.PlaceOfBirthId"
+                                <input class="form-control" v-if="filteredPlacesOfBirth.length > 50" v-model="placeOfBirthName" :disabled="!enabled"/>
+                                <select v-if="filteredPlacesOfBirth.length <= 50" class="form-control" asp-for="Person.PlaceOfBirthId"
                                         asp-items="@new SelectList(Model.PlacesOfBirth, nameof(City.Id), nameof(City.Name))"
-                                        :disabled="!enabled" v-model="person.placeOfBirthId">
+                                        :disabled="!enabled || !placesOfBirth.length" v-model="person.placeOfBirthId">
+                                    <option value="0">@Localizer[nameof(Resources.ResetSearch)]</option>
                                     <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
-                                    <option v-for="c in placesOfBirth" :key="c.id" :value="c.id">{{ c.name }}</option>
+                                    <option v-for="c in filteredPlacesOfBirth" :key="c.id" :value="c.id">{{ c.name }}</option>
                                 </select>
                             </td>
                         </tr>
@@ -93,7 +95,7 @@
                             <td><input asp-for="Person.TaxId" :disabled="!enabled" v-model="person.taxId" class="form-control" /></td>
                         </tr>
                     </table>
-                    <table>
+                    <table class="table table-borderless table-sm">
                         <tr>
                             <td class="text-right px-2"><label asp-for="Person.Address.CountryId"></label></td>
                             <td>
@@ -110,7 +112,7 @@
                             <td>
                                 <select class="form-control" asp-for="Person.Address.RegionId"
                                         asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))"
-                                        :disabled="!enabled" v-model="person.address.regionId">
+                                        :disabled="!enabled || regions.length < 1" v-model="person.address.regionId">
                                     <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
                                     <option v-for="r in regions" :key="r.id" :value="r.id">{{ r.name }}</option>
                                 </select>
@@ -121,7 +123,7 @@
                             <td>
                                 <select class="form-control" asp-for="Person.Address.DistrictId"
                                         asp-items="@new SelectList(Model.Districts, nameof(District.Id),nameof(District.Name))"
-                                        :disabled="!enabled" v-model="districtId">
+                                        :disabled="!enabled || districts.length < 1" v-model="districtId">
                                     <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
                                     <option v-for="d in districts" :key="d.id" :value="d.id">{{ d.name }}</option>
                                 </select>
@@ -132,12 +134,14 @@
                                 {{ (person.address.city ? person.address.city.cityType.name : '') || '@Localizer[nameof(Resources.City)]' }}
                             </td>
                             <td>
+                                <input class="form-control" v-if="filteredCities.length > 50" v-model="cityName" :enabled="cities.length > 0" />
                                 <div><span asp-validation-for="Person.Address.CityId" class="text-danger"></span></div>
-                                <select class="form-control" asp-for="Person.Address.CityId"
+                                <select v-if="filteredCities.length <= 50" class="form-control" asp-for="Person.Address.CityId"
                                         asp-items="@new SelectList(Model.Cities, nameof(City.Id), nameof(City.Name))"
                                         :disabled="!enabled" v-model="person.address.cityId">
                                     <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
-                                    <option v-for="c in cities" :key="c.id" :value="c.id">{{ c.name }}</option>
+                                    <option value="0">@Localizer[nameof(Resources.ResetSearch)]</option>
+                                    <option v-for="c in filteredCities" :key="c.id" :value="c.id">{{ c.name }}</option>
                                 </select>
                             </td>
                         </tr>

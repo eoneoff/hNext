@@ -27,6 +27,11 @@ namespace hNext.MSSQLCoreRepository
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<City>> GetCitiesByName(int id, string start) =>
+            await db.Cities.Where(c => c.CountryId == id
+            && c.Name.ToLower().StartsWith(start.ToLower())).OrderBy(c => c.Name)
+                .AsNoTracking().ToListAsync();
+
         public async Task<IEnumerable<Region>> GetRegions(int id)
         {
             return await db.Regions.Where(r => r.CountryId == id).OrderBy(r => r.Name).AsNoTracking().ToListAsync();

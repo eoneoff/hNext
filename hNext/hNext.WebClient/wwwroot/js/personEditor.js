@@ -5,6 +5,8 @@ Vue.component('PersonEditor', {
     data: function () {
         return {
             person: $.extend(true, this.newPerson(), this.initialPerson),
+            placeOfBirthName: '',
+            cityName: '',
             regions: [],
             districts: [],
             cities: [],
@@ -34,6 +36,12 @@ Vue.component('PersonEditor', {
             set: function (data) {
                 this.person.address.districtId = data;
             }
+        },
+        filteredCities: function () {
+            return this.cities.filter(c => c.name.toLowerCase().startsWith(this.cityName.toLowerCase()));
+        },
+        filteredPlacesOfBirth: function () {
+            return this.placesOfBirth.filter(c => c.name.toLowerCase().startsWith(this.placeOfBirthName.toLowerCase()));
         }
     },
     methods: {
@@ -135,13 +143,13 @@ Vue.component('PersonEditor', {
                 patronimic: '',
                 genderId: '',
                 dateOfBirth: moment(new Date()).format('YYYY-MM-DD'),
-                countryOfBirthId: 71,
+                countryOfBirthId: '',
                 placeOfBirthId: '',
                 taxId: '',
                 addressId: '',
                 address: {
                     id: '',
-                    countryId: 71,
+                    countryId: '',
                     regionId: '',
                     districtId: '',
                     cityId: '',
@@ -157,6 +165,7 @@ Vue.component('PersonEditor', {
         'person.address.countryId': async function (val) {
             let tempRegions = [];
             let tempCities = [];
+            this.cityName = "";
 
             if (val) {
                 tempRegions = await DATA_CLIENT.getRegionsByCountry(val);
@@ -180,6 +189,7 @@ Vue.component('PersonEditor', {
             }
         },
         'person.countryOfBirthId': async function (val) {
+            this.cityName = "";
             if (this.placesOfBirth.length) {
                 this.placesOfBirth.splice(0);
                 this.person.placeOfBirthId = '';
@@ -188,7 +198,13 @@ Vue.component('PersonEditor', {
                 this.placesOfBirth.push(...await DATA_CLIENT.getCitiesByCountry(val));
             }
         },
+        'person.placeOfBirthId': function (val) {
+            if (val === '0') {
+                this.placeOfBirthName = '';
+            }
+        },
         'person.address.regionId': async function (val) {
+            this.cityName = "";
             let tempDistricts = [];
             let tempCities = [];
 
@@ -216,6 +232,7 @@ Vue.component('PersonEditor', {
             }
         },
         'person.address.districtId': async function (val) {
+            this.cityName = "";
             let tempCities = [];
             
             if (val) {
@@ -243,6 +260,10 @@ Vue.component('PersonEditor', {
             }
             if (val) {
                 this.streets.push(...await DATA_CLIENT.getStreetsByCity(val));
+            }
+
+            if (val == '0') {
+                this.cityName = "";
             }
 
             if (!this.person.address.city
@@ -292,7 +313,8 @@ Vue.component('PersonEditor', {
                 this.placesOfBirth.push(...await DATA_CLIENT.getCitiesByCountry(this.initialPerson.countryOfBirthId));
             }
         } else {
-            this.regions.push(...await DATA_CLIENT.getRegionsByCountry(71));
+            this.person.address.countryId = 71;
+            this.person.countryOfBirthId = 71;
         }
     },
     mounted: function () {

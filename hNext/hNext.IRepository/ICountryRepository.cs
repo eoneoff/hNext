@@ -10,5 +10,6 @@ namespace hNext.IRepository
     {
         Task<IEnumerable<Region>> GetRegions(int id);
         Task<IEnumerable<City>> GetCities(int id);
+        Task<IEnumerable<City>> GetCitiesByName(int id, string name);
     }
 }
