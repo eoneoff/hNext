@@ -96,6 +96,15 @@ footer{
     overflow-y: auto;
 }
 
+/*additional data table style*/
+.additional-data-table{
+    border-style:solid;
+    border-width: 1px;
+    height:115px;
+    overflow-y: auto;
+    min-width: 250px;
+}
+
 /*modal window style*/
 .modal-window {
     border-style:solid;

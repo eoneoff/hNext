@@ -20,7 +20,10 @@ namespace hNext.Model
         [MaxLength(15)]
         public string Number { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.SelectPhoneType))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PhoneType))]
         public int PhoneTypeId { get; set; }
 
         [ForeignKey(nameof(PhoneTypeId))]

@@ -124,6 +124,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не можна змінити телефон.
+        /// </summary>
+        public static string CanNotChangePhone {
+            get {
+                return ResourceManager.GetString("CanNotChangePhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Змінити.
         /// </summary>
         public static string Change {
@@ -178,11 +187,29 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Створити новий телефон.
+        /// </summary>
+        public static string CreateNewPhone {
+            get {
+                return ResourceManager.GetString("CreateNewPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Дата народження.
         /// </summary>
         public static string DateOfBirth {
             get {
                 return ResourceManager.GetString("DateOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Видалити.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         
@@ -403,6 +430,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Додаткові дані пацієнта.
+        /// </summary>
+        public static string PatientAdditionalData {
+            get {
+                return ResourceManager.GetString("PatientAdditionalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Пацієнти.
         /// </summary>
         public static string Patients {
@@ -421,6 +457,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Телефон.
+        /// </summary>
+        public static string Phone {
+            get {
+                return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Такий номер телефону вже існує. Додати існуючий номер обраному пацієнту?.
+        /// </summary>
+        public static string PhoneExistsAdd {
+            get {
+                return ResourceManager.GetString("PhoneExistsAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Телефони.
         /// </summary>
         public static string Phones {
@@ -430,11 +484,29 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Тип телефону.
+        /// </summary>
+        public static string PhoneType {
+            get {
+                return ResourceManager.GetString("PhoneType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Місце народження.
         /// </summary>
         public static string PlaceOfBirth {
             get {
                 return ResourceManager.GetString("PlaceOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Запис належит іншим користувачам.
+        /// </summary>
+        public static string RecordBelongsToOthers {
+            get {
+                return ResourceManager.GetString("RecordBelongsToOthers", resourceCulture);
             }
         }
         
@@ -534,6 +606,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SelectGender {
             get {
                 return ResourceManager.GetString("SelectGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть тип телефону.
+        /// </summary>
+        public static string SelectPhoneType {
+            get {
+                return ResourceManager.GetString("SelectPhoneType", resourceCulture);
             }
         }
         

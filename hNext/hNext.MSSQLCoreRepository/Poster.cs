@@ -13,7 +13,7 @@ namespace hNext.MSSQLCoreRepository
 
         public virtual async Task<T> Post(T item)
         {
-            dbSet.Add(item);
+            dbSet.Update(item);
             await db.SaveChangesAsync();
             return item;
         }

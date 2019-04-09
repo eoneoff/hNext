@@ -46,6 +46,51 @@ class DataClient {
         )).data;
     }
 
+    async savePhone(phone) {
+        return (await axios.post(
+            `${this._apiServer}phones`,
+            phone
+        )).data;
+    }
+
+    async editPhone(phone) {
+        return (await axios.put(
+            `${this._apiServer}phones/${phone.id}`,
+            phone
+        )).data;
+    }
+
+    async deletePhone(id) {
+        return (await axios.delete(
+            `${this._apiServer}phones/${id}`
+        )).data;
+    }
+
+    async checkPhoneExists(number) {
+        return (await axios.get(
+            `${this._apiServer}phones/exists/${number}`
+        )).data;
+    }
+
+    async checkPhoneBelongsToOthers(id) {
+        return (await axios.get(
+            `${this._apiServer}phones/belongtoothers/${id}`
+        )).data;
+    }
+
+    async addPhoneToPerson(personPhone) {
+        return (await axios.post(
+            `${this._apiServer}people/addphone`,
+            personPhone
+        )).data;
+    }
+
+    async deletePhoneFromPerson(personPhone) {
+        return (await axios.delete(
+            `${this._apiServer}people/${personPhone.personId}/phone/${personPhone.phoneId}`
+        )).data;
+    }
+
     async createPerson(person) {
         return (await axios.post(
             `${this._apiServer}people`,

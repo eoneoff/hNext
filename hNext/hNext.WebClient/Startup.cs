@@ -44,6 +44,7 @@ namespace hNext.WebClient
             });
             services.AddDbContext<hNextDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"]));
+            services.AddScoped(typeof(IGetter<>), typeof(Getter<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICountryRepository, CountryRepository>();
             //services.Configure<CookiePolicyOptions>(options =>

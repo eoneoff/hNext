@@ -14,8 +14,13 @@ namespace hNext.DataService.Controllers
     public class PeopleController : Controller
     {
         private IPersonRepository _repository;
+        private IRepository<PersonPhone> _phoneRepository;
 
-        public PeopleController(IPersonRepository repository) => _repository = repository;
+        public PeopleController(IPersonRepository repository, IRepository<PersonPhone> phoneRepository)
+        {
+            _repository = repository;
+            _phoneRepository = phoneRepository;
+        }
 
         [HttpGet]
         public async Task<IEnumerable<Person>> Get() => await _repository.Get();
@@ -51,6 +56,39 @@ namespace hNext.DataService.Controllers
             }
 
             return Ok(await _repository.Put(person));
+        }
+
+        [HttpPost("addphone")]
+        public async Task<IActionResult> AddPhone(PersonPhone personPhone)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var person = await _repository.Get(personPhone.PersonId);
+            person.Phones.Add(personPhone);
+            person = await _repository.Put(person);
+            return Ok(personPhone);
+        }
+
+        [HttpDelete("{personId:long}/phone/{phoneId:long}")]
+        public async Task<IActionResult> RemovePhone(long personId, long phoneId)
+        {
+            var person = await _repository.Get(personId);
+            if(person == null)
+            {
+                return BadRequest();
+            }
+
+            var phone = person.Phones.SingleOrDefault(p => p.Phone.Id == phoneId);
+
+            if(phone == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _phoneRepository.Delete(personId, phoneId));
         }
     }
 }

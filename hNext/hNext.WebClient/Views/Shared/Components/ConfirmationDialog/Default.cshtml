@@ -3,7 +3,7 @@
 <template id="confirmation-dialog-template">
     <div class="d-flex modal-window flex-column confirmation-dialog" :style="{zIndex: level*1000}">
         <div class="d-flex flex-column mb-1">
-            <button class="btn btn-danger ml-auto" @@click="$emit('no')">
+            <button class="btn btn-danger ml-auto" @@click="cancelButton ? $emit('cancel') : $emit('no')">
                 <i class="fa fa-times"></i>
             </button>
         </div>
@@ -13,7 +13,7 @@
             </div>
             <div class="d-flex flex-row justify-content-end flex-nowrap mt-2">
                 <button class="btn btn-primary" @@click.stop.prevent="$emit('yes')"><slot name='yes-button'>@Localizer[nameof(Resources.Yes)]</slot></button>
-                <button class="btn ml-2" :class="cancelButton ? 'btn-primary' : 'btn-danger'" @@click.stop.prevent="$emit('no')"><slot name="no-button">@Localizer[nameof(Resources.No)]</slot></button>
+                <button class="btn ml-2" v-if="!oneOption" :class="cancelButton ? 'btn-primary' : 'btn-danger'" @@click.stop.prevent="$emit('no')"><slot name="no-button">@Localizer[nameof(Resources.No)]</slot></button>
                 <button class="btn btn-danger ml-2" v-if="cancelButton" @@click.stop.prevent="$emit('cancel')"><slot name="cancel-button">@Resources.Cancel</slot></button>
             </div>
         </div>

@@ -1,0 +1,51 @@
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+@model PhoneEditorViewModel
+
+<template id="phone-editor-template">
+    <form class="modal-window" :style="{zIndex: level*1000}">
+        <confirmation-dialog v-if="showSaveConfirmation" :level="level+1" @@yes="saveConfirmed" @@no="saveCancelled">
+            @Localizer[nameof(Resources.CreateNewPhone)]?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showChangeConfirmation" :level="level+1" @@yes="saveConfirmed" @@no="saveCancelled">
+            @Localizer[nameof(Resources.Change)] @Localizer[nameof(Resources.Phone)].Value.ToLower()
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showExistingConfirmation" :level="level+1">
+            @Localizer[nameof(Resources.PhoneExistsAdd)]
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showBelongsToOthers" :level="level+1" one-option="true" @@yes="belongsToOthersClicked">
+            <template #yes-button>OK</template>
+            @Localizer[nameof(Resources.CanNotChangePhone)] @Localizer[nameof(Resources.RecordBelongsToOthers)]
+        </confirmation-dialog>
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" @@click.stop.prevent="$emit('cancel')">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="flex-column show-panel">
+            <table class="table table-sm table-borderless">
+                <tr>
+                    <td><label asp-for="Phone.Number" class="col-sm-4 col-form-label"></label></td>
+                    <td class="align-middle">
+                        <div><span asp-validation-for="Phone.Number" class="text-danger"></span></div>
+                        <input :disabled="!enabled" v-model="phone.phone.number" class="form-control" asp-for="Phone.Number" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Phone.PhoneTypeId" class="col-sm-4 col-form-label"></label></td>
+                    <td class="align-middle">
+                        <div><span asp-validation-for="Phone.PhoneTypeId"></span></div>
+                        <select class="form-control" asp-for="Phone.PhoneTypeId"
+                                asp-items="@new SelectList(Model.PhoneTypes, nameof(PhoneType.Id), nameof(PhoneType.Name))"
+                                :disabled="!enabled" v-model="phone.phone.phoneTypeId">
+                            <option value="">@Localizer[nameof(Resources.SelectPhoneType)]</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="d-flex flex-row flex-nowrap justify-content-end">
+                <button class="btn btn-primary" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-2" @@click.stop.prevent="$emit('cancel')">@Localizer[nameof(Resources.Cancel)]</button>
+            </div>
+        </div>
+    </form>
+</template>

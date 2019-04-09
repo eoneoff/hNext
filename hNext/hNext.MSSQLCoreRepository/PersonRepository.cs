@@ -21,6 +21,7 @@ namespace hNext.MSSQLCoreRepository
             .Include(p => p.CountryOfBirth)
             .Include(p => p.PlaceOfBirth)
             .Include(p => p.Gender)
+            .Include(p => p.Phones)
             .AsNoTracking().ToListAsync();
 
         public override async Task<Person> Get(long id) => await dbSet
@@ -31,6 +32,7 @@ namespace hNext.MSSQLCoreRepository
             .Include(p => p.CountryOfBirth)
             .Include(p => p.PlaceOfBirth)
             .Include(p => p.Gender)
+            .Include(p => p.Phones)
             .AsNoTracking().SingleOrDefaultAsync(p => p.Id == id);
 
         public override async Task<Person> Post(Person item)
@@ -46,6 +48,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.CountryOfBirth)
                 .Include(p => p.PlaceOfBirth)
                 .Include(p => p.Gender)
+                .Include(p=> p.Phones)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 
@@ -62,6 +65,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.CountryOfBirth)
                 .Include(p => p.PlaceOfBirth)
                 .Include(p => p.Gender)
+                .Include(p => p.Phones)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 

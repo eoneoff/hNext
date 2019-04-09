@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace hNext.IRepository
 {
-    public interface IGetter<T>
+    public interface IPhoneRepository : IRepository<Phone>
     {
-        Task<IEnumerable<T>> Get();
-        Task<T> Get(long id);
-        Task<bool> Exists(params Object[] key);
+        Task<Phone> Exists(string number);
+
+        Task<bool> BelongToOthers(long id);
     }
 }

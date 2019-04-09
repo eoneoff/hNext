@@ -26,6 +26,8 @@ namespace hNext.WebClient.Controllers
             ApplicationViewModel model = new ApplicationViewModel();
             model.Tabs.Add(nameof(PatientSearchViewComponent).ViewComponentName(), _localizer[nameof(Resources.Patients)]);
             model.SideBar.Add(nameof(PatientDetailsViewComponent).ViewComponentName(), _localizer[nameof(Resources.Patient)]);
+            model.SideBar.Add(nameof(PatientAdditionalDataViewComponent).ViewComponentName(),
+                _localizer[nameof(Resources.PatientAdditionalData)]);
             return View(model);
         }
 
