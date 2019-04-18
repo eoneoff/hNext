@@ -40,9 +40,17 @@ body {
   padding: 5px; }
 
 /*tab styles*/
-.nav-link.active {
+.nav-link {
   background-color: lightblue !important;
-  color: darkblue !important; }
+  color: darkblue !important;
+  border-style: solid !important; }
+
+.nav-link.active {
+  background-color: white !important;
+  color: black !important; }
+
+.nav-link:hover {
+  box-shadow: 0 0 10px paleturquoise; }
 
 .tab-item {
   margin: 5px; }
@@ -89,6 +97,10 @@ footer {
   background-color: steelblue;
   padding: 10px;
   max-height: 90vh;
+  overflow: visible; }
+
+.modal-window-show-panel {
+  max-height: 80vh;
   overflow-y: auto; }
 
 /*validation styles*/

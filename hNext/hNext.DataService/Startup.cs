@@ -37,6 +37,7 @@ namespace hNext.DataService
             services.AddScoped<IPersonRepository, PersonRepository>();
 
             services.AddScoped<IPhoneRepository, PhoneRepository>();
+            services.AddScoped<IEmailRepository, EmailRepository>();
 
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();

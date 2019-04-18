@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace hNext.WebClient.Components
 {
-    public class PatientAdditionalDataViewComponent:ViewComponent
+    public class EmailsListViewComponent:ViewComponent
     {
         public IViewComponentResult Invoke(List<string> modules)
         {
-            if (!modules.Contains(nameof(PhonesListViewComponent).ViewComponentName()))
+            if (!modules.Contains(nameof(EmailEditorViewComponent).ViewComponentName()))
             {
-                modules.Add(nameof(PhonesListViewComponent).ViewComponentName()); 
+                modules.Add(nameof(EmailEditorViewComponent).ViewComponentName());
             }
-            if(!modules.Contains(nameof(EmailsListViewComponent).ViewComponentName()))
+            if (!modules.Contains(nameof(ConfirmationDialogViewComponent).ViewComponentName()))
             {
-                modules.Add(nameof(EmailsListViewComponent).ViewComponentName());
+                modules.Add(nameof(EmailEditorViewComponent).ViewComponentName());
             }
             return View();
         }

@@ -124,6 +124,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не можна змінити адресу електронної пошти.
+        /// </summary>
+        public static string CanNotChangeEmail {
+            get {
+                return ResourceManager.GetString("CanNotChangeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Не можна змінити телефон.
         /// </summary>
         public static string CanNotChangePhone {
@@ -187,6 +196,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Створити новий e-mail.
+        /// </summary>
+        public static string CreateNewEmail {
+            get {
+                return ResourceManager.GetString("CreateNewEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Створити новий телефон.
         /// </summary>
         public static string CreateNewPhone {
@@ -228,6 +246,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Documents {
             get {
                 return ResourceManager.GetString("Documents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Така адреса електронної пошти вже істує? Додати існуючу адресу обраному пацієнту?.
+        /// </summary>
+        public static string EmailExistsAdd {
+            get {
+                return ResourceManager.GetString("EmailExistsAdd", resourceCulture);
             }
         }
         

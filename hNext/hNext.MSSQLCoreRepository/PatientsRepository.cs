@@ -23,6 +23,7 @@ namespace hNext.MSSQLCoreRepository
             .Include(p=>p.Person).ThenInclude(p=>p.PlaceOfBirth)
             .Include(p=>p.Person).ThenInclude(p=>p.Gender)
             .Include(p=>p.Person).ThenInclude(p=>p.Phones).ThenInclude(p=>p.Phone)
+            .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e=>e.Email)
             .AsNoTracking().ToListAsync();
 
         public async override Task<Patient> Get(long id) => await dbSet
@@ -35,6 +36,7 @@ namespace hNext.MSSQLCoreRepository
             .Include(p => p.Person).ThenInclude(p => p.PlaceOfBirth)
             .Include(p => p.Person).ThenInclude(p => p.Gender)
             .Include(p => p.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
+            .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
             .AsNoTracking().SingleOrDefaultAsync(p => p.Id == id);
 
         public async Task<IEnumerable<Patient>> SearchPatients(PatientSearchModel model) => await db.SearchPatients(model)
@@ -47,6 +49,7 @@ namespace hNext.MSSQLCoreRepository
             .Include(p => p.Person).ThenInclude(p => p.PlaceOfBirth)
             .Include(p => p.Person).ThenInclude(p => p.Gender)
             .Include(p => p.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
+            .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
             .AsNoTracking().ToListAsync();
 
         public override async Task<Patient> Post(Patient item)
@@ -63,6 +66,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.Person).ThenInclude(p => p.PlaceOfBirth)
                 .Include(p => p.Person).ThenInclude(p => p.Gender)
                 .Include(p => p.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
+                .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 
@@ -80,6 +84,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.Person).ThenInclude(p => p.PlaceOfBirth)
                 .Include(p => p.Person).ThenInclude(p => p.Gender)
                 .Include(p => p.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
+                .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
     }

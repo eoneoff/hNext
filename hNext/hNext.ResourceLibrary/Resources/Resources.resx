@@ -339,4 +339,13 @@
   <data name="RecordBelongsToOthers" xml:space="preserve">
     <value>Запис належит іншим користувачам</value>
   </data>
+  <data name="CanNotChangeEmail" xml:space="preserve">
+    <value>Не можна змінити адресу електронної пошти</value>
+  </data>
+  <data name="CreateNewEmail" xml:space="preserve">
+    <value>Створити новий e-mail</value>
+  </data>
+  <data name="EmailExistsAdd" xml:space="preserve">
+    <value>Така адреса електронної пошти вже істує? Додати існуючу адресу обраному пацієнту?</value>
+  </data>
 </root>

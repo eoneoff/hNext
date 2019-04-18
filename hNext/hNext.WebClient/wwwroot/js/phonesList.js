@@ -2,13 +2,12 @@
 
 Vue.component("PhonesList", {
     template: '#phones-list-template',
-    props: ['initialPhones', 'level', 'personId'],
+    props: ['initialPhones', 'level', 'personId', 'initialEnabled'],
     data: function () {
         return {
             phones: this.initialPhones || [],
-            selectedPhone: { phoneId: 0, personId: 0, phone: { id: 0, number: '', phoneTypeId: '' }},
-            enabled: true,
-            active: this.isPersonSelected,
+            selectedPhone: { phoneId: 0, personId: this.personId, phone: { id: 0, number: '', phoneTypeId: '' }},
+            enabled: this.initialEnabled,
             showEditor: false,
             showDeleteConfirmation: false
         }
@@ -29,7 +28,7 @@ Vue.component("PhonesList", {
         confirmAdd: async function (phone) {
             this.showEditor = false;
             this.enabled = true;
-            if (this.phone.phoneId) {
+            if (phone.phoneId) {
                 phone.phone = await DATA_CLIENT.editPhone(phone.phone);
                 this.phones.splice(
                     this.phones.findIndex((p) => p.phoneId == phone.phoneId),
@@ -58,14 +57,26 @@ Vue.component("PhonesList", {
         },
         confirmRemove: async function () {
             this.phones.splice(this.phones.indexOf(this.selectedPhone),1);
-            this.selectedPhone = { id: 0, name: '', phoneTypeId: '' };
+            this.selectedPhone = { phoneId: 0, personId: 0, phone: { id: 0, number: '', phoneTypeId: '' } },
             this.showDeleteConfirmation = false;
             this.enabled = true;
-            await DATA_CLIENT.deletePhoneFromPerson(this.selectedPhone.personId, this.selectedPhone.phoneId);
+            await DATA_CLIENT.deletePhoneFromPerson(this.selectedPhone);
         },
         cancelRemove: function () {
             this.enabled = true;
             this.showDeleteConfirmation = false;
+        }
+    },
+    watch: {
+        enabled: function (val) {
+            this.$emit('enable', val);
+        },
+        initialEnabled: function (val) {
+            this.enabled = val;
+        },
+        initialPhones: function () {
+            this.phones = this.initialPhones;
+            this.selectedPhone = { phoneId: 0, personId: this.personId, phone: { id: 0, number: '', phoneTypeId: '' } };
         }
     }
 });

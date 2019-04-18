@@ -15,11 +15,14 @@ namespace hNext.DataService.Controllers
     {
         private IPersonRepository _repository;
         private IRepository<PersonPhone> _phoneRepository;
+        private IRepository<PersonEmails> _emailRepository;
 
-        public PeopleController(IPersonRepository repository, IRepository<PersonPhone> phoneRepository)
+        public PeopleController(IPersonRepository repository, IRepository<PersonPhone> phoneRepository,
+            IRepository<PersonEmails> emailRepository)
         {
             _repository = repository;
             _phoneRepository = phoneRepository;
+            _emailRepository = emailRepository;
         }
 
         [HttpGet]
@@ -58,7 +61,7 @@ namespace hNext.DataService.Controllers
             return Ok(await _repository.Put(person));
         }
 
-        [HttpPost("addphone")]
+        [HttpPost("phone")]
         public async Task<IActionResult> AddPhone(PersonPhone personPhone)
         {
             if(!ModelState.IsValid)
@@ -89,6 +92,39 @@ namespace hNext.DataService.Controllers
             }
 
             return Ok(await _phoneRepository.Delete(personId, phoneId));
+        }
+
+        [HttpPost("email")]
+        public async Task<IActionResult> AddEmail(PersonEmails personEmail)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var person = await _repository.Get(personEmail.PersonId);
+            person.Emails.Add(personEmail);
+            person = await _repository.Put(person);
+            return Ok(personEmail);
+        }
+
+        [HttpDelete("{personId:long}/email/{emailId:long}")]
+        public async Task<IActionResult> RemoveEmail(long personId, long emailId)
+        {
+            var person = await _repository.Get(personId);
+            if(person == null)
+            {
+                return BadRequest();
+            }
+
+            var email = person.Emails.SingleOrDefault(e => e.Email.Id == emailId);
+
+            if(email == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _emailRepository.Delete(personId, emailId));
         }
     }
 }

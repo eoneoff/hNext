@@ -9,7 +9,7 @@
         <confirmation-dialog v-if="showChangeConfirmation" :level="level+1" @@yes="saveConfirmed" @@no="saveCancelled">
             @Localizer[nameof(Resources.Change)] @Localizer[nameof(Resources.Phone)].Value.ToLower()
         </confirmation-dialog>
-        <confirmation-dialog v-if="showExistingConfirmation" :level="level+1">
+        <confirmation-dialog v-if="showExistingConfirmation" :level="level+1" @@yes="existingConfirmed" @@no="existingCancelled">
             @Localizer[nameof(Resources.PhoneExistsAdd)]
         </confirmation-dialog>
         <confirmation-dialog v-if="showBelongsToOthers" :level="level+1" one-option="true" @@yes="belongsToOthersClicked">
@@ -21,7 +21,7 @@
                 <i class="fa fa-times"></i>
             </button>
         </div>
-        <div class="flex-column show-panel">
+        <div class="flex-column show-panel modal-window-show-panel">
             <table class="table table-sm table-borderless">
                 <tr>
                     <td><label asp-for="Phone.Number" class="col-sm-4 col-form-label"></label></td>

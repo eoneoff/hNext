@@ -80,7 +80,7 @@ class DataClient {
 
     async addPhoneToPerson(personPhone) {
         return (await axios.post(
-            `${this._apiServer}people/addphone`,
+            `${this._apiServer}people/phone`,
             personPhone
         )).data;
     }
@@ -88,6 +88,38 @@ class DataClient {
     async deletePhoneFromPerson(personPhone) {
         return (await axios.delete(
             `${this._apiServer}people/${personPhone.personId}/phone/${personPhone.phoneId}`
+        )).data;
+    }
+
+    async editEmail(email) {
+        return (await axios.put(
+            `${this._apiServer}emails/${email.id}`,
+            email
+        )).data;
+    }
+
+    async checkEmailExists(address) {
+        return (await axios.get(
+            `${this._apiServer}emails/exists/${address}`
+        )).data;
+    }
+
+    async addEmailToPerson(personEmail) {
+        return (await axios.post(
+            `${this._apiServer}people/email`,
+            personEmail
+        )).data;
+    }
+
+    async checkEmailBelongsToOthers(id) {
+        return (await axios.get(
+            `${this._apiServer}emails/belongtoothers/${id}`
+        )).data;
+    }
+
+    async deleteEmailFromPerson(personEmail) {
+        return (await axios.delete(
+            `${this._apiServer}people/${personEmail.personId}/email/${personEmail.emailId}`
         )).data;
     }
 

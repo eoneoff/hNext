@@ -1,0 +1,42 @@
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+@model  Email
+
+    <template id="email-editor-template">
+        <form class="modal-window" :style="{zIndex: level*1000}">
+            <confirmation-dialog v-if="showSaveConfirmation" :level="level+1" @@yes="saveConfirmed" @@no="saveCancelled">
+                @Localizer[nameof(Resources.CreateNewEmail)]?
+            </confirmation-dialog>
+            <confirmation-dialog v-if="showChangeConfirmation" :level="level+1" @@yes="saveConfirmed" @@no="saveCancelled">
+                @Localizer[nameof(Resources.Change)] e-mail
+            </confirmation-dialog>
+            <confirmation-dialog v-if="showExistingConfirmation" :level="level+1" @@yes="existingConfirmed" @@no="existingCancelled">
+                @Localizer[nameof(Resources.EmailExistsAdd)]
+            </confirmation-dialog>
+            <confirmation-dialog v-if="showBelongsToOthers" :level="level+1" one-option="true" @@yes="belongsToOthersClicked" @@no="belongsToOthersClicked">
+                <template #yes-button>
+                    OK
+                </template>
+                @Localizer[nameof(Resources.CanNotChangeEmail)] @Localizer[nameof(Resources.RecordBelongsToOthers)]
+            </confirmation-dialog>
+            <div class="d-flex flex-column mb-1">
+                <button class="btn btn-danger ml-auto" @@click.stop.prevent="$emit('cancel')">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="flex-column show-panel modal-window-show-panel">
+                <table class="table table-sm table-borderless">
+                    <tr>
+                        <td class="align-bottom"><label asp-for="Address"></label></td>
+                        <td>
+                            <div><span asp-validation-for="Address" class="text-danger"></span></div>
+                            <input :disabled="!enabled" v-model="email.email.address" class="form-control" asp-for="Address"  />
+                        </td>
+                    </tr>
+                </table>
+                <div class="d-flex flex-row flex-nowrap justify-content-end">
+                    <button class="btn btn-primary" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                    <button class="btn btn-danger ml-2" @@click.stop.prevent="$emit('cancel')">@Localizer[nameof(Resources.Cancel)]</button>
+                </div>
+            </div>
+        </form>
+    </template>

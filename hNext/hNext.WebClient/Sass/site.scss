@@ -61,9 +61,20 @@ textarea {
 }
 
 /*tab styles*/
+
+.nav-link{
+    background-color:$inactive-tab!important;
+    color:$inactive-tab-text!important;
+    border-style:solid!important;
+}
+
 .nav-link.active{
     background-color:$active-tab!important;
     color:$active-tab-text!important;
+}
+
+.nav-link:hover{
+    box-shadow:0 0 10px $active-tab-hover-shadow;
 }
 
 .tab-item {
@@ -118,7 +129,12 @@ footer{
     background-color: $base-back-color;
     padding: 10px;
     max-height: 90vh;
-    overflow-y: auto;
+    overflow:visible
+}
+
+.modal-window-show-panel{
+    max-height:80vh;
+    overflow-y:auto;
 }
 
 /*validation styles*/
