@@ -32,6 +32,8 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<PhoneType> PhoneTypes { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<PersonEmails> PersonEmails { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<DocumentType> DocumentTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -14,18 +14,16 @@ Vue.component("PatientAdditionalData", {
             return (store.state.patient && store.state.patient.person)
                 ? store.state.patient.person.emails : [];
         },
+        documents: function () {
+            return (store.state.patient && store.state.patient.person)
+                ? store.state.patient.person.documents : [];
+        },
         enabled: {
             get: function () {
                 return store.state.enabled;
             },
             set: function (show) {
                 store.commit('enable', show);
-            }
-        }
-    },
-    watch: {
-        enabled: function () {
-            if (true) {
             }
         }
     }

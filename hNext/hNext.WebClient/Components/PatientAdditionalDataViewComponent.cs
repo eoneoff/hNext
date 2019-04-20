@@ -19,6 +19,10 @@ namespace hNext.WebClient.Components
             {
                 modules.Add(nameof(EmailsListViewComponent).ViewComponentName());
             }
+            if(!modules.Contains(nameof(DocumentsListViewComponent).ViewComponentName()))
+            {
+                modules.Add(nameof(DocumentsListViewComponent).ViewComponentName());
+            }
             return View();
         }
     }

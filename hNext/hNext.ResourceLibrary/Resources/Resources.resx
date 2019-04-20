@@ -337,7 +337,7 @@
     <value>Не можна змінити телефон</value>
   </data>
   <data name="RecordBelongsToOthers" xml:space="preserve">
-    <value>Запис належит іншим користувачам</value>
+    <value>Запис належить іншим користувачам</value>
   </data>
   <data name="CanNotChangeEmail" xml:space="preserve">
     <value>Не можна змінити адресу електронної пошти</value>
@@ -346,6 +346,24 @@
     <value>Створити новий e-mail</value>
   </data>
   <data name="EmailExistsAdd" xml:space="preserve">
-    <value>Така адреса електронної пошти вже істує? Додати існуючу адресу обраному пацієнту?</value>
+    <value>Така адреса електронної пошти вже існує? Додати існуючу адресу обраному пацієнту?</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Документ</value>
+  </data>
+  <data name="IssuedBy" xml:space="preserve">
+    <value>Ким виданий</value>
+  </data>
+  <data name="WhenIssued" xml:space="preserve">
+    <value>Коли виданий</value>
+  </data>
+  <data name="CreateNewDocument" xml:space="preserve">
+    <value>Створити новий документ</value>
+  </data>
+  <data name="DocumentExists" xml:space="preserve">
+    <value>Такий документ вже існує</value>
+  </data>
+  <data name="DateInFutureError" xml:space="preserve">
+    <value>Дата повинна бути в минулому</value>
   </data>
 </root>

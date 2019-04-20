@@ -5,6 +5,12 @@
 
 "use strict";
 
+$.validator.addMethod("past", function (value, element, param) {
+    return moment(value).isSameOrBefore(moment(), 'day');
+});
+
+$.validator.unobtrusive.adapters.addBool("past");
+
 class DataClient {
 
     constructor(apiServer) {
@@ -120,6 +126,32 @@ class DataClient {
     async deleteEmailFromPerson(personEmail) {
         return (await axios.delete(
             `${this._apiServer}people/${personEmail.personId}/email/${personEmail.emailId}`
+        )).data;
+    }
+
+    async addDocument(document) {
+        return (await axios.post(
+            `${this._apiServer}documents`,
+            document
+        )).data;
+    }
+
+    async editDocument(document) {
+        return (await axios.put(
+            `${this._apiServer}documents/${document.id}`,
+            document
+        )).data;
+    }
+
+    async deleteDocument(documentId) {
+        return (await axios.delete(
+            `${this._apiServer}documents/${documentId}`
+        )).data;
+    }
+
+    async documentExists(document) {
+        return (await axios.get(
+            `${this._apiServer}documents/exists/${document.documentTypeId}/${document.number}`
         )).data;
     }
 

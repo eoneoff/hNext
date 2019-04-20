@@ -19,7 +19,7 @@
                 @Localizer[nameof(Resources.CanNotChangeEmail)] @Localizer[nameof(Resources.RecordBelongsToOthers)]
             </confirmation-dialog>
             <div class="d-flex flex-column mb-1">
-                <button class="btn btn-danger ml-auto" @@click.stop.prevent="$emit('cancel')">
+                <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="$emit('cancel')">
                     <i class="fa fa-times"></i>
                 </button>
             </div>
@@ -34,8 +34,8 @@
                     </tr>
                 </table>
                 <div class="d-flex flex-row flex-nowrap justify-content-end">
-                    <button class="btn btn-primary" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
-                    <button class="btn btn-danger ml-2" @@click.stop.prevent="$emit('cancel')">@Localizer[nameof(Resources.Cancel)]</button>
+                    <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                    <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="$emit('cancel')">@Localizer[nameof(Resources.Cancel)]</button>
                 </div>
             </div>
         </form>

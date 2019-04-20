@@ -196,6 +196,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Створити новий документ.
+        /// </summary>
+        public static string CreateNewDocument {
+            get {
+                return ResourceManager.GetString("CreateNewDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Створити новий e-mail.
         /// </summary>
         public static string CreateNewEmail {
@@ -210,6 +219,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string CreateNewPhone {
             get {
                 return ResourceManager.GetString("CreateNewPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дата повинна бути в минулому.
+        /// </summary>
+        public static string DateInFutureError {
+            get {
+                return ResourceManager.GetString("DateInFutureError", resourceCulture);
             }
         }
         
@@ -241,6 +259,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Документ.
+        /// </summary>
+        public static string Document {
+            get {
+                return ResourceManager.GetString("Document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Такий документ вже існує.
+        /// </summary>
+        public static string DocumentExists {
+            get {
+                return ResourceManager.GetString("DocumentExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Документи.
         /// </summary>
         public static string Documents {
@@ -250,7 +286,7 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Така адреса електронної пошти вже істує? Додати існуючу адресу обраному пацієнту?.
+        ///   Ищет локализованную строку, похожую на Така адреса електронної пошти вже існує? Додати існуючу адресу обраному пацієнту?.
         /// </summary>
         public static string EmailExistsAdd {
             get {
@@ -403,6 +439,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ким виданий.
+        /// </summary>
+        public static string IssuedBy {
+            get {
+                return ResourceManager.GetString("IssuedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Медична Інформаційна Система.
         /// </summary>
         public static string MedicalInformationSystem {
@@ -529,7 +574,7 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Запис належит іншим користувачам.
+        ///   Ищет локализованную строку, похожую на Запис належить іншим користувачам.
         /// </summary>
         public static string RecordBelongsToOthers {
             get {
@@ -723,6 +768,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Wards {
             get {
                 return ResourceManager.GetString("Wards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Коли виданий.
+        /// </summary>
+        public static string WhenIssued {
+            get {
+                return ResourceManager.GetString("WhenIssued", resourceCulture);
             }
         }
         

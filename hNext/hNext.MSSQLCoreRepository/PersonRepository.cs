@@ -23,6 +23,7 @@ namespace hNext.MSSQLCoreRepository
             .Include(p => p.Gender)
             .Include(p => p.Phones).ThenInclude(p=>p.Phone)
             .Include(p => p.Emails).ThenInclude(e=>e.Email)
+            .Include(p => p.Documents).ThenInclude(d => d.DocumentType)
             .AsNoTracking().ToListAsync();
 
         public override async Task<Person> Get(long id) => await dbSet
@@ -35,6 +36,7 @@ namespace hNext.MSSQLCoreRepository
             .Include(p => p.Gender)
             .Include(p => p.Phones).ThenInclude(p => p.Phone)
             .Include(p => p.Emails).ThenInclude(e => e.Email)
+            .Include(p => p.Documents).ThenInclude(d => d.DocumentType)
             .AsNoTracking().SingleOrDefaultAsync(p => p.Id == id);
 
         public override async Task<Person> Post(Person item)
@@ -52,6 +54,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.Gender)
                 .Include(p => p.Phones).ThenInclude(p => p.Phone)
                 .Include(p => p.Emails).ThenInclude(e => e.Email)
+                .Include(p => p.Documents).ThenInclude(d => d.DocumentType)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 
@@ -70,6 +73,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.Gender)
                 .Include(p => p.Phones).ThenInclude(p => p.Phone)
                 .Include(p => p.Emails).ThenInclude(e => e.Email)
+                .Include(p => p.Documents).ThenInclude(d => d.DocumentType)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 

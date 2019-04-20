@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -47,6 +48,7 @@ namespace hNext.WebClient
             services.AddScoped(typeof(IGetter<>), typeof(Getter<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddSingleton<IValidationAttributeAdapterProvider, Infrastructure.Validators.ValidationAttrubuteAdapterProvider>();
             //services.Configure<CookiePolicyOptions>(options =>
             //{
             //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
