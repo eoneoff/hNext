@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using hNext.IRepository;
 using hNext.WebClient.Infrastructure;
+using hNext.Infrastructure;
 
 namespace hNext.WebClient.Components
 {
@@ -28,12 +29,10 @@ namespace hNext.WebClient.Components
             _streetTypeRepository = streetTypeRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(List<string> modules)
+        public async Task<IViewComponentResult> InvokeAsync(UniqueList<string> modules)
         {
-            if(!modules.Contains(nameof(ConfirmationDialogViewComponent).ViewComponentName()))
-            {
-                modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
-            }
+            modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
+
             PersonEditorViewModel model = new PersonEditorViewModel
             {
                 Genders = await _genderRepository.Get(),

@@ -1,4 +1,5 @@
-﻿using hNext.WebClient.Infrastructure;
+﻿using hNext.Infrastructure;
+using hNext.WebClient.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,16 +10,11 @@ namespace hNext.WebClient.Components
 {
     public class EmailsListViewComponent:ViewComponent
     {
-        public IViewComponentResult Invoke(List<string> modules)
+        public IViewComponentResult Invoke(UniqueList<string> modules)
         {
-            if (!modules.Contains(nameof(EmailEditorViewComponent).ViewComponentName()))
-            {
-                modules.Add(nameof(EmailEditorViewComponent).ViewComponentName());
-            }
-            if (!modules.Contains(nameof(ConfirmationDialogViewComponent).ViewComponentName()))
-            {
-                modules.Add(nameof(EmailEditorViewComponent).ViewComponentName());
-            }
+            modules.Add(nameof(EmailEditorViewComponent).ViewComponentName());
+            modules.Add(nameof(EmailEditorViewComponent).ViewComponentName());
+           
             return View();
         }
     }

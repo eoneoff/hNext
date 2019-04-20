@@ -1,4 +1,5 @@
-﻿using hNext.WebClient.Infrastructure;
+﻿using hNext.Infrastructure;
+using hNext.WebClient.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,16 +10,11 @@ namespace hNext.WebClient.Components
 {
     public class DocumentsListViewComponent:ViewComponent
     {
-        public IViewComponentResult Invoke(List<string> modules)
+        public IViewComponentResult Invoke(UniqueList<string> modules)
         {
-            if(!modules.Contains(nameof(DocumentEditorViewComponent).ViewComponentName()))
-            {
-                modules.Add(nameof(DocumentEditorViewComponent).ViewComponentName());
-            }
-            if(!modules.Contains(nameof(DocumentEditorViewComponent).ViewComponentName()))
-            {
-                modules.Add(nameof(DocumentEditorViewComponent).ViewComponentName());
-            }
+            modules.Add(nameof(DocumentEditorViewComponent).ViewComponentName());
+            modules.Add(nameof(DocumentEditorViewComponent).ViewComponentName());
+            
             return View();
         }
     }
