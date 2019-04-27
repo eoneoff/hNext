@@ -1,4 +1,5 @@
-﻿using hNext.IRepository;
+﻿using hNext.Infrastructure;
+using hNext.IRepository;
 using hNext.Model;
 using hNext.WebClient.Components;
 using hNext.WebClient.Infrastructure;
@@ -21,7 +22,7 @@ namespace hNext.WebClient.Tests
         public void InvokeReturnsCorrectModel()
         {
             //Arrange
-            List<string> modules = new List<string>();
+            UniqueList<string> modules = new UniqueList<string>();
             var cRep = new Mock<ICountryRepository>();
             cRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Country>() as IEnumerable<Country>));
             var gRep = new Mock<IRepository<Gender>>();
@@ -45,7 +46,7 @@ namespace hNext.WebClient.Tests
         public void InvokeSetsCollertions()
         {
             //Arrange
-            List<string> modules = new List<string>();
+            UniqueList<string> modules = new UniqueList<string>();
             var cRep = new Mock<ICountryRepository>();
             cRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Country>
             {
@@ -92,7 +93,7 @@ namespace hNext.WebClient.Tests
         public void InvokePopulatesModulesSet()
         {
             //Arrange
-            List<string> modules = new List<string>();
+            UniqueList<string> modules = new UniqueList<string>();
             var cRep = new Mock<ICountryRepository>();
             cRep.Setup(r => r.Get()).Returns(Task.FromResult(new List<Country>() as IEnumerable<Country>));
             var gRep = new Mock<IRepository<Gender>>();

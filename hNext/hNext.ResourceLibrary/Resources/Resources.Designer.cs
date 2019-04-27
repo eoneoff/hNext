@@ -61,6 +61,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Додати особі опікуна.
+        /// </summary>
+        public static string AddGuardianToPerson {
+            get {
+                return ResourceManager.GetString("AddGuardianToPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Адреса.
         /// </summary>
         public static string Address {
@@ -75,6 +84,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string AddressChanged {
             get {
                 return ResourceManager.GetString("AddressChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вік.
+        /// </summary>
+        public static string Age {
+            get {
+                return ResourceManager.GetString("Age", resourceCulture);
             }
         }
         
@@ -147,6 +165,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Change {
             get {
                 return ResourceManager.GetString("Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Змінити опікуна.
+        /// </summary>
+        public static string ChangeGuardian {
+            get {
+                return ResourceManager.GetString("ChangeGuardian", resourceCulture);
             }
         }
         
@@ -246,6 +273,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Видалити опекуна.
+        /// </summary>
+        public static string DeleteGuardian {
+            get {
+                return ResourceManager.GetString("DeleteGuardian", resourceCulture);
             }
         }
         
@@ -574,6 +610,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Місце проживання.
+        /// </summary>
+        public static string PlaceOfLiving {
+            get {
+                return ResourceManager.GetString("PlaceOfLiving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Запис належить іншим користувачам.
         /// </summary>
         public static string RecordBelongsToOthers {
@@ -682,6 +727,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть опекуна.
+        /// </summary>
+        public static string SelectGuardian {
+            get {
+                return ResourceManager.GetString("SelectGuardian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Оберіть тип телефону.
         /// </summary>
         public static string SelectPhoneType {
@@ -723,6 +777,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SelectType {
             get {
                 return ResourceManager.GetString("SelectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть підопічну особу.
+        /// </summary>
+        public static string SelectWard {
+            get {
+                return ResourceManager.GetString("SelectWard", resourceCulture);
             }
         }
         

@@ -31,6 +31,10 @@ namespace hNext.DataService.Controllers
         [HttpGet("{id:int}")]
         public async Task<Person> Get(int id) => await _repository.Get(id);
 
+        [HttpGet("search/{name?}")]
+        public async Task<IEnumerable<Person>> Search(string name = "") =>
+            await _repository.Search(name.Split('$'));
+
         [HttpPost("exists")]
         public async Task<Person> Exists(Person person) => await _repository.Exists(person);
 

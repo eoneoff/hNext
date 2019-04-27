@@ -21,7 +21,7 @@ namespace hNext.WebClient.Components
         {
             modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
 
-            return View(new DocumentEditorModel
+            return View(new DocumentEditorViewModel
             {
                 DocumentTypes = await _repository.Get()
             });

@@ -15,10 +15,16 @@ namespace hNext.MSSQLCoreRepository
         public DocumentsRepository(hNextDbContext db) : base(db) { }
 
         public override async Task<IEnumerable<Document>> Get() =>
-            await dbSet.Include(d => d.DocumentType).ToListAsync();
+            await dbSet.Include(d => d.DocumentType).AsNoTracking().ToListAsync();
 
-        public override async Task<Document> Get(long id) =>
-            await dbSet.Include(d => d.DocumentType).SingleOrDefaultAsync(d => d.Id == id);
+        public override async Task<Document> Get(params object[] key)
+        {
+            if (key.Count() > 0 && key[0] is long id)
+                return await dbSet.Include(d => d.DocumentType).AsNoTracking().SingleOrDefaultAsync(d => d.Id == id);
+            else
+                throw new ArgumentException("Documents Getter needs argument of type long");
+        }
+            
 
         public override async Task<Document> Post(Document document) =>
             await LoadAdditionaInfo(await base.Post(document));
@@ -30,7 +36,7 @@ namespace hNext.MSSQLCoreRepository
             await LoadAdditionaInfo(await base.Delete(key));
 
         public async Task<bool> Exists(int documentTypeId, string number) =>
-           await dbSet.Where(d => d.DocumentTypeId == documentTypeId && d.Number == number).CountAsync() > 0;
+           await dbSet.Where(d => d.DocumentTypeId == documentTypeId && d.Number == number).AsNoTracking().CountAsync() > 0;
 
         private async Task<Document> LoadAdditionaInfo(Document document)
         {

@@ -33,7 +33,7 @@
                     @foreach (var sideTab in Model.SideBar)
                     {
                         <li class="nav-item">
-                            <a class="nav-link side-tab-selector p-1" :class="{'active' : selectedSideTab == '@sideTab.Key' }" @@click="selectedSideTab = '@sideTab.Key'">
+                            <a class="nav-link side-tab-selector p-1" :class="{'active' : selectedSideTab == '@sideTab.Key' }" @@click="sideTabClicked('@sideTab.Key')">
                                 @sideTab.Value
                             </a>
                         </li>

@@ -10,14 +10,14 @@ using hNext.DbAccessMSSQLCore;
 namespace hNext.DbAccessMSSQLCore.Migrations
 {
     [DbContext(typeof(hNextDbContext))]
-    [Migration("20190219173416_PatientSearchFunction")]
+    [Migration("20190427160757_PatientSearchFunction")]
     partial class PatientSearchFunction
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -184,6 +184,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("Number")
+                        .IsRequired()
                         .HasMaxLength(20);
 
                     b.Property<long>("PersonId");
@@ -194,7 +195,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Document");
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("hNext.Model.DocumentType", b =>
@@ -209,7 +210,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DocumentType");
+                    b.ToTable("DocumentTypes");
                 });
 
             modelBuilder.Entity("hNext.Model.Email", b =>
@@ -224,7 +225,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Email");
+                    b.ToTable("Emails");
                 });
 
             modelBuilder.Entity("hNext.Model.Gender", b =>
@@ -246,19 +247,19 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.GuardianWard", b =>
                 {
-                    b.Property<long>("GuardianId");
-
                     b.Property<long>("WardId");
+
+                    b.Property<long>("GuardianId");
 
                     b.Property<string>("Relation")
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.HasKey("GuardianId", "WardId");
+                    b.HasKey("WardId", "GuardianId");
 
-                    b.HasIndex("WardId");
+                    b.HasIndex("GuardianId");
 
-                    b.ToTable("GuardianWard");
+                    b.ToTable("GuardianWards");
                 });
 
             modelBuilder.Entity("hNext.Model.Patient", b =>

@@ -15,6 +15,7 @@ namespace hNext.WebClient.Components
             modules.Add(nameof(PhonesListViewComponent).ViewComponentName());
             modules.Add(nameof(EmailsListViewComponent).ViewComponentName());
             modules.Add(nameof(DocumentsListViewComponent).ViewComponentName());
+            modules.Add(nameof(GuardiansListViewComponent).ViewComponentName());
             
             return View();
         }

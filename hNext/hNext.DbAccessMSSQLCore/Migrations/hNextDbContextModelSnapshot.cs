@@ -245,19 +245,19 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.GuardianWard", b =>
                 {
-                    b.Property<long>("GuardianId");
-
                     b.Property<long>("WardId");
+
+                    b.Property<long>("GuardianId");
 
                     b.Property<string>("Relation")
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.HasKey("GuardianId", "WardId");
+                    b.HasKey("WardId", "GuardianId");
 
-                    b.HasIndex("WardId");
+                    b.HasIndex("GuardianId");
 
-                    b.ToTable("GuardianWard");
+                    b.ToTable("GuardianWards");
                 });
 
             modelBuilder.Entity("hNext.Model.Patient", b =>

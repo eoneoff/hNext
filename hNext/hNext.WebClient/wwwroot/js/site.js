@@ -37,6 +37,10 @@ class DataClient {
         return (await axios.get(`${this._apiServer}regions/${regionId}/cities`)).data;
     }
 
+    async getCitiesByDistrict(districtId) {
+        return (await axios.get(`${this._apiServer}districts/${districtId}/cities`)).data;
+    }
+
     async citiesStartWith(start) {
         return (await axios.get(`${this._apiServer}cities/startswith/${start}`)).data;
     }
@@ -155,6 +159,39 @@ class DataClient {
         )).data;
     }
 
+    async addGuardian(guardian) {
+        return (await axios.post(
+            `${this._apiServer}guardians`,
+            guardian
+        )).data;
+    }
+
+    async editGuardian(guardian) {
+        return (await axios.put(
+            `${this._apiServer}guardians/${guardian.wardId}/${guardian.guardianId}`,
+            guardian
+        )).data;
+    }
+
+    async deleteGuardian(guardian) {
+        return (await axios.delete(
+            `${this._apiServer}guardians/${guardian.wardId}/${guardian.guardianId}`
+        )).data;
+    }
+
+    async guardianExists(guardian) {
+        return (await axios.post(
+            `${this._apiServer}guardians/${guardian.wardId}/exists`,
+            guardian
+        )).data;
+    }
+
+    async guardianRelationExists(guardian) {
+        return (await axios.get(
+            `${this._apiServer}guardians/${guardian.wardId}/exists/${guardian.guardianId}`
+        )).data;
+    }
+
     async createPerson(person) {
         return (await axios.post(
             `${this._apiServer}people`,
@@ -173,6 +210,13 @@ class DataClient {
         return (await axios.post(
             `${this._apiServer}people/exists`,
             person
+        )).data;
+    }
+
+    async searchPerson(name) {
+        let nameArray = name.replace(/\s+/, '$');
+        return (await axios.get(
+            `${this._apiServer}people/search/${nameArray}`
         )).data;
     }
 

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using hNext.WebClient.Infrastructure;
+using hNext.Infrastructure;
 
 namespace hNext.WebClient.Tests
 {
@@ -22,7 +23,7 @@ namespace hNext.WebClient.Tests
         public void DefaultReturnsView()
         {
             //Arrange
-            List<string> modules = new List<string>();
+            UniqueList<string> modules = new UniqueList<string>();
             var moq = new Mock<IRepository<Region>>();
             moq.Setup(m => m.Get()).Returns(Task.FromResult(default(IEnumerable<Region>)));
             PatientSearchViewComponent component = new PatientSearchViewComponent(moq.Object);
@@ -38,7 +39,7 @@ namespace hNext.WebClient.Tests
         public void DefaultReturnsCorrectModel()
         {
             //Arrange
-            List<string> modules = new List<string>();
+            UniqueList<string> modules = new UniqueList<string>();
             var moq = new Mock<IRepository<Region>>();
             moq.Setup(m => m.Get()).Returns(Task.FromResult(new List<Region> { new Region(), new Region()} as IEnumerable<Region>));
             PatientSearchViewComponent component = new PatientSearchViewComponent(moq.Object);
@@ -55,7 +56,7 @@ namespace hNext.WebClient.Tests
         public void DefaultPopulatesModules()
         {
             //Arrange
-            List<string> modules = new List<string>();
+            UniqueList<string> modules = new UniqueList<string>();
             var moq = new Mock<IRepository<Region>>();
             moq.Setup(m => m.Get()).Returns(Task.FromResult(default(IEnumerable<Region>)));
             PatientSearchViewComponent component = new PatientSearchViewComponent(moq.Object);

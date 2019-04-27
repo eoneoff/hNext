@@ -10,8 +10,8 @@ using hNext.DbAccessMSSQLCore;
 namespace hNext.DbAccessMSSQLCore.Migrations
 {
     [DbContext(typeof(hNextDbContext))]
-    [Migration("20190420110715_Documents")]
-    partial class Documents
+    [Migration("20190427160552_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -247,19 +247,19 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.GuardianWard", b =>
                 {
-                    b.Property<long>("GuardianId");
-
                     b.Property<long>("WardId");
+
+                    b.Property<long>("GuardianId");
 
                     b.Property<string>("Relation")
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.HasKey("GuardianId", "WardId");
+                    b.HasKey("WardId", "GuardianId");
 
-                    b.HasIndex("WardId");
+                    b.HasIndex("GuardianId");
 
-                    b.ToTable("GuardianWard");
+                    b.ToTable("GuardianWards");
                 });
 
             modelBuilder.Entity("hNext.Model.Patient", b =>

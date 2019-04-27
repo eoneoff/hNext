@@ -34,6 +34,7 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<PersonEmails> PersonEmails { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<DocumentType> DocumentTypes { get; set; }
+        public virtual DbSet<GuardianWard> GuardianWards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -82,7 +83,7 @@ namespace hNext.DbAccessMSSQLCore
 
             modelBuilder.Entity<PersonEmails>().HasKey(pe => new { pe.PersonId, pe.EmailId });
 
-            modelBuilder.Entity<GuardianWard>().HasKey(gw => new {gw.GuardianId, gw.WardId });
+            modelBuilder.Entity<GuardianWard>().HasKey(gw => new {gw.WardId, gw.GuardianId });
             modelBuilder.Entity<GuardianWard>().HasOne(gw => gw.Guardian).WithMany(p => p.Wards)
                 .HasForeignKey(gw => gw.GuardianId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<GuardianWard>().HasOne(gw => gw.Ward).WithMany(p => p.Guardians)

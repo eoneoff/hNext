@@ -9,9 +9,11 @@ namespace hNext.Model
     public class PersonPhone
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column(Order = 0)]
         public long PersonId { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column(Order = 1)]
         public long PhoneId { get; set; }
 
         [ForeignKey(nameof(PersonId))]

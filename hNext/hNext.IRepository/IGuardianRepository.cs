@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace hNext.IRepository
 {
-    public interface IPersonRepository:IRepository<Person>
+    public interface IGuardianRepository:IRepository<GuardianWard>
     {
-        Task<IEnumerable<Person>> Search(params string[] name);
-        Task<Person> Exists(Person person);
+        Task<GuardianWard> Exists(GuardianWard guardian);
     }
 }

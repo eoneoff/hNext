@@ -9,7 +9,7 @@ namespace hNext.IRepository
     public interface IGetter<T>
     {
         Task<IEnumerable<T>> Get();
-        Task<T> Get(long id);
-        Task<bool> Exists(params Object[] key);
+        Task<T> Get(params object[] key);
+        Task<bool> Exists(params object[] key);
     }
 }

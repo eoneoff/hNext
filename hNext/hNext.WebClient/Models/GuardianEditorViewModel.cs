@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace hNext.WebClient.Models
 {
-    public class DocumentEditorModel
+    public class GuardianEditorViewModel
     {
-        public IEnumerable<DocumentType> DocumentTypes { get; set; }
-        public Document Document { get; set; }
+        public IEnumerable<Person> FountPeople { get; set; }
+        public GuardianWard Guardian { get; set; }
     }
 }

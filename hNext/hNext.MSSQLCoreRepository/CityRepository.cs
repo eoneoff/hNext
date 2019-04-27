@@ -17,8 +17,14 @@ namespace hNext.MSSQLCoreRepository
         public override async Task<IEnumerable<City>> Get() =>
             await dbSet.Include(c => c.CityType).OrderBy(c => c.Name).AsNoTracking().ToListAsync();
 
-        public override async Task<City> Get(long id) =>
-            await dbSet.Include(c => c.CityType).SingleOrDefaultAsync(c => c.Id == id);
+        public override async Task<City> Get(params object[] key)
+        {
+            if (key.Count() > 0 && key[0] is long id)
+                return await dbSet.Include(c => c.CityType).SingleOrDefaultAsync(c => c.Id == id);
+            else
+                throw new ArgumentException("City Getter needs argunent of type long");
+        }
+            
 
         public async Task<IEnumerable<Street>> GetStreets(int id)
         {

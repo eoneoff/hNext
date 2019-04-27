@@ -2,7 +2,7 @@
 @model PersonEditorViewModel
 
 <template id="person-editor-template">
-    <form class="d-flex modal-window flex-column" :style="{zIndex: level*1000}" id="patientEditorForm">
+    <form class="d-flex modal-window flex-column" :style="{zIndex: level*1000}">
         <confirmation-dialog v-if="quitConfirmation" :level="level+1" @@yes="closeConfirmed" @@no="closeQuited">
             @Resources.CancelAndExit?
         </confirmation-dialog>
@@ -30,10 +30,10 @@
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <div class="show-panel modal-window-show-panel flex-column">
-            <div class="d-flex flex-column">
+        <div class="show-panel modal-window-show-panel flex-column" >
+            <div >
                 <div class="d-flex flex-column flex-md-row align-items-md-stretch">
-                    <table class="table table-borderless table-sm">
+                    <table class="table table-borderless table-sm" style="min-width:25rem">
                         <tr>
                             <td class="text-right pr-2"><label asp-for="Person.FamilyName"></label></td>
                             <td>
@@ -95,7 +95,7 @@
                             <td><input asp-for="Person.TaxId" :disabled="!enabled" v-model="person.taxId" class="form-control" /></td>
                         </tr>
                     </table>
-                    <table class="table table-borderless table-sm">
+                    <table class="table table-borderless table-sm" style="min-width:25rem">
                         <tr>
                             <td class="text-right px-2"><label asp-for="Person.Address.CountryId"></label></td>
                             <td>

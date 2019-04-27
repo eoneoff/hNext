@@ -1,0 +1,65 @@
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+@model GuardianEditorViewModel
+
+<template id="guardian-editor-template">
+    <form class="modal-window" :style="{zIndex: level*1000}">
+        <confirmation-dialog v-if="showSaveConfirmation" :level="level+1" @@yes="saveConfirmed" @@no="saveCancelled">
+            @Localizer[nameof(Resources.AddGuardianToPerson)]?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showChangeConfirmation" :level="level+1" @@yes="saveConfirmed" @@no="saveCancelled">
+            @Localizer[nameof(Resources.ChangeGuardian)]?
+        </confirmation-dialog>
+        <person-editor v-if="showPersonEditor" :level="level+1" @@quit="personEditorQuitted" @@save="newPersonAdded"></person-editor>
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="$emit('cancel')">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="flex-column show-panel modal-window-show-panel">
+            <div class="form-row m-2 align-items-end">
+                <label asp-for="Guardian.Relation" class="col-form-label"></label>
+                <div class="col">
+                    <div><span asp-validation-for="Guardian.Relation" class="text-danger"></span></div>
+                    <input asp-for="Guardian.Relation" class="form-control ml-1" v-model="guardian.relation" :disabled="!enabled"/>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-between m-2">
+                <div class="d-inline">
+                    <div><span asp-validation-for="Guardian.GuardianId" class="text-danger"></span></div>
+                    {{ `${guardian.guardian.familyName || ''} ${guardian.guardian.firstName ||''} ${guardian.guardian.patronimic || ''}`}}
+                </div>
+                <input type="hidden" asp-for="Guardian.GuardianId" ref="guardianId" :disabled="!enabled">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="createPerson"><i class="fa fa-plus"></i></button>
+            </div>
+            <div class="d-flex flex-row m-2">
+                <input class="from-control col mr-2" v-model="searchString" :disabled="!enabled"/>
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="searchPerson">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+            <div class="table-responsive-vertical">
+                <table class="table table-sm table-borderless table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>@Localizer[nameof(Resources.FullName)]</th>
+                            <th>@Localizer[nameof(Resources.DateOfBirth)]</th>
+                            <th>@Localizer[nameof(Resources.PlaceOfLiving)]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="p in foundPeople" :class="{'selected-table-row': p.id == guardian.guardian.id}"
+                            @@click="selectPerson(p)">
+                            <td>{{ `${p.familyName} ${p.firstName} ${p.patronimic}` }}</td>
+                            <td>{{ p.dateOfBirth | shortDate }}</td>
+                            <td>{{  p.address.city.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex flex-row flex-nowrap justify-content-end">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="$emit('cancel')">@Localizer[nameof(Resources.Cancel)]</button>
+            </div>
+        </div>
+    </form>
+</template>

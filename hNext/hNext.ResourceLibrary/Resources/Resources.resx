@@ -366,4 +366,25 @@
   <data name="DateInFutureError" xml:space="preserve">
     <value>Дата повинна бути в минулому</value>
   </data>
+  <data name="DeleteGuardian" xml:space="preserve">
+    <value>Видалити опекуна</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Вік</value>
+  </data>
+  <data name="PlaceOfLiving" xml:space="preserve">
+    <value>Місце проживання</value>
+  </data>
+  <data name="SelectGuardian" xml:space="preserve">
+    <value>Оберіть опекуна</value>
+  </data>
+  <data name="SelectWard" xml:space="preserve">
+    <value>Оберіть підопічну особу</value>
+  </data>
+  <data name="AddGuardianToPerson" xml:space="preserve">
+    <value>Додати особі опікуна</value>
+  </data>
+  <data name="ChangeGuardian" xml:space="preserve">
+    <value>Змінити опікуна</value>
+  </data>
 </root>

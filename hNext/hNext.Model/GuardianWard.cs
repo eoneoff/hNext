@@ -11,10 +11,16 @@ namespace hNext.Model
     public class GuardianWard
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long GuardianId { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.SelectWard))]
+        [Column(Order = 0)]
+        public long WardId { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long WardId { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.SelectGuardian))]
+        [Column(Order = 1)]
+        public long GuardianId { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources),
             ErrorMessageResourceName = nameof(Resources.EnterRelation))]

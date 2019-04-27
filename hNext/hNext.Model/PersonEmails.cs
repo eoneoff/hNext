@@ -8,9 +8,11 @@ namespace hNext.Model
     public class PersonEmails
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column(Order = 0)]
         public long PersonId { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column(Order = 1)]
         public long EmailId { get; set; }
 
         [ForeignKey(nameof(PersonId))]

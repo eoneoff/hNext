@@ -4,6 +4,7 @@ using hNext.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,21 +26,37 @@ namespace hNext.MSSQLCoreRepository
             .Include(p=>p.Person).ThenInclude(p=>p.Phones).ThenInclude(p=>p.Phone)
             .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e=>e.Email)
             .Include(p=>p.Person).ThenInclude(p => p.Documents).ThenInclude(d => d.DocumentType)
+            .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Region)
+            .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.District)
+            .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.City).ThenInclude(c => c.CityType)
+            .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
             .AsNoTracking().ToListAsync();
 
-        public async override Task<Patient> Get(long id) => await dbSet
-            .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Country)
-            .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Region)
-            .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.District)
-            .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.City)
-            .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Street)
-            .Include(p => p.Person).ThenInclude(p => p.CountryOfBirth)
-            .Include(p => p.Person).ThenInclude(p => p.PlaceOfBirth)
-            .Include(p => p.Person).ThenInclude(p => p.Gender)
-            .Include(p => p.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
-            .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
-            .Include(p => p.Person).ThenInclude(p => p.Documents).ThenInclude(d => d.DocumentType)
-            .AsNoTracking().SingleOrDefaultAsync(p => p.Id == id);
+        public async override Task<Patient> Get(params object[] key)
+        {
+            if (key.Count() > 1 && key[0] is long id)
+            {
+                return await dbSet
+                    .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Country)
+                    .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Region)
+                    .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.District)
+                    .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.City)
+                    .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Street)
+                    .Include(p => p.Person).ThenInclude(p => p.CountryOfBirth)
+                    .Include(p => p.Person).ThenInclude(p => p.PlaceOfBirth)
+                    .Include(p => p.Person).ThenInclude(p => p.Gender)
+                    .Include(p => p.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
+                    .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
+                    .Include(p => p.Person).ThenInclude(p => p.Documents).ThenInclude(d => d.DocumentType)
+                    .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Region)
+                    .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.District)
+                    .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.City).ThenInclude(c => c.CityType)
+                    .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
+                    .AsNoTracking().SingleOrDefaultAsync(p => p.Id == id);
+            }
+            else
+                throw new ArgumentException("Patient Getter needs argument of type long");
+        }
 
         public async Task<IEnumerable<Patient>> SearchPatients(PatientSearchModel model) => await db.SearchPatients(model)
             .Include(p => p.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Country)
@@ -53,6 +70,10 @@ namespace hNext.MSSQLCoreRepository
             .Include(p => p.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
             .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
             .Include(p => p.Person).ThenInclude(p => p.Documents).ThenInclude(d => d.DocumentType)
+            .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Region)
+            .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.District)
+            .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.City).ThenInclude(c => c.CityType)
+            .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
             .AsNoTracking().ToListAsync();
 
         public override async Task<Patient> Post(Patient item)
@@ -71,6 +92,10 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
                 .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
                 .Include(p => p.Person).ThenInclude(p => p.Documents).ThenInclude(d => d.DocumentType)
+                .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Region)
+                .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.District)
+                .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.City).ThenInclude(c => c.CityType)
+                .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 
@@ -90,6 +115,10 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
                 .Include(p => p.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
                 .Include(p => p.Person).ThenInclude(p => p.Documents).ThenInclude(d => d.DocumentType)
+                .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Region)
+                .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.District)
+                .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.City).ThenInclude(c => c.CityType)
+                .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
     }

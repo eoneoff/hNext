@@ -25,14 +25,15 @@ namespace hNext.MSSQLCoreRepository
             return await dbSet.AsNoTracking().ToListAsync();
         }
 
-        public virtual async Task<T> Get(long id)
+        public virtual async Task<T> Get(params object[] keys)
         {
-            return await dbSet.FindAsync(id);
+            return await dbSet.FindAsync(keys);
         }
 
         public virtual async Task<bool> Exists(params object[] key)
         {
             var result = await dbSet.FindAsync(key);
+        
             if(result != null)
             {
                 db.Entry(result).State = EntityState.Detached;

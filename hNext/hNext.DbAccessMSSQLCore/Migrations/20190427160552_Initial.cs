@@ -49,7 +49,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DocumentType",
+                name: "DocumentTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
@@ -58,11 +58,11 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DocumentType", x => x.Id);
+                    table.PrimaryKey("PK_DocumentTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Email",
+                name: "Emails",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -71,7 +71,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Email", x => x.Id);
+                    table.PrimaryKey("PK_Emails", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -349,28 +349,28 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Document",
+                name: "Documents",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DocumentTypeId = table.Column<int>(nullable: false),
-                    Number = table.Column<string>(maxLength: 20, nullable: true),
+                    Number = table.Column<string>(maxLength: 20, nullable: false),
                     PersonId = table.Column<long>(nullable: false),
                     IssuedBy = table.Column<string>(maxLength: 100, nullable: true),
                     DateOfIssue = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Document", x => x.Id);
+                    table.PrimaryKey("PK_Documents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Document_DocumentType_DocumentTypeId",
+                        name: "FK_Documents_DocumentTypes_DocumentTypeId",
                         column: x => x.DocumentTypeId,
-                        principalTable: "DocumentType",
+                        principalTable: "DocumentTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Document_People_PersonId",
+                        name: "FK_Documents_People_PersonId",
                         column: x => x.PersonId,
                         principalTable: "People",
                         principalColumn: "Id",
@@ -378,24 +378,24 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GuardianWard",
+                name: "GuardianWards",
                 columns: table => new
                 {
-                    GuardianId = table.Column<long>(nullable: false),
                     WardId = table.Column<long>(nullable: false),
+                    GuardianId = table.Column<long>(nullable: false),
                     Relation = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GuardianWard", x => new { x.GuardianId, x.WardId });
+                    table.PrimaryKey("PK_GuardianWards", x => new { x.WardId, x.GuardianId });
                     table.ForeignKey(
-                        name: "FK_GuardianWard_People_GuardianId",
+                        name: "FK_GuardianWards_People_GuardianId",
                         column: x => x.GuardianId,
                         principalTable: "People",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_GuardianWard_People_WardId",
+                        name: "FK_GuardianWards_People_WardId",
                         column: x => x.WardId,
                         principalTable: "People",
                         principalColumn: "Id",
@@ -434,9 +434,9 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     table.PrimaryKey("PK_PersonEmails", x => new { x.PersonId, x.EmailId });
                     table.ForeignKey(
-                        name: "FK_PersonEmails_Email_EmailId",
+                        name: "FK_PersonEmails_Emails_EmailId",
                         column: x => x.EmailId,
-                        principalTable: "Email",
+                        principalTable: "Emails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -537,19 +537,19 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 column: "RegionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Document_DocumentTypeId",
-                table: "Document",
+                name: "IX_Documents_DocumentTypeId",
+                table: "Documents",
                 column: "DocumentTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Document_PersonId",
-                table: "Document",
+                name: "IX_Documents_PersonId",
+                table: "Documents",
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GuardianWard_WardId",
-                table: "GuardianWard",
-                column: "WardId");
+                name: "IX_GuardianWards_GuardianId",
+                table: "GuardianWards",
+                column: "GuardianId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Patients_PersonId",
@@ -631,10 +631,10 @@ namespace hNext.DbAccessMSSQLCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Document");
+                name: "Documents");
 
             migrationBuilder.DropTable(
-                name: "GuardianWard");
+                name: "GuardianWards");
 
             migrationBuilder.DropTable(
                 name: "Patients");
@@ -646,10 +646,10 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 name: "PersonPhones");
 
             migrationBuilder.DropTable(
-                name: "DocumentType");
+                name: "DocumentTypes");
 
             migrationBuilder.DropTable(
-                name: "Email");
+                name: "Emails");
 
             migrationBuilder.DropTable(
                 name: "People");

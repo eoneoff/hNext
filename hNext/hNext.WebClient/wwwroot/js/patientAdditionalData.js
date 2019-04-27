@@ -18,6 +18,10 @@ Vue.component("PatientAdditionalData", {
             return (store.state.patient && store.state.patient.person)
                 ? store.state.patient.person.documents : [];
         },
+        guardians: function () {
+            return (store.state.patient && store.state.patient.person)
+                ? store.state.patient.person.guardians : [];
+        },
         enabled: {
             get: function () {
                 return store.state.enabled;
