@@ -46,9 +46,11 @@
                 <div class="form-group row flex-md-nowrap flex-fill">
                     <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.CityId"></label>
                     <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
-                        <select class="form-control" asp-for="Search.CityId" v-model="model.cityId" :disabled="searching || !enabled">
+                        <input class="form-control" v-if="filteredCities.length > 50" v-model="cityName" :disabled="searching && !enabled"/>
+                        <select class="form-control" asp-for="Search.CityId" v-else v-model="model.cityId" :disabled="searching || !enabled">
                             <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
-                            <option v-for="c in cities" :key="c.id" :value="c.id">{{ c.name }}</option>
+                            <option value="$reset" v-if="cities.length">@Localizer[nameof(Resources.ResetSearch)]</option>
+                            <option v-for="c in filteredCities" :key="c.id" :value="c.id">{{ c.name }}</option>
                         </select>
                     </div>
                 </div>

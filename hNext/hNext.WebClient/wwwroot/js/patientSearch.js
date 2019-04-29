@@ -13,6 +13,7 @@ Vue.component('PatientSearch', {
             },
             districts: [],
             cities: [],
+            cityName:'',
             foundPatients: [],
             searching: false,
             showPersonEditor: false
@@ -35,9 +36,18 @@ Vue.component('PatientSearch', {
                 this.cities.push(...await DATA_CLIENT.getCitiesByDistrict(val));
             }
             this.model.cityId = "";
+        },
+        'model.cityId': function (val) {
+            if (val == '$reset') {
+                this.cityName = '';
+                this.cityId = '';
+            }
         }
     },
     computed: {
+        filteredCities: function () {
+            return this.cities.filter(c => c.name.toLowerCase().startsWith(this.cityName.toLowerCase()));
+        },
         selectedPatient: {
             get: function () {
                 return store.state.patient;

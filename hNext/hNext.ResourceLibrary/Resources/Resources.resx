@@ -387,4 +387,7 @@
   <data name="ChangeGuardian" xml:space="preserve">
     <value>Змінити опікуна</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Будь ласка, зачекайте</value>
+  </data>
 </root>

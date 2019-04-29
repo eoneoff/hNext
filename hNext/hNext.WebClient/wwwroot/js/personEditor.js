@@ -16,10 +16,15 @@ Vue.component('PersonEditor', {
             quitConfirmation: false,
             saveConfirmation: false,
             addressConfirmation: false,
-            addressChangedConfirmation: false
+            addressChangedConfirmation: false,
+            regionsLoading: false,
+            districtsLoading: false,
+            citiesLoading: false,
+            streetsLoading: false,
+            placesOfBirthLoading: false
         }
     },
-    props:["initialPerson", "level"],
+    props: ["initialPerson", "level"],
     computed: {
         dateOfBirth: {
             get: function () {
@@ -71,7 +76,7 @@ Vue.component('PersonEditor', {
                 this.$emit('save', this.person);
             }
         },
-        saveQuitted: function() {
+        saveQuitted: function () {
             this.saveConfirmation = false;
             this.enabled = true;
         },
@@ -128,13 +133,112 @@ Vue.component('PersonEditor', {
         },
 
         addressChanged: function () {
-            return  this.initialPerson.address.countryId != this.person.address.countryId
+            return this.initialPerson.address.countryId != this.person.address.countryId
                 || this.initialPerson.address.regionId != this.person.address.regionId
                 || this.initialPerson.address.districtId != this.person.address.districtId
                 || this.initialPerson.address.cityId != this.person.address.cityId
                 || this.initialPerson.address.streetId != this.person.address.streetId
                 || this.initialPerson.address.building != this.person.address.building
                 || this.initialPerson.address.apartment != this.person.address.apartment;
+        },
+        selectedCountryChanged: async function () {
+            this.regions.splice(0);
+            this.person.address.regionId = '';
+            this.districts.splice(0);
+            this.person.address.districtId = '';
+            this.cities.splice(0);
+            this.cityName = '';
+            this.person.address.cityId = '';
+            this.streets.splice(0);
+            this.person.address.streetId = '';
+
+            if (this.person.address.countryId) {
+                this.loadRegions(this.person.address.countryId);
+                this.loadCities('country', this.person.address.countryId);
+            }
+        },
+        selectedRegionChanged: async function () {
+            this.districts.splice(0);
+            this.person.address.districtId = '';
+            this.cities.splice(0);
+            this.cityName = '';
+            this.person.address.cityId = '';
+            this.streets.splice(0);
+            this.person.address.streetId = '';
+            if (this.person.address.regionId) {
+                this.loadDistricts(this.person.address.regionId);
+                this.loadCities('region', this.person.address.regionId);
+            }
+        },
+        selectedDistrictChanged: async function () {
+            this.cities.splice(0);
+            this.person.address.cityId = '';
+            this.cityName = '';
+            this.streets.splice(0)
+            if (this.person.address.districtId) {
+                this.loadCities('district', this.person.address.districtId);
+            } else {
+                this.person.address.cityId = '';
+                this.cities.splice(0);
+                this.loadCities('region', this.person.address.regionId);
+            }
+        },
+        selectedCityChanged: async function () {
+            this.streets.splice(0);
+            if (this.person.address.cityId == '$reset') {
+                this.person.address.cityId = '';
+                this.cityName = '';
+            } else if (this.person.address.cityId) {
+                this.person.address.cityId = '';
+                this.loadStreets(this.person.address.cityId);
+                let city = this.cities.find(c => c.id == this.person.address.cityId);
+                this.person.address.districtId = city.districtId;
+                this.person.address.regionId = city.regionId;
+                if (this.districts.findIndex(d => d.id == city.districtId) == -1) {
+                    this.loadDistricts(city.regionId);
+                }
+            }
+        },
+        loadRegions: async function (countryId) {
+            this.regionsLoading = true;
+            this.regions.push(...await DATA_CLIENT.getRegionsByCountry(countryId));
+            this.regionsLoading = false;
+        },
+        loadDistricts: async function (regionId) {
+            this.districtsLoading = true;
+            let tempDistricts = await DATA_CLIENT.getDistrictsByRegion(regionId);
+            this.districts.push(...tempDistricts);
+            this.districtsLoading = false;
+        },
+        loadCities: async function (source, id) {
+            let tempCities = [];
+            this.citiesLoading = true;
+            if (id) {
+                switch (source) {
+                    case 'country':
+                        tempCities = await DATA_CLIENT.getCitiesByCountry(id);
+                        break;
+                    case 'region':
+                        tempCities = await DATA_CLIENT.getCitiesByRegion(id);
+                        break;
+                    case 'district':
+                        tempCities = await DATA_CLIENT.getCitiesByDistrict(id);
+                        break;
+                }
+            }
+            this.cities.push(...tempCities);
+            this.citiesLoading = false;
+        },
+        loadStreets: async function (cityId) {
+            this.streetsLoading = true;
+            this.streets.push(...await DATA_CLIENT.getStreetsByCity(cityId));
+            this.streetsLoading = false;
+        },
+        loadPlacesOfBirth: async function (countryId) {
+            this.placesOfBirthLoading = true;
+            this.placesOfBirth.splice(0);
+            this.placesOfBirth.push(...await DATA_CLIENT.getCitiesByCountry(countryId));
+            this.placesOfBirthLoading = false;
         },
         newPerson: function () {
             return {
@@ -162,158 +266,71 @@ Vue.component('PersonEditor', {
         }
     },
     watch: {
-        'person.address.countryId': async function (val) {
-            let tempRegions = [];
-            let tempCities = [];
-            this.cityName = "";
-
-            if (val) {
-                tempRegions = await DATA_CLIENT.getRegionsByCountry(val);
-                tempCities = await DATA_CLIENT.getCitiesByCountry(val);
-            }
-
-            if ((this.person.address.region || {}).id != this.person.address.regionId) {
-                if (this.regions.length) {
-                    this.person.address.regionId = '';
-                    this.regions.splice(0);
-                }
-                this.regions.push(...tempRegions);
-            }
-
-            if ((this.person.address.city || {}).id != this.person.address.cityId) {
-                if (this.cities.length) {
-                    this.person.address.cityId = '';
-                    this.cities.splice(0);
-                }
-                this.cities.push(...tempCities);
-            }
-        },
-        'person.countryOfBirthId': async function (val) {
-            this.cityName = "";
+        'person.countryOfBirthId': function (val) {
+            this.placeOfBirthName = "";
             if (this.placesOfBirth.length) {
                 this.placesOfBirth.splice(0);
                 this.person.placeOfBirthId = '';
             }
             if (val) {
-                this.placesOfBirth.push(...await DATA_CLIENT.getCitiesByCountry(val));
+                this.loadPlacesOfBirth(val);
             }
         },
         'person.placeOfBirthId': function (val) {
-            if (val === '0') {
+            if (val == '$reset') {
+                this.placeOfBirthName = '';
+                this.person.placeOfBirthId = '';
+            } else if (!val) {
                 this.placeOfBirthName = '';
             }
         },
-        'person.address.regionId': async function (val) {
-            this.cityName = "";
-            let tempDistricts = [];
-            let tempCities = [];
-
-            if (val) {
-                tempDistricts = await DATA_CLIENT.getDistrictsByRegion(val);
-                tempCities = await DATA_CLIENT.getCitiesByRegion(val);
-            } else if (this.person.address.countryId) {
-                tempCities = await DATA_CLIENT.getCitiesByCountry(this.person.address.countryId);
-            }
-
-            if ((this.person.address.district || {}).regionId != val) {
-                if (this.districts.length) {
-                    this.person.address.districtId = '';
-                    this.districts.splice(0);
-                }
-                this.districts.push(...tempDistricts);
-            }
-
-            if ((this.person.address.city || {}).regionId != val) {
-                if (this.cities.length) {
-                    this.person.address.cityId = '';
-                    this.cities.splice(0);
-                }
-                this.cities.push(...tempCities);
-            }
-        },
-        'person.address.districtId': async function (val) {
-            this.cityName = "";
-            let tempCities = [];
-            
-            if (val) {
-                tempCities = await DATA_CLIENT.getCitiesByDistrict(val);
-            } else {
-                if (this.person.address.regionId) {
-                    tempCities = await DATA_CLIENT.getCitiesByRegion(this.person.address.regionId);
-                } else if(this.person.address.countryId) {
-                    tempCities = await DATA_CLIENT.getCitiesByCountry(this.person.address.countryId);
-                }
-            }
-
-            if ((this.person.address.city || {}).districtId != val) {
-                if (this.cities.length) {
-                    this.person.address.cityId = '';
-                    this.cities.splice(0);
-                }
-                this.cities.push(...tempCities);
-            }
-        },
-        'person.address.cityId': async function (val) {
-            if (this.streets.length) {
-                this.streets.splice(0);
-                this.person.address.streetId = '';
-            }
-            if (val) {
-                this.streets.push(...await DATA_CLIENT.getStreetsByCity(val));
-            }
-
-            if (val == '0') {
-                this.cityName = "";
-            }
-
-            if (!this.person.address.city
-                || this.person.address.city.id != this.person.address.cityId) {
-                this.person.address.city = this.cities.find(city => city.id == val);
-            }
-
-            if (!this.person.address.regionId) {
-                this.person.address.regionId = (this.person.address.city || {}).regionId || '';
-            }
-            if (!this.person.address.districtId) {
-                this.person.address.districtId = (this.person.address.city || {}).districtId || '';
+        'person.address.cityId': function (val) {
+            if (val && val!='$reset') {
+                this.person.address.city = this.cities.find(c => c.id == val);
             }
         },
         'person.address.streetId': function (val) {
             if (val) {
-                if (!this.person.address.street
-                    || this.person.address.street.id != this.person.address.streetId) {
-                    this.person.address.street = this.streets.find(street => street.id == val);
-                }
+                this.person.address.street = this.streets.find(s => s.id == val);
             }
         }
     },
     created: async function () {
         if (this.initialPerson) {
             if (this.initialPerson.address) {
+                if (this.initialPerson.address.city) {
+                    this.cityName = this.initialPerson.address.city.name;
+                }
                 if (this.initialPerson.address.districtId) {
-                    this.cities.push(... await DATA_CLIENT.getCitiesByDistrict(this.initialPerson.address.districtId));
+                    this.loadCities('district', this.initialPerson.address.districtId);
                 }
                 if (this.initialPerson.address.regionId) {
-                    this.districts.push(...await DATA_CLIENT.getDistrictsByRegion(this.initialPerson.address.regionId));
+                    await this.loadDistricts(this.initialPerson.address.regionId)
                     if (!this.cities.length) {
-                        this.cities.push(...await DATA_CLIENT.getCitiesByRegion(this.initialPerson.address.regionId));
+                        this.loadCities('region', this.initialPerson.address.regionId);
                     }
                 }
                 if (this.initialPerson.address.countryId) {
-                    this.regions.push(...await DATA_CLIENT.getRegionsByCountry(this.initialPerson.address.countryId));
+                    this.loadRegions(this.initialPerson.address.countryId);
                     if (!this.cities.length) {
-                        this.cities.push(...await DATA_CLIENT.getCitiesByCountry(this.initialPerson.address.countryId));
+                        this.loadCities('country', this.initialPerson.address.countryId);
                     }
                 }
                 if (this.initialPerson.address.cityId) {
-                    this.streets.push(...await DATA_CLIENT.getStreetsByCity(this.initialPerson.address.cityId));
+                    this.loadStreets(this.initialPerson.address.cityId);
                 }
             }
             if (this.initialPerson.countryOfBirthId) {
-                this.placesOfBirth.push(...await DATA_CLIENT.getCitiesByCountry(this.initialPerson.countryOfBirthId));
+                await this.loadPlacesOfBirth(this.initialPerson.countryOfBirthId);
+                if (this.initialPerson.placeOfBirthId) {
+                    this.placeOfBirthName = this.placesOfBirth
+                        .find(c => c.id == this.initialPerson.placeOfBirthId).name;
+                }
             }
         } else {
             this.person.address.countryId = 71;
+            this.loadRegions(71);
+            this.loadCities('country', 71);
             this.person.countryOfBirthId = 71;
         }
     },
