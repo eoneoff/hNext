@@ -102,13 +102,14 @@ namespace hNext.MSSQLCoreRepository
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 
-        public async Task<Person> Exists(Person person)
+        public async Task<IEnumerable<Person>> Exists(Person person)
         {
-            return (await dbSet.AsNoTracking().SingleOrDefaultAsync(p => p.Id != person.Id
-                                                    && p.FirstName == person.FirstName
-                                                    && p.FamilyName == person.FamilyName
-                                                    && p.Patronimic == person.Patronimic
-                                                    && p.DateOfBirth == person.DateOfBirth));
+            return await dbSet.AsNoTracking().Where(p => p.Id != person.Id
+                                                    && p.FirstName.ToLower() == person.FirstName.ToLower()
+                                                    && p.FamilyName.ToLower() == person.FamilyName.ToLower()
+                                                    && p.Patronimic.ToLower() == person.Patronimic.ToLower()
+                                                    && p.DateOfBirth.GetValueOrDefault().Date == person.DateOfBirth.GetValueOrDefault().Date)
+                                                    .ToListAsync();
         }
 
         public async Task<IEnumerable<Person>> Search(params string[] name)

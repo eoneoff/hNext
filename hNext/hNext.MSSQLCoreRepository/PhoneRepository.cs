@@ -16,7 +16,7 @@ namespace hNext.MSSQLCoreRepository
 
         public async Task<bool> BelongToOthers(long id)
         {
-            return await db.PersonPhones.Where(pp => pp.PhoneId == id).CountAsync() > 1;
+            return await db.PersonPhones.Where(pp => pp.PhoneId == id).CountAsync() > 0;
         }
 
         public async Task<Phone> Exists(string number)

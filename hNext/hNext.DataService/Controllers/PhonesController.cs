@@ -21,7 +21,7 @@ namespace hNext.DataService.Controllers
         public async Task<IEnumerable<Phone>> Get() => await _repository.Get();
 
         [HttpGet("{id:int}")]
-        public async Task<Phone> Get(int id) => await _repository.Get(id);
+        public async Task<Phone> Get(long id) => await _repository.Get(id);
 
         [HttpPost]
         public async Task<IActionResult> Post(Phone phone)
@@ -57,7 +57,7 @@ namespace hNext.DataService.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(long id)
         {
             Phone phone = await _repository.Delete(id);
             if (phone == null)

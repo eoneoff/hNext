@@ -24,16 +24,16 @@ namespace hNext.MSSQLCoreRepository.Tests
         {
             //Arrange
             var patients = new List<Patient>();
-            var manager = new Mock<IStateManager>();
-            var model = new Mock<Microsoft.EntityFrameworkCore.Metadata.Internal.Model>();
-            var entry = new Mock<EntityEntry<Patient>>(new InternalShadowEntityEntry(
-                manager.Object, new EntityType("Patient", model.Object, ConfigurationSource.Convention)));
-            entry.SetupSet(e => e.State = It.IsAny<EntityState>()).Verifiable();
+            //var manager = new Mock<IStateManager>();
+            //var model = new Mock<Microsoft.EntityFrameworkCore.Metadata.Internal.Model>();
+            //var entry = new Mock<EntityEntry<Patient>>(new InternalShadowEntityEntry(
+            //    manager.Object, new EntityType("Patient", model.Object, ConfigurationSource.Convention)));
+            //entry.SetupSet(e => e.State = It.IsAny<EntityState>()).Verifiable();
             var dbSet = patients.AsQueryable().BuildMockDbSet();
             var context = new Mock<hNextDbContext>(new DbContextOptions<hNextDbContext>());
             var patient = new Patient();
             context.Setup(c => c.Set<Patient>()).Returns(dbSet.Object);
-            context.Setup(c => c.Entry(It.IsAny<Patient>())).Returns(entry.Object);
+            //context.Setup(c => c.Entry(It.IsAny<Patient>())).Returns(entry.Object);
             Repository<Patient> repository = new Repository<Patient>(context.Object);
 
             //Act
@@ -41,7 +41,7 @@ namespace hNext.MSSQLCoreRepository.Tests
 
             //Assert
             Assert.AreEqual(patient, result);
-            entry.VerifySet(e => e.State = EntityState.Modified);
+            dbSet.Verify(d => d.Update(patient), Times.Once);
             context.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         }
 

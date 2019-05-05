@@ -1,4 +1,5 @@
 ﻿using hNext.DbAccessMSSQLCore;
+using hNext.IRepository;
 using hNext.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -62,6 +63,34 @@ namespace hNext.MSSQLCoreRepository.Tests
             Assert.IsInstanceOfType(result, typeof(IEnumerable<City>));
             Assert.AreEqual(result.Count(), 2);
             Assert.IsTrue(result.All(c => c.CountryId == 1));
+        }
+
+        [TestMethod]
+        public void TestCitiesByNameGetter()
+        {
+            //Arrange
+            int countryId = 1;
+            string name = "aaa";
+            var regions = new List<City>
+            {
+                new City { CountryId = countryId, Name = name },
+                new City { CountryId = countryId + 1, Name = name },
+                new City { CountryId = countryId, Name=$"ccc{name}" },
+                new City { CountryId = countryId + 2, Name=$"bbb{name}" }
+            };
+            var dbSet = regions.AsQueryable().BuildMockDbSet();
+            var context = new Mock<hNextDbContext>(new DbContextOptions<hNextDbContext>());
+            context.Setup(c => c.Cities).Returns(dbSet.Object);
+            ICountryRepository repository = new CountryRepository(context.Object);
+
+            //Act
+            var result = repository.GetCitiesByName(countryId, name).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<City>));
+            Assert.AreEqual(result.Count(), 1);
+            Assert.IsTrue(result.All(c => c.CountryId == countryId));
+            Assert.IsTrue(result.All(c => c.Name.ToLower().StartsWith(name.ToLower())));
         }
     }
 }

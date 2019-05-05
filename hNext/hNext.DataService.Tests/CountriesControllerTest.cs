@@ -33,7 +33,7 @@ namespace hNext.DataService.Tests
         {
             //Arrange
             var moq = new Mock<ICountryRepository>();
-            moq.Setup(m => m.Get(It.IsAny<long>())).Returns<long>(id => Task.FromResult(new Country { Id = (int)id }));
+            moq.Setup(m => m.Get(It.IsAny<object[]>())).Returns<object[]>(id => Task.FromResult(new Country { Id = (int)id[0] }));
             CountriesController controller = new CountriesController(moq.Object);
             int districtId = 3;
 
@@ -70,6 +70,21 @@ namespace hNext.DataService.Tests
 
             //Act
             var result = controller.GetCities(3).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<City>));
+        }
+
+        [TestMethod]
+        public void GetCitiesByNameReturnsListOfCities()
+        {
+            //Arrange
+            var moq = new Mock<ICountryRepository>();
+            moq.Setup(m => m.GetCitiesByName(It.IsAny<int>(), It.IsAny<string>())).Returns(Task.FromResult(new List<City>() as IEnumerable<City>));
+            CountriesController controller = new CountriesController(moq.Object);
+
+            //Act
+            var result = controller.GetCitiesByName(0, string.Empty).Result;
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(IEnumerable<City>));

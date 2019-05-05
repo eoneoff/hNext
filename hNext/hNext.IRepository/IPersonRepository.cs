@@ -9,6 +9,6 @@ namespace hNext.IRepository
     public interface IPersonRepository:IRepository<Person>
     {
         Task<IEnumerable<Person>> Search(params string[] name);
-        Task<Person> Exists(Person person);
+        Task<IEnumerable<Person>> Exists(Person person);
     }
 }

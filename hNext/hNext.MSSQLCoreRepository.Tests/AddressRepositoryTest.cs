@@ -38,11 +38,19 @@ namespace hNext.MSSQLCoreRepository.Tests
             AddressRepository repository = new AddressRepository(context.Object);
 
             //Act
-            var found = repository.Exists(address).Result;
+            var found = repository.Exists(new Address
+            {
+                Id = addressId + 1,
+                CountryId = 1,
+                CityId = 1,
+                StreetId = 1,
+                Building = "test",
+                Apartment = "test"
+            }).Result;
             var notFound = repository.Exists(new Address()).Result;
 
             //Assert
-            Assert.AreEqual(found, addressId);
+            Assert.AreEqual(found.Id, addressId);
             Assert.IsNull(notFound);
         }
     }

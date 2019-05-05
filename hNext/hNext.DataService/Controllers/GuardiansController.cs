@@ -20,9 +20,9 @@ namespace hNext.DataService.Controllers
         [HttpGet]
         public async Task<IEnumerable<GuardianWard>> Get() => await _repository.Get();
 
-        [HttpGet("{guardianId:long}/{wardId:long}")]
-        public async Task<GuardianWard> Get(long guardianId, long wardId) =>
-            await _repository.Get(guardianId, wardId);
+        [HttpGet("{wardId:long}/{guardianId:long}")]
+        public async Task<GuardianWard> Get(long wardId, long guardianId) =>
+            await _repository.Get(wardId, guardianId);
 
         [HttpGet("{wardId:long}/exists/{guardianId:long}")]
         public async Task<bool> Exists(long wardId, long guardianId) => await _repository.Exists(wardId, guardianId);
@@ -78,7 +78,7 @@ namespace hNext.DataService.Controllers
                 return BadRequest();
             }
 
-            return Ok(_repository.Delete(wardId, guardianId));
+            return Ok(await _repository.Delete(wardId, guardianId));
         }
     }
 }

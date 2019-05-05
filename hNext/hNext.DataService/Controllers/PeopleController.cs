@@ -29,14 +29,14 @@ namespace hNext.DataService.Controllers
         public async Task<IEnumerable<Person>> Get() => await _repository.Get();
 
         [HttpGet("{id:int}")]
-        public async Task<Person> Get(int id) => await _repository.Get(id);
+        public async Task<Person> Get(long id) => await _repository.Get(id);
 
         [HttpGet("search/{name?}")]
         public async Task<IEnumerable<Person>> Search(string name = "") =>
             await _repository.Search(name.Split('$'));
 
         [HttpPost("exists")]
-        public async Task<Person> Exists(Person person) => await _repository.Exists(person);
+        public async Task<IEnumerable<Person>> Exists(Person person) => await _repository.Exists(person);
 
         [HttpPost]
         public async Task<IActionResult> Post(Person person)
@@ -61,6 +61,8 @@ namespace hNext.DataService.Controllers
             {
                 return BadRequest();
             }
+
+            person.Id = id;
 
             return Ok(await _repository.Put(person));
         }

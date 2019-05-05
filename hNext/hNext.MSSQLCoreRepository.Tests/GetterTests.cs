@@ -43,12 +43,17 @@ namespace hNext.MSSQLCoreRepository.Tests
         public void GetIdReturnsCorrect()
         {
             //Arrange
-            var patients = new List<Patient>();
+            long patientId = 2;
+            var patients = new List<Patient>
+            {
+                new Patient{Id = patientId},
+                new Patient{Id = patientId + 1},
+                new Patient{Id = patientId + 2}
+            };
 
             var dbSet = patients.AsQueryable().BuildMockDbSet();
-            int patientId = 2;
-            dbSet.Setup(d => d.FindAsync(It.IsAny<long>()))
-                .Returns<object>(id => Task.FromResult(new Patient { Id = patientId}));
+            dbSet.Setup(d => d.FindAsync(It.IsAny<object[]>()))
+                .ReturnsAsync((object[] id) => { return patients.SingleOrDefault(p => p.Id == (long)id[0]); });
             var context = new Mock<hNextDbContext>(new DbContextOptions<hNextDbContext>());
             context.Setup(c => c.Set<Patient>()).Returns(dbSet.Object);
             Getter<Patient> getter = new Getter<Patient>(context.Object);

@@ -13,7 +13,7 @@ namespace hNext.WebClient.Components
         public IViewComponentResult Invoke(UniqueList<string> modules)
         {
             modules.Add(nameof(DocumentEditorViewComponent).ViewComponentName());
-            modules.Add(nameof(DocumentEditorViewComponent).ViewComponentName());
+            modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
             
             return View();
         }

@@ -30,7 +30,7 @@ namespace hNext.MSSQLCoreRepository.Tests
             var result = poster.Post(patient).Result;
 
             //Assert
-            dbSet.Verify(d => d.Add(patient), Times.Once);
+            dbSet.Verify(d => d.Update(patient), Times.Once);
             context.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
             Assert.AreEqual(patient, result);
         }
