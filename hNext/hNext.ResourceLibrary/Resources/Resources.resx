@@ -390,4 +390,43 @@
   <data name="PleaseWait" xml:space="preserve">
     <value>Будь ласка, зачекайте</value>
   </data>
+  <data name="EnterHospitalName" xml:space="preserve">
+    <value>Введіть назву лікарні</value>
+  </data>
+  <data name="EDRPOU" xml:space="preserve">
+    <value>ЄДРПОУ</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Логін</value>
+  </data>
+  <data name="PropertyType" xml:space="preserve">
+    <value>Тип власності</value>
+  </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>Скорочена назва</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>Вебсайт</value>
+  </data>
+  <data name="ActivityLicensed" xml:space="preserve">
+    <value>Ліцензована діяльність</value>
+  </data>
+  <data name="ExpiryDate" xml:space="preserve">
+    <value>Дата закінчення</value>
+  </data>
+  <data name="Hospitals" xml:space="preserve">
+    <value>Медичні заклади</value>
+  </data>
+  <data name="Hospital" xml:space="preserve">
+    <value>Лікувальний заклад</value>
+  </data>
+  <data name="HospitalType" xml:space="preserve">
+    <value>Тип закладу</value>
+  </data>
+  <data name="SelectHospitalType" xml:space="preserve">
+    <value>Оберіть тип закладу</value>
+  </data>
+  <data name="SelectPropertyType" xml:space="preserve">
+    <value>Оберіть тип власності</value>
+  </data>
 </root>

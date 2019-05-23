@@ -2,11 +2,12 @@
 
 Vue.component('EmailsList', {
     template: '#emails-list-template',
-    props: ['initialEmails', 'level', 'personId', 'initialEnabled'],
+    props: ['initialEmails', 'level', 'initialEnabled', 'objectSelected'],
+    inject: ['addEmail', 'deleteEmail'],
     data: function () {
         return {
             emails: this.initialEmails || [],
-            selectedEmail: { emailId: 0, personId: this.personId, email: { id: 0, address: '' } },
+            selectedEmail: { emailId: 0, email: { id: 0, address: '' } },
             enabled: this.initialEnabled,
             showEditor: false,
             showDeleteConfirmation: false
@@ -19,8 +20,8 @@ Vue.component('EmailsList', {
             }
         },
         add: function () {
-            if (this.personId) {
-                this.selectedEmail = { emailId: 0, personId: this.personId, email: { id: 0, address: '' } }
+            if (this.objectSelected) {
+                this.selectedEmail = { emailId: 0, email: { id: 0, address: '' } }
                 this.enabled = false;
                 this.showEditor = true;
             }
@@ -34,7 +35,7 @@ Vue.component('EmailsList', {
                     this.emails.findIndex((e) => e.emailId == email.emailId),
                     1, email);
             } else {
-                email = await DATA_CLIENT.addEmailToPerson(email);
+                email = await this.addEmail(email);
                 this.emails.push(email);
             }
         },
@@ -58,8 +59,8 @@ Vue.component('EmailsList', {
             this.emails.splice(this.emails.indexOf(this.selectedEmail), 1);
             this.showDeleteConfirmation = false;
             this.enabled = true;
-            await DATA_CLIENT.deleteEmailFromPerson(this.selectedEmail);
-            this.selectedEmail = { emailId: 0, personId: 0, email: { id: 0, address: '' } }
+            await this.deleteEmail(email);
+            this.selectedEmail = { emailId: 0, email: { id: 0, address: '' } }
         },
         cancelRemove: function () {
             this.showDeleteConfirmation = false;
@@ -75,7 +76,7 @@ Vue.component('EmailsList', {
         },
         initialEmails: function (val) {
             this.emails = val;
-            this.selectedEmail = { emailId: 0, personId: 0, email: { id: 0, address: '' } };
+            this.selectedEmail = { emailId: 0, email: { id: 0, address: '' } };
         }
     }
 });

@@ -35,6 +35,13 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<DocumentType> DocumentTypes { get; set; }
         public virtual DbSet<GuardianWard> GuardianWards { get; set; }
+        public virtual DbSet<Hospital> Hospitals { get; set; }
+        public virtual DbSet<PropertyType> PropertyTypes { get; set; }
+        public virtual DbSet<HospitalType> HospitalTypes { get; set; }
+        public virtual DbSet<HospitalPhone> HospitalPhones { get; set; }
+        public virtual DbSet<HospitalEmail> HospitalEmails { get; set; }
+        public virtual DbSet<License> Licenses { get; set; }
+        public virtual DbSet<HospitalLicense> HospitalLicenses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -88,6 +95,10 @@ namespace hNext.DbAccessMSSQLCore
                 .HasForeignKey(gw => gw.GuardianId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<GuardianWard>().HasOne(gw => gw.Ward).WithMany(p => p.Guardians)
                 .HasForeignKey(gw => gw.WardId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Hospital>().HasIndex(h => h.Name);
+            modelBuilder.Entity<HospitalPhone>().HasKey(hp => new { hp.HospitalId, hp.PhoneId });
+            modelBuilder.Entity<HospitalEmail>().HasKey(he => new { he.HospitalId, he.EmailId });
         }
     }
 }

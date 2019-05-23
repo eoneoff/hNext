@@ -69,5 +69,8 @@ namespace hNext.Model
 
         [JsonIgnore]
         public virtual ICollection<Person> People { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Hospital> Hospitals { get; set; }
     }
 }

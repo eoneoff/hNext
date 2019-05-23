@@ -98,13 +98,42 @@ footer{
 }
 
 /*selectable table style*/
-.selected-table-row{
-    background-color:$selected-grid-row-color!important;
+.selected-table-row {
+    tr {
+        background-color: $selected-grid-row-color !important;
+    }
+    td {
+        background-color: $selected-grid-row-color !important;
+    }
 }
 
 .table-responsive-vertical {
     max-height: 50vh;
     overflow-y: auto;
+}
+
+/*scrollable table*/
+.scrollable-table{
+    tbody{
+        overflow-y:auto;
+        width:100%;
+    }
+    thead,tbody,tr,td,th{
+        display:block;
+        width:100%;
+    }
+    tbody{
+        td{
+            float:left;
+        }
+    }
+    thead{
+        tr{
+            td{
+                float:left;
+            }
+        }
+    }
 }
 
 /*additional data table style*/

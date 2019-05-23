@@ -77,6 +77,7 @@ class DataClient {
     }
 
     async checkPhoneExists(number) {
+        number = number.replace('+', '$$plus$$')
         return (await axios.get(
             `${this._apiServer}phones/exists/${number}`
         )).data;
@@ -130,6 +131,32 @@ class DataClient {
     async deleteEmailFromPerson(personEmail) {
         return (await axios.delete(
             `${this._apiServer}people/${personEmail.personId}/email/${personEmail.emailId}`
+        )).data;
+    }
+
+    async addEmailToHospital(hospitalEmail) {
+        return (await axios.post(
+            `${this._apiServer}hospitals/${hospitalEmail.hospitalId}/emails`,
+            hospitalEmail
+        )).data;
+    }
+
+    async deleteEmailFromHospital(hospitalEmail) {
+        return (await axios.delete(
+            `${this._apiServer}hospitals/${hospitalEmail.hospitalId}/emails/${hospitalEmail.emailId}`
+        )).data;
+    }
+
+    async addPhoneToHospital(hospitalPhone) {
+        return (await axios.post(
+            `${this._apiServer}hospitals/${hospitalPhone.hospitalId}/phones`,
+            hospitalPhone
+        )).data;
+    }
+
+    async deletePhoneFromHospital(hospitalPhone) {
+        return (await axios.delete(
+            `${this._apiServer}hospitals/${hospitalPhone.hospitalId}/phones/${hospitalPhone.phoneId}`
         )).data;
     }
 
@@ -238,6 +265,26 @@ class DataClient {
         return (await axios.post(
             `${this._apiServer}patients/search`,
             model
+        )).data;
+    }
+
+    async getHospitals() {
+        return (await axios.get(
+            `${this._apiServer}hospitals`
+        )).data;
+    }
+
+    async saveHospital(hospital) {
+        return (await axios.post(
+            `${this._apiServer}hospitals`,
+            hospital
+        )).data;
+    }
+
+    async editHospital(hospital) {
+        return (await axios.put(
+            `${this._apiServer}hospitals/${hospital.id}`,
+            hospital
         )).data;
     }
 }

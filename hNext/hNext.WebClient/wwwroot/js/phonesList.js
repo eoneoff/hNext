@@ -2,11 +2,12 @@
 
 Vue.component("PhonesList", {
     template: '#phones-list-template',
-    props: ['initialPhones', 'level', 'personId', 'initialEnabled'],
+    props: ['initialPhones', 'level', 'initialEnabled', 'objectSelected'],
+    inject: ['addPhone', 'deletePhone'],
     data: function () {
         return {
             phones: this.initialPhones || [],
-            selectedPhone: { phoneId: 0, personId: this.personId, phone: { id: 0, number: '', phoneTypeId: '' }},
+            selectedPhone: { phoneId: 0, phone: { id: 0, number: '', phoneTypeId: '' }},
             enabled: this.initialEnabled,
             showEditor: false,
             showDeleteConfirmation: false
@@ -19,8 +20,8 @@ Vue.component("PhonesList", {
             }
         },
         add: function () {
-            if (this.personId) {
-                this.selectedPhone = { phoneId: 0, personId: this.personId, phone: { id: 0, number: '', phoneTypeId: '' } };
+            if (this.objectSelected) {
+                this.selectedPhone = { phoneId: 0, phone: { id: 0, number: '', phoneTypeId: '' } };
                 this.enabled = false;
                 this.showEditor = true;
             }
@@ -34,7 +35,7 @@ Vue.component("PhonesList", {
                     this.phones.findIndex((p) => p.phoneId == phone.phoneId),
                     1, phone);
             } else {
-                phone = await DATA_CLIENT.addPhoneToPerson(phone);
+                phone = await this.addPhone(phone);
                 this.phones.push(phone);
             }
             
@@ -57,10 +58,10 @@ Vue.component("PhonesList", {
         },
         confirmRemove: async function () {
             this.phones.splice(this.phones.indexOf(this.selectedPhone),1);
-            this.selectedPhone = { phoneId: 0, personId: 0, phone: { id: 0, number: '', phoneTypeId: '' } },
+            this.selectedPhone = { phoneId: 0, phone: { id: 0, number: '', phoneTypeId: '' } },
             this.showDeleteConfirmation = false;
             this.enabled = true;
-            await DATA_CLIENT.deletePhoneFromPerson(this.selectedPhone);
+            await this.deletePhone(this.selectedPhone);
         },
         cancelRemove: function () {
             this.enabled = true;
@@ -76,7 +77,7 @@ Vue.component("PhonesList", {
         },
         initialPhones: function () {
             this.phones = this.initialPhones;
-            this.selectedPhone = { phoneId: 0, personId: this.personId, phone: { id: 0, number: '', phoneTypeId: '' } };
+            this.selectedPhone = { phoneId: 0, phone: { id: 0, number: '', phoneTypeId: '' } };
         }
     }
 });

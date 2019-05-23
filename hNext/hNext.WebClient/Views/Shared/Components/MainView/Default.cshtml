@@ -8,7 +8,8 @@
                 @foreach (var tab in Model.Tabs)
                 {
                     <li class="nav-item">
-                        <a class="nav-link active side-tab-selector p-1" id="@($"{tab.Key.ToCamelCase()}Tab")">
+                        <a class="nav-link side-tab-selector p-1" :class="{active : selectedTab == '@tab.Key'}"
+                           @@click="tabClicked('@tab.Key')">
                             @tab.Value
                         </a>
                     </li>

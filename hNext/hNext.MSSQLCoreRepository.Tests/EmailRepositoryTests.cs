@@ -25,6 +25,7 @@ namespace hNext.MSSQLCoreRepository.Tests
             List<PersonEmails> emails = new List<PersonEmails>
             {
                 new PersonEmails{EmailId = emailId},
+                new PersonEmails{EmailId = emailId},
                 new PersonEmails{EmailId = emailId + 1},
                 new PersonEmails {EmailId = emailId +2 }
             };

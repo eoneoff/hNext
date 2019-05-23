@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hNext.DbAccessMSSQLCore;
 
 namespace hNext.DbAccessMSSQLCore.Migrations
 {
     [DbContext(typeof(hNextDbContext))]
-    partial class hNextDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190507124311_Hospital")]
+    partial class Hospital
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -337,34 +339,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.ToTable("HospitalTypes");
                 });
 
-            modelBuilder.Entity("hNext.Model.License", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ActivityLicensed");
-
-                    b.Property<DateTime?>("DateOfIssue");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
-                    b.Property<DateTime?>("ExpiryDate");
-
-                    b.Property<string>("IssuedBy");
-
-                    b.Property<string>("Number");
-
-                    b.Property<string>("OrderNo");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Licenses");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("License");
-                });
-
             modelBuilder.Entity("hNext.Model.Patient", b =>
                 {
                     b.Property<long>("Id")
@@ -568,17 +542,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StreetTypes");
-                });
-
-            modelBuilder.Entity("hNext.Model.HospitalLicense", b =>
-                {
-                    b.HasBaseType("hNext.Model.License");
-
-                    b.Property<int>("HospitalId");
-
-                    b.HasIndex("HospitalId");
-
-                    b.HasDiscriminator().HasValue("HospitalLicense");
                 });
 
             modelBuilder.Entity("hNext.Model.Address", b =>
@@ -798,14 +761,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.StreetType", "StreetType")
                         .WithMany("Streets")
                         .HasForeignKey("StreetTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("hNext.Model.HospitalLicense", b =>
-                {
-                    b.HasOne("hNext.Model.Hospital", "Hospital")
-                        .WithMany("Licenses")
-                        .HasForeignKey("HospitalId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

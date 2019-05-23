@@ -1,8 +1,8 @@
 ﻿
 <template id="patient-additional-data-template">
     <div class="main-panel ml-2 d-flex flex-column">
-        <phones-list class="mx-2" :initial-phones="phones" level="0" :person-id="personId" :initial-enabled="enabled" @@enable="enabled = $event"></phones-list>
-        <emails-list class="m-2" :initial-emails="emails" level="0" :person-id="personId" :initial-enabled="enabled" @@enable="enabled = $event"></emails-list>
+        <phones-list class="mx-2" :initial-phones="phones" level="0" :initial-enabled="enabled" @@enable="enabled = $event" :object-selected="personId"></phones-list>
+        <emails-list class="m-2" :initial-emails="emails" level="0" :initial-enabled="enabled" @@enable="enabled = $event" :object-selected="personId"></emails-list>
         <documents-list class="m-2" :initial-documents="documents" level="0" :person-id="personId" :initial-enabled="enabled" @@enable="enabled = $event"></documents-list>
         <guardians-list class="m-2" :initial-guardians="guardians" level="0" :person-id="personId" :initial-enabled="enabled" @@enable="enabled = $event"></guardians-list>
     </div>

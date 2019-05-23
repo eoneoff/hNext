@@ -47,6 +47,7 @@ namespace hNext.DataService
             services.AddScoped<IDistrictsRepository, DistrictsRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
 
+            services.AddScoped<IHospitalRepository, HospitalRepository>();
 
             services.AddCors(options =>
             {

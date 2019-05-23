@@ -21,5 +21,8 @@ namespace hNext.Model
 
         [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<PersonEmails> People { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<HospitalEmail> Hospitals { get; set; }
     }
 }

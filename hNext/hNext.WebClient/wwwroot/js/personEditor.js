@@ -61,7 +61,6 @@ Vue.component('PersonEditor', {
             this.quitConfirmation = false;
             this.enabled = true;
         },
-
         save: function () {
             if ($(this.$el).valid()) {
                 this.enabled = false;
@@ -80,7 +79,6 @@ Vue.component('PersonEditor', {
             this.saveConfirmation = false;
             this.enabled = true;
         },
-
         createPerson: async function () {
             this.person.address.id = 0;
             let address = await DATA_CLIENT.checkAddressExists(this.person.address);
@@ -93,7 +91,6 @@ Vue.component('PersonEditor', {
                 return await DATA_CLIENT.createPerson(this.person);
             }
         },
-
         addressConfirmed: async function () {
             this.person.addressId = this.person.address.id;
             this.person = this.person.id ? await DATA_CLIENT.savePerson(this.person) : await DATA_CLIENT.createPerson(this.person);
@@ -131,7 +128,6 @@ Vue.component('PersonEditor', {
             this.addressChangedConfirmation = false;
             this.enabled = true;
         },
-
         addressChanged: function () {
             return this.initialPerson.address.countryId != this.person.address.countryId
                 || this.initialPerson.address.regionId != this.person.address.regionId

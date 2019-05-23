@@ -31,5 +31,8 @@ namespace hNext.Model
 
         [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<PersonPhone> People { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<HospitalPhone> Hospitals { get; set; }
     }
 }

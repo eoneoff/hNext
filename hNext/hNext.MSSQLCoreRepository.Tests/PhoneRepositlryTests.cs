@@ -48,6 +48,7 @@ namespace hNext.MSSQLCoreRepository.Tests
             var phones = new List<PersonPhone>
             {
                 new PersonPhone{PhoneId = phoneId},
+                 new PersonPhone{PhoneId = phoneId},
                 new PersonPhone{PhoneId = phoneId +1},
                 new PersonPhone{PhoneId = phoneId + 2}
             };

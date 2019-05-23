@@ -35,7 +35,7 @@ namespace hNext.DataService.Controllers
         }
 
         [HttpGet("exists/{number}")]
-        public async Task<Phone> Exists(string number) => await _repository.Exists(number);
+        public async Task<Phone> Exists(string number) => await _repository.Exists(number.Replace("$$plus$$", "+"));
 
         [HttpGet("belongtoothers/{id:long}")]
         public async Task<bool> BelongToOthers(long id) => await _repository.BelongToOthers(id);

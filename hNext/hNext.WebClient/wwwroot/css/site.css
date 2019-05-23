@@ -69,12 +69,30 @@ footer {
   color: white; }
 
 /*selectable table style*/
-.selected-table-row {
+.selected-table-row tr {
+  background-color: #85C1E9 !important; }
+
+.selected-table-row td {
   background-color: #85C1E9 !important; }
 
 .table-responsive-vertical {
   max-height: 50vh;
   overflow-y: auto; }
+
+/*scrollable table*/
+.scrollable-table tbody {
+  overflow-y: auto;
+  width: 100%; }
+
+.scrollable-table thead, .scrollable-table tbody, .scrollable-table tr, .scrollable-table td, .scrollable-table th {
+  display: block;
+  width: 100%; }
+
+.scrollable-table tbody td {
+  float: left; }
+
+.scrollable-table thead tr td {
+  float: left; }
 
 /*additional data table style*/
 .additional-data-table {

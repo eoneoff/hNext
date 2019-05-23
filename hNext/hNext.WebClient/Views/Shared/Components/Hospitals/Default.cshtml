@@ -1,0 +1,260 @@
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+@model HospitalsViewModel
+
+<template id="hospitals-template">
+    <form>
+        <confirmation-dialog v-if="quitConfirmation" level="1" @@yes="cancelEdit" @@no="quitConfirmation = false">
+            @Localizer[nameof(Resources.CancelAndExit)]?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="saveConfirmation" level="1" @@yes="saveHospital" @@no="saveConfirmation = false">
+            @Localizer[nameof(Resources.SaveAndExit)]?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="addressConfirmation" level="1" @@yes="saveAndExit" @@mo="addressConfirmation = false">
+             @Resources.Address
+            {{ ` ${editingHospital.address.country.name}`
+                + (editingHospital.address.region ? `, ${editingHospital.address.region.name} @Resources.Region.ToLower()` : '')
+                + (editingHospital.address.district ? `, ${editingHospital.address.district.name} @Resources.District.ToLower()` : '')
+                + `, ${editingHospital.address.city.cityType.name} ${editingHospital.address.city.name}`
+                + (editingHospital.address.street ? `, ${editingHospital.address.street.streetType.name} ${editingHospital.address.street.name}` : '')
+                + (editingHospital.address.building ? `, @Resources.Building.ToLower() ${editingHospital.address.building}` : '')
+             @Resources.AlreadyExists. @Resources.SetExistingAddress?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="addressChangeConfirmation" level="1" cancel-button="true"
+            @@yes="saveNewAddress" @@no="changeOldAddress" @@cancel="addressChangedCofirmagion = false">
+            <template #yes-button>@Resources.Create</template>
+            <template #no-button>@Resources.Change</template>
+            @Resources.AddressChanged @Resources.ChangeOrCreate?
+        </confirmation-dialog>
+        <div class="row no-gutters mt-2">
+            <div class="col-md-5 d-flex flex-row">
+                <div class="d-flex flex-column mr-2">
+                    <button class="btn btn-primary" @@click.stop.prevent="createNewHospital" :disabled="!enabled">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <button class="btn btn-primary mt-3" :disabled="!enabled" @@click.stop.prevent="editHospital" :disabled="!enabled">
+                        <i class="fa fa-pen"></i>
+                    </button>
+                </div>
+                <table class="table table-borderless scrollable-table">
+                    <thead class="thead-light">
+                        <tr><th>@Localizer[nameof(Resources.Hospital)]</th></tr>
+                    </thead>
+                    <tbody style="max-height:80vh">
+                        <tr v-for="h in hospitals" :class="{'selected-table-row' : h.id == selectedHospital.id}"
+                            @@click="hospitalClicked(h)">
+                            <td>{{ h.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-7 pr-1" style="height:85vh; overflow-y:auto; overflow-x:hidden;">
+                <div class="row">
+                    <div class="col-5 d-flex flex-column">
+                        <label class="text-right w-100 mt-auto" asp-for="Hospital.Name"></label>
+                    </div>
+                    <div class="col-7">
+                        <div v-if="editing">
+                            <div><span asp-validation-for="Hospital.Name" class="text-danger"></span></div>
+                            <input class="form-control" asp-for="Hospital.Name" 
+                               :disabled="!enabled" v-model="editingHospital.name"/>
+                        </div>
+                        <span class="align-text-bottom" v-else>{{ (selectedHospital||{}).name||'' }}</span>
+                    </div>
+                </div>
+                <div class="row pt-2 mt-1">
+                    <div class="col-5">
+                        <label class="text-right w-100" asp-for="Hospital.ShortName"></label>
+                    </div>
+                    <div class="col-7">
+                        <input v-if="editing" class="form-control" asp-for="Hospital.ShortName" 
+                               :disabled="!enabled" v-model="editingHospital.shortName"/>
+                        <span v-else class="align-text-bottom">{{ (selectedHospital||{}).shortName||'' }}</span>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-11">
+                        <hr class="w-100" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 text-right font-weight-bold">
+                        @Localizer[nameof(Resources.Address)]
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pt-2">
+                        <label class="text-right w-100" asp-for="Hospital.Address.CountryId"></label>
+                    </div>
+                    <div class="col-7">
+                        <select v-if="editing" class="form-control" asp-for="Hospital.Address.CountryId"
+                                asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
+                                :disabled="!enabled" v-model="editingHospital.address.countryId" v-on:change="selectedCountryChanged">
+                            <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
+                        </select>
+                        <span v-else class="aling-text-botton">{{(((selectedHospital||{}).address||{}).country||{}).name||''}}</span>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-5 pt-2">
+                        <label class="text-right w-100" asp-for="Hospital.Address.RegionId"></label>
+                    </div>
+                    <div class="col-7" :class="{'pt-2':regionsLoading || !editing}">
+                        <div v-if="editing">
+                            <span v-if="regionsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
+                            <select v-else class="form-control" asp-for="Hospital.Address.RegionId"
+                                    :disabled="!enabled" v-model="editingHospital.address.regionId" v-on:change="selectedRegionChanged">
+                                <option value="" v-if="regions.length">@Localizer[nameof(Resources.SelectRegion)]</option>
+                                <option v-for="r in regions" :key="r.id" :value="r.id">{{ r.name }}</option>
+                            </select>
+                        </div>
+                        <span v-else class="align-text-bottom">{{ (((selectedHospital||{}).address||{}).region||{}).name||'' }}</span>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-5 pt-2">
+                        <label class="text-right w-100" asp-for="Hospital.Address.DistrictId"></label>
+                    </div>
+                    <div class="col-7" :class="{'pt-2':districtsLoading || !editing}">
+                        <div v-if="editing">
+                            <span v-if="districtsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
+                            <select v-else class="form-control" asp-for="Hospital.Address.DistrictId"
+                                    :disabled="!enabled" v-model="editingHospital.address.districtId" v-on:change="selectedDistrictChanged">
+                                <option value="" v-if="districts.length">@Localizer[nameof(Resources.SelectDistrict)]</option>
+                                <option v-for="d in districts" :key="d.id" :value="d.id">{{ d.name }}</option>
+                            </select>
+                        </div>
+                        <span v-else class="align-text-bottom">{{ (((selectedHospital||{}).address||{}).district||{}).name||'' }}</span>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-5 pt-2 text-right">
+                        {{ ((((editingHospital||{}).address||{}).city||{}).cityType||{}).name||'@Localizer[nameof(Resources.City)]' }}
+                    </div>
+                    <div class="col-7" :class="{'pt-2': citiesLoading || !editing}">
+                        <div v-if="editing">
+                            <span v-if="citiesLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
+                            <div v-else>
+                                <select v-if="filteredCities.length < 50" class="form-control" asp-for="Hospital.Address.CityId"
+                                        :disabled="!enabled" v-model="editingHospital.address.cityId" v-on:change="selectedCityChanged">
+                                    <option value="" v-if="cities.length">@Localizer[nameof(Resources.SelectCity)]</option>
+                                    <option value="$reset" v-if="cities.length">@Localizer[nameof(Resources.ResetSearch)]</option>
+                                    <option v-for="c in filteredCities" :key="c.id" :value="c.id">{{ c.name }}</option>
+                                </select>
+                                <input v-else class="form-control" v-else v-model="cityName" />
+                            </div>
+                        </div>
+                        <span v-else class="align-text-bottom">{{ (((selectedHospital||{}).address||{}).city||{}).name||'' }}</span>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-5 pt-2 text-right">
+                        {{ ((((selectedHospital||{}).address||{}).street||{}).streetType||{}).name||'@Localizer[nameof(Resources.Street)]'}}
+                    </div>
+                    <div class="col-7" :class="{'pt-2': streetsLoading || !editing}">
+                        <div v-if="editing">
+                            <span v-if="streetsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
+                            <select v-else class="form-control" asp-for="Hospital.Address.StreetId"
+                                    :disabled="!enabled" v-model="editingHospital.address.streetId" v-on:change="selectedStreetChanged">
+                                <option v-if="streets.length" value="">@Localizer[nameof(Resources.SelectStreet)]</option>
+                                <option v-for="s in streets" :key="s.id" :value="s.id">{{ s.name }}</option>
+                            </select>
+                        </div>
+                        <span v-else class="align-text-bottom">{{ (((selectedHospital||{}).address||{}).street||{}).name||'' }}</span>
+                    </div>
+                </div>
+                <div class="row mt-1 pt-2">
+                    <div class="col-5">
+                        <label class="text-right w-100" asp-for="Hospital.Address.Building"></label>
+                    </div>
+                    <div class="col-7">
+                        <input v-if="editing" class="form-control" asp-for="Hospital.Address.Building"
+                               :disabled="!enabled" v-model="editingHospital.address.building"/>
+                        <span v-else class="align-text-bottom">{{ ((selectedHospital||{}).address||{}).building||'' }}</span>
+                    </div>
+                </div>
+                <div class="row mt-1 pt-2">
+                    <div class="col-5">
+                        <label class="text-right w-100" asp-for="Hospital.Address.Zip"></label>
+                    </div>
+                    <div class="col-7">
+                        <input v-if="editing" class="form-control" asp-for="Hospital.Address.Zip"
+                               :disabled="!enabled" v-model="editingHospital.address.zip"/>
+                        <span v-else class="align-text-bottom">{{ ((selectedHospital||{}).address||{}).zip||'' }}</span>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-11">
+                        <hr class="w-100" />
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-5 d-flex flex-column">
+                        <label class="text-right w-100 mt-auto" asp-for="Hospital.HospitalTypeId"></label>
+                    </div>
+                    <div class="col-7">
+                        <div v-if="editing">
+                            <div><span asp-validation-for="Hospital.HospitalTypeId" class="text-danger"></span></div>
+                            <select class="form-control" asp-for="Hospital.HospitalTypeId"
+                                asp-items="@new SelectList(Model.HospitalTypes, nameof(HospitalType.Id), nameof(HospitalType.Name))"
+                                :disabled="!enabled" v-model="editingHospital.hospitalTypeId">
+                                <option value="">@Localizer[nameof(Resources.SelectHospitalType)]</option>
+                            </select>
+                        </div>
+                        <span class="align-text-bottom" v-else>{{ ((selectedHospital||{}).hospitalType||{}).name||'' }}</span>
+                    </div>
+                </div>
+                <div class="row mt-1 pt-2">
+                    <div class="col-5 d-flex flex-column justify-content-end">
+                        <label class="text-right w-100" asp-for="Hospital.PropertyTypeId"></label>
+                    </div>
+                    <div class="col-7">
+                        <div v-if="editing">
+                            <div><span asp-validation-for="Hospital.PropertyTypeId" class="text-danger"></span></div>
+                            <select class=" form-control" asp-for="Hospital.PropertyTypeId"
+                                    asp-items="@new SelectList(Model.PropertyTypes, nameof(PropertyType.Id), nameof(PropertyType.Name))"
+                                    :disabled="!enabled" v-model="editingHospital.propertyTypeId">
+                                <option value="">@Localizer[nameof(Resources.SelectPropertyType)]</option>
+                            </select>
+                        </div>
+                        <span class="align-text-bottom" v-else>{{ ((selectedHospital||{}).propertyType||{}).name||'' }}</span>
+                    </div>
+                </div>
+                <div class="row mt-1 pt-2">
+                    <div class="col-5">
+                        <label class="text-right w-100" asp-for="Hospital.EDRPOU"></label>
+                    </div>
+                    <div class="col-7">
+                        <input v-if="editing" class="form-control" asp-for="Hospital.EDRPOU"
+                               :disabled="!enabled" v-model="editingHospital.edrpou"/>
+                        <span class="align-text-bottom" v-else>{{ (selectedHospital||{}).edrpou||'' }}</span>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-5 pt-2">
+                        <label class="text-right w-100" asp-for="Hospital.Url"></label>
+                    </div>
+                    <div class="col-7">
+                        <input v-if="editing" class="form-control" asp-for="Hospital.Url"
+                               :disabled="!enabled" v-model="editingHospital.url"/>
+                        <span class="align-text-bottom" v-else>{{ (selectedHospital||{}).url||'' }}</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-end mt-2" v-if="editing">
+                    <button class="btn btn-primary" @@click.stop.prevent="saveConfirmation = true">
+                        @Localizer[nameof(Resources.Save)]
+                    </button>
+                    <button class="btn btn-danger mx-2" @@click.stop.prevent="quitConfirmation = true">
+                        @Localizer[nameof(Resources.Cancel)]
+                    </button>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-11">
+                        <hr class="w-100" />
+                    </div>
+                </div>
+                <phones-list class="mr-1" level="0" @@enable="enabled = $event" :initial-phones="selectedHospital.phones" :initial-enabled="enabled" :object-selected="selectedHospital.id"></phones-list>
+                <emails-list class="mr-1 mt-3" level="0" @@enable="enabled = $event" :initial-enabled="enabled" :initial-emails="selectedHospital.emails" :object-selected="selectedHospital.id"></emails-list>
+            </div>
+        </div>
+    </form>
+</template>
