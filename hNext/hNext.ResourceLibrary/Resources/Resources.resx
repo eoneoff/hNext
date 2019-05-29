@@ -429,4 +429,19 @@
   <data name="SelectPropertyType" xml:space="preserve">
     <value>Оберіть тип власності</value>
   </data>
+  <data name="EnterDepartmentName" xml:space="preserve">
+    <value>Введіть назву відділення</value>
+  </data>
+  <data name="SelectHospital" xml:space="preserve">
+    <value>Оберіть заклад</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Відділення</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Відділення</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
 </root>

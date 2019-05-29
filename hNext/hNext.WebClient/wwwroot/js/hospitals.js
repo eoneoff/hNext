@@ -1,10 +1,34 @@
 ﻿"use strict";
 
+if (!store.state['hospitals']) {
+    const hospitalsModule = {
+        state: {
+            hospitals: []
+        },
+        mutations: {
+            addHospital(state, hospital) {
+                let index = state.hospitals.findIndex(h => h.id == hospital.id);
+                if (index == -1) {
+                    state.hospitals.push(hospital);
+                } else {
+                    Vue.set(state.hospitals, index, hospital);
+                }
+            },
+            setHospitals(state, hospitals) {
+                state.hospitals = hospitals;
+            }
+        }
+    };
+    store.registerModule('hospitals', hospitalsModule);
+    DATA_CLIENT.getHospitals().then(result => {
+        store.commit('setHospitals', result);
+    });
+}
+
 Vue.component('Hospitals', {
     template: '#hospitals-template',
     data: function () {
         return {
-            hospitals: [],
             selectedHospital: {},
             editingHospital: {},
             editing: false,
@@ -23,6 +47,7 @@ Vue.component('Hospitals', {
             addressChangeConfirmation:false
         }
     },
+    store,
     methods: {
         newHospital: function () {
             return {
@@ -73,26 +98,29 @@ Vue.component('Hospitals', {
                 }
             }
         },
-        saveHospital: async function () {
+        saveClicked: function () {
             $.validator.unobtrusive.parse($(this.$el));
             if ($(this.$el).valid()) {
-                this.saveConfirmation = false;
-                if (this.editingHospital.id) {
-                    if (this.addressChanged) {
-                        this.addressChangeConfirmation = true;
-                    } else {
-                        this.saveAndExit();
-                    }
-                } else {
-                    let address = await DATA_CLIENT.checkAddressExists(this.editingHospital.address)
-                    if (address) {
-                        this.editingHospital.address = address;
-                        this.addressConfirmation = true;
-                    } else {
-                        this.saveAndExit();
-                    }
-                }
+                this.saveConfirmation = true;
             }
+        },
+        saveHospital: async function () {
+            this.saveConfirmation = false;
+            if (this.editingHospital.id) {
+                if (this.addressChanged) {
+                    this.addressChangeConfirmation = true;
+                } else {
+                    this.saveAndExit();
+                }
+            } else {
+                let address = await DATA_CLIENT.checkAddressExists(this.editingHospital.address)
+                if (address) {
+                    this.editingHospital.address = address;
+                    this.addressConfirmation = true;
+                } else {
+                    this.saveAndExit();
+                }
+            } 
         },
         changeOldAddress: function () {
             this.saveAndExit();
@@ -103,8 +131,12 @@ Vue.component('Hospitals', {
         },
         saveAndExit: async function () {
             this.editing = false;
-            this.editingHospital = await DATA_CLIENT.saveHospital(this.editingHospital);
-            this.hospitals.push(this.editingHospital);
+            if (this.editingHospital.id) {
+                this.editHospital = await DATA_CLIENT.editHospital(this.editingHospital);
+            } else {
+                this.editingHospital = await DATA_CLIENT.saveHospital(this.editingHospital);
+            }
+            this.$store.commit('addHospital', this.editingHospital);
         },
         cancelEdit: function () {
             this.editing = false;
@@ -260,6 +292,14 @@ Vue.component('Hospitals', {
         },
         filteredCities: function () {
             return this.cities.filter(c => c.name.toLowerCase().startsWith(this.cityName.toLowerCase()));
+        },
+        hospitals: {
+            get: function () {
+                return this.$store.state.hospitals.hospitals;
+            },
+            set: function (hospitals) {
+                this.$store.commit('setHospitals', hospitals);
+            }
         }
     },
     watch: {
@@ -301,6 +341,6 @@ Vue.component('Hospitals', {
         }
     },
     created: async function () {
-        this.hospitals.push(...await DATA_CLIENT.getHospitals());
+        //this.hospitals = store.state.hospitals.hospitals;
     }
 });

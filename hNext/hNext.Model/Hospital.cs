@@ -50,6 +50,9 @@ namespace hNext.Model
             ErrorMessageResourceName = nameof(Resources.SelectPropertyType))]
         public int PropertyTypeId { get; set; }
 
+        [MaxLength(10)]
+        public string eHealtId { get; set; }
+
         [ForeignKey(nameof(AddressId))]
         public virtual Address Address {get;set;}
 
@@ -62,5 +65,6 @@ namespace hNext.Model
         public virtual ICollection<HospitalPhone> Phones { get; set; }
         public virtual ICollection<HospitalEmail> Emails { get; set; }
         public virtual ICollection<HospitalLicense> Licenses { get; set; }
+        public virtual ICollection<Department> Departments { get; set; }
     }
 }

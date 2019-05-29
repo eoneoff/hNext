@@ -205,6 +205,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Код.
+        /// </summary>
+        public static string Code {
+            get {
+                return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Країна.
         /// </summary>
         public static string Country {
@@ -295,6 +304,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Відділення.
+        /// </summary>
+        public static string Department {
+            get {
+                return ResourceManager.GetString("Department", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Відділення.
+        /// </summary>
+        public static string Departments {
+            get {
+                return ResourceManager.GetString("Departments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Район.
         /// </summary>
         public static string District {
@@ -372,6 +399,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string EnterCountryName {
             get {
                 return ResourceManager.GetString("EnterCountryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть назву відділення.
+        /// </summary>
+        public static string EnterDepartmentName {
+            get {
+                return ResourceManager.GetString("EnterDepartmentName", resourceCulture);
             }
         }
         
@@ -822,6 +858,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SelectGuardian {
             get {
                 return ResourceManager.GetString("SelectGuardian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть заклад.
+        /// </summary>
+        public static string SelectHospital {
+            get {
+                return ResourceManager.GetString("SelectHospital", resourceCulture);
             }
         }
         

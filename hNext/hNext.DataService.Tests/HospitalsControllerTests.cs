@@ -15,7 +15,7 @@ namespace hNext.DataService.Tests
     {
         private Mock<IHospitalRepository> repository = new Mock<IHospitalRepository>();
         private Mock<IRepository<HospitalEmail>> emailRepository = new Mock<IRepository<HospitalEmail>>();
-        public Mock<IRepository<HospitalPhone>> phoneRepository = new Mock<IRepository<HospitalPhone>>();
+        private Mock<IRepository<HospitalPhone>> phoneRepository = new Mock<IRepository<HospitalPhone>>();
         private HospitalsController controller;
 
         public HospitalsControllerTests()

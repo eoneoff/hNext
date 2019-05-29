@@ -160,6 +160,32 @@ class DataClient {
         )).data;
     }
 
+    async addEmailToDepartment(departmentEmail) {
+        return (await axios.post(
+            `${this._apiServer}departments/${departmentEmail.departmentId}/emails/`,
+            departmentEmail
+        )).data;
+    }
+
+    async deleteEmailFromDepartment(departmentEmail) {
+        return (await axios.delete(
+            `${this._apiServer}departments/${departmentEmail.departmentId}/emails/${departmentEmail.emailId}`
+        )).data;
+    }
+
+    async addPhoneToDeparment(departmentPhone) {
+        return (await axios.post(
+            `${this._apiServer}departments/${departmentPhone.departmentId}/phones`,
+            departmentPhone
+        )).data;
+    }
+
+    async deletePhoneFromDepartment(departmentPhone) {
+        return (await axios.delete(
+            `${this._apiServer}departments/${departmentPhone.departmentId}/phones/${this.departmentPhone.phoneId}`
+        )).data;
+    }
+
     async addDocument(document) {
         return (await axios.post(
             `${this._apiServer}documents`,
@@ -287,6 +313,26 @@ class DataClient {
             hospital
         )).data;
     }
+
+    async getDepartments() {
+        return (await axios.get(
+            `${this._apiServer}departments`
+        )).data;
+    }
+
+    async saveDepartment(department) {
+        return (await axios.post(
+            `${this._apiServer}departments`,
+            department
+        )).data;
+    }
+
+    async editDepartment(department) {
+        return (await axios.put(
+            `${this._apiServer}departments/${department.id}`,
+            department
+        )).data;
+    }
 }
 
 const DATA_CLIENT = new DataClient(API_SERVER);
@@ -294,14 +340,12 @@ const DATA_CLIENT = new DataClient(API_SERVER);
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
+    modules: {
+    },
     state: {
-        patient: { id: 0 },
         enabled: true
     },
     mutations: {
-        setPatient(state, patient) {
-            state.patient = patient;
-        },
         enable(state, show) {
             state.enabled = show;
         }

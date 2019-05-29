@@ -1,0 +1,86 @@
+﻿@inject  Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+@model DepartmentsViewModel
+
+<template id="departments-template">
+    <form>
+        <confirmation-dialog v-if="quitConfirmation" level="1" @@yes="cancelEdit" @@no="quitConfirmation = false">
+            @Localizer[nameof(Resources.CancelAndExit)]?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="saveConfirmation" level="1" @@yes="saveDepartment" @@no="saveConfirmation = false">
+            @Localizer[nameof(Resources.SaveAndExit)]?
+        </confirmation-dialog>
+        <div class="row no-gutters mt-2">
+            <div class="col-lg-5 d-flex flex-row">
+                <div class="d-flex flex-column mr-2">
+                    <button class="btn btn-primary" @@click.stop.prevent="createNewDepartment" :disabled="!enabled">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <button class="btn btn-primary mt-3" :disabled="!enabled" @@click.stop.prevent="editDepartment" :disabled="!enabled">
+                        <i class="fa fa-pen"></i>
+                    </button>
+                </div>
+                <div style="max-height:90vh; overflow-y:auto" class="table-responsive-lg">
+                    <table class="table table-borderless">
+                        <thead class="thead-light">
+                            <tr class="">
+                                <th class="align-top">@Localizer[nameof(Resources.Department)]</th>
+                                <th>@Localizer[nameof(Resources.Hospital)]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="d in departments" :class="{'selected-table-row': d.id == selectedDepartment.id}"
+                                @@click="departmentClicked(d)">
+                                <td>{{ d.name }}</td>
+                                <td>{{ d.hospital.name }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-7 pr-1" style="height:85vh; overflow-y:auto; overflow-x:hidden;">
+                <div class="row">
+                    <div class="col-5 d-flex flex-column">
+                        <label class="text-right w-100 mt-auto" asp-for="Department.Name"></label>
+                    </div>
+                    <div class="col-7">
+                        <div v-if="editing">
+                            <div><span asp-validation-for="Department.Name" class="text-danger"></span></div>
+                            <input class="form-control" asp-for="Department.Name"
+                                   :disabled="!enabled" v-model="editingDepartment.name" />
+                        </div>
+                        <span class="align-text-bottom" v-else>{{ (selectedDepartment||{}).name||'' }}</span>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-5 d-flex flex-column">
+                        <label class="text-right w-100 mt-auto" asp-for="Department.HospitalId"></label>
+                    </div>
+                    <div class="col-7">
+                        <div v-if="editing">
+                            <div><span asp-validation-for="Department.HospitalId" class="text-danger"></span></div>
+                            <select class="form-control" asp-for="Department.HospitalId" :disabled="!enabled" v-model="editingDepartment.hospitalId">
+                                <option value=''>@Localizer[nameof(Resources.SelectHospital)]</option>
+                                <option v-for="h in hospitals" :key="h.id" :value="h.id">{{ h.name }}</option>
+                            </select>
+                        </div>
+                        <span class="align-text-bottom" v-else>{{ ((selectedDepartment || {}).hospital || {}).name||'' }}</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-end mt-2" v-if="editing">
+                    <button class="btn btn-primary" @@click.stop.prevent="saveClicked">
+                        @Localizer[nameof(Resources.Save)]
+                    </button>
+                    <button class="btn btn-danger mx-2" @@click.stop.prevent="quitConfirmation = true">
+                        @Localizer[nameof(Resources.Cancel)]
+                    </button>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-11">
+                        <hr class="w-100" />
+                    </div>
+                </div>
+                <phones-list class="mr-1" level="0" @@enable="enabled = $event" :initial-phones="selectedDepartment.phones" :initial-enabled="enabled" :object-selected="selectedDepartment.id"></phones-list>
+                <emails-list class="mr-1 mt-3" level="0" @@enable="enabled = $event" :initial-enabled="enabled" :initial-emails="selectedDepartment.emails" :object-selected="selectedDepartment.id"></emails-list>
+            </div>
+</form>
+</template>

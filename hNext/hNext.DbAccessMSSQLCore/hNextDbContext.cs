@@ -42,6 +42,9 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<HospitalEmail> HospitalEmails { get; set; }
         public virtual DbSet<License> Licenses { get; set; }
         public virtual DbSet<HospitalLicense> HospitalLicenses { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<DepartmentPhone> DepartmentPhones { get;set; }
+        public virtual DbSet<DepartmentEmail> DepartmentEmails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -99,6 +102,11 @@ namespace hNext.DbAccessMSSQLCore
             modelBuilder.Entity<Hospital>().HasIndex(h => h.Name);
             modelBuilder.Entity<HospitalPhone>().HasKey(hp => new { hp.HospitalId, hp.PhoneId });
             modelBuilder.Entity<HospitalEmail>().HasKey(he => new { he.HospitalId, he.EmailId });
+
+            modelBuilder.Entity<Department>().HasIndex(d => d.Name);
+            modelBuilder.Entity<Department>().HasIndex(d => d.HospitalId);
+            modelBuilder.Entity<DepartmentPhone>().HasKey(dp => new { dp.DepartmentId, dp.PhoneId });
+            modelBuilder.Entity<DepartmentEmail>().HasKey(de => new { de.DepartmentId, de.EmailId});
         }
     }
 }

@@ -72,5 +72,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(h => h.Licenses)
                 .AsNoTracking().SingleOrDefaultAsync(h => h.Id == hospital.Id);
         }
+
+        public override async Task<Hospital> Put(Hospital hospital) => await Post(hospital);
     }
 }

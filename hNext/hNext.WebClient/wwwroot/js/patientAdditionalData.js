@@ -2,50 +2,51 @@
 
 Vue.component("PatientAdditionalData", {
     template: '#patient-additional-data-template',
+    store,
     methods: {
         addEmailToPerson: async function (email) {
-            email.personId = store.state.patient.personId;
+            email.personId = this.personId;
             return await DATA_CLIENT.addEmailToPerson(email);
         },
         deleteEmailFromPerson: async function (email) {
-            email.personId = store.state.patient.personId;
+            email.personId = this.personId;
             return await DATA_CLIENT.deleteEmailFromPerson(email);
         },
         addPhoneToPerson: async function (phone) {
-            phone.personId = store.state.patient.personId;
+            phone.personId = this.personId;
             return await DATA_CLIENT.addPhoneToPerson(phone);
         },
         deletePhoneFromPerson: async function (phone) {
-            phone.personId = store.state.patient.personId;
+            phone.personId = this.personId;
             return await DATA_CLIENT.deletePhoneFromPerson(phone);
         }
     },
     computed: {
         personId: function () {
-            return ((store.state.patient || {}).person || {}).id;
+            return ((this.$store.state.patient.patient || {}).person || {}).id;
         },
         phones: function () {
-            return (store.state.patient && store.state.patient.person)
-                ? store.state.patient.person.phones : [];
+            return (this.$store.state.patient.patient && this.$store.state.patient.patient.person)
+                ? this.$store.state.patient.patient.person.phones : [];
         },
         emails: function () {
-            return (store.state.patient && store.state.patient.person)
-                ? store.state.patient.person.emails : [];
+            return (this.$store.state.patient.patient && this.$store.state.patient.patient.person)
+                ? this.$store.state.patient.patient.person.emails : [];
         },
         documents: function () {
-            return (store.state.patient && store.state.patient.person)
-                ? store.state.patient.person.documents : [];
+            return (this.$store.state.patient.patient && this.$store.state.patient.patient.person)
+                ? this.$store.state.patient.patient.person.documents : [];
         },
         guardians: function () {
-            return (store.state.patient && store.state.patient.person)
-                ? store.state.patient.person.guardians : [];
+            return (this.$store.state.patient.patient && this.$store.state.patient.patient.person)
+                ? this.$store.state.patient.patient.person.guardians : [];
         },
         enabled: {
             get: function () {
-                return store.state.enabled;
+                return this.$store.state.enabled;
             },
             set: function (show) {
-                store.commit('enable', show);
+                this.$store.commit('enable', show);
             }
         }
     },

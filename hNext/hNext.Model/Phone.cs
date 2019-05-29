@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using hNext.ResourceLibrary.Resources;
+using Newtonsoft.Json;
 
 namespace hNext.Model
 {
@@ -29,10 +30,13 @@ namespace hNext.Model
         [ForeignKey(nameof(PhoneTypeId))]
         public virtual PhoneType PhoneType { get; set; }
 
-        [Newtonsoft.Json.JsonIgnore]
+        [JsonIgnore]
         public virtual ICollection<PersonPhone> People { get; set; }
 
-        [Newtonsoft.Json.JsonIgnore]
+        [JsonIgnore]
         public virtual ICollection<HospitalPhone> Hospitals { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<DepartmentPhone> Departments { get; set; }
     }
 }

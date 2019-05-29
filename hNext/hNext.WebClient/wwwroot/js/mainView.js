@@ -8,6 +8,7 @@ Vue.component('main-view', {
             selectedSideTab: START_SIDE_TAB
         }
     },
+    store,
     computed: {
         enabled: {
             get: function () {

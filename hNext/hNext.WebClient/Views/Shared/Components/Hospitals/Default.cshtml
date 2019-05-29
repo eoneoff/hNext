@@ -26,7 +26,7 @@
             @Resources.AddressChanged @Resources.ChangeOrCreate?
         </confirmation-dialog>
         <div class="row no-gutters mt-2">
-            <div class="col-md-5 d-flex flex-row">
+            <div class="col-lg-5 d-flex flex-row">
                 <div class="d-flex flex-column mr-2">
                     <button class="btn btn-primary" @@click.stop.prevent="createNewHospital" :disabled="!enabled">
                         <i class="fa fa-plus"></i>
@@ -47,7 +47,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-7 pr-1" style="height:85vh; overflow-y:auto; overflow-x:hidden;">
+            <div class="col-lg-7 pr-1" style="height:85vh; overflow-y:auto; overflow-x:hidden;">
                 <div class="row">
                     <div class="col-5 d-flex flex-column">
                         <label class="text-right w-100 mt-auto" asp-for="Hospital.Name"></label>
@@ -240,7 +240,7 @@
                     </div>
                 </div>
                 <div class="d-flex flex-row justify-content-end mt-2" v-if="editing">
-                    <button class="btn btn-primary" @@click.stop.prevent="saveConfirmation = true">
+                    <button class="btn btn-primary" @@click.stop.prevent="saveClicked">
                         @Localizer[nameof(Resources.Save)]
                     </button>
                     <button class="btn btn-danger mx-2" @@click.stop.prevent="quitConfirmation = true">

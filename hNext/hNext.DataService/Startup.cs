@@ -33,6 +33,7 @@ namespace hNext.DataService
                 options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"]));
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
             services.AddScoped<IPatientsRepository, PatientsRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
 
@@ -48,6 +49,7 @@ namespace hNext.DataService
             services.AddScoped<ICityRepository, CityRepository>();
 
             services.AddScoped<IHospitalRepository, HospitalRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
             services.AddCors(options =>
             {

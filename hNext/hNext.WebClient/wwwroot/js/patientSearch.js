@@ -1,5 +1,25 @@
 ﻿"use strict";
 
+if (!store.state['patient']) {
+    const patientModule = {
+        state: {
+            patient: { id: 0 }
+        },
+        mutations: {
+            setPatient(state, patient) {
+                state.patient = patient;
+            }
+        },
+        actions: {
+            async getHospitalsAction(context) {
+                let hospitals = await DATA_CLIENT.getHospitals();
+                hospitals.forEach(h => context.commit('saveHospital', h));
+            }
+        }
+    };
+    store.registerModule('patient', patientModule);
+}
+
 Vue.component('PatientSearch', {
     template: '#patient-search-template',
     data: function () {
@@ -19,6 +39,7 @@ Vue.component('PatientSearch', {
             showPersonEditor: false
         }
     },
+    store,
     watch: {
         'model.regionId': async function (val) {
             this.districts.splice(0);
@@ -50,18 +71,18 @@ Vue.component('PatientSearch', {
         },
         selectedPatient: {
             get: function () {
-                return store.state.patient;
+                return this.$store.state.patient.patient;
             },
             set: function (patient) {
-                store.commit('setPatient', patient);
+                this.$store.commit('setPatient', patient);
             }
         },
         enabled: {
             get: function() {
-                return store.state.enabled;
+                return this.$store.state.enabled;
             },
             set: function(show) {
-                store.commit('enable', show);
+                this.$store.commit('enable', show);
             }
         }
     },
@@ -69,7 +90,7 @@ Vue.component('PatientSearch', {
         searchPatients: async function () {
             this.searching = true;
             try {
-                store.state.patient = { id: 0 };
+                this.selectedPatient = { id: 0 };
                 this.foundPatients.splice(0);
                 this.foundPatients.push(...await DATA_CLIENT.searchPatients(this.model));
             }
