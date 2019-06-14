@@ -1,6 +1,7 @@
 ﻿using hNext.DbAccessMSSQLCore;
 using hNext.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MockQueryable.Moq;
 using Moq;

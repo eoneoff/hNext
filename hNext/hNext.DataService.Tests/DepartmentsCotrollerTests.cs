@@ -16,11 +16,14 @@ namespace hNext.DataService.Tests
         private Mock<IDepartmentRepository> repository = new Mock<IDepartmentRepository>();
         private Mock<IRepository<DepartmentPhone>> phoneRepository = new Mock<IRepository<DepartmentPhone>>();
         private Mock<IRepository<DepartmentEmail>> emailRepository = new Mock<IRepository<DepartmentEmail>>();
+        private Mock<IDepartmentSpecialtyRepository> specialtyRepository = new Mock<IDepartmentSpecialtyRepository>();
+        private Mock<IGetter<Specialty>> specialtyGetter = new Mock<IGetter<Specialty>>();
         private DepartmentsController controller;
 
         public DepartmentsCotrollerTests()
         {
-            controller = new DepartmentsController(repository.Object, phoneRepository.Object, emailRepository.Object);
+            controller = new DepartmentsController(repository.Object, specialtyRepository.Object,
+                phoneRepository.Object, emailRepository.Object, specialtyGetter.Object);
         }
 
         [TestMethod]
@@ -251,6 +254,52 @@ namespace hNext.DataService.Tests
             Assert.IsInstanceOfType(result, typeof(DepartmentPhone));
             Assert.AreEqual(departmentId, (result as DepartmentPhone)?.DepartmentId);
             Assert.AreEqual(phoneId, (result as DepartmentPhone)?.PhoneId);
+        }
+
+        [TestMethod]
+        public void AddSpecialtyReturnsDepartmentSpecialty()
+        {
+            //Arrange
+            repository.Setup(s => s.Exists(It.IsAny<object[]>())).ReturnsAsync(true);
+            specialtyGetter.Setup(g => g.Exists(It.IsAny<object[]>())).ReturnsAsync(true);
+            specialtyRepository.Setup(s => s.Post(It.IsAny<DepartmentSpecialty>())).ReturnsAsync(
+                (DepartmentSpecialty ds) => { return ds; });
+            int departmentId = 1;
+            int specialtyId = departmentId + 1;
+
+            //Act
+            var result = (controller.AddSpecialty(departmentId, specialtyId).Result as OkObjectResult).Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(DepartmentSpecialty));
+            Assert.AreEqual((result as DepartmentSpecialty).DeparmentId, departmentId);
+            Assert.AreEqual((result as DepartmentSpecialty).SpecialtyId, specialtyId);
+        }
+
+        [TestMethod]
+        public void DeleteSpecialtyReturnsDepartmentSpecialty()
+        {
+            //Arrange
+            specialtyRepository.Setup(s => s.Exists(It.IsAny<object[]>())).ReturnsAsync(true);
+            specialtyRepository.Setup(s => s.Delete(It.IsAny<object[]>())).ReturnsAsync(
+                (object[] keys) =>
+                {
+                    return new DepartmentSpecialty
+                    {
+                        DeparmentId = (int)keys[0],
+                        SpecialtyId = (int)keys[1]
+                    };
+                });
+            int departmentId = 1;
+            int specialtyId = departmentId + 1;
+
+            //Act
+            var result = (controller.DeleteSpecialty(departmentId, specialtyId).Result as OkObjectResult).Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(DepartmentSpecialty));
+            Assert.AreEqual((result as DepartmentSpecialty).DeparmentId, departmentId);
+            Assert.AreEqual((result as DepartmentSpecialty).SpecialtyId, specialtyId);
         }
     }
 }

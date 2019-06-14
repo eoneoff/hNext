@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using hNext.ResourceLibrary.Resources;
+using Newtonsoft.Json;
 
 namespace hNext.Model
 {
@@ -74,8 +75,11 @@ namespace hNext.Model
 
         public virtual ICollection<PersonEmails> Emails { get; set; }
 
-        [Newtonsoft.Json.JsonIgnore]
+        [JsonIgnore]
         public virtual Patient Patient { get; set; }
+
+        [JsonIgnore]
+        public virtual Doctor Doctor { get; set; }
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Wards))]

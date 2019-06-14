@@ -1,4 +1,4 @@
-﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+﻿
 @model HospitalsViewModel
 
 <template id="hospitals-template">
@@ -47,12 +47,12 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-7 pr-1" style="height:85vh; overflow-y:auto; overflow-x:hidden;">
+            <div class="col-lg-7 pr-1 mb-3 mb-lg-0" style="height:85vh; overflow-y:auto; overflow-x:hidden;">
                 <div class="row">
-                    <div class="col-5 d-flex flex-column">
-                        <label class="text-right w-100 mt-auto" asp-for="Hospital.Name"></label>
+                    <div class="d-flex flex-column" :class="editing ? 'col-lg-5' : 'col-5'":class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100 mt-auto" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.Name"></label>
                     </div>
-                    <div class="col-7">
+                    <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <div v-if="editing">
                             <div><span asp-validation-for="Hospital.Name" class="text-danger"></span></div>
                             <input class="form-control" asp-for="Hospital.Name" 
@@ -62,10 +62,10 @@
                     </div>
                 </div>
                 <div class="row pt-2 mt-1">
-                    <div class="col-5">
-                        <label class="text-right w-100" asp-for="Hospital.ShortName"></label>
+                    <div :class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.ShortName"></label>
                     </div>
-                    <div class="col-7">
+                    <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <input v-if="editing" class="form-control" asp-for="Hospital.ShortName" 
                                :disabled="!enabled" v-model="editingHospital.shortName"/>
                         <span v-else class="align-text-bottom">{{ (selectedHospital||{}).shortName||'' }}</span>
@@ -77,15 +77,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-5 text-right font-weight-bold">
+                    <div class="font-weight-bold" :class="editing ? 'col-lg-5 text-left text-lg-right' : 'col-5 text-right'">
                         @Localizer[nameof(Resources.Address)]
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-5 pt-2">
-                        <label class="text-right w-100" asp-for="Hospital.Address.CountryId"></label>
+                    <div class="pt-2" :class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.Address.CountryId"></label>
                     </div>
-                    <div class="col-7">
+                    <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <select v-if="editing" class="form-control" asp-for="Hospital.Address.CountryId"
                                 asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
                                 :disabled="!enabled" v-model="editingHospital.address.countryId" v-on:change="selectedCountryChanged">
@@ -95,10 +95,10 @@
                     </div>
                 </div>
                 <div class="row mt-1">
-                    <div class="col-5 pt-2">
-                        <label class="text-right w-100" asp-for="Hospital.Address.RegionId"></label>
+                    <div class="pt-2" :class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.Address.RegionId"></label>
                     </div>
-                    <div class="col-7" :class="{'pt-2':regionsLoading || !editing}">
+                    <div  :class="[{'pt-2':regionsLoading || !editing}, editing ? 'col-lg-7' : 'col-7']">
                         <div v-if="editing">
                             <span v-if="regionsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                             <select v-else class="form-control" asp-for="Hospital.Address.RegionId"
@@ -111,10 +111,10 @@
                     </div>
                 </div>
                 <div class="row mt-1">
-                    <div class="col-5 pt-2">
-                        <label class="text-right w-100" asp-for="Hospital.Address.DistrictId"></label>
+                    <div class="pt-2" :class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.Address.DistrictId"></label>
                     </div>
-                    <div class="col-7" :class="{'pt-2':districtsLoading || !editing}">
+                    <div :class="[{'pt-2':districtsLoading || !editing}, editing ? 'col-lg-7' : 'col-7']">
                         <div v-if="editing">
                             <span v-if="districtsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                             <select v-else class="form-control" asp-for="Hospital.Address.DistrictId"
@@ -127,10 +127,10 @@
                     </div>
                 </div>
                 <div class="row mt-1">
-                    <div class="col-5 pt-2 text-right">
+                    <div class="pt-2" :class="editing ? 'col-lg-5 text-left text-lg-right' : 'col-5 text-right'">
                         {{ ((((editingHospital||{}).address||{}).city||{}).cityType||{}).name||'@Localizer[nameof(Resources.City)]' }}
                     </div>
-                    <div class="col-7" :class="{'pt-2': citiesLoading || !editing}">
+                    <div :class="[{'pt-2': citiesLoading || !editing}, editing ? 'col-lg-7' : 'col-7']">
                         <div v-if="editing">
                             <span v-if="citiesLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                             <div v-else>
@@ -147,10 +147,10 @@
                     </div>
                 </div>
                 <div class="row mt-1">
-                    <div class="col-5 pt-2 text-right">
+                    <div class="pt-2" :class="editing ? 'col-lg-5 text-left text-lg-right' : 'col-5 text-right'">
                         {{ ((((selectedHospital||{}).address||{}).street||{}).streetType||{}).name||'@Localizer[nameof(Resources.Street)]'}}
                     </div>
-                    <div class="col-7" :class="{'pt-2': streetsLoading || !editing}">
+                    <div :class="[{'pt-2': streetsLoading || !editing}, editing ? 'col-lg-7' : 'col-7']">
                         <div v-if="editing">
                             <span v-if="streetsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                             <select v-else class="form-control" asp-for="Hospital.Address.StreetId"
@@ -163,20 +163,20 @@
                     </div>
                 </div>
                 <div class="row mt-1 pt-2">
-                    <div class="col-5">
-                        <label class="text-right w-100" asp-for="Hospital.Address.Building"></label>
+                    <div :class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.Address.Building"></label>
                     </div>
-                    <div class="col-7">
+                    <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <input v-if="editing" class="form-control" asp-for="Hospital.Address.Building"
                                :disabled="!enabled" v-model="editingHospital.address.building"/>
                         <span v-else class="align-text-bottom">{{ ((selectedHospital||{}).address||{}).building||'' }}</span>
                     </div>
                 </div>
                 <div class="row mt-1 pt-2">
-                    <div class="col-5">
-                        <label class="text-right w-100" asp-for="Hospital.Address.Zip"></label>
+                    <div :class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.Address.Zip"></label>
                     </div>
-                    <div class="col-7">
+                    <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <input v-if="editing" class="form-control" asp-for="Hospital.Address.Zip"
                                :disabled="!enabled" v-model="editingHospital.address.zip"/>
                         <span v-else class="align-text-bottom">{{ ((selectedHospital||{}).address||{}).zip||'' }}</span>
@@ -188,10 +188,10 @@
                     </div>
                 </div>
                 <div class="row pt-2">
-                    <div class="col-5 d-flex flex-column">
-                        <label class="text-right w-100 mt-auto" asp-for="Hospital.HospitalTypeId"></label>
+                    <div class="d-flex flex-column" :class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100 mt-auto" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.HospitalTypeId"></label>
                     </div>
-                    <div class="col-7">
+                    <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <div v-if="editing">
                             <div><span asp-validation-for="Hospital.HospitalTypeId" class="text-danger"></span></div>
                             <select class="form-control" asp-for="Hospital.HospitalTypeId"
@@ -204,10 +204,10 @@
                     </div>
                 </div>
                 <div class="row mt-1 pt-2">
-                    <div class="col-5 d-flex flex-column justify-content-end">
-                        <label class="text-right w-100" asp-for="Hospital.PropertyTypeId"></label>
+                    <div class="d-flex flex-column justify-content-end" :class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.PropertyTypeId"></label>
                     </div>
-                    <div class="col-7">
+                    <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <div v-if="editing">
                             <div><span asp-validation-for="Hospital.PropertyTypeId" class="text-danger"></span></div>
                             <select class=" form-control" asp-for="Hospital.PropertyTypeId"
@@ -220,20 +220,20 @@
                     </div>
                 </div>
                 <div class="row mt-1 pt-2">
-                    <div class="col-5">
-                        <label class="text-right w-100" asp-for="Hospital.EDRPOU"></label>
+                    <div :class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.EDRPOU"></label>
                     </div>
-                    <div class="col-7">
+                    <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <input v-if="editing" class="form-control" asp-for="Hospital.EDRPOU"
                                :disabled="!enabled" v-model="editingHospital.edrpou"/>
                         <span class="align-text-bottom" v-else>{{ (selectedHospital||{}).edrpou||'' }}</span>
                     </div>
                 </div>
                 <div class="row mt-1">
-                    <div class="col-5 pt-2">
-                        <label class="text-right w-100" asp-for="Hospital.Url"></label>
+                    <div class="pt-2" :class="editing ? 'col-lg-5' : 'col-5'">
+                        <label class="w-100" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.Url"></label>
                     </div>
-                    <div class="col-7">
+                    <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <input v-if="editing" class="form-control" asp-for="Hospital.Url"
                                :disabled="!enabled" v-model="editingHospital.url"/>
                         <span class="align-text-bottom" v-else>{{ (selectedHospital||{}).url||'' }}</span>
@@ -243,7 +243,7 @@
                     <button class="btn btn-primary" @@click.stop.prevent="saveClicked">
                         @Localizer[nameof(Resources.Save)]
                     </button>
-                    <button class="btn btn-danger mx-2" @@click.stop.prevent="quitConfirmation = true">
+                    <button class="btn btn-danger ml-auto mx-lg-2" @@click.stop.prevent="quitConfirmation = true">
                         @Localizer[nameof(Resources.Cancel)]
                     </button>
                 </div>

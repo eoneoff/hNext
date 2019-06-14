@@ -185,7 +185,6 @@ Vue.component('PersonEditor', {
                 this.person.address.cityId = '';
                 this.cityName = '';
             } else if (this.person.address.cityId) {
-                this.person.address.cityId = '';
                 this.loadStreets(this.person.address.cityId);
                 let city = this.cities.find(c => c.id == this.person.address.cityId);
                 this.person.address.districtId = city.districtId;

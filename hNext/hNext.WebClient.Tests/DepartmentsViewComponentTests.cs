@@ -54,6 +54,8 @@ namespace hNext.WebClient.Tests
             var result = component.Invoke(modules);
 
             //Assert
+            CollectionAssert.Contains(modules, nameof(SpecialtiesListViewComponent).ViewComponentName());
+            CollectionAssert.Contains(modules, nameof(SpecialtiesSelectorViewComponent).ViewComponentName());
             CollectionAssert.Contains(modules, nameof(PhonesListViewComponent).ViewComponentName());
             CollectionAssert.Contains(modules, nameof(EmailsListViewComponent).ViewComponentName());
             CollectionAssert.Contains(modules, nameof(ConfirmationDialogViewComponent).ViewComponentName());

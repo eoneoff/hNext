@@ -12,7 +12,7 @@ namespace hNext.MSSQLCoreRepository
 {
     public class CountryRepository : Repository<Country>, ICountryRepository
     {
-        public CountryRepository(hNextDbContext db) : base(db) { }
+        public CountryRepository(hNextDbContext db) : base(db) {}
 
         public override async Task<IEnumerable<Country>> Get()
         {

@@ -1,4 +1,4 @@
-﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+﻿
 @model GuardianEditorViewModel
 
 <template id="guardian-editor-template">
@@ -9,7 +9,8 @@
         <confirmation-dialog v-if="showChangeConfirmation" :level="level+1" @@yes="saveConfirmed" @@no="saveCancelled">
             @Localizer[nameof(Resources.ChangeGuardian)]?
         </confirmation-dialog>
-        <person-editor v-if="showPersonEditor" :level="level+1" @@quit="personEditorQuitted" @@save="newPersonAdded"></person-editor>
+        <person-editor v-if="showPersonEditor" :level="level+1" @@quit="personEditorQuitted" @@save="newPersonAdded"
+                       class="min-vw-100"></person-editor>
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="$emit('cancel')">
                 <i class="fa fa-times"></i>

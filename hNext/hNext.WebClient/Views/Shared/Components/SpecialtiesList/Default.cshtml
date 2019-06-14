@@ -1,0 +1,29 @@
+﻿<template id="specialties-list-template">
+    <div class="w-100" :style="{zIndex: level*1000}">
+        <div v-show="showAddSpecialty">
+            <slot :level="level" :cancel="hideSpecialtyAdder" :save="save" :enabled="enabled"
+                  :specialty="selectedSpecialty"></slot>
+        </div>
+        <confirmation-dialog v-if="specialtyExists" :level="level+1" one-option="true" @@yes="specialtyExists = false" @@no="specialtyExists = false">
+            @Localizer[nameof(Resources.CanNotAddRepeatingSpecialty)]
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showDeleteSpecialty" :level="level+1" @@yes="confirmRemove" @@no="showDeleteSpecialty = false">
+            @Localizer[nameof(Resources.Delete)] @Localizer[nameof(Resources.Specialty)].Value.ToLower()?
+        </confirmation-dialog>
+        <h6 class="text-center">@Localizer[nameof(Resources.Specialties)]</h6>
+        <div class="d-flex flex-row justify-content-end">
+            <div class="additional-data-table mr-1 w-100">
+                <table class="flex-grow-1 table-borderless table-sm w-100">
+                    <tr v-for="s in specialties" @@click="selectSpecialty(s)" :class="{'selected-table-row': s.specialtyId == selectedSpecialty.specialtyId}">
+                        <td>{{ s.specialty.name }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="d-flex flex-column">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="add"><i class="fas fa-plus"></i></button>
+                <button class="btn btn-primary mt-1" v-if="editButton" :disabled="!enabled" @@click.stop.prevent="edit"><i class="fas fa-pen"></i></button>
+                <button class="btn btn-danger mt-1" :disabled="!enabled" @@click.stop.prevent="remove"><i class="fas fa-minus"></i></button>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,5 +1,6 @@
 body {
-  background-color: steelblue; }
+  background-color: steelblue;
+  font-size: 14px; }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -58,7 +59,8 @@ body {
 .side-tab-selector {
   background-color: white;
   writing-mode: vertical-lr;
-  margin-bottom: 2px; }
+  margin-bottom: 2px;
+  cursor: default; }
 
 .side-tab-field {
   min-width: 150px; }
@@ -100,7 +102,7 @@ footer {
   border-width: 1px;
   height: 115px;
   overflow-y: auto;
-  min-width: 250px; }
+  min-width: 235px; }
 
 /*modal window style*/
 .modal-window {

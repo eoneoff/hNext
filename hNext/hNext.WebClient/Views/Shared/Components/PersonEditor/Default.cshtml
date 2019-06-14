@@ -1,4 +1,4 @@
-﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+﻿
 @model PersonEditorViewModel
 
 <template id="person-editor-template">
@@ -30,59 +30,77 @@
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <div class="show-panel modal-window-show-panel flex-column" >
-            <div >
-                <div class="d-flex flex-column flex-md-row align-items-md-stretch">
-                    <table class="table table-borderless table-sm" style="min-width:25rem">
-                        <tr>
-                            <td class="text-right pr-2"><label asp-for="Person.FamilyName"></label></td>
-                            <td>
+        <div class="show-panel modal-window-show-panel flex-column">
+            <div class="">
+                <div class="row mx-0">
+                    <div class="col-lg-6 d-flex flex-column justify-content-lg-between">
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.FamilyName" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
                                 <div><span asp-validation-for="Person.FamilyName" class="text-danger"></span></div>
                                 <input :disabled="!enabled" v-model="person.familyName" class="form-control" asp-for="Person.FamilyName" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right pr-2"><label asp-for="Person.FirstName"></label></td>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.FirstName" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
                                 <div><span asp-validation-for="Person.FirstName" class="text-danger"></span></div>
                                 <input :disabled="!enabled" v-model="person.firstName" class="form-control" asp-for="Person.FirstName" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right pr-2"><label asp-for="Person.Patronimic"></label></td>
-                            <td><input :disabled="!enabled" v-model="person.patronimic" class="form-control" asp-for="Person.Patronimic" /></td>
-                        </tr>
-                        <tr>
-                            <td class="text-right pr-2"><label asp-for="Person.GenderId"></label></td>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.Patronimic" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input :disabled="!enabled" v-model="person.patronimic" class="form-control" asp-for="Person.Patronimic" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.GenderId" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
                                 <div><span asp-validation-for="Person.GenderId" class="text-danger"></span></div>
                                 <select class="form-control" asp-for="Person.GenderId"
                                         asp-items="@new SelectList(Model.Genders, nameof(Gender.Id), nameof(Gender.Name))"
                                         :disabled="!enabled" v-model="person.genderId">
                                     <option value="">@Localizer[nameof(Resources.SelectGender)]</option>
                                 </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right pr-2"><label asp-for="Person.DateOfBirth"></label></td>
-                            <td><input :disabled="!enabled" v-model="dateOfBirth" class="form-control" asp-for="Person.DateOfBirth" /></td>
-                        </tr>
-                        <tr>
-                            <td class="text-right pr-2"><label asp-for="Person.CountryOfBirthId"></label></td>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.DateOfBirth" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input :disabled="!enabled" v-model="dateOfBirth" class="form-control" asp-for="Person.DateOfBirth" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.CountryOfBirthId" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
                                 <select class="form-control" asp-for="Person.CountryOfBirthId"
                                         asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
                                         :disabled="!enabled" v-model="person.countryOfBirthId">
                                     <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
                                 </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right pr-2"><label asp-for="Person.PlaceOfBirthId"></label></td>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.PlaceOfBirthId" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
                                 <span v-if="placesOfBirthLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                                 <div v-else>
-                                    <input class="form-control" v-if="filteredPlacesOfBirth.length > 50" v-model="placeOfBirthName" :disabled="!enabled"/>
+                                    <input class="form-control" v-if="filteredPlacesOfBirth.length > 50" v-model="placeOfBirthName" :disabled="!enabled" />
                                     <select v-if="filteredPlacesOfBirth.length <= 50" class="form-control" asp-for="Person.PlaceOfBirthId"
                                             asp-items="@new SelectList(Model.PlacesOfBirth, nameof(City.Id), nameof(City.Name))"
                                             :disabled="!enabled || !placesOfBirth.length" v-model="person.placeOfBirthId">
@@ -91,28 +109,36 @@
                                         <option v-for="c in filteredPlacesOfBirth" :key="c.id" :value="c.id">{{ c.name }}</option>
                                     </select>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right pr-2"><label asp-for="Person.TaxId"></label></td>
-                            <td><input asp-for="Person.TaxId" :disabled="!enabled" v-model="person.taxId" class="form-control" /></td>
-                        </tr>
-                    </table>
-                    <table class="table table-borderless table-sm" style="min-width:25rem">
-                        <tr>
-                            <td class="text-right px-2"><label asp-for="Person.Address.CountryId"></label></td>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.TaxId" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input asp-for="Person.TaxId" :disabled="!enabled" v-model="person.taxId" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 d-flex flex-column justify-content-lg-between">
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.Address.CountryId" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
                                 <div><span asp-validation-for="Person.Address.CountryId" class="text-danger"></span></div>
                                 <select class="form-control" asp-for="Person.Address.CountryId"
                                         asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
                                         :disabled="!enabled" v-model="person.address.countryId" v-on:change="selectedCountryChanged">
                                     <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
                                 </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right px-2"><label asp-for="Person.Address.RegionId"></label></td>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.Address.RegionId" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
                                 <span v-if="regionsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                                 <select class="form-control" asp-for="Person.Address.RegionId" v-else v-on:change="selectedRegionChanged"
                                         asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))"
@@ -120,11 +146,13 @@
                                     <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
                                     <option v-for="r in regions" :key="r.id" :value="r.id">{{ r.name }}</option>
                                 </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right px-2"><label asp-for="Person.Address.DistrictId"></label></td>
-                            <td class="align-bottom">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.Address.DistrictId" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
                                 <span v-if="districtsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                                 <select class="form-control" asp-for="Person.Address.DistrictId"
                                         asp-items="@new SelectList(Model.Districts, nameof(District.Id),nameof(District.Name))"
@@ -132,13 +160,13 @@
                                     <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
                                     <option v-for="d in districts" :key="d.id" :value="d.id">{{ d.name }}</option>
                                 </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right px-2">
-                                {{ (person.address.city ? person.address.city.cityType.name : '') || '@Localizer[nameof(Resources.City)]' }}
-                            </td>
-                            <td class="align-bottom">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <span class="text-left text-lg-right">{{ (person.address.city ? person.address.city.cityType.name : '') || '@Localizer[nameof(Resources.City)]' }}</span>
+                            </div>
+                            <div class="col-lg-8">
                                 <span v-if="citiesLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                                 <div v-else>
                                     <input class="form-control" v-if="filteredCities.length > 50" v-model="cityName" :disabled="!enabled" />
@@ -151,13 +179,15 @@
                                         <option v-for="c in filteredCities" :key="c.id" :value="c.id">{{ c.name }}</option>
                                     </select>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right px-2">
-                                {{ (person.address.street ? person.address.street.streetType.name : '') || '@Localizer[nameof(Resources.Street)]' }}
-                            </td>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <span class="text-left text-lg-right">
+                                    {{ (person.address.street ? person.address.street.streetType.name : '') || '@Localizer[nameof(Resources.Street)]' }}
+                                </span>
+                            </div>
+                            <div class="col-lg-8">
                                 <span v-if="streetsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                                 <select class="form-control" asp-for="Person.Address.StreetId"
                                         asp-items="@new SelectList(Model.Streets, nameof(Street.Id), nameof(Street.Name))"
@@ -165,26 +195,38 @@
                                     <option value="">@Localizer[nameof(Resources.SelectStreet)]</option>
                                     <option v-for="s in streets" :key="s.id" :value="s.id">{{ s.name }}</option>
                                 </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right px-2"><label asp-for="Person.Address.Building"></label></td>
-                            <td><input :disabled="!enabled" v-model="person.address.building" class="form-control" asp-for="Person.Address.Building" /></td>
-                        </tr>
-                        <tr>
-                            <td class="text-right px-2"><label asp-for="Person.Address.Apartment"></label></td>
-                            <td><input :disabled="!enabled" v-model="person.address.apartment" class="form-control" asp-for="Person.Address.Apartment" /></td>
-                        </tr>
-                        <tr>
-                            <td class="text-right px-2"><label asp-for="Person.Address.Zip"></label></td>
-                            <td><input :disabled="!enabled" v-model="person.address.zip" class="form-control" asp-for="Person.Address.Zip" /></td>
-                        </tr>
-                    </table>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.Address.Building" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input :disabled="!enabled" v-model="person.address.building" class="form-control" asp-for="Person.Address.Building" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.Address.Apartment" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input :disabled="!enabled" v-model="person.address.apartment" class="form-control" asp-for="Person.Address.Apartment" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4 d-flex flex-column justify-content-lg-end align-content-start align-content-lg-end">
+                                <label asp-for="Person.Address.Zip" class="col-form-label text-left text-lg-right"></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input :disabled="!enabled" v-model="person.address.zip" class="form-control" asp-for="Person.Address.Zip" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="d-flex flex-nowrap mt-2">
-                    <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
-                    <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="close">@Localizer[nameof(Resources.Cancel)]</button>
-                </div>
+            </div>
+            <div class="d-flex flex-nowrap mt-2">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="close">@Localizer[nameof(Resources.Cancel)]</button>
             </div>
         </div>
     </form>

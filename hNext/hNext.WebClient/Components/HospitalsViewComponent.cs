@@ -29,6 +29,7 @@ namespace hNext.WebClient.Components
         {
             modules.Add(nameof(PhonesListViewComponent).ViewComponentName());
             modules.Add(nameof(EmailsListViewComponent).ViewComponentName());
+            modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
 
             return View(new HospitalsViewModel
             {

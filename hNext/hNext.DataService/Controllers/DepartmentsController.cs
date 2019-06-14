@@ -16,13 +16,17 @@ namespace hNext.DataService.Controllers
         private IDepartmentRepository _repository;
         private IRepository<DepartmentPhone> _phoneRepository;
         private IRepository<DepartmentEmail> _emailRepository;
+        private IDepartmentSpecialtyRepository _specialtyRepository;
+        private IGetter<Specialty> _specialtyGetter;
 
-        public DepartmentsController(IDepartmentRepository repository,
-            IRepository<DepartmentPhone> phoneRepository, IRepository<DepartmentEmail> emailRepository)
+        public DepartmentsController(IDepartmentRepository repository, IDepartmentSpecialtyRepository specialtyRepository,
+            IRepository<DepartmentPhone> phoneRepository, IRepository<DepartmentEmail> emailRepository, IGetter<Specialty> specialtyGetter)
         {
             _repository = repository;
+            _specialtyRepository = specialtyRepository;
             _phoneRepository = phoneRepository;
             _emailRepository = emailRepository;
+            _specialtyGetter = specialtyGetter;
         }
 
         [HttpGet]
@@ -140,6 +144,28 @@ namespace hNext.DataService.Controllers
             }
 
             return Ok(await _phoneRepository.Delete(departmentId, phoneId));
+        }
+
+        [HttpPost("{id:int}/specialties/{specialtyId:int}")]
+        public async Task<IActionResult> AddSpecialty(int id, int specialtyId)
+        {
+            if(! await _repository.Exists(id) || ! await _specialtyGetter.Exists(specialtyId))
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _specialtyRepository.Post(new DepartmentSpecialty { DeparmentId = id, SpecialtyId = specialtyId }));
+        }
+
+        [HttpDelete("{id:int}/specialties/{specialtyId:int}")]
+        public async Task<IActionResult> DeleteSpecialty(int id, int specialtyId)
+        {
+            if(! await _specialtyRepository.Exists(id, specialtyId))
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _specialtyRepository.Delete(id, specialtyId));
         }
     }
 }

@@ -43,8 +43,15 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<License> Licenses { get; set; }
         public virtual DbSet<HospitalLicense> HospitalLicenses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<DepartmentSpecialty> DepartmentSpecialties { get; set; }
         public virtual DbSet<DepartmentPhone> DepartmentPhones { get;set; }
         public virtual DbSet<DepartmentEmail> DepartmentEmails { get; set; }
+        public virtual DbSet<Doctor> Doctors { get; set; }
+        public virtual DbSet<Specialty> Specialties { get; set; }
+        public virtual DbSet<Position> Positions { get; set; }
+        public virtual DbSet<DoctorPosition> DoctorPositions { get; set; }
+        public virtual DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
+        public virtual DbSet<Diploma> Diplomas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -105,8 +112,19 @@ namespace hNext.DbAccessMSSQLCore
 
             modelBuilder.Entity<Department>().HasIndex(d => d.Name);
             modelBuilder.Entity<Department>().HasIndex(d => d.HospitalId);
+            modelBuilder.Entity<DepartmentSpecialty>().HasKey(ds => new { ds.DeparmentId, ds.SpecialtyId });
             modelBuilder.Entity<DepartmentPhone>().HasKey(dp => new { dp.DepartmentId, dp.PhoneId });
             modelBuilder.Entity<DepartmentEmail>().HasKey(de => new { de.DepartmentId, de.EmailId});
+
+            modelBuilder.Entity<DoctorPosition>().HasIndex(dp => dp.DoctorId);
+            modelBuilder.Entity<DoctorPosition>().HasIndex(dp => dp.HospitalId);
+            modelBuilder.Entity<DoctorPosition>().HasIndex(dp => dp.DepartmentId);
+            modelBuilder.Entity<DoctorPosition>().HasOne(dp => dp.Doctor).WithMany(d => d.DoctorPositions)
+                .HasForeignKey(dp => dp.DoctorId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<DoctorPosition>().HasOne(dp => dp.Hospital).WithMany(h => h.DoctorPositions)
+                .HasForeignKey(dp => dp.HospitalId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<DoctorPosition>().HasOne(dp => dp.Department).WithMany(d => d.DoctorPositions)
+                .HasForeignKey(dp => dp.DepartmentId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

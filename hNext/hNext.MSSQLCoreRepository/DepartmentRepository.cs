@@ -22,6 +22,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(d => d.Hospital)
                 .Include(d => d.Phones).ThenInclude(p => p.Phone)
                 .Include(d => d.Emails).ThenInclude(e => e.Email)
+                .Include(d => d.Specialties).ThenInclude(s => s.Specialty)
                 .AsNoTracking().ToListAsync();
         }
 
@@ -33,6 +34,7 @@ namespace hNext.MSSQLCoreRepository
                     .Include(d => d.Hospital)
                     .Include(d => d.Phones).ThenInclude(p => p.Phone)
                     .Include(d => d.Emails).ThenInclude(e => e.Email)
+                    .Include(d => d.Specialties).ThenInclude(s => s.Specialty)
                     .AsNoTracking().SingleOrDefaultAsync(d => d.Id == id);
             }
             else
@@ -53,6 +55,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(d => d.Hospital)
                 .Include(d => d.Phones).ThenInclude(p => p.Phone)
                 .Include(d => d.Emails).ThenInclude(e => e.Email)
+                .Include(d => d.Specialties).ThenInclude(s => s.Specialty)
                 .AsNoTracking().SingleOrDefaultAsync(d => d.Id == department.Id);
             return department;
         }

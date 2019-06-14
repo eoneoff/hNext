@@ -34,7 +34,9 @@ namespace hNext.Model
 
         [ForeignKey(nameof(HospitalId))]
         public virtual Hospital Hospital { get; set; }
+        public virtual ICollection<DepartmentSpecialty> Specialties { get; set; }
         public virtual ICollection<DepartmentPhone> Phones { get; set; }
         public virtual ICollection<DepartmentEmail> Emails { get; set; }
+        public virtual ICollection<DoctorPosition> DoctorPositions { get; set; }
     }
 }

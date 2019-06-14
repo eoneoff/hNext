@@ -40,10 +40,10 @@ Vue.component("Departments", {
     computed: {
         enabled: {
             get: function () {
-                return store.state.enabled;
+                return this.$store.state.enabled;
             },
             set: function (show) {
-                store.commit('enable', show);
+                this.$store.commit('enable', show);
             }
         },
         departments: {
@@ -65,11 +65,12 @@ Vue.component("Departments", {
             }
         },
         createNewDepartment: function () {
+            this.selectedDepartment = { id: 0 };
             this.editingDepartment = { id: 0, name: '', hospitalId:'' };
             this.editing = true;
         },
         editDepartment: function () {
-            this.editDepartment = $.extend(true, {}, this.selectedDepartment);
+            this.editingDepartment = $.extend(true, {}, this.selectedDepartment);
             this.editing = true;
         },
         saveClicked: function () {
@@ -115,6 +116,18 @@ Vue.component("Departments", {
                 phone.departmentId = this.selectedDepartment.id;
                 return await DATA_CLIENT.deletePhoneFromDepartment(phone);
             }
+        },
+        addSpecialtyToDepartment: async function (specialty) {
+            if (this.selectedDepartment.id) {
+                specialty.departmentId = this.selectedDepartment.id;
+                return await DATA_CLIENT.addSpecialtyToDpeartment(specialty);
+            }
+        },
+        deleteSpecialtyFromDepartment: async function(specialty) {
+            if (this.selectedDepartment.id) {
+                specialty.departmentId = this.selectedDepartment.id;
+                return await DATA_CLIENT.deleteSpecialtyFromDepartment(specialty);
+            }
         }
     },
     watch: {
@@ -138,7 +151,10 @@ Vue.component("Departments", {
             addEmail: this.addEmailToDepartment,
             deleteEmail: this.deleteEmailFromDepartment,
             addPhone: this.addPhoneToDepartment,
-            deletePhone: this.deletePhoneFromDepartment
+            deletePhone: this.deletePhoneFromDepartment,
+            addSpecialty: this.addSpecialtyToDepartment,
+            deleteSpecialty: this.deleteSpecialtyFromDepartment,
+            editSpecialty: function () { }
         }
     }
 });

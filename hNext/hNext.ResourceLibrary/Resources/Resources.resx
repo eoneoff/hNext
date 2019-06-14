@@ -444,4 +444,79 @@
   <data name="Code" xml:space="preserve">
     <value>Код</value>
   </data>
+  <data name="EndPosition" xml:space="preserve">
+    <value>Звільнений</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Посада</value>
+  </data>
+  <data name="SelectPosition" xml:space="preserve">
+    <value>Оберіть посаду</value>
+  </data>
+  <data name="SelectSpecialty" xml:space="preserve">
+    <value>Оберіть спеціальність</value>
+  </data>
+  <data name="Specialty" xml:space="preserve">
+    <value>Спеціальність</value>
+  </data>
+  <data name="StartPosition" xml:space="preserve">
+    <value>Прийнятий</value>
+  </data>
+  <data name="EnterSpecialty" xml:space="preserve">
+    <value>Введіть спеціальність</value>
+  </data>
+  <data name="EnterUniversity" xml:space="preserve">
+    <value>Введіть навчальний заклад</value>
+  </data>
+  <data name="University" xml:space="preserve">
+    <value>Навчальний заклад</value>
+  </data>
+  <data name="Doctor" xml:space="preserve">
+    <value>Лікар</value>
+  </data>
+  <data name="Doctors" xml:space="preserve">
+    <value>Лікарі</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категорія</value>
+  </data>
+  <data name="Diploma" xml:space="preserve">
+    <value>Диплом</value>
+  </data>
+  <data name="Diplomas" xml:space="preserve">
+    <value>Дипломи</value>
+  </data>
+  <data name="Positions" xml:space="preserve">
+    <value>Посади</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Оберіть категорію</value>
+  </data>
+  <data name="Specialties" xml:space="preserve">
+    <value>Спеціальності</value>
+  </data>
+  <data name="HospitalShort" xml:space="preserve">
+    <value>Заклад</value>
+  </data>
+  <data name="CanNotAddRepeatingSpecialty" xml:space="preserve">
+    <value>Не можна додати одну спеціальність двічи</value>
+  </data>
+  <data name="EnterPerson" xml:space="preserve">
+    <value>Вкажіть особисті дані</value>
+  </data>
+  <data name="Category1" xml:space="preserve">
+    <value>Спеціаліст</value>
+  </data>
+  <data name="Category2" xml:space="preserve">
+    <value>Друга категорія</value>
+  </data>
+  <data name="Category3" xml:space="preserve">
+    <value>Перша категорія</value>
+  </data>
+  <data name="Category4" xml:space="preserve">
+    <value>Вища категорія</value>
+  </data>
+  <data name="Certificate" xml:space="preserve">
+    <value>Сертифікат</value>
+  </data>
 </root>

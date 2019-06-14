@@ -196,6 +196,43 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.ToTable("DepartmentPhones");
                 });
 
+            modelBuilder.Entity("hNext.Model.DepartmentSpecialty", b =>
+                {
+                    b.Property<int>("DeparmentId");
+
+                    b.Property<int>("SpecialtyId");
+
+                    b.HasKey("DeparmentId", "SpecialtyId");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("DepartmentSpecialties");
+                });
+
+            modelBuilder.Entity("hNext.Model.Diploma", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("DoctorId");
+
+                    b.Property<string>("Number")
+                        .IsRequired();
+
+                    b.Property<string>("Specialty")
+                        .IsRequired();
+
+                    b.Property<string>("University")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("Diplomas");
+                });
+
             modelBuilder.Entity("hNext.Model.District", b =>
                 {
                     b.Property<int>("Id")
@@ -217,6 +254,90 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasIndex("RegionId");
 
                     b.ToTable("Districts");
+                });
+
+            modelBuilder.Entity("hNext.Model.Doctor", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Code");
+
+                    b.Property<string>("Login");
+
+                    b.Property<long>("PersonId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId")
+                        .IsUnique();
+
+                    b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("hNext.Model.DoctorPosition", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DepartmentId");
+
+                    b.Property<long>("DoctorId");
+
+                    b.Property<DateTime?>("EndDate");
+
+                    b.Property<int>("HospitalId");
+
+                    b.Property<int>("PositionId");
+
+                    b.Property<int>("SpecialtyId");
+
+                    b.Property<DateTime?>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("HospitalId");
+
+                    b.HasIndex("PositionId");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("DoctorPositions");
+                });
+
+            modelBuilder.Entity("hNext.Model.DoctorSpecialty", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Category");
+
+                    b.Property<long>("DoctorId");
+
+                    b.Property<DateTime?>("Expires");
+
+                    b.Property<DateTime?>("IssuedDate");
+
+                    b.Property<string>("Number");
+
+                    b.Property<string>("SertifiedBy");
+
+                    b.Property<int>("SpecialtyId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("DoctorSpecialties");
                 });
 
             modelBuilder.Entity("hNext.Model.Document", b =>
@@ -333,6 +454,9 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.Property<string>("ShortName");
 
                     b.Property<string>("Url");
+
+                    b.Property<string>("eHealtId")
+                        .HasMaxLength(10);
 
                     b.HasKey("Id");
 
@@ -543,6 +667,21 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.ToTable("PhoneTypes");
                 });
 
+            modelBuilder.Entity("hNext.Model.Position", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("eHealthId")
+                        .HasMaxLength(10);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Positions");
+                });
+
             modelBuilder.Entity("hNext.Model.PropertyType", b =>
                 {
                     b.Property<int>("Id");
@@ -577,6 +716,21 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Regions");
+                });
+
+            modelBuilder.Entity("hNext.Model.Specialty", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("eHealthId")
+                        .HasMaxLength(10);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Specialties");
                 });
 
             modelBuilder.Entity("hNext.Model.Street", b =>
@@ -722,12 +876,82 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("hNext.Model.DepartmentSpecialty", b =>
+                {
+                    b.HasOne("hNext.Model.Department", "Department")
+                        .WithMany("Specialties")
+                        .HasForeignKey("DeparmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Specialty", "Specialty")
+                        .WithMany("DepartmentSpecialties")
+                        .HasForeignKey("SpecialtyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("hNext.Model.Diploma", b =>
+                {
+                    b.HasOne("hNext.Model.Doctor", "Doctor")
+                        .WithMany("Diplomas")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("hNext.Model.District", b =>
                 {
                     b.HasOne("hNext.Model.Region", "Region")
                         .WithMany("Districts")
                         .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("hNext.Model.Doctor", b =>
+                {
+                    b.HasOne("hNext.Model.Person", "Person")
+                        .WithOne("Doctor")
+                        .HasForeignKey("hNext.Model.Doctor", "PersonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("hNext.Model.DoctorPosition", b =>
+                {
+                    b.HasOne("hNext.Model.Department", "Department")
+                        .WithMany("DoctorPositions")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("hNext.Model.Doctor", "Doctor")
+                        .WithMany("DoctorPositions")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("hNext.Model.Hospital", "Hospital")
+                        .WithMany("DoctorPositions")
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("hNext.Model.Position", "Position")
+                        .WithMany("DoctorPositions")
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Specialty", "Specialty")
+                        .WithMany("DoctorPositions")
+                        .HasForeignKey("SpecialtyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("hNext.Model.DoctorSpecialty", b =>
+                {
+                    b.HasOne("hNext.Model.Doctor", "Doctor")
+                        .WithMany("DoctorSpecialties")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Specialty", "Specialty")
+                        .WithMany("DoctorSpecialties")
+                        .HasForeignKey("SpecialtyId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("hNext.Model.Document", b =>

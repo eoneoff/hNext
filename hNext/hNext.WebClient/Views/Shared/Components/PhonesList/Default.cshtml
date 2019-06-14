@@ -1,7 +1,7 @@
-﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
+﻿
 
 <template id="phones-list-template">
-    <div>
+    <div class="w-100" :style="{zIndex: level*1000}">
         <phone-editor v-if="showEditor" :level="level+1" :initial-phone="selectedPhone" @@cancel="cancelEditor"
                       @@save="confirmAdd"></phone-editor>
         <confirmation-dialog v-if="showDeleteConfirmation" :level="level+1" @@yes="confirmRemove" @@no="cancelRemove">
@@ -9,7 +9,7 @@
         </confirmation-dialog>
         <h6 class="text-center">@Localizer[nameof(Resources.Phones)]</h6>
         <div class="d-flex flex-row justify-content-end">
-            <div class="additional-data-table mr-1">
+            <div class="additional-data-table mr-1 w-100">
                 <table class="flex-grow-1 table-borderless table-sm w-100">
                     <tr v-for="p in phones" @@click="selectPhone(p)" :class="{'selected-table-row': p.phoneId == selectedPhone.phoneId}">
                         <td>{{ p.phone.number }}</td>

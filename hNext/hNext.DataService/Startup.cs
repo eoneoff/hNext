@@ -30,8 +30,10 @@ namespace hNext.DataService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<hNextDbContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"]));
+                options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"],
+                sqlServerOptions => sqlServerOptions.CommandTimeout(180)));
 
+            services.AddScoped(typeof(IGetter<>), typeof(Getter<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddScoped<IPatientsRepository, PatientsRepository>();
@@ -50,6 +52,10 @@ namespace hNext.DataService
 
             services.AddScoped<IHospitalRepository, HospitalRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IDepartmentSpecialtyRepository, DepartmentSpecialtyRepository>();
+
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IDoctorSpecialtyRepository, DoctorSpecialtyRepository>();
 
             services.AddCors(options =>
             {

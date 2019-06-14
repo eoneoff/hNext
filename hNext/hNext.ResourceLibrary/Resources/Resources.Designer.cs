@@ -151,6 +151,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не можна додати одну спеціальність двічи.
+        /// </summary>
+        public static string CanNotAddRepeatingSpecialty {
+            get {
+                return ResourceManager.GetString("CanNotAddRepeatingSpecialty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Не можна змінити адресу електронної пошти.
         /// </summary>
         public static string CanNotChangeEmail {
@@ -165,6 +174,60 @@ namespace hNext.ResourceLibrary.Resources {
         public static string CanNotChangePhone {
             get {
                 return ResourceManager.GetString("CanNotChangePhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Категорія.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Спеціаліст.
+        /// </summary>
+        public static string Category1 {
+            get {
+                return ResourceManager.GetString("Category1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Друга категорія.
+        /// </summary>
+        public static string Category2 {
+            get {
+                return ResourceManager.GetString("Category2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Перша категорія.
+        /// </summary>
+        public static string Category3 {
+            get {
+                return ResourceManager.GetString("Category3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вища категорія.
+        /// </summary>
+        public static string Category4 {
+            get {
+                return ResourceManager.GetString("Category4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сертифікат.
+        /// </summary>
+        public static string Certificate {
+            get {
+                return ResourceManager.GetString("Certificate", resourceCulture);
             }
         }
         
@@ -322,11 +385,47 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Диплом.
+        /// </summary>
+        public static string Diploma {
+            get {
+                return ResourceManager.GetString("Diploma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дипломи.
+        /// </summary>
+        public static string Diplomas {
+            get {
+                return ResourceManager.GetString("Diplomas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Район.
         /// </summary>
         public static string District {
             get {
                 return ResourceManager.GetString("District", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Лікар.
+        /// </summary>
+        public static string Doctor {
+            get {
+                return ResourceManager.GetString("Doctor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Лікарі.
+        /// </summary>
+        public static string Doctors {
+            get {
+                return ResourceManager.GetString("Doctors", resourceCulture);
             }
         }
         
@@ -372,6 +471,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string EmailExistsAdd {
             get {
                 return ResourceManager.GetString("EmailExistsAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Звільнений.
+        /// </summary>
+        public static string EndPosition {
+            get {
+                return ResourceManager.GetString("EndPosition", resourceCulture);
             }
         }
         
@@ -466,6 +574,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Вкажіть особисті дані.
+        /// </summary>
+        public static string EnterPerson {
+            get {
+                return ResourceManager.GetString("EnterPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Введіть назву області.
         /// </summary>
         public static string EnterRegionName {
@@ -484,11 +601,29 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть спеціальність.
+        /// </summary>
+        public static string EnterSpecialty {
+            get {
+                return ResourceManager.GetString("EnterSpecialty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Введіть назву вулиці.
         /// </summary>
         public static string EnterStreetName {
             get {
                 return ResourceManager.GetString("EnterStreetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть навчальний заклад.
+        /// </summary>
+        public static string EnterUniversity {
+            get {
+                return ResourceManager.GetString("EnterUniversity", resourceCulture);
             }
         }
         
@@ -561,6 +696,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Hospitals {
             get {
                 return ResourceManager.GetString("Hospitals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заклад.
+        /// </summary>
+        public static string HospitalShort {
+            get {
+                return ResourceManager.GetString("HospitalShort", resourceCulture);
             }
         }
         
@@ -736,6 +880,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Посада.
+        /// </summary>
+        public static string Position {
+            get {
+                return ResourceManager.GetString("Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Посади.
+        /// </summary>
+        public static string Positions {
+            get {
+                return ResourceManager.GetString("Positions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Тип власності.
         /// </summary>
         public static string PropertyType {
@@ -804,6 +966,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть категорію.
+        /// </summary>
+        public static string SelectCategory {
+            get {
+                return ResourceManager.GetString("SelectCategory", resourceCulture);
             }
         }
         
@@ -889,6 +1060,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть посаду.
+        /// </summary>
+        public static string SelectPosition {
+            get {
+                return ResourceManager.GetString("SelectPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Оберіть тип власності.
         /// </summary>
         public static string SelectPropertyType {
@@ -903,6 +1083,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SelectRegion {
             get {
                 return ResourceManager.GetString("SelectRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть спеціальність.
+        /// </summary>
+        public static string SelectSpecialty {
+            get {
+                return ResourceManager.GetString("SelectSpecialty", resourceCulture);
             }
         }
         
@@ -961,6 +1150,33 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Спеціальності.
+        /// </summary>
+        public static string Specialties {
+            get {
+                return ResourceManager.GetString("Specialties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Спеціальність.
+        /// </summary>
+        public static string Specialty {
+            get {
+                return ResourceManager.GetString("Specialty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Прийнятий.
+        /// </summary>
+        public static string StartPosition {
+            get {
+                return ResourceManager.GetString("StartPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вулиця.
         /// </summary>
         public static string Street {
@@ -984,6 +1200,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Type {
             get {
                 return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Навчальний заклад.
+        /// </summary>
+        public static string University {
+            get {
+                return ResourceManager.GetString("University", resourceCulture);
             }
         }
         

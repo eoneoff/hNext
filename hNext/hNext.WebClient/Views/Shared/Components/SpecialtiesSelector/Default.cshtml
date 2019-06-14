@@ -1,0 +1,27 @@
+﻿@model SpecialtiesSelectorViewModel
+
+<template id="specialties-selector-template">
+    <form class="modal-window" :style="{zIndex: level*1000}">
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="flex-column show-panel modal-window-show-panel">
+            <div class="d-flex flex-row flex-nowrap align-content-end">
+                <label asp-for="SpecialtyId" class="mr-2 align-text-bottom mt-auto"></label>
+                <div style="max-width:20rem;">
+                    <span asp-validation-for="SpecialtyId" class="text-danger"></span>
+                    <select class="form-control" asp-for="SpecialtyId" v-model="selectedSpecialty.specialtyId"
+                            asp-items="@new SelectList(Model.Specialties, nameof(Specialty.Id), nameof(Specialty.Name))">
+                        <option value="">@Localizer[nameof(Resources.SelectSpecialty)]</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex flex-row flex-nowrap justify-content-end mt-2">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="cancel">@Localizer[nameof(Resources.Cancel)]</button>
+            </div>
+        </div>
+    </form>
+</template>

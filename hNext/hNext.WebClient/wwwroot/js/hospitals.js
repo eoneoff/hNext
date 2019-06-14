@@ -69,6 +69,7 @@ Vue.component('Hospitals', {
             }
         },
         createNewHospital: function () {
+            this.selectedHospital = this.newHospital();
             this.editingHospital = this.newHospital();
             this.cityName = '';
             this.editing = true;

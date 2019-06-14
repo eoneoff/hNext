@@ -21,6 +21,10 @@
     {
       "library": "vuex@3.1.0",
       "destination": "wwwroot/lib/vuex/"
+    },
+    {
+      "library": "twitter-bootstrap@4.3.1",
+      "destination": "wwwroot/lib/bootstrap"
     }
   ]
 }

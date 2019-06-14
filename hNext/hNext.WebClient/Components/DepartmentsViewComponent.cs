@@ -14,6 +14,8 @@ namespace hNext.WebClient.Components
     {
         public IViewComponentResult Invoke(UniqueList<string> modules)
         {
+            modules.Add(nameof(SpecialtiesListViewComponent).ViewComponentName());
+            modules.Add(nameof(SpecialtiesSelectorViewComponent).ViewComponentName());
             modules.Add(nameof(PhonesListViewComponent).ViewComponentName());
             modules.Add(nameof(EmailsListViewComponent).ViewComponentName());
             modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());

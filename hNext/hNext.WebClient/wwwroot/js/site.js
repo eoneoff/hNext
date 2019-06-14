@@ -333,6 +333,52 @@ class DataClient {
             department
         )).data;
     }
+
+    async addSpecialtyToDpeartment(specialty) {
+        return (await axios.post(
+            `${this._apiServer}departments/${specialty.departmentId}/specialties/${specialty.specialtyId}`
+        )).data;
+    }
+
+    async deleteSpecialtyFromDepartment(specialty) {
+        return (await axios.delete(
+            `${this._apiServer}departments/${specialty.departmentId}/specialties/${specialty.specialtyId}`
+        )).data;
+    }
+
+    async saveDoctor(doctor) {
+        return (await axios.post(
+            `${this._apiServer}doctors`,
+            doctor
+        )).data;
+    }
+
+    async searchDoctors(model) {
+        return (await axios.post(
+            `${this._apiServer}doctors/search`,
+            model
+        )).data;
+    }
+
+    async addSpecialtyToDoctor(specialty) {
+        return (await axios.post(
+            `${this._apiServer}doctors/${specialty.doctorId}/specialties`,
+            specialty
+        )).data;
+    }
+
+    async editSpecialtyOfDoctor(specialty) {
+        return (await axios.put(
+            `${this._apiServer}doctors/${specialty.doctorId}/specialties/${specialty.specialtyId}`,
+            specialty
+        )).data;
+    }
+
+    async deleteSpecialtyFromDoctor(specialty) {
+        return (await axios.delete(
+            `${this._apiServer}doctors/${specialty.doctorId}/specialties/${specialty.specialtyId}`
+        )).data;
+    }
 }
 
 const DATA_CLIENT = new DataClient(API_SERVER);

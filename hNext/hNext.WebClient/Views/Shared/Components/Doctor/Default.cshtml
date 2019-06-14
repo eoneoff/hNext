@@ -1,0 +1,115 @@
+﻿@model DoctorViewModel
+
+<template id="doctor-template">
+    <form>
+        <person-editor v-if="showPersonEditor" level="1" @@save="addPerson" @@quit="showPersonEditor = false"
+                       :initial-person="selectedDoctor.person"></person-editor>
+        <confirmation-dialog v-if="showSaveConfirmation" level="1" @@yes="saveDoctor" @@no="showSaveConfirmation = false">
+            @Localizer[nameof(Resources.SaveAndExit)]?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showCancelConfirmation" level="1" @@yes="cancelEditing" @@no="showCancelConfirmation = false">
+            @Localizer[nameof(Resources.CancelAndExit)]?
+        </confirmation-dialog>
+        <div class="d-flex flex-column mt-2">
+            <div class="d-flex flex-column flex-md-row align-items-md-end">
+                <label  asp-for="Search.Name" class="mr-md-2"></label>
+                <input :disabled="!enabled || searching" class="form-control mr-md-3" v-model="searchModel.name"/>
+                <label asp-for="Search.SpecialtyId" class="mt-2 mt-md-0 mr-md-2"></label>
+                <select :disabled="!enabled || searching" class="form-control mr-md-3" v-model="searchModel.specialtyId"
+                        asp-items="@new SelectList(Model.Specialties, nameof(Specialty.Id), nameof(Specialty.Name))">
+                    <option value="">@Localizer[nameof(Resources.SelectSpecialty)]</option>
+                </select>
+                <label asp-for="Search.HospitalId" class="mt-2 mt-md-0 mr-md-3"></label>
+                <select :disabled="!enabled || searching" class="form-control mr-md-2 mb-2 mb-lg-0" v-model="searchModel.hospitalId">
+                    <option value="">@Localizer[nameof(Resources.SelectHospital)]</option>
+                    <option v-for="h in hospitals" :key="h.id" :value="h.id">
+                        {{ h.name }}
+                    </option>
+                </select>
+                <button @@click.stop.prevent="searchDoctors" class="btn btn-primary my-auto" :disabled="!enabled || searching">@Localizer[nameof(Resources.Search)]</button>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-6 d-flex flex-row">
+                    <div class="d-flex flex-column mr-2">
+                        <button class="btn btn-primary" @@click.stop.prevent="createNewDoctor" :disabled="!enabled">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        <button class="btn btn-primary mt-3" :disabled="!enabled" @@click.stop.prevent="editDoctor" :disabled="!enabled">
+                            <i class="fa fa-pen"></i>
+                        </button>
+                    </div>
+                    <div style="max-height:80vh; overflow-y:auto;" class="flex-grow-1">
+                        <table class="table table-borderless">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>@Localizer[nameof(Resources.FullName)]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="d in doctors" :key="d.id" :class="{'selected-table-row' : d.id == selectedDoctor.id}"
+                                    @@click="doctorClicked(d)">
+                                    <td>{{ `${d.person.familyName} ${d.person.firstName} ${d.person.patronimic}` }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex flex-column mt-3 mt-lg-0" style="overflow-y:auto; max-height:80vh;">
+                    <div class="row">
+                        <div class="col-2 d-flex flex-column align-items-end justify-content-center">
+                            @Localizer[nameof(Resources.FullName)]
+                        </div>
+                        <div v-if="editing" class="col d-flex flex-row">
+                            <div class="d-flex flex-column flex-grow-1 justify-content-center">
+                                <input type="hidden" asp-for="Doctor.PersonId" ref="personId" />
+                                <span asp-validation-for="Doctor.PersonId"></span>
+                                <span>
+                                    {{ ((editingDoctor && editingDoctor.person) ?
+                                            `${editingDoctor.person.familyName} ${editingDoctor.person.firstName} ${editingDoctor.person.patronimic}`
+                                            : '')
+                                    }}
+                                </span>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="showPersonEditor = true"><i class="fa fa-pen"></i></button>
+                            </div>
+                        </div>
+                        <span v-else>
+                            {{ ((selectedDoctor && selectedDoctor.person) ?
+                                            `${selectedDoctor.person.familyName} ${selectedDoctor.person.firstName} ${selectedDoctor.person.patronimic}`
+                                            : '')
+                            }}
+                        </span>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-2 d-flex flex-column align-items-end justify-content-center">
+                            @Localizer[nameof(Resources.Code)]
+                        </div>
+                        <div class="col d-flex flex-column">
+                            <div v-if="editing">
+                                <input :disabled="!enabled" class="form-control" v-model="editingDoctor.code"/>
+                            </div>
+                            <span v-else>{{ (selectedDoctor || {}).code || '' }}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between justify-content-lg-end mt-2" v-if="editing">
+                        <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="checkSave">@Localizer[nameof(Resources.Save)]</button>
+                        <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="showCancelConfirmation = true">@Localizer[nameof(Resources.Cancel)]</button>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-11">
+                            <hr class="w-100" />
+                        </div>
+                    </div>
+                    <specialties-list level="0" @@enable="enabled = $event" :initial-enabled="enabled" :edit-button="true"
+                                      :initial-specialties="selectedDoctor.specialties" :object-selected="selectedDoctor.id">
+                        <template v-slot="list">
+                            <doctor-specialty-editor :level="list.level+1" :initial-enabled="list.enabled" :initial-specialty="list.specialty"
+                                                     @@cancel="list.cancel" @@save="list.save($event)"></doctor-specialty-editor>
+                        </template>
+                    </specialties-list>
+                </div>
+            </div>
+        </div>
+    </form>
+</template>

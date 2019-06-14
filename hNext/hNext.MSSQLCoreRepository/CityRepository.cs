@@ -12,7 +12,7 @@ namespace hNext.MSSQLCoreRepository
 {
     public class CityRepository : Repository<City>, ICityRepository
     {
-        public CityRepository(hNextDbContext db) : base(db) { }
+        public CityRepository(hNextDbContext db) : base(db) {}
 
         public override async Task<IEnumerable<City>> Get() =>
             await dbSet.Include(c => c.CityType).OrderBy(c => c.Name).AsNoTracking().ToListAsync();

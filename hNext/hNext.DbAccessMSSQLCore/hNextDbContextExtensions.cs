@@ -23,5 +23,18 @@ namespace hNext.DbAccessMSSQLCore
 
             return patients;
         }
+
+        public virtual IQueryable<Doctor> SearchDoctor(DoctorSearchModel model)
+        {
+            var name = new SqlParameter("@name", (object)model.Name ?? DBNull.Value);
+            var specialtyId = new SqlParameter("@specialtyId", (object)model.SpecialtyId ?? DBNull.Value);
+            var hospitalId = new SqlParameter("@hospitalId", (object)model.HospitalId ?? DBNull.Value);
+            var departmentId = new SqlParameter("@departmentId", (object)model.DepartmentId ?? DBNull.Value);
+
+            var doctors = Doctors.FromSql("SELECT * FROM SearchDoctors(@name, @specialtyId, @hospitalId, @departmentId)",
+                name, specialtyId, hospitalId, departmentId);
+
+            return doctors;
+        }
     }
 }

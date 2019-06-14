@@ -13,7 +13,8 @@ namespace hNext.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterPerson))]
         public long PersonId { get; set; }
 
         [Display(ResourceType = typeof(Resources),
@@ -26,5 +27,17 @@ namespace hNext.Model
 
         [ForeignKey(nameof(PersonId))]
         public virtual Person Person { get; set; }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Positions))]
+        public virtual ICollection<DoctorPosition> DoctorPositions { get; set; }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Diplomas))]
+        public virtual ICollection<Diploma> Diplomas { get; set; }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Specialties))]
+        public virtual ICollection<DoctorSpecialty> DoctorSpecialties { get; set; }
     }
 }
