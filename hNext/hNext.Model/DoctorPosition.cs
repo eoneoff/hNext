@@ -24,7 +24,7 @@ namespace hNext.Model
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Department))]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources),
             ErrorMessageResourceName = nameof(Resources.SelectPosition))]
