@@ -22,6 +22,7 @@ namespace hNext.WebClient.Components
             modules.Add(nameof(PersonEditorViewComponent).ViewComponentName());
             modules.Add(nameof(SpecialtiesListViewComponent).ViewComponentName());
             modules.Add(nameof(DoctorSpecialtyEditorViewComponent).ViewComponentName());
+            modules.Add(nameof(DoctorPositionListViewComponent).ViewComponentName());
             modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
 
             return View(new DoctorViewModel { Specialties = await _specialties.Get()});

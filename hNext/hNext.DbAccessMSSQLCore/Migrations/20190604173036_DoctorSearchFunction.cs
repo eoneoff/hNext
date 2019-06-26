@@ -12,15 +12,17 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 RETURNS TABLE
                 AS
                 RETURN(
-                SELECT D.*
-                FROM Doctors AS D
-                INNER JOIN People as P ON P.Id = D.PersonId
-                LEFT OUTER JOIN DoctorSpecialties AS S ON S.DoctorId = D.Id
-                LEFT OUTER JOIN DoctorPositions AS DP ON DP.DoctorId = D.Id
-                WHERE (@name IS NULL OR LOWER(P.FamilyName) LIKE LOWER(@name)+'%')
-                AND (@specialtyId IS NULL OR S.SpecialtyId = @specialtyId)
-                AND (@hospitalId IS NULL OR DP.HospitalId = @hospitalId)
-                AND (@departmentId IS NULL OR DP.DepartmentId = @departmentId))";
+                SELECT * FROM Doctors
+				WHERE Id IN(
+				SELECT DISTINCT D.Id
+				FROM Doctors AS D
+				INNER JOIN People as P ON P.Id = D.PersonId
+				LEFT OUTER JOIN DoctorSpecialties AS S ON S.DoctorId = D.Id
+				LEFT OUTER JOIN DoctorPositions AS DP ON DP.DoctorId = D.Id
+				WHERE (@name IS NULL OR LOWER(P.FamilyName) LIKE LOWER(@name)+'%')
+				AND (@specialtyId IS NULL OR S.SpecialtyId = @specialtyId)
+				AND (@hospitalId IS NULL OR DP.HospitalId = @hospitalId)
+				AND (@departmentId IS NULL OR DP.DepartmentId = @departmentId)))";
             migrationBuilder.Sql(function);
         }
 

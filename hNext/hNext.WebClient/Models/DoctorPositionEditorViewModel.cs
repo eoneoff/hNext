@@ -8,7 +8,6 @@ namespace hNext.WebClient.Models
 {
     public class DoctorPositionEditorViewModel
     {
-        public IEnumerable<Specialty> Specialties { get; set; }
         public IEnumerable<Position> Positions { get; set; }
         public DoctorPosition Position { get; set; }
     }

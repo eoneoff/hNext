@@ -26,7 +26,7 @@
             }
         },
         edit: function () {
-            if (this.objectSelected) {
+            if (this.selectedSpecialty.specialtyId) {
                 this.enabled = false;
                 this.showAddSpecialty = true;
             }

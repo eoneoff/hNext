@@ -87,6 +87,14 @@ namespace hNext.MSSQLCoreRepository
             .Include(d => d.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
             .Include(d => d.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
             .Include(d => d.Person).ThenInclude(p => p.Documents).ThenInclude(d => d.DocumentType)
+            .Include(d => d.DoctorSpecialties).ThenInclude(s => s.Specialty)
+            .Include(d => d.DoctorPositions).ThenInclude(p => p.Position)
+            .Include(d => d.DoctorPositions).ThenInclude(p => p.Specialty)
+            .Include(d => d.DoctorPositions).ThenInclude(p => p.Hospital)
+            .Include(d => d.DoctorPositions).ThenInclude(p => p.Department)
             .AsNoTracking().ToListAsync();
+
+        public async Task<IEnumerable<Specialty>> Specialties(long id) => await db.DoctorSpecialties
+            .Where(ds => ds.DoctorId == id).Select(ds => ds.Specialty).ToListAsync();
     }
 }

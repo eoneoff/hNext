@@ -28,7 +28,6 @@ namespace hNext.WebClient.Components
 
             return View(new DoctorPositionEditorViewModel
             {
-               Specialties = await _specialties.Get(),
                Positions = await _positions.Get()
             });
         }

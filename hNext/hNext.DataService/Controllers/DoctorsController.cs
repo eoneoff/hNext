@@ -65,6 +65,9 @@ namespace hNext.DataService.Controllers
             return Ok(await _repository.Put(doctor));
         }
 
+        [HttpGet("{id:long}/specialties")]
+        public async Task<IEnumerable<Specialty>> Specialties(long id) => await _repository.Specialties(id);
+
         [HttpPost("{id:long}/specialties/")]
         public async Task<IActionResult> AddSpecialty(long id, DoctorSpecialty specialty)
         {
@@ -124,9 +127,9 @@ namespace hNext.DataService.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (await _positionRepository.Exists(position))
+            if (await _positionRepository.Exists(position) is DoctorPosition)
             {
-                return (BadRequest());
+                return BadRequest();
             }
 
             position.DoctorId = id;

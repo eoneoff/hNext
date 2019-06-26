@@ -31,6 +31,13 @@ Vue.component("Doctor", {
         },
         hospitals: function() {
             return this.$store.state.hospitals.hospitals;
+        },
+        currentSpecialties: function () {
+            if (this.selectedDoctor.id) {
+                return this.selectedDoctor.doctorSpecialties.filter((val, index, arr) => arr.findIndex(s => s.id == val.id) == index)
+                    .map(s => s.specialty);
+            }
+            return [];
         }
     },
     methods: {
@@ -107,7 +114,8 @@ Vue.component("Doctor", {
         return {
             addSpecialty: this.addSpecialtyToDoctor,
             editSpecialty: this.editSpecialtyOfDoctor,
-            deleteSpecialty: this.deleteSpecialtyFromDoctor
+            deleteSpecialty: this.deleteSpecialtyFromDoctor,
+            specialties:() => this.currentSpecialties
         }
     }
 });

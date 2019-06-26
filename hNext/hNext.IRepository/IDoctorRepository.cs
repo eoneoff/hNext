@@ -9,5 +9,6 @@ namespace hNext.IRepository
     public interface IDoctorRepository:IRepository<Doctor>
     {
         Task<IEnumerable<Doctor>> SearchDoctors(DoctorSearchModel model);
+        Task<IEnumerable<Specialty>> Specialties(long id);
     }
 }
