@@ -11,21 +11,25 @@ using System.Threading.Tasks;
 
 namespace hNext.WebClient.Components
 {
-    public class DoctorViewComponent:ViewComponent
+    public class DoctorPositionEditorViewComponent : ViewComponent
     {
         private IGetter<Specialty> _specialties;
+        private IGetter<Position> _positions;
 
-        public DoctorViewComponent(IGetter<Specialty> specialties) => _specialties = specialties;
+        public DoctorPositionEditorViewComponent(IGetter<Specialty> specialties, IGetter<Position> positions)
+        {
+            _specialties = specialties;
+            _positions = positions;
+        }
 
         public async Task<IViewComponentResult> InvokeAsync(UniqueList<string> modules)
         {
-            modules.Add(nameof(PersonEditorViewComponent).ViewComponentName());
-            modules.Add(nameof(SpecialtiesListViewComponent).ViewComponentName());
-            modules.Add(nameof(DoctorSpecialtyEditorViewComponent).ViewComponentName());
-            modules.Add(nameof(DoctorPositionListViewComponent).ViewComponentName());
             modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
 
-            return View(new DoctorViewModel { Specialties = await _specialties.Get()});
+            return View(new DoctorPositionEditorViewModel
+            {
+               Positions = await _positions.Get()
+            });
         }
     }
 }

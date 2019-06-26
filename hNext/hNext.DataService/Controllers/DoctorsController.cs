@@ -16,14 +16,17 @@ namespace hNext.DataService.Controllers
         private IDoctorRepository _repository;
         private IDoctorSpecialtyRepository _specialtyRepository;
         private IGetter<Specialty> _specialtyGetter;
+        private IDoctorPositionRepository _positionRepository;
 
         public DoctorsController(IDoctorRepository repository,
                                 IDoctorSpecialtyRepository specialtyRepository,
-                                IGetter<Specialty> specialtyGetter)
+                                IGetter<Specialty> specialtyGetter,
+                                IDoctorPositionRepository positionRepository)
         {
             _repository = repository;
             _specialtyRepository = specialtyRepository;
             _specialtyGetter = specialtyGetter;
+            _positionRepository = positionRepository;
         }
 
         [HttpGet]
@@ -38,7 +41,7 @@ namespace hNext.DataService.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(Doctor doctor)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -54,7 +57,7 @@ namespace hNext.DataService.Controllers
                 return BadRequest(ModelState);
             }
 
-            if(doctor.Id != id)
+            if (doctor.Id != id)
             {
                 return BadRequest();
             }
@@ -62,10 +65,13 @@ namespace hNext.DataService.Controllers
             return Ok(await _repository.Put(doctor));
         }
 
+        [HttpGet("{id:long}/specialties")]
+        public async Task<IEnumerable<Specialty>> Specialties(long id) => await _repository.Specialties(id);
+
         [HttpPost("{id:long}/specialties/")]
         public async Task<IActionResult> AddSpecialty(long id, DoctorSpecialty specialty)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -101,7 +107,7 @@ namespace hNext.DataService.Controllers
         {
             var specialty = await _specialtyRepository.Exists(id, specialtyId);
 
-            if(specialty == null)
+            if (specialty == null)
             {
                 return BadRequest();
             }
@@ -112,5 +118,52 @@ namespace hNext.DataService.Controllers
         [HttpGet("{id:long}/specialties/{specialtyId:int}/exists")]
         public async Task<DoctorSpecialty> SpecialtyExists(long id, int specialtyId) =>
             await _specialtyRepository.Exists(id, specialtyId);
+
+        [HttpPost("{id:long}/positions/")]
+        public async Task<IActionResult> AddPosition(long id, DoctorPosition position)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (await _positionRepository.Exists(position) is DoctorPosition)
+            {
+                return BadRequest();
+            }
+
+            position.DoctorId = id;
+
+            return Ok(await _positionRepository.Post(position));
+        }
+
+        [HttpPut("{id:int}/positions/{positionId:long}")]
+        public async Task<IActionResult> EditPosition(long id, long positionId, DoctorPosition position)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!await _positionRepository.Exists(positionId) || position.DoctorId != id)
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _positionRepository.Put(position));
+        }
+
+        [HttpDelete("{id:int}/positions/{positionId}")]
+        public async Task<IActionResult> DeletePosition(long id, long positionId)
+        {
+            var position = await _positionRepository.Get(positionId);
+
+            if (position == null || position.DoctorId != id)
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _positionRepository.Delete(positionId));
+        }
     }
 }

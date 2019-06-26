@@ -24,7 +24,7 @@ namespace hNext.Model
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Department))]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources),
             ErrorMessageResourceName = nameof(Resources.SelectPosition))]
@@ -40,14 +40,21 @@ namespace hNext.Model
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.StartPosition))]
+        [DataType(DataType.Date)]
         public DateTime? StartDate { get; set; }
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.EndPosition))]
+        [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
+        [ForeignKey(nameof(DoctorId))]
         public virtual Doctor Doctor { get; set; }
+
+        [ForeignKey(nameof(HospitalId))]
         public virtual Hospital Hospital { get; set; }
+
+        [ForeignKey(nameof(DepartmentId))]
         public virtual Department Department { get; set; }
 
         [ForeignKey(nameof(PositionId))]

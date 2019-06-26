@@ -367,6 +367,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Видалити посаду.
+        /// </summary>
+        public static string DeletePosition {
+            get {
+                return ResourceManager.GetString("DeletePosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Відділення.
         /// </summary>
         public static string Department {
@@ -1002,6 +1011,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SelectCountry {
             get {
                 return ResourceManager.GetString("SelectCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть відділення.
+        /// </summary>
+        public static string SelectDepartment {
+            get {
+                return ResourceManager.GetString("SelectDepartment", resourceCulture);
             }
         }
         

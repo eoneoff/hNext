@@ -1,0 +1,26 @@
+﻿<template id="doctor-position-list-template">
+    <div class="w-100" :style="{zIndex: level*1000}">
+        <doctor-position-editor v-if="showPositionEditor" :level="level+1" @@save="save" @@cancel="showPositionEditor=false"
+                :initial-enabled="true" :initial-position="selectedPosition"></doctor-position-editor>
+        <confirmation-dialog v-if="showDeleteConfirmation" :level="level+1" @@yes="deletePosition" @@no="showDeleteConfirmation = false">
+            @Localizer[nameof(Resources.DeletePosition)]?
+        </confirmation-dialog>
+        <h6 class="text-center">@Localizer[nameof(Resources.Positions)]</h6>
+        <div class="d-flex flex-row justify-content-end">
+            <div class="additional-data-table mr-1 w-100">
+                <table class="flex-grow-1 table-borderless table-sm w-100">
+                    <tr v-for="p in positions" @@click="selectPosition(p)" :class="{'selected-table-row': p.id == selectedPosition.id}">
+                        <td>{{ p.hospital.shortName + 
+                                (p.department ? ` ${p.department.name} @Localizer[nameof(Resources.Department)].Value.ToLower()` : '')}}</td>
+                        <td>{{ p.position.name }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="d-flex flex-column">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="add"><i class="fas fa-plus"></i></button>
+                <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent="edit"><i class="fas fa-pen"></i></button>
+                <button class="btn btn-danger mt-1" :disabled="!enabled" @@click.stop.prevent="remove"><i class="fas fa-minus"></i></button>
+            </div>
+        </div>
+    </div>
+</template>

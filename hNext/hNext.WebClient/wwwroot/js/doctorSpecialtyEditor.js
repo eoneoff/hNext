@@ -11,7 +11,22 @@
         }
     },
     computed: {
-       
+        issuedDate: {
+            get: function () {
+                return moment(this.specialty.issuedDate).format('YYYY-MM-DD');
+            },
+            set: function (val) {
+                this.specialty.issuedDate = val;
+            }
+        },
+        expires: {
+            get: function () {
+                return moment(this.specialty.expires).format('YYYY-MM-DD');
+            },
+            set: function (val) {
+                this.specialty.expires = val;
+            }
+        }
     },
     watch: {
         enabled: function (val) {
@@ -37,6 +52,7 @@
             this.showCancelConfirmation = true;
         },
         saveConfirmed: function () {
+            this.showSaveConfirmation = false;
             this.$emit('save', this.specialty);
         },
         saveCancelled: function () {
@@ -45,6 +61,7 @@
                 .each(function () { validator.settings.success($(this)); });
             validator.resetForm();
             this.specialty = this.newSpecialty();
+            this.showCancelConfirmation = false;
             this.$emit('cancel');
         },
         newSpecialty: function () {

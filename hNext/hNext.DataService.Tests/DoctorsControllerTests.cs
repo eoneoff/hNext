@@ -16,13 +16,15 @@ namespace hNext.DataService.Tests
         private Mock<IDoctorRepository> repository = new Mock<IDoctorRepository>();
         private Mock<IDoctorSpecialtyRepository> specialtyRepository = new Mock<IDoctorSpecialtyRepository>();
         private Mock<IGetter<Specialty>> specialtyGetter = new Mock<IGetter<Specialty>>();
+        private Mock<IDoctorPositionRepository> positionRepository = new Mock<IDoctorPositionRepository>();
         private DoctorsController controller;
 
         public DoctorsControllerTests()
         {
             controller = new DoctorsController(repository.Object,
                                                 specialtyRepository.Object,
-                                                specialtyGetter.Object);
+                                                specialtyGetter.Object,
+                                                positionRepository.Object);
         }
 
         [TestMethod]
@@ -198,6 +200,66 @@ namespace hNext.DataService.Tests
             Assert.IsInstanceOfType(result, typeof(DoctorSpecialty));
             Assert.AreEqual(doctorId, result.DoctorId);
             Assert.AreEqual(specialtyId, result.SpecialtyId);
+        }
+
+        [TestMethod]
+        public void AddPositionReturnsDoctorPosition()
+        {
+            //Arrange
+            positionRepository.Setup(s => s.Exists(It.IsAny<DoctorPosition>())).ReturnsAsync(false);
+            positionRepository.Setup(s => s.Post(It.IsAny<DoctorPosition>())).ReturnsAsync(
+                (DoctorPosition dp) => { return dp; });
+            long doctorId = 1;
+
+            //Act
+            var result = (controller.AddPosition(doctorId, new DoctorPosition { DoctorId = doctorId }).Result as OkObjectResult).Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(DoctorPosition));
+            Assert.AreEqual(doctorId, (result as DoctorPosition)?.DoctorId);
+        }
+
+        [TestMethod]
+        public void EditPositionRetunrsDoctorPosition()
+        {
+            //Arrange
+            positionRepository.Setup(p => p.Exists(It.IsAny<object[]>())).ReturnsAsync(true);
+            positionRepository.Setup(p => p.Put(It.IsAny<DoctorPosition>())).ReturnsAsync(
+                (DoctorPosition dp) => { return dp; });
+            long doctorId = 1;
+            long positionId = doctorId + 1;
+
+            //Act
+            var result = (controller.EditPosition(doctorId, positionId, new DoctorPosition
+            {
+                DoctorId = doctorId,
+                Id = positionId
+            }).Result as OkObjectResult).Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(DoctorPosition));
+            Assert.AreEqual(doctorId, (result as DoctorPosition)?.DoctorId);
+            Assert.AreEqual(positionId, (result as DoctorPosition)?.Id);
+        }
+
+        [TestMethod]
+        public void DeletePositionReturnsDoctorPosition()
+        {
+            //Arrange
+            long doctorId = 1;
+            long positionId = doctorId + 1;
+            positionRepository.Setup(p => p.Exists(It.IsAny<object[]>())).ReturnsAsync(true);
+            positionRepository.Setup(p => p.Delete(It.IsAny<object[]>())).ReturnsAsync((object[] id) =>
+                { return new DoctorPosition { Id = (long)id[0] }; });
+            positionRepository.Setup(p => p.Get(It.IsAny<object[]>())).ReturnsAsync((object[] id) =>
+                { return new DoctorPosition { Id = (long)id[0], DoctorId = doctorId }; });
+
+            //Act
+            var result = (controller.DeletePosition(doctorId, positionId).Result as OkObjectResult).Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(DoctorPosition));
+            Assert.AreEqual(positionId, (result as DoctorPosition)?.Id);
         }
     }
 }

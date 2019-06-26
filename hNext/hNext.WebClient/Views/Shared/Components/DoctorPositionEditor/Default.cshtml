@@ -1,0 +1,84 @@
+﻿@model DoctorPositionEditorViewModel
+
+<template id="doctor-position-editor-template">
+    <form class="modal-window" :style="{zIndex: level*1000}">
+        <confirmation-dialog v-if="showSaveConfirmation" :level="level+1" @@yes="$emit('save', position)" @@no="showSaveConfirmation = false">
+            @Localizer[nameof(Resources.SaveAndExit)]?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showCancelConfirmation" :level="level+1" @@yes="$emit('cancel')" @@no="showCancelConfirmation = false">
+            @Localizer[nameof(Resources.CancelAndExit)]?
+        </confirmation-dialog>
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="showCancelConfirmation = true">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="flex-column show-panel modal-window-show-panel">
+            <div class="d-flex flex-column">
+                <div class="form-group row mx-0 align-items-lg-end">
+                    <label class="col-lg-4 col-form-label text-left text-lg-right" asp-for="Position.SpecialtyId"></label>
+                    <div class="col-lg-8">
+                        <div><span asp-validation-for="Position.SpecialtyId" class="text-danger"></span></div>
+                        <select class="form-control" asp-for="Position.SpecialtyId" v-model="position.specialtyId">
+                            <option value="">@Localizer[nameof(Resources.SelectSpecialty)]</option>
+                            <option v-for="s in specialtiesList" :key="s.id" :value="s.id">
+                                {{ s.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mx-0 align-items-lg-end">
+                    <label class="col-lg-4 col-form-label text-left text-lg-right" asp-for="Position.PositionId"></label>
+                    <div class="col-lg-8">
+                        <div><span asp-validation-for="Position.PositionId" class="text-danger"></span></div>
+                        <select class="form-control" asp-for="Position.PositionId" v-model="position.positionId"
+                                asp-items="@new SelectList(Model.Positions, nameof(Position.Id), nameof(Position.Name))">
+                            <option value="">@Localizer[nameof(Resources.SelectPosition)]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mx-0 align-items-lg-end">
+                    <label class="col-lg-4 col-form-label text-left text-lg-right" asp-for="Position.HospitalId"></label>
+                    <div class="col-lg-8">
+                        <div><span asp-validation-for="Position.HospitalId" class="text-danger"></span></div>
+                        <select class="form-control" asp-for="Position.HospitalId" v-model="position.hospitalId">
+                            <option value="">@Localizer[nameof(Resources.SelectHospital)]</option>
+                            <option v-for="h in hospitals" :key="h.id" :value="h.id">
+                                {{ h.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mx-0">
+                    <label class="col-lg-4 col-form-label text-left text-lg-right" asp-for="Position.DepartmentId"></label>
+                    <div class="col-lg-8">
+                        <select class="form-control" asp-for="Position.DepartmentId" v-model="position.departmentId">
+                            <option value="">@Localizer[nameof(Resources.SelectDepartment)]</option>
+                            <option v-for="h in departments" :key="h.id" :value="h.id">
+                                {{ h.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mx-0">
+                    <div class="col-lg-6 form-group row mx-0">
+                        <label class="col-lg-4 col-form-label text-left text-lg-right pl-0" asp-for="Position.StartDate"></label>
+                        <div class="col-lg-8 px-0">
+                            <input class="form-control w-100" asp-for="Position.StartDate" v-model="startDate" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 form-group row mx-0">
+                        <label class="col-lg-4 col-form-label text-left text-lg-right pl-0" asp-for="Position.EndDate"></label>
+                        <div class="col-lg-8 px-0">
+                            <input class="form-control w-100" asp-for="Position.EndDate" v-model="endDate" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row flex-nowrap justify-content-between justify-content-lg-end mt-2 mx-3">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="showCancelConfirmation = true">@Localizer[nameof(Resources.Cancel)]</button>
+            </div>
+        </div>
+    </form>
+</template>

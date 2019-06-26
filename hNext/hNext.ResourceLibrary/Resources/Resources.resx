@@ -519,4 +519,10 @@
   <data name="Certificate" xml:space="preserve">
     <value>Сертифікат</value>
   </data>
+  <data name="SelectDepartment" xml:space="preserve">
+    <value>Оберіть відділення</value>
+  </data>
+  <data name="DeletePosition" xml:space="preserve">
+    <value>Видалити посаду</value>
+  </data>
 </root>
