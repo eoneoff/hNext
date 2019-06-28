@@ -54,7 +54,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex flex-column mt-3 mt-lg-0" style="overflow-y:auto; max-height:80vh;">
+                <div class="col-lg-6 d-flex flex-column mt-3 mb-2 mt-lg-0" style="overflow-y:auto; max-height:80vh;">
                     <div class="row">
                         <div class="col-2 d-flex flex-column align-items-end justify-content-center">
                             @Localizer[nameof(Resources.FullName)]
@@ -101,15 +101,19 @@
                             <hr class="w-100" />
                         </div>
                     </div>
-                    <specialties-list level="0" @@enable="enabled = $event" :initial-enabled="enabled" :edit-button="true"
-                                      :initial-specialties="selectedDoctor.doctorSpecialties" :object-selected="selectedDoctor.id">
-                        <template v-slot="list">
-                            <doctor-specialty-editor :level="list.level+1" :initial-enabled="list.enabled" :initial-specialty="list.specialty"
-                                                     @@cancel="list.cancel" @@save="list.save($event)"></doctor-specialty-editor>
-                        </template>
-                    </specialties-list>
-                    <doctor-position-list level="0" class="mt-2" @@enable="enabled = $event" :initial-enabled="enabled"
-                                          :initial-positions="selectedDoctor.doctorPositions" :object-selected="selectedDoctor.id"></doctor-position-list>
+                    <div style="z-index:0;">
+                        <specialties-list level="+0" @@enable="enabled = $event" :initial-enabled="enabled" :edit-button="true"
+                                          :initial-specialties="selectedDoctor.doctorSpecialties" :object-selected="selectedDoctor.id">
+                            <template v-slot="list">
+                                <doctor-specialty-editor :level="list.level+1" :initial-enabled="list.enabled" :initial-specialty="list.specialty"
+                                                         @@cancel="list.cancel" @@save="list.save($event)"></doctor-specialty-editor>
+                            </template>
+                        </specialties-list>
+                        <doctor-position-list level="+0" class="mt-2" @@enable="enabled = $event" :initial-enabled="enabled"
+                                              :initial-positions="selectedDoctor.doctorPositions" :object-selected="selectedDoctor.id"></doctor-position-list>
+                        <diploma-list level="+0" class="mt-2" @@enable="enabled = $event" :initial-enabled="enabled"
+                                      :initial-diplomas="selectedDoctor.diplomas" :object-selected="selectedDoctor.id"></diploma-list>
+                    </div>
                 </div>
             </div>
         </div>

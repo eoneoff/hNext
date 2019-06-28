@@ -1,0 +1,24 @@
+﻿<template id="diploma-list-template">
+    <div class="w-100" :style="{zIndex: level*1000}">
+        <diploma-editor v-if="showEditor" :level="level+1" initial-enabled="true"
+                        :initial-diploma="this.selectedDiploma" @@save="save" @@cancel="showEditor = false"></diploma-editor>
+        <confirmation-dialog v-if="showDeleteConfirmation" :level="level+1" @@yes="save" @@no="showDeleteConfirmation = false">
+            @Localizer[nameof(Resources.Delete)] @Localizer[nameof(Resources.Diploma)]?
+        </confirmation-dialog>
+        <h6 class="text-center">@Localizer[nameof(Resources.Diplomas)]</h6>
+        <div class="d-flex flex-row justify-content-end">
+            <div class="additional-data-table mr-1 w-100">
+                <table class="flex-grow-1 table-borderless table-sm w-100">
+                    <tr v-for="d in diplomas" @@click="selectDiploma(d)" :class="{'selected-table-row': d.id == selectedDiploma.id}">
+                        <td>{{ `${d.university} ${d.specialty}` }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="d-flex flex-column">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="add"><i class="fas fa-plus"></i></button>
+                <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent="edit"><i class="fas fa-pen"></i></button>
+                <button class="btn btn-danger mt-1" :disabled="!enabled" @@click.stop.prevent="remove"><i class="fas fa-minus"></i></button>
+            </div>
+        </div>
+    </div>
+</template>

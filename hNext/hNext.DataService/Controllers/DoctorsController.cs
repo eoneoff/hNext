@@ -17,16 +17,19 @@ namespace hNext.DataService.Controllers
         private IDoctorSpecialtyRepository _specialtyRepository;
         private IGetter<Specialty> _specialtyGetter;
         private IDoctorPositionRepository _positionRepository;
+        private IRepository<Diploma> _diplomaRepository;
 
         public DoctorsController(IDoctorRepository repository,
                                 IDoctorSpecialtyRepository specialtyRepository,
                                 IGetter<Specialty> specialtyGetter,
-                                IDoctorPositionRepository positionRepository)
+                                IDoctorPositionRepository positionRepository,
+                                IRepository<Diploma> diplomaRepository)
         {
             _repository = repository;
             _specialtyRepository = specialtyRepository;
             _specialtyGetter = specialtyGetter;
             _positionRepository = positionRepository;
+            _diplomaRepository = diplomaRepository;
         }
 
         [HttpGet]
@@ -137,7 +140,7 @@ namespace hNext.DataService.Controllers
             return Ok(await _positionRepository.Post(position));
         }
 
-        [HttpPut("{id:int}/positions/{positionId:long}")]
+        [HttpPut("{id:long}/positions/{positionId:long}")]
         public async Task<IActionResult> EditPosition(long id, long positionId, DoctorPosition position)
         {
             if (!ModelState.IsValid)
@@ -153,7 +156,7 @@ namespace hNext.DataService.Controllers
             return Ok(await _positionRepository.Put(position));
         }
 
-        [HttpDelete("{id:int}/positions/{positionId}")]
+        [HttpDelete("{id:long}/positions/{positionId:long}")]
         public async Task<IActionResult> DeletePosition(long id, long positionId)
         {
             var position = await _positionRepository.Get(positionId);
@@ -164,6 +167,47 @@ namespace hNext.DataService.Controllers
             }
 
             return Ok(await _positionRepository.Delete(positionId));
+        }
+
+        [HttpPost("{id:long}/diplomas/")]
+        public async Task<IActionResult> AddDiplomaToDoctor(long id, Diploma diploma)
+        {
+            diploma.DoctorId = id;
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return Ok(await _diplomaRepository.Post(diploma));
+        }
+
+        [HttpPut("{id:long}/diplomas/{diplomaId:long}")]
+        public async Task<IActionResult> EditDiploma(long id, long diplomaId, Diploma diploma)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(diploma.Id != diplomaId || diploma.DoctorId != id
+                || !await _diplomaRepository.Exists(diplomaId))
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _diplomaRepository.Put(diploma));
+        }
+
+        [HttpDelete("{id:long}/diplomas/{diplomaId:long}")]
+        public async Task<IActionResult> DeleteDiploma(long id, long diplomaId)
+        {
+            if(! (await _diplomaRepository.Get(diplomaId) is Diploma diploma) || diploma.DoctorId != id)
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _diplomaRepository.Delete(diplomaId));
         }
     }
 }
