@@ -19,6 +19,13 @@ namespace hNext.Model
             Name = nameof(Resources.Number))]
         public string Number { get; set; }
 
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.WhenIssued))]
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterDate))]
+        [DataType(DataType.Date)]
+        public DateTime WhenIssued { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resources),
             ErrorMessageResourceName = nameof(Resources.EnterUniversity))]
         [Display(ResourceType = typeof(Resources),

@@ -520,6 +520,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть дату.
+        /// </summary>
+        public static string EnterDate {
+            get {
+                return ResourceManager.GetString("EnterDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Введіть назву відділення.
         /// </summary>
         public static string EnterDepartmentName {

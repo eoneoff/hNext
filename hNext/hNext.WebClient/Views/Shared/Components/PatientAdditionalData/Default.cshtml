@@ -1,6 +1,6 @@
 ﻿
 <template id="patient-additional-data-template">
-    <div class="main-panel ml-2 d-flex flex-column align-items-stretch p-2">
+    <div class="main-panel ml-2 d-flex flex-column align-items-stretch p-2" :style="{zIndex : zIndex}">
         <phones-list class="mx-auto" :initial-phones="phones" level="0" :initial-enabled="enabled" @@enable="enabled = $event" :object-selected="personId"></phones-list>
         <emails-list class="mx-auto" :initial-emails="emails" level="0" :initial-enabled="enabled" @@enable="enabled = $event" :object-selected="personId"></emails-list>
         <documents-list class="mx-auto" :initial-documents="documents" level="0" :person-id="personId" :initial-enabled="enabled" @@enable="enabled = $event"></documents-list>

@@ -399,6 +399,26 @@ class DataClient {
             `${this._apiServer}doctors/${position.doctorId}/positions/${position.id}`
         )).data;
     }
+
+    async addDiplomaToDoctor(diploma) {
+        return (await axios.post(
+            `${this._apiServer}doctors/${diploma.doctorId}/diplomas`,
+            diploma
+        )).data;
+    }
+
+    async editDiplomaOfDoctor(diploma) {
+        return (await axios.put(
+            `${this._apiServer}doctors/${diploma.doctorId}/diplomas/${diploma.id}`,
+            diploma
+        )).data;
+    }
+
+    async removeDiplomaFromDoctor(diploma) {
+        return (await axios.delete(
+            `${this._apiServer}doctors/${diploma.doctorId}/diplomas/${diploma.id}`
+        )).data;
+    }
 }
 
 const DATA_CLIENT = new DataClient(API_SERVER);

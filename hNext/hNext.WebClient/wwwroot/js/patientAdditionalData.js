@@ -48,6 +48,9 @@ Vue.component("PatientAdditionalData", {
             set: function (show) {
                 this.$store.commit('enable', show);
             }
+        },
+        zIndex: function () {
+            return this.enabled ? 0 : -1000;
         }
     },
     provide: function () {

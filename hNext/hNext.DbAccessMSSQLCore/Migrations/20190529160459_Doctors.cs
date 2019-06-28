@@ -91,7 +91,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DoctorId = table.Column<long>(nullable: false),
                     HospitalId = table.Column<int>(nullable: false),
-                    DepartmentId = table.Column<int>(nullable: true),
+                    DepartmentId = table.Column<int>(nullable: false),
                     PositionId = table.Column<int>(nullable: false),
                     SpecialtyId = table.Column<int>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: true),
