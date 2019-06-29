@@ -63,6 +63,9 @@ namespace hNext.WebClient.Tests
             CollectionAssert.Contains(modules, nameof(DoctorSpecialtyEditorViewComponent).ViewComponentName());
             CollectionAssert.Contains(modules, nameof(DoctorPositionListViewComponent).ViewComponentName());
             CollectionAssert.Contains(modules, nameof(DiplomaListViewComponent).ViewComponentName());
+            CollectionAssert.Contains(modules, nameof(PhonesListViewComponent).ViewComponentName());
+            CollectionAssert.Contains(modules, nameof(EmailsListViewComponent).ViewComponentName());
+            CollectionAssert.Contains(modules, nameof(DocumentsListViewComponent).ViewComponentName());
             CollectionAssert.Contains(modules, nameof(ConfirmationDialogViewComponent).ViewComponentName());
         }
     }
