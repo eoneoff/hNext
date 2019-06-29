@@ -64,7 +64,7 @@
                                 <input type="hidden" asp-for="Doctor.PersonId" ref="personId" />
                                 <span asp-validation-for="Doctor.PersonId"></span>
                                 <span>
-                                    {{ ((editingDoctor && editingDoctor.person) ?
+                                    {{ ((editingDoctor && editingDoctor.person && editingDoctor.person.id) ?
                                             `${editingDoctor.person.familyName} ${editingDoctor.person.firstName} ${editingDoctor.person.patronimic}`
                                             : '')
                                     }}
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <span v-else>
-                            {{ ((selectedDoctor && selectedDoctor.person) ?
+                            {{ ((selectedDoctor && selectedDoctor.person && selectedDoctor.person.id) ?
                                             `${selectedDoctor.person.familyName} ${selectedDoctor.person.firstName} ${selectedDoctor.person.patronimic}`
                                             : '')
                             }}
@@ -113,6 +113,12 @@
                                               :initial-positions="selectedDoctor.doctorPositions" :object-selected="selectedDoctor.id"></doctor-position-list>
                         <diploma-list level="+0" class="mt-2" @@enable="enabled = $event" :initial-enabled="enabled"
                                       :initial-diplomas="selectedDoctor.diplomas" :object-selected="selectedDoctor.id"></diploma-list>
+                        <phones-list :level="0" class="mt-2" @@enable="enabled = $event" :initial-enabled="enabled"
+                                     :initial-phones="selectedDoctor.person.phones" :object-selected="selectedDoctor.personId"></phones-list>
+                        <emails-list :level="0" class="mt-2" @@enable="enabled = $event" :initial-enabled="enabled"
+                                     :initial-emails="selectedDoctor.person.emails" :object-selected="selectedDoctor.personId"></emails-list>
+                        <documents-list :level="0" class="mt-2" @@enable="enabled = $event" :initial-enabled="enabled"
+                                        :initial-documents="selectedDoctor.person.documents" :person-id="selectedDoctor.personId"></documents-list>
                     </div>
                 </div>
             </div>

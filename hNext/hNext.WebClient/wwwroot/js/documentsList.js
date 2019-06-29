@@ -59,16 +59,20 @@ Vue.component('DocumentsList', {
             this.enabled = true;
         },
         edit: function () {
-            this.enabled = true;
-            this.showEditor = true;
+            if (this.selectedDocument.id) {
+                this.enabled = false;
+                this.showEditor = true;
+            }
         },
         cancelEditor: function () {
             this.showEditor = false;
             this.enabled = true;
         },
         remove: function () {
-            this.enabled = false;
-            this.showDeleteConfirmation = true;
+            if (this.selectedDocument.id) {
+                this.enabled = false;
+                this.showDeleteConfirmation = true;
+            }
         },
         confirmRemove: async function () {
             await DATA_CLIENT.deleteDocument(this.selectedDocument.id);

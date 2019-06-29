@@ -10,7 +10,8 @@ Vue.component("Doctor", {
                 specialtyId: '',
                 hospitalId:''
             },
-            selectedDoctor: { id: 0, personId: 0 },
+            selectedDoctor: {
+                id: 0, personId: 0, person: {} },
             editingDoctor: {},
             editing: false,
             searching: false,
@@ -53,7 +54,8 @@ Vue.component("Doctor", {
             }
         },
         createNewDoctor: function () {
-            this.editingDoctor = { id: 0, personId: 0};
+            this.editingDoctor = {
+                id: 0, personId: 0, person: {}};
             this.editing = true;
         },
         editDoctor: function () {
@@ -80,8 +82,10 @@ Vue.component("Doctor", {
                 this.editing = false;
                 this.doctors.splice(0);
                 this.doctors.push(await DATA_CLIENT.saveDoctor(this.editingDoctor));
-                this.selectedDoctor = { id: 0, personId: 0 };
-                this.editingDoctor = { id: 0, personId: 0 };
+                this.selectedDoctor = {
+                    id: 0, personId: 0, person: {} };
+                this.editingDoctor = {
+                    id: 0, personId: 0, person: {} };
             }
         },
         cancelEditing: function () {
@@ -97,6 +101,20 @@ Vue.component("Doctor", {
         },
         deleteSpecialtyFromDoctor: async function (specialty) {
             return await DATA_CLIENT.deleteSpecialtyFromDoctor(specialty);
+        },
+        addPhoneToDoctor: async function (phone) {
+            phone.personId = this.selectedDoctor.personId;
+            return await DATA_CLIENT.addPhoneToPerson(phone);
+        },
+        deletePhoneFromDoctor: async function (phone) {
+            return await DATA_CLIENT.deletePhoneFromPerson(phone);
+        },
+        addEmailToDoctor: async function (email) {
+            email.personId = this.selectedDoctor.personId;
+            return await DATA_CLIENT.addEmailToPerson(email);
+        },
+        removeEmailFromDoctor: async function (email) {
+            return await DATA_CLIENT.deleteEmailFromPerson(email);
         }
     },
     watch: {
@@ -115,7 +133,11 @@ Vue.component("Doctor", {
             addSpecialty: this.addSpecialtyToDoctor,
             editSpecialty: this.editSpecialtyOfDoctor,
             deleteSpecialty: this.deleteSpecialtyFromDoctor,
-            specialties:() => this.currentSpecialties
+            specialties: () => this.currentSpecialties,
+            addPhone: this.addPhoneToDoctor,
+            deletePhone: this.deletePhoneFromDoctor,
+            addEmail: this.addEmailToDoctor,
+            deleteEmail:this.removeEmailFromDoctor
         }
     }
 });
