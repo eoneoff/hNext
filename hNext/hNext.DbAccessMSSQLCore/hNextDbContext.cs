@@ -7,7 +7,7 @@ using System.Text;
 
 namespace hNext.DbAccessMSSQLCore
 {
-    public partial class hNextDbContext:DbContext
+    public partial class hNextDbContext : DbContext
     {
         public hNextDbContext(DbContextOptions<hNextDbContext> options) : base(options) { }
 
@@ -44,7 +44,7 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<HospitalLicense> HospitalLicenses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<DepartmentSpecialty> DepartmentSpecialties { get; set; }
-        public virtual DbSet<DepartmentPhone> DepartmentPhones { get;set; }
+        public virtual DbSet<DepartmentPhone> DepartmentPhones { get; set; }
         public virtual DbSet<DepartmentEmail> DepartmentEmails { get; set; }
         public virtual DbSet<Doctor> Doctors { get; set; }
         public virtual DbSet<Specialty> Specialties { get; set; }
@@ -52,6 +52,9 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<DoctorPosition> DoctorPositions { get; set; }
         public virtual DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
         public virtual DbSet<Diploma> Diplomas { get; set; }
+        public virtual DbSet<DocumentRegistry> DocumentRegistries {get;set;}
+        public virtual DbSet<CaseHistory> CaseHistories { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -125,6 +128,16 @@ namespace hNext.DbAccessMSSQLCore
                 .HasForeignKey(dp => dp.HospitalId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<DoctorPosition>().HasOne(dp => dp.Department).WithMany(d => d.DoctorPositions)
                 .HasForeignKey(dp => dp.DepartmentId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CaseHistory>().HasIndex(h => h.PatientId);
+            modelBuilder.Entity<CaseHistory>().HasIndex(h => h.HospitalId);
+            modelBuilder.Entity<CaseHistory>().HasIndex(h => h.DepartmentId);
+            modelBuilder.Entity<CaseHistory>().HasOne(h => h.Patient).WithMany(p => p.CaseHistories)
+                .HasForeignKey(h => h.PatientId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<CaseHistory>().HasOne(h => h.Hospital).WithMany(h => h.CaseHistories)
+                .HasForeignKey(h => h.HospitalId);
+            modelBuilder.Entity<CaseHistory>().HasOne(h => h.ReferredBy).WithMany(h => h.Referred)
+                .HasForeignKey(h => h.ReferredById);
         }
     }
 }

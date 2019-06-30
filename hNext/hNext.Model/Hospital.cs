@@ -67,5 +67,7 @@ namespace hNext.Model
         public virtual ICollection<HospitalLicense> Licenses { get; set; }
         public virtual ICollection<Department> Departments { get; set; }
         public virtual ICollection<DoctorPosition> DoctorPositions { get; set; }
+        public virtual ICollection<CaseHistory> CaseHistories { get; set; }
+        public virtual ICollection<CaseHistory> Referred { get; set; }
     }
 }
