@@ -31,6 +31,8 @@ namespace hNext.WebClient.Controllers
             model.SideBar.Add(nameof(PatientDetailsViewComponent).ViewComponentName(), _localizer[nameof(Resources.Patient)]);
             model.SideBar.Add(nameof(PatientAdditionalDataViewComponent).ViewComponentName(),
                 _localizer[nameof(Resources.PatientAdditionalData)]);
+            model.SideBar.Add(nameof(CaseHistoriesListViewComponent).ViewComponentName(), _localizer[nameof(Resources.CaseHistories)])
+
             return View(model);
         }
 

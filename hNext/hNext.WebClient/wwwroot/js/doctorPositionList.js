@@ -1,4 +1,6 @@
-﻿Vue.component("DoctorPositionList", {
+﻿"use strict";
+
+Vue.component("DoctorPositionList", {
     template: '#doctor-position-list-template',
     props: ['level', 'initialEnabled', 'initialPositions', 'objectSelected'],
     data: function () {

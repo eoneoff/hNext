@@ -196,6 +196,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Історії хвороби.
+        /// </summary>
+        public static string CaseHistories {
+            get {
+                return ResourceManager.GetString("CaseHistories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Історія хвороби.
+        /// </summary>
+        public static string CaseHistory {
+            get {
+                return ResourceManager.GetString("CaseHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Категорія.
         /// </summary>
         public static string Category {

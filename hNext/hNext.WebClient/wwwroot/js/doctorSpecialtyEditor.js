@@ -1,4 +1,6 @@
-﻿Vue.component("DoctorSpecialtyEditor", {
+﻿"use strict";
+
+Vue.component("DoctorSpecialtyEditor", {
     template: '#doctor-specialty-editor-template',
     store,
     props:['level', 'initialEnabled', 'initialSpecialty'],

@@ -58,6 +58,8 @@ namespace hNext.DataService
             services.AddScoped<IDoctorSpecialtyRepository, DoctorSpecialtyRepository>();
             services.AddScoped<IDoctorPositionRepository, DoctorPositionRepository>();
 
+            services.AddScoped<ICaseHistoryRepository, CaseHistoryRepository>();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", builder =>

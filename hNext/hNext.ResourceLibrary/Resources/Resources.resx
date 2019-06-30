@@ -558,4 +558,10 @@
   <data name="Severity" xml:space="preserve">
     <value>Тяжкість</value>
   </data>
+  <data name="CaseHistories" xml:space="preserve">
+    <value>Історії хвороби</value>
+  </data>
+  <data name="CaseHistory" xml:space="preserve">
+    <value>Історія хвороби</value>
+  </data>
 </root>

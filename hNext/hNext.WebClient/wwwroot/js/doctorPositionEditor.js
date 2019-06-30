@@ -1,4 +1,6 @@
-﻿Vue.component("DoctorPositionEditor", {
+﻿"use strict";
+
+Vue.component("DoctorPositionEditor", {
     template: '#doctor-position-editor-template',
     props: ['level', 'initialEnabled', 'initialPosition'],
     inject: ['specialties'],

@@ -119,6 +119,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.District)
                 .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.City).ThenInclude(c => c.CityType)
                 .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
+                .Include(p => p.CaseHistories).ThenInclude(h => h.DocumentRegistry)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
     }
