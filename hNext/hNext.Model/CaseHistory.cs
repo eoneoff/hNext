@@ -25,7 +25,7 @@ namespace hNext.Model
             Name = nameof(Resources.Hospital))]
         public int HospitalId { get; set; }
 
-        [Display(ResourceType = typeof(Department),
+        [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Department))]
         public int? DepartmentId { get; set; }
 

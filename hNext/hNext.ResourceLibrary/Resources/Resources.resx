@@ -564,4 +564,7 @@
   <data name="CaseHistory" xml:space="preserve">
     <value>Історія хвороби</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Додати</value>
+  </data>
 </root>

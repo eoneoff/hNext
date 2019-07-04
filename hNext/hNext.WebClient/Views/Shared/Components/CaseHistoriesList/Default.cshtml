@@ -1,5 +1,26 @@
 ﻿<template id="case-histories-list-template">
-    <div class="main-panel m-2">
-
+    <div class="main-panel ml-2 d-flex flex-column">
+        <case-history-starter level="1" v-if="showEditor" @@save="save" @@cancel="showEditor = false"></case-history-starter>
+        <div style="max-height:80vh; overflow-y:auto; min-width:18.5rem;">
+            <table class="table table-borderless table-hover" v-if="histories.length">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="text-center align-middle">@Localizer[nameof(Resources.Hospital)]</th>
+                        <th class="text-center align-middle">@Localizer[nameof(Resources.Department)]</th>
+                        <th class="text-center align-middle">@Localizer[nameof(Resources.Date)]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="h in histories" :key="h.id">
+                        <td>{{ h.hospital.name }}</td>
+                        <td>{{ h.departmentId ? h.department.name : '' }}</td>
+                        <td>{{ date(h) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-primary mt-2 mx-1" :disabled="!enabled" @@click.stop.prevent="add">
+            @Localizer[Resources.Add]
+        </button>
     </div>
 </template>
