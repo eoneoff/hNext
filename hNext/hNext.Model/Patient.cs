@@ -25,5 +25,7 @@ namespace hNext.Model
 
         [ForeignKey(nameof(PersonId))]
         public virtual Person Person { get; set; }
+
+        public virtual ICollection<CaseHistory> CaseHistories { get; set; }
     }
 }

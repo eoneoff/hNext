@@ -1,4 +1,6 @@
-﻿Vue.component("DiplomaList", {
+﻿"use strict";
+
+Vue.component("DiplomaList", {
     template: '#diploma-list-template',
     props:['level', 'initialEnabled', 'initialDiplomas', 'objectSelected'],
     data: function () {

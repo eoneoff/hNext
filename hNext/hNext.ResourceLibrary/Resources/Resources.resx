@@ -528,4 +528,43 @@
   <data name="EnterDate" xml:space="preserve">
     <value>Введіть дату</value>
   </data>
+  <data name="Admitted" xml:space="preserve">
+    <value>Поступив</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Discharged" xml:space="preserve">
+    <value>Виписаний</value>
+  </data>
+  <data name="Hospitalization" xml:space="preserve">
+    <value>Госпіталізація</value>
+  </data>
+  <data name="Insured" xml:space="preserve">
+    <value>Застрахований</value>
+  </data>
+  <data name="ReferredBy" xml:space="preserve">
+    <value>Направлений</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Результат</value>
+  </data>
+  <data name="SelectPatient" xml:space="preserve">
+    <value>Оберіть пацієнта</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Тяжкість</value>
+  </data>
+  <data name="CaseHistories" xml:space="preserve">
+    <value>Історії хвороби</value>
+  </data>
+  <data name="CaseHistory" xml:space="preserve">
+    <value>Історія хвороби</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Додати</value>
+  </data>
 </root>

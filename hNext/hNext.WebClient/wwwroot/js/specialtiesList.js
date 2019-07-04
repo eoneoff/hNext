@@ -1,4 +1,6 @@
-﻿Vue.component("SpecialtiesList", {
+﻿"use strict";
+
+Vue.component("SpecialtiesList", {
     template: '#specialties-list-template',
     props: ['editButton', 'level', 'initialEnabled', 'initialSpecialties', 'objectSelected'],
     inject: ['addSpecialty', 'deleteSpecialty', 'editSpecialty'],

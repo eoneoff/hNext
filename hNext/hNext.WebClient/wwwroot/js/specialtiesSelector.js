@@ -1,4 +1,6 @@
-﻿Vue.component("SpecialtiesSelector", {
+﻿"use strict";
+
+Vue.component("SpecialtiesSelector", {
     template: '#specialties-selector-template',
     data: function () {
         return {

@@ -1,4 +1,6 @@
-﻿Vue.component('DiplomaEditor', {
+﻿"use strict";
+
+Vue.component('DiplomaEditor', {
     template: '#diploma-editor-template',
     props:['level','initialEnabled' ,'initialDiploma'],
     data: function () {

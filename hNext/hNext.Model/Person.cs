@@ -92,5 +92,6 @@ namespace hNext.Model
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Documents))]
         public virtual ICollection<Document> Documents { get; set; }
+        public virtual ICollection<DocumentRegistry> DocumentRegistries { get; set; }
     }
 }

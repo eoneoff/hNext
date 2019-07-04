@@ -70,6 +70,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Додати.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Додати особі опікуна.
         /// </summary>
         public static string AddGuardianToPerson {
@@ -97,6 +106,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Поступив.
+        /// </summary>
+        public static string Admitted {
+            get {
+                return ResourceManager.GetString("Admitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вік.
         /// </summary>
         public static string Age {
@@ -120,6 +138,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Apartment {
             get {
                 return ResourceManager.GetString("Apartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Автор.
+        /// </summary>
+        public static string Author {
+            get {
+                return ResourceManager.GetString("Author", resourceCulture);
             }
         }
         
@@ -174,6 +201,24 @@ namespace hNext.ResourceLibrary.Resources {
         public static string CanNotChangePhone {
             get {
                 return ResourceManager.GetString("CanNotChangePhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Історії хвороби.
+        /// </summary>
+        public static string CaseHistories {
+            get {
+                return ResourceManager.GetString("CaseHistories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Історія хвороби.
+        /// </summary>
+        public static string CaseHistory {
+            get {
+                return ResourceManager.GetString("CaseHistory", resourceCulture);
             }
         }
         
@@ -331,6 +376,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Дата.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Дата повинна бути в минулому.
         /// </summary>
         public static string DateInFutureError {
@@ -408,6 +462,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Diplomas {
             get {
                 return ResourceManager.GetString("Diplomas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Виписаний.
+        /// </summary>
+        public static string Discharged {
+            get {
+                return ResourceManager.GetString("Discharged", resourceCulture);
             }
         }
         
@@ -709,6 +772,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Госпіталізація.
+        /// </summary>
+        public static string Hospitalization {
+            get {
+                return ResourceManager.GetString("Hospitalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Медичні заклади.
         /// </summary>
         public static string Hospitals {
@@ -732,6 +804,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string HospitalType {
             get {
                 return ResourceManager.GetString("HospitalType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Застрахований.
+        /// </summary>
+        public static string Insured {
+            get {
+                return ResourceManager.GetString("Insured", resourceCulture);
             }
         }
         
@@ -934,6 +1015,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Направлений.
+        /// </summary>
+        public static string ReferredBy {
+            get {
+                return ResourceManager.GetString("ReferredBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Область.
         /// </summary>
         public static string Region {
@@ -957,6 +1047,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string ResetSearch {
             get {
                 return ResourceManager.GetString("ResetSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Результат.
+        /// </summary>
+        public static string Result {
+            get {
+                return ResourceManager.GetString("Result", resourceCulture);
             }
         }
         
@@ -1078,6 +1177,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть пацієнта.
+        /// </summary>
+        public static string SelectPatient {
+            get {
+                return ResourceManager.GetString("SelectPatient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Оберіть тип телефону.
         /// </summary>
         public static string SelectPhoneType {
@@ -1164,6 +1272,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SetExistingAddress {
             get {
                 return ResourceManager.GetString("SetExistingAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Тяжкість.
+        /// </summary>
+        public static string Severity {
+            get {
+                return ResourceManager.GetString("Severity", resourceCulture);
             }
         }
         

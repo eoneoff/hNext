@@ -15,408 +15,418 @@ class DataClient {
 
     constructor(apiServer) {
         this._apiServer = apiServer;
+        this._client = axios.create({
+            baseURL: apiServer
+        });
     }
 
     async getRegionsByCountry(countryId) {
-        return (await axios.get(`${this._apiServer}countries/${countryId}/regions`)).data;
+        return (await this._client.get(`countries/${countryId}/regions`)).data;
     }
 
     async getCitiesByCountry(countryId) {
-        return (await axios.get(`${this._apiServer}countries/${countryId}/cities`)).data;
+        return (await this._client.get(`countries/${countryId}/cities`)).data;
     }
 
     async getCitiesByName(id, starts) {
-        return (await axios.get(`${this._apiServer}countries/${id}/byname/${starts}`)).data;
+        return (await this._client.get(`countries/${id}/byname/${starts}`)).data;
     }
 
     async getDistrictsByRegion(regionId) {
-        return (await axios.get(`${this._apiServer}regions/${regionId}/districts`)).data;
+        return (await this._client.get(`regions/${regionId}/districts`)).data;
     }
 
     async getCitiesByRegion(regionId) {
-        return (await axios.get(`${this._apiServer}regions/${regionId}/cities`)).data;
+        return (await this._client.get(`regions/${regionId}/cities`)).data;
     }
 
     async getCitiesByDistrict(districtId) {
-        return (await axios.get(`${this._apiServer}districts/${districtId}/cities`)).data;
+        return (await this._client.get(`districts/${districtId}/cities`)).data;
     }
 
     async citiesStartWith(start) {
-        return (await axios.get(`${this._apiServer}cities/startswith/${start}`)).data;
+        return (await this._client.get(`cities/startswith/${start}`)).data;
     }
 
     async getStreetsByCity(cityId) {
-        return (await axios.get(`${this._apiServer}cities/${cityId}/streets`)).data;
+        return (await this._client.get(`cities/${cityId}/streets`)).data;
     }
 
     async checkAddressExists(address) {
-        return (await axios.post(
-            `${this._apiServer}addresses/exists`,
+        return (await this._client.post(
+            `addresses/exists`,
             address
         )).data;
     }
 
     async savePhone(phone) {
-        return (await axios.post(
-            `${this._apiServer}phones`,
+        return (await this._client.post(
+            `phones`,
             phone
         )).data;
     }
 
     async editPhone(phone) {
-        return (await axios.put(
-            `${this._apiServer}phones/${phone.id}`,
+        return (await this._client.put(
+            `phones/${phone.id}`,
             phone
         )).data;
     }
 
     async deletePhone(id) {
-        return (await axios.delete(
-            `${this._apiServer}phones/${id}`
+        return (await this._client.delete(
+            `phones/${id}`
         )).data;
     }
 
     async checkPhoneExists(number) {
         number = number.replace('+', '$$plus$$')
-        return (await axios.get(
-            `${this._apiServer}phones/exists/${number}`
+        return (await this._client.get(
+            `phones/exists/${number}`
         )).data;
     }
 
     async checkPhoneBelongsToOthers(id) {
-        return (await axios.get(
-            `${this._apiServer}phones/belongtoothers/${id}`
+        return (await this._client.get(
+            `phones/belongtoothers/${id}`
         )).data;
     }
 
     async addPhoneToPerson(personPhone) {
-        return (await axios.post(
-            `${this._apiServer}people/phone`,
+        return (await this._client.post(
+            `people/phone`,
             personPhone
         )).data;
     }
 
     async deletePhoneFromPerson(personPhone) {
-        return (await axios.delete(
-            `${this._apiServer}people/${personPhone.personId}/phone/${personPhone.phoneId}`
+        return (await this._client.delete(
+            `people/${personPhone.personId}/phone/${personPhone.phoneId}`
         )).data;
     }
 
     async editEmail(email) {
-        return (await axios.put(
-            `${this._apiServer}emails/${email.id}`,
+        return (await this._client.put(
+            `emails/${email.id}`,
             email
         )).data;
     }
 
     async checkEmailExists(address) {
-        return (await axios.get(
-            `${this._apiServer}emails/exists/${address}`
+        return (await this._client.get(
+            `emails/exists/${address}`
         )).data;
     }
 
     async addEmailToPerson(personEmail) {
-        return (await axios.post(
-            `${this._apiServer}people/email`,
+        return (await this._client.post(
+            `people/email`,
             personEmail
         )).data;
     }
 
     async checkEmailBelongsToOthers(id) {
-        return (await axios.get(
-            `${this._apiServer}emails/belongtoothers/${id}`
+        return (await this._client.get(
+            `emails/belongtoothers/${id}`
         )).data;
     }
 
     async deleteEmailFromPerson(personEmail) {
-        return (await axios.delete(
-            `${this._apiServer}people/${personEmail.personId}/email/${personEmail.emailId}`
+        return (await this._client.delete(
+            `people/${personEmail.personId}/email/${personEmail.emailId}`
         )).data;
     }
 
     async addEmailToHospital(hospitalEmail) {
-        return (await axios.post(
-            `${this._apiServer}hospitals/${hospitalEmail.hospitalId}/emails`,
+        return (await this._client.post(
+            `hospitals/${hospitalEmail.hospitalId}/emails`,
             hospitalEmail
         )).data;
     }
 
     async deleteEmailFromHospital(hospitalEmail) {
-        return (await axios.delete(
-            `${this._apiServer}hospitals/${hospitalEmail.hospitalId}/emails/${hospitalEmail.emailId}`
+        return (await this._client.delete(
+            `hospitals/${hospitalEmail.hospitalId}/emails/${hospitalEmail.emailId}`
         )).data;
     }
 
     async addPhoneToHospital(hospitalPhone) {
-        return (await axios.post(
-            `${this._apiServer}hospitals/${hospitalPhone.hospitalId}/phones`,
+        return (await this._client.post(
+            `hospitals/${hospitalPhone.hospitalId}/phones`,
             hospitalPhone
         )).data;
     }
 
     async deletePhoneFromHospital(hospitalPhone) {
-        return (await axios.delete(
-            `${this._apiServer}hospitals/${hospitalPhone.hospitalId}/phones/${hospitalPhone.phoneId}`
+        return (await this._client.delete(
+            `hospitals/${hospitalPhone.hospitalId}/phones/${hospitalPhone.phoneId}`
         )).data;
     }
 
     async addEmailToDepartment(departmentEmail) {
-        return (await axios.post(
-            `${this._apiServer}departments/${departmentEmail.departmentId}/emails/`,
+        return (await this._client.post(
+            `departments/${departmentEmail.departmentId}/emails/`,
             departmentEmail
         )).data;
     }
 
     async deleteEmailFromDepartment(departmentEmail) {
-        return (await axios.delete(
-            `${this._apiServer}departments/${departmentEmail.departmentId}/emails/${departmentEmail.emailId}`
+        return (await this._client.delete(
+            `departments/${departmentEmail.departmentId}/emails/${departmentEmail.emailId}`
         )).data;
     }
 
     async addPhoneToDeparment(departmentPhone) {
-        return (await axios.post(
-            `${this._apiServer}departments/${departmentPhone.departmentId}/phones`,
+        return (await this._client.post(
+            `departments/${departmentPhone.departmentId}/phones`,
             departmentPhone
         )).data;
     }
 
     async deletePhoneFromDepartment(departmentPhone) {
-        return (await axios.delete(
-            `${this._apiServer}departments/${departmentPhone.departmentId}/phones/${this.departmentPhone.phoneId}`
+        return (await this._client.delete(
+            `departments/${departmentPhone.departmentId}/phones/${this.departmentPhone.phoneId}`
         )).data;
     }
 
     async addDocument(document) {
-        return (await axios.post(
-            `${this._apiServer}documents`,
+        return (await this._client.post(
+            `documents`,
             document
         )).data;
     }
 
     async editDocument(document) {
-        return (await axios.put(
-            `${this._apiServer}documents/${document.id}`,
+        return (await this._client.put(
+            `documents/${document.id}`,
             document
         )).data;
     }
 
     async deleteDocument(documentId) {
-        return (await axios.delete(
-            `${this._apiServer}documents/${documentId}`
+        return (await this._client.delete(
+            `documents/${documentId}`
         )).data;
     }
 
     async documentExists(document) {
-        return (await axios.get(
-            `${this._apiServer}documents/exists/${document.documentTypeId}/${document.number}`
+        return (await this._client.get(
+            `documents/exists/${document.documentTypeId}/${document.number}`
         )).data;
     }
 
     async addGuardian(guardian) {
-        return (await axios.post(
-            `${this._apiServer}guardians`,
+        return (await this._client.post(
+            `guardians`,
             guardian
         )).data;
     }
 
     async editGuardian(guardian) {
-        return (await axios.put(
-            `${this._apiServer}guardians/${guardian.wardId}/${guardian.guardianId}`,
+        return (await this._client.put(
+            `guardians/${guardian.wardId}/${guardian.guardianId}`,
             guardian
         )).data;
     }
 
     async deleteGuardian(guardian) {
-        return (await axios.delete(
-            `${this._apiServer}guardians/${guardian.wardId}/${guardian.guardianId}`
+        return (await this._client.delete(
+            `guardians/${guardian.wardId}/${guardian.guardianId}`
         )).data;
     }
 
     async guardianExists(guardian) {
-        return (await axios.post(
-            `${this._apiServer}guardians/${guardian.wardId}/exists`,
+        return (await this._client.post(
+            `guardians/${guardian.wardId}/exists`,
             guardian
         )).data;
     }
 
     async guardianRelationExists(guardian) {
-        return (await axios.get(
-            `${this._apiServer}guardians/${guardian.wardId}/exists/${guardian.guardianId}`
+        return (await this._client.get(
+            `guardians/${guardian.wardId}/exists/${guardian.guardianId}`
         )).data;
     }
 
     async createPerson(person) {
-        return (await axios.post(
-            `${this._apiServer}people`,
+        return (await this._client.post(
+            `people`,
             person
         )).data;
     }
 
     async savePerson(person) {
-        return (await axios.put(
-            `${this._apiServer}people/${person.id}`,
+        return (await this._client.put(
+            `people/${person.id}`,
             person
         )).data;
     }
 
     async checkPersonExists(person) {
-        return (await axios.post(
-            `${this._apiServer}people/exists`,
+        return (await this._client.post(
+            `people/exists`,
             person
         )).data;
     }
 
     async searchPerson(name) {
         let nameArray = name.replace(/\s+/, '$');
-        return (await axios.get(
-            `${this._apiServer}people/search/${nameArray}`
+        return (await this._client.get(
+            `people/search/${nameArray}`
         )).data;
     }
 
     async savePatient(patient) {
-        return (await axios.post(
-            `${this._apiServer}patients`,
+        return (await this._client.post(
+            `patients`,
             patient
         )).data;
     }
 
     async editPatient(patient) {
-        return (await axios.put(
-            `${this._apiServer}patients/${patient.id}`,
+        return (await this._client.put(
+            `patients/${patient.id}`,
             patient
         )).data;
     }
 
     async searchPatients(model) {
-        return (await axios.post(
-            `${this._apiServer}patients/search`,
+        return (await this._client.post(
+            `patients/search`,
             model
         )).data;
     }
 
     async getHospitals() {
-        return (await axios.get(
-            `${this._apiServer}hospitals`
+        return (await this._client.get(
+            `hospitals`
         )).data;
     }
 
     async saveHospital(hospital) {
-        return (await axios.post(
-            `${this._apiServer}hospitals`,
+        return (await this._client.post(
+            `hospitals`,
             hospital
         )).data;
     }
 
     async editHospital(hospital) {
-        return (await axios.put(
-            `${this._apiServer}hospitals/${hospital.id}`,
+        return (await this._client.put(
+            `hospitals/${hospital.id}`,
             hospital
         )).data;
     }
 
     async getDepartments() {
-        return (await axios.get(
-            `${this._apiServer}departments`
+        return (await this._client.get(
+            `departments`
         )).data;
     }
 
     async saveDepartment(department) {
-        return (await axios.post(
-            `${this._apiServer}departments`,
+        return (await this._client.post(
+            `departments`,
             department
         )).data;
     }
 
     async editDepartment(department) {
-        return (await axios.put(
-            `${this._apiServer}departments/${department.id}`,
+        return (await this._client.put(
+            `departments/${department.id}`,
             department
         )).data;
     }
 
     async addSpecialtyToDpeartment(specialty) {
-        return (await axios.post(
-            `${this._apiServer}departments/${specialty.departmentId}/specialties/${specialty.specialtyId}`
+        return (await this._client.post(
+            `departments/${specialty.departmentId}/specialties/${specialty.specialtyId}`
         )).data;
     }
 
     async deleteSpecialtyFromDepartment(specialty) {
-        return (await axios.delete(
-            `${this._apiServer}departments/${specialty.departmentId}/specialties/${specialty.specialtyId}`
+        return (await this._client.delete(
+            `departments/${specialty.departmentId}/specialties/${specialty.specialtyId}`
         )).data;
     }
 
     async saveDoctor(doctor) {
-        return (await axios.post(
-            `${this._apiServer}doctors`,
+        return (await this._client.post(
+            `doctors`,
             doctor
         )).data;
     }
 
     async searchDoctors(model) {
-        return (await axios.post(
-            `${this._apiServer}doctors/search`,
+        return (await this._client.post(
+            `doctors/search`,
             model
         )).data;
     }
 
     async addSpecialtyToDoctor(specialty) {
-        return (await axios.post(
-            `${this._apiServer}doctors/${specialty.doctorId}/specialties`,
+        return (await this._client.post(
+            `doctors/${specialty.doctorId}/specialties`,
             specialty
         )).data;
     }
 
     async editSpecialtyOfDoctor(specialty) {
-        return (await axios.put(
-            `${this._apiServer}doctors/${specialty.doctorId}/specialties/${specialty.specialtyId}`,
+        return (await this._client.put(
+            `doctors/${specialty.doctorId}/specialties/${specialty.specialtyId}`,
             specialty
         )).data;
     }
 
     async deleteSpecialtyFromDoctor(specialty) {
-        return (await axios.delete(
-            `${this._apiServer}doctors/${specialty.doctorId}/specialties/${specialty.specialtyId}`
+        return (await this._client.delete(
+            `doctors/${specialty.doctorId}/specialties/${specialty.specialtyId}`
         )).data;
     }
 
     async addPositionToDoctor(position) {
-        return (await axios.post(
-            `${this._apiServer}doctors/${position.doctorId}/positions`,
+        return (await this._client.post(
+            `doctors/${position.doctorId}/positions`,
             position
         )).data;
     }
 
     async editPositionOfDoctor(position) {
-        return (await axios.put(
-            `${this._apiServer}doctors/${position.doctorId}/positions/${position.id}`,
+        return (await this._client.put(
+            `doctors/${position.doctorId}/positions/${position.id}`,
             position
         )).data;
     }
 
     async deletePositionFromDoctor(position) {
-        return (await axios.delete(
-            `${this._apiServer}doctors/${position.doctorId}/positions/${position.id}`
+        return (await this._client.delete(
+            `doctors/${position.doctorId}/positions/${position.id}`
         )).data;
     }
 
     async addDiplomaToDoctor(diploma) {
-        return (await axios.post(
-            `${this._apiServer}doctors/${diploma.doctorId}/diplomas`,
+        return (await this._client.post(
+            `doctors/${diploma.doctorId}/diplomas`,
             diploma
         )).data;
     }
 
     async editDiplomaOfDoctor(diploma) {
-        return (await axios.put(
-            `${this._apiServer}doctors/${diploma.doctorId}/diplomas/${diploma.id}`,
+        return (await this._client.put(
+            `doctors/${diploma.doctorId}/diplomas/${diploma.id}`,
             diploma
         )).data;
     }
 
     async removeDiplomaFromDoctor(diploma) {
-        return (await axios.delete(
-            `${this._apiServer}doctors/${diploma.doctorId}/diplomas/${diploma.id}`
+        return (await this._client.delete(
+            `doctors/${diploma.doctorId}/diplomas/${diploma.id}`
+        )).data;
+    }
+
+    async addCaseHistory(history) {
+        return (await this._client.post(
+            `casehistories`,
+            history
         )).data;
     }
 }
