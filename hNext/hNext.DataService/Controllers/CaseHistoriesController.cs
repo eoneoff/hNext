@@ -26,6 +26,9 @@ namespace hNext.DataService.Controllers
         [HttpGet("{id:long}")]
         public async Task<CaseHistory> Get(long id) => await _repository.Get(id);
 
+        [HttpGet("{id:long}/info")]
+        public async Task<CaseHistory> Info(long id) => await _repository.Info(id);
+
         [HttpPost]
         public async Task<IActionResult> Post(CaseHistory history)
         {

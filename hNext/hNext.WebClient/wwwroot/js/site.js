@@ -429,6 +429,18 @@ class DataClient {
             history
         )).data;
     }
+
+    async getCaseHistory(id) {
+        return (await this._client.get(
+            `casehistories/${id}`
+        )).data;
+    }
+
+    async getCaseHistoryInfo(id) {
+        return (await this._client.get(
+            `casehistories/${id}/info`
+        )).data;
+    }
 }
 
 const DATA_CLIENT = new DataClient(API_SERVER);

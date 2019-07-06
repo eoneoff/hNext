@@ -1,0 +1,26 @@
+﻿@model CaseHistoryViewModel
+
+    <template id="case-history-main-view-template">
+        <div class="d-flex flex-column flex-md-row justify-content-start align-items-stretch">
+            <div class="d-flex flex-row flex-grow-1">
+                <nav>
+                    <ul class="nav nav-tabs flex-column">
+                        @foreach (var tab in Model.Tabs)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link side-tab-selector p-1" :class="{active : selectedTab == '@tab.Key'}"
+                                   @@click="tabClicked('@tab.Key')">
+                                    @tab.Value
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+                <main class="container-fluid flex-grow-1 main-panel">
+                    <keep-alive>
+                        <component :is="selectedTab"></component>
+                    </keep-alive>
+                </main>
+            </div>
+        </div>
+    </template>

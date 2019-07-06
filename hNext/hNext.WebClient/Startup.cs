@@ -48,6 +48,7 @@ namespace hNext.WebClient
             services.AddScoped(typeof(IGetter<>), typeof(Getter<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICaseHistoryRepository, CaseHistoryRepository>();
             services.AddSingleton<IValidationAttributeAdapterProvider, Infrastructure.Validators.ValidationAttrubuteAdapterProvider>();
             //services.Configure<CookiePolicyOptions>(options =>
             //{

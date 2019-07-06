@@ -11,7 +11,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="h in histories" :key="h.id">
+                    <tr v-for="h in histories" :key="h.id" @@click.stop.prevent="openHistory(h.id)">
                         <td>{{ h.hospital.name }}</td>
                         <td>{{ h.departmentId ? h.department.name : '' }}</td>
                         <td>{{ date(h) }}</td>

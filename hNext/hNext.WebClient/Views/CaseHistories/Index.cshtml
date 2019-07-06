@@ -1,0 +1,46 @@
+﻿@model CaseHistoryViewModel
+
+@{
+    ViewData["Title"] = $"{Localizer[nameof(Resources.CaseHistory)]} - " +
+                $"{Model.CaseHistory.Patient.Person.FamilyName} " +
+                $"{Model.CaseHistory.Patient.Person.FirstName[0]}. " +
+                $"{Model.CaseHistory.Patient.Person.Patronimic?[0]}. - " +
+                $"{Model.CaseHistory.Hospital.ShortName} - " +
+                $"{Model.CaseHistory.Department.Name} - " +
+                $"{Model.CaseHistory.Admitted.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)}-" +
+                $"{Model.CaseHistory.Discharged?.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)}";
+}
+
+<div id="app">
+
+</div>
+
+@section Scripts
+{
+    <script>
+        const START_TAB = '@Model.Tabs.FirstOrDefault().Key';
+        const CASE_HISTORY_ID = @Model.CaseHistory?.Id;
+    </script>
+
+    @await Component.InvokeAsync("CaseHistoryMainView", new { model = Model})
+    <script src="~/js/caseHistoryMainView.js" asp-append-version="true"></script>
+
+    @foreach (var tab in Model.Tabs)
+    {
+        @await Component.InvokeAsync(tab.Key, new { modules = Model.Modules })
+        <script src="@($"/js/{tab.Key.ToCamelCase()}.js")" asp-append-version="true"></script>
+    }
+
+    @for (int i = 0; i < Model.Modules.Count; i++)
+    {
+        @await Component.InvokeAsync(Model.Modules[i], new { modules = Model.Modules })
+        <script src="@($"/js/{Model.Modules[i].ToCamelCase()}.js")" asp-append-version="true"></script>
+    }
+
+    <script>
+         new Vue({
+            el: '#app'
+        });
+    </script>
+}
+

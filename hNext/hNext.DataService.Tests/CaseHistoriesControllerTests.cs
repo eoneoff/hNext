@@ -55,6 +55,24 @@ namespace hNext.DataService.Tests
         }
 
         [TestMethod]
+        public void InfoReturnsCaseHistory()
+        {
+            //Arrange
+            repository.Setup(r => r.Info(It.IsAny<long>())).ReturnsAsync((long id) =>
+            {
+                return new CaseHistory { Id = id };
+            });
+            long caseHistoryId = 1;
+
+            //Act
+            var result = controller.Info(caseHistoryId).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(CaseHistory));
+            Assert.AreEqual(caseHistoryId, result.Id);
+        }
+
+        [TestMethod]
         public void PostReturnsCaseHistory()
         {
             //Arrange
