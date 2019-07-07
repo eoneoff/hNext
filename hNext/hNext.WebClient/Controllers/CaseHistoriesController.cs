@@ -39,6 +39,8 @@ namespace hNext.WebClient.Controllers
                 CaseHistory = await _repository.Info(id ?? 0)
             };
 
+            model.Tabs.Add(nameof(CaseHistoryGeneralInfoViewComponent).ViewComponentName(), _localizer[nameof(Resources.GeneralInfo)]);
+
             return View(model);
         }
     }

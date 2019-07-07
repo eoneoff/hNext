@@ -12,7 +12,7 @@
 }
 
 <div id="app">
-
+    <case-history-main-view></case-history-main-view>
 </div>
 
 @section Scripts
@@ -27,7 +27,7 @@
 
     @foreach (var tab in Model.Tabs)
     {
-        @await Component.InvokeAsync(tab.Key, new { modules = Model.Modules })
+        @await Component.InvokeAsync(tab.Key, new { modules = Model.Modules, history = Model.CaseHistory })
         <script src="@($"/js/{tab.Key.ToCamelCase()}.js")" asp-append-version="true"></script>
     }
 

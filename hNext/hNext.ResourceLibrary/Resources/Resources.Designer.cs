@@ -754,6 +754,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Загальна інформація.
+        /// </summary>
+        public static string GeneralInfo {
+            get {
+                return ResourceManager.GetString("GeneralInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Опекуни.
         /// </summary>
         public static string Guardians {

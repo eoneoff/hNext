@@ -22,12 +22,27 @@ Vue.component("CaseHistoryMainView", {
     store,
     data: function () {
         return {
-
+            selectedTab: START_TAB
         }
     },
     computed: {
         history: function () {
             return this.$store.state.caseHistory.history;
+        },
+        enabled: {
+            get: function () {
+                return this.$store.state.enabled;
+            },
+            set: function (val) {
+                this.$store.commit('enable', val);
+            }
+        }
+    },
+    methods: {
+        tabClicked: function (tabName) {
+            if (this.enabled) {
+                this.selectedTab = tabName;
+            }
         }
     }
 });
