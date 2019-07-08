@@ -1,7 +1,93 @@
 ﻿@model CaseHistory
 
 <template id="case-history-general-info-template">
-    <div>
+    <div class="d-flex flex-column">
+        <div class="d-flex flex-column mt-2">
+            <div class="row">
+                <label asp-for="HospitalId" class="col-lg-2 text-left text-lg-right font-weight-bold"></label>
+                <span class="col-lg-4 text-left">@Model.Hospital.Name</span>
+                <label asp-for="DepartmentId" class="col-lg-2 text-left text-lg-right mt-3 mt-lg-0 font-weight-bold"></label>
+                <span class="col-lg-4 text-left">@Model.Department.Name</span>
+            </div>
+            <div class="row">
+                <label asp-for="PatientId" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
+                <span class="col-lg-4 text-left">
+                    @Model.Patient.Person.FamilyName 
+                    @Model.Patient.Person.FirstName 
+                    @Model.Patient.Person.Patronimic
+                </span>
+                <label asp-for="Patient.Person.DateOfBirth" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
+                <span class="col-lg-4 text-left">
+                    @if (Model.Patient.Person.DateOfBirth is DateTime dateOfBirth)
+                    {
+                        @dateOfBirth.ToString("dd.MM.yyyy");
+                        <text> (</text>@(DateTime.Today.Year - dateOfBirth.Year)<text>)</text>
+                    }
+                </span>
+            </div>
+            <div class="row">
+                <label asp-for="Admitted" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
+                <span class="col-lg-2 text-left">
+                    @Model.Admitted.ToString("dd.MM.yyyy");
+                </span>
+                <span class="col-lg-2 text-left text-lg-center mt-3 mt-lg-0">
+                    @{ 
+                        int days = 1;
+                        if(Model.Discharged is DateTime discharged)
+                        {
+                            days += (discharged - Model.Admitted).Days;
+                        }
+                        else
+                        {
+                            days += (DateTime.Today - Model.Admitted).Days;
+                        }
 
+                        string day = String.Empty;
+                        switch(days%10)
+                        {
+                            case 1:
+                                day = Resources.Day;
+                                break;
+                            case 2:
+                            case 3:
+                            case 4:
+                                day = Resources.DaysGen2_4;
+                                break;
+                            default:
+                                day = Resources.DaysGen5_;
+                                break;
+                        }
+                    }
+                    @days  @day
+                </span>
+                <label asp-for="Discharged" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
+                <span class="col-lg-4 text-left">
+                    @Model.Discharged?.ToString("dd.MM.yyyy")
+                </span>
+            </div>
+            <div class="row">
+                <label asp-for="ReferredById" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
+                <span class="col-lg-4 text-left">@Model.ReferredBy?.Name</span>
+                <label asp-for="Urgency" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
+                <span>
+                    @{
+                        string hosp = String.Empty;
+                        if(Model.Urgency is byte urgency)
+                        {
+                            switch(urgency)
+                            {
+                                case 1:
+                                    hosp = Localizer[nameof(Resources.RoutineHospitalization)];
+                                    break;
+                                case 2:
+                                    hosp = Localizer[nameof(Resources.UrgentHospitalization)];
+                                    break;
+                            }
+                        }
+                    }
+                    @hosp
+                </span>
+            </div>
+        </div>
     </div>
 </template>

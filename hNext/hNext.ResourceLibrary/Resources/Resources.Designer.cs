@@ -403,6 +403,33 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на день.
+        /// </summary>
+        public static string Day {
+            get {
+                return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на дні.
+        /// </summary>
+        public static string DaysGen2_4 {
+            get {
+                return ResourceManager.GetString("DaysGen2_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на днів.
+        /// </summary>
+        public static string DaysGen5_ {
+            get {
+                return ResourceManager.GetString("DaysGen5_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Видалити.
         /// </summary>
         public static string Delete {
@@ -1069,6 +1096,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на планова.
+        /// </summary>
+        public static string RoutineHospitalization {
+            get {
+                return ResourceManager.GetString("RoutineHospitalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Зберегти.
         /// </summary>
         public static string Save {
@@ -1362,6 +1398,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string University {
             get {
                 return ResourceManager.GetString("University", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на термінова.
+        /// </summary>
+        public static string UrgentHospitalization {
+            get {
+                return ResourceManager.GetString("UrgentHospitalization", resourceCulture);
             }
         }
         

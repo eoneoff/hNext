@@ -570,4 +570,19 @@
   <data name="GeneralInfo" xml:space="preserve">
     <value>Загальна інформація</value>
   </data>
+  <data name="Day" xml:space="preserve">
+    <value>день</value>
+  </data>
+  <data name="DaysGen2_4" xml:space="preserve">
+    <value>дні</value>
+  </data>
+  <data name="DaysGen5_" xml:space="preserve">
+    <value>днів</value>
+  </data>
+  <data name="RoutineHospitalization" xml:space="preserve">
+    <value>планова</value>
+  </data>
+  <data name="UrgentHospitalization" xml:space="preserve">
+    <value>термінова</value>
+  </data>
 </root>
