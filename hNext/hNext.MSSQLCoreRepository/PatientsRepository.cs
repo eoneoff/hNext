@@ -76,7 +76,7 @@ namespace hNext.MSSQLCoreRepository
             .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
             .Include(p => p.CaseHistories).ThenInclude(h => h.DocumentRegistry)
             .Include(p => p.CaseHistories).ThenInclude(h => h.Hospital)
-            .Include(p => p.CaseHistories).ThenInclude(h => h.Department)
+            .Include(p => p.CaseHistories).ThenInclude(h => h.Admissions).ThenInclude(a => a.Department)
             .AsNoTracking().ToListAsync();
 
         public override async Task<Patient> Post(Patient item)
@@ -124,7 +124,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.Person).ThenInclude(p => p.Guardians).ThenInclude(g => g.Guardian).ThenInclude(g => g.Address).ThenInclude(a => a.Street).ThenInclude(s => s.StreetType)
                 .Include(p => p.CaseHistories).ThenInclude(h => h.DocumentRegistry)
                 .Include(p => p.CaseHistories).ThenInclude(h => h.Hospital)
-                .Include(p => p.CaseHistories).ThenInclude(h => h.Department)
+                .Include(p => p.CaseHistories).ThenInclude(h => h.Admissions).ThenInclude(a => a.Department)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
     }

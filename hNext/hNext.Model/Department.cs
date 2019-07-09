@@ -38,6 +38,6 @@ namespace hNext.Model
         public virtual ICollection<DepartmentPhone> Phones { get; set; }
         public virtual ICollection<DepartmentEmail> Emails { get; set; }
         public virtual ICollection<DoctorPosition> DoctorPositions { get; set; }
-        public virtual ICollection<CaseHistory> CaseHistories { get; set; }
+        public virtual ICollection<CaseHistoryAdmission> Admissions { get; set; }
     }
 }

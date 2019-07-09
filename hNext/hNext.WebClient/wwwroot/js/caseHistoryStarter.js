@@ -9,16 +9,17 @@ Vue.component("CaseHistoryStarter",{
             history: {
                 documentRegistry: {},
                 hospitalId: '',
-                departmentId: '',
                 admitted: moment(new Date()).format('YYYY-MM-DD')
             },
+            departmentId:'',
             enabled:true
         }
     },
     methods: {
         save: function () {
-            this.history.hospital = this.hospitals.find(h => h.id == this.history.hospitalId);
-            this.history.department = this.departments.find(d => d.id == this.history.departmentId);
+            if (this.departmentId) {
+                this.history.admissions = [{ departmentId: this.departmentId }];
+            }
 
             this.$emit('save', this.history);
         },

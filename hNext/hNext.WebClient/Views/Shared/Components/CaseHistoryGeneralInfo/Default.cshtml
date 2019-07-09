@@ -6,8 +6,10 @@
             <div class="row">
                 <label asp-for="HospitalId" class="col-lg-2 text-left text-lg-right font-weight-bold"></label>
                 <span class="col-lg-4 text-left">@Model.Hospital.Name</span>
-                <label asp-for="DepartmentId" class="col-lg-2 text-left text-lg-right mt-3 mt-lg-0 font-weight-bold"></label>
-                <span class="col-lg-4 text-left">@Model.Department.Name</span>
+                <label class="col-lg-2 text-left text-lg-right mt-3 mt-lg-0 font-weight-bold">@Localizer[nameof(Resources.Department)]</label>
+                <span class="col-lg-4 text-left">
+                    @Model.Admissions.SingleOrDefault(a => a.Discharged == null)?.Department.Name
+                </span>
             </div>
             <div class="row">
                 <label asp-for="PatientId" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>

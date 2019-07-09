@@ -85,8 +85,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.Property<DateTime>("Admitted")
                         .HasColumnType("date");
 
-                    b.Property<int?>("DepartmentId");
-
                     b.Property<DateTime?>("Discharged")
                         .HasColumnType("date");
 
@@ -106,8 +104,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
                     b.HasIndex("HospitalId");
 
                     b.HasIndex("PatientId");
@@ -115,6 +111,48 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasIndex("ReferredById");
 
                     b.ToTable("CaseHistories");
+                });
+
+            modelBuilder.Entity("hNext.Model.CaseHistoryAdmission", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CaseHistoryId");
+
+                    b.Property<int?>("DepartmentId");
+
+                    b.Property<DateTime?>("Discharged")
+                        .HasColumnType("date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaseHistoryId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("CaseHistoryAdmissions");
+                });
+
+            modelBuilder.Entity("hNext.Model.CaseHistoryDiagnosys", b =>
+                {
+                    b.Property<long>("CaseHistoryId");
+
+                    b.Property<long>("DiagnosysId");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<byte?>("Type");
+
+                    b.Property<byte?>("WhenSet");
+
+                    b.HasKey("CaseHistoryId", "DiagnosysId");
+
+                    b.HasIndex("DiagnosysId");
+
+                    b.ToTable("CaseHistoryDiagnoses");
                 });
 
             modelBuilder.Entity("hNext.Model.City", b =>
@@ -246,6 +284,24 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasIndex("SpecialtyId");
 
                     b.ToTable("DepartmentSpecialties");
+                });
+
+            modelBuilder.Entity("hNext.Model.Diagnosys", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ICDId");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ICDId");
+
+                    b.ToTable("Diagnoses");
                 });
 
             modelBuilder.Entity("hNext.Model.Diploma", b =>
@@ -573,6 +629,33 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.ToTable("HospitalTypes");
                 });
 
+            modelBuilder.Entity("hNext.Model.ICD", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<string>("Category");
+
+                    b.Property<string>("Letter")
+                        .IsRequired()
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PrimaryName");
+
+                    b.Property<int>("PrimaryNumber");
+
+                    b.Property<int?>("SecondaryNumber");
+
+                    b.Property<string>("SubCategory");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Letter");
+
+                    b.ToTable("ICD");
+                });
+
             modelBuilder.Entity("hNext.Model.License", b =>
                 {
                     b.Property<int>("Id")
@@ -620,6 +703,24 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .IsUnique();
 
                     b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("hNext.Model.PatientDiagnosys", b =>
+                {
+                    b.Property<long>("PatientId");
+
+                    b.Property<long>("DiagnosysId");
+
+                    b.Property<bool>("Active");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("date");
+
+                    b.HasKey("PatientId", "DiagnosysId");
+
+                    b.HasIndex("DiagnosysId");
+
+                    b.ToTable("PatientDiagnoses");
                 });
 
             modelBuilder.Entity("hNext.Model.Person", b =>
@@ -882,10 +983,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.CaseHistory", b =>
                 {
-                    b.HasOne("hNext.Model.Department", "Department")
-                        .WithMany("CaseHistories")
-                        .HasForeignKey("DepartmentId");
-
                     b.HasOne("hNext.Model.Hospital", "Hospital")
                         .WithMany("CaseHistories")
                         .HasForeignKey("HospitalId")
@@ -904,6 +1001,31 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Hospital", "ReferredBy")
                         .WithMany("Referred")
                         .HasForeignKey("ReferredById");
+                });
+
+            modelBuilder.Entity("hNext.Model.CaseHistoryAdmission", b =>
+                {
+                    b.HasOne("hNext.Model.CaseHistory", "CaseHistory")
+                        .WithMany("Admissions")
+                        .HasForeignKey("CaseHistoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Department", "Department")
+                        .WithMany("Admissions")
+                        .HasForeignKey("DepartmentId");
+                });
+
+            modelBuilder.Entity("hNext.Model.CaseHistoryDiagnosys", b =>
+                {
+                    b.HasOne("hNext.Model.CaseHistory", "CaseHistory")
+                        .WithMany("Diagnoses")
+                        .HasForeignKey("CaseHistoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Diagnosys", "Diagnosys")
+                        .WithMany("CaseHistories")
+                        .HasForeignKey("DiagnosysId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("hNext.Model.City", b =>
@@ -974,6 +1096,13 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .WithMany("DepartmentSpecialties")
                         .HasForeignKey("SpecialtyId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("hNext.Model.Diagnosys", b =>
+                {
+                    b.HasOne("hNext.Model.ICD", "ICD")
+                        .WithMany("Diagnoses")
+                        .HasForeignKey("ICDId");
                 });
 
             modelBuilder.Entity("hNext.Model.Diploma", b =>
@@ -1123,6 +1252,19 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Person", "Person")
                         .WithOne("Patient")
                         .HasForeignKey("hNext.Model.Patient", "PersonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("hNext.Model.PatientDiagnosys", b =>
+                {
+                    b.HasOne("hNext.Model.Diagnosys", "Diagnosys")
+                        .WithMany("Patients")
+                        .HasForeignKey("DiagnosysId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Patient", "Patient")
+                        .WithMany("Diagnoses")
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

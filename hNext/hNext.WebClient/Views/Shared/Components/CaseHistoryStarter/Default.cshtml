@@ -28,9 +28,9 @@
                     </div>
                 </div>
                 <div class="form-group row mx-0">
-                    <label asp-for="DepartmentId" class="col-lg-6 col-form-label text-left text-lg-right"></label>
+                    <label class="col-lg-6 col-form-label text-left text-lg-right">@Localizer[nameof(Resources.Department)]</label>
                     <div class="col-lg-6">
-                        <select asp-for="DepartmentId" class="form-control" v-model="history.departmentId">
+                        <select class="form-control" v-model="departmentId">
                             <option value="">@Localizer[nameof(Resources.SelectDepartment)]</option>
                             <option v-for="d in departments" :key="d.id" :value="d.id">
                                 {{ d.name }}

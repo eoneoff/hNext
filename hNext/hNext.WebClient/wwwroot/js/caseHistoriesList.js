@@ -43,6 +43,9 @@ Vue.component("CaseHistoriesList", {
         },
         openHistory: function(id) {
             window.open(`casehistories/${id}`, "_blank");
+        },
+        currentDepartment(admissions) {
+            return (admissions.find(a => !a.discharged).department || {}).name || '';
         }
     },
     watch: {

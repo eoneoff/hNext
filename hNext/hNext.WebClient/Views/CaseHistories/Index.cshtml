@@ -6,7 +6,7 @@
                 $"{Model.CaseHistory.Patient.Person.FirstName[0]}. " +
                 $"{Model.CaseHistory.Patient.Person.Patronimic?[0]}. - " +
                 $"{Model.CaseHistory.Hospital.ShortName} - " +
-                $"{Model.CaseHistory.Department.Name} - " +
+                $"{Model.CaseHistory.Admissions.SingleOrDefault(a => a.Discharged == null)?.Department.Name} - " +
                 $"{Model.CaseHistory.Admitted.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)}-" +
                 $"{Model.CaseHistory.Discharged?.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)}";
 }

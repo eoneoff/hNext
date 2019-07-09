@@ -54,7 +54,11 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<Diploma> Diplomas { get; set; }
         public virtual DbSet<DocumentRegistry> DocumentRegistries {get;set;}
         public virtual DbSet<CaseHistory> CaseHistories { get; set; }
-
+        public virtual DbSet<CaseHistoryAdmission> CaseHistoryAdmissions { get; set; }
+        public virtual DbSet<ICD> ICD { get; set; }
+        public virtual DbSet<Diagnosys> Diagnoses { get; set; }
+        public virtual DbSet<PatientDiagnosys> PatientDiagnoses { get; set; }
+        public virtual DbSet<CaseHistoryDiagnosys> CaseHistoryDiagnoses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -131,13 +135,18 @@ namespace hNext.DbAccessMSSQLCore
 
             modelBuilder.Entity<CaseHistory>().HasIndex(h => h.PatientId);
             modelBuilder.Entity<CaseHistory>().HasIndex(h => h.HospitalId);
-            modelBuilder.Entity<CaseHistory>().HasIndex(h => h.DepartmentId);
             modelBuilder.Entity<CaseHistory>().HasOne(h => h.Patient).WithMany(p => p.CaseHistories)
                 .HasForeignKey(h => h.PatientId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<CaseHistory>().HasOne(h => h.Hospital).WithMany(h => h.CaseHistories)
                 .HasForeignKey(h => h.HospitalId);
             modelBuilder.Entity<CaseHistory>().HasOne(h => h.ReferredBy).WithMany(h => h.Referred)
                 .HasForeignKey(h => h.ReferredById);
+
+            modelBuilder.Entity<CaseHistoryAdmission>().HasIndex(a => a.CaseHistoryId);
+            modelBuilder.Entity<ICD>().HasIndex(i => i.Letter);
+            modelBuilder.Entity<Diagnosys>().HasIndex(d => d.ICDId);
+            modelBuilder.Entity<PatientDiagnosys>().HasKey(pd => new { pd.PatientId, pd.DiagnosysId });
+            modelBuilder.Entity<CaseHistoryDiagnosys>().HasKey(hd => new { hd.CaseHistoryId, hd.DiagnosysId });
         }
     }
 }

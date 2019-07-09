@@ -585,4 +585,13 @@
   <data name="UrgentHospitalization" xml:space="preserve">
     <value>термінова</value>
   </data>
+  <data name="Diagnoses" xml:space="preserve">
+    <value>Діагнози</value>
+  </data>
+  <data name="Diagnosys" xml:space="preserve">
+    <value>Діагноз</value>
+  </data>
+  <data name="EnterDiagnosys" xml:space="preserve">
+    <value>Введіть діагноз</value>
+  </data>
 </root>

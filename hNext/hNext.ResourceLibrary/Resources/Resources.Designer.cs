@@ -475,6 +475,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Діагнози.
+        /// </summary>
+        public static string Diagnoses {
+            get {
+                return ResourceManager.GetString("Diagnoses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Діагноз.
+        /// </summary>
+        public static string Diagnosys {
+            get {
+                return ResourceManager.GetString("Diagnosys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Диплом.
         /// </summary>
         public static string Diploma {
@@ -624,6 +642,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string EnterDepartmentName {
             get {
                 return ResourceManager.GetString("EnterDepartmentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть діагноз.
+        /// </summary>
+        public static string EnterDiagnosys {
+            get {
+                return ResourceManager.GetString("EnterDiagnosys", resourceCulture);
             }
         }
         

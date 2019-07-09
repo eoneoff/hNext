@@ -22,7 +22,7 @@ namespace hNext.MSSQLCoreRepository
                 return await dbSet
                     .Include(h => h.DocumentRegistry)
                     .Include(h => h.Hospital)
-                    .Include(h => h.Department)
+                    .Include(h => h.Admissions).ThenInclude(a => a.Department)
                     .Include(h => h.Patient).ThenInclude(h => h.Person)
                     .AsNoTracking().SingleOrDefaultAsync(h => h.Id == id);
             }
@@ -33,7 +33,7 @@ namespace hNext.MSSQLCoreRepository
         public async Task<CaseHistory> Info(long id) => await dbSet
                     .Include(h => h.DocumentRegistry)
                     .Include(h => h.Hospital)
-                    .Include(h => h.Department)
+                    .Include(h => h.Admissions).ThenInclude(a => a.Department)
                     .Include(h => h.Patient).ThenInclude(h => h.Person)
                     .AsNoTracking().SingleOrDefaultAsync(h => h.Id == id);
 
@@ -47,7 +47,7 @@ namespace hNext.MSSQLCoreRepository
             return await dbSet
                 .Include(h => h.DocumentRegistry)
                 .Include(h => h.Hospital)
-                .Include(h => h.Department)
+                .Include(h => h.Admissions).ThenInclude(a => a.Department)
                 .AsNoTracking().SingleOrDefaultAsync(h => h.Id == history.Id);
         }
     }
