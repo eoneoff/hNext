@@ -19,6 +19,7 @@ namespace hNext.Model
         public DateTime? Date { get; set; }
         public byte? Type { get; set; }
         public byte? WhenSet { get; set; }
+        public bool Active { get; set; } = true;
 
         [ForeignKey(nameof(CaseHistoryId))]
         public virtual CaseHistory CaseHistory { get; set; }

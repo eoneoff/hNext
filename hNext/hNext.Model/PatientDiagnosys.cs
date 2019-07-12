@@ -17,12 +17,12 @@ namespace hNext.Model
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
         public DateTime? Date { get; set; }
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
 
         [ForeignKey(nameof(PatientId))]
-        public Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
 
         [ForeignKey(nameof(DiagnosysId))]
-        public Diagnosys Diagnosys { get; set; }
+        public virtual Diagnosys Diagnosys { get; set; }
     }
 }

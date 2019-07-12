@@ -4,6 +4,7 @@ using hNext.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,8 @@ namespace hNext.MSSQLCoreRepository
                     .Include(h => h.Hospital)
                     .Include(h => h.Admissions).ThenInclude(a => a.Department)
                     .Include(h => h.Patient).ThenInclude(h => h.Person)
+                    .Include(h => h.Patient).ThenInclude(h => h.Diagnoses)
+                    .Include(h => h.Diagnoses).ThenInclude(d => d.Diagnosys).ThenInclude(d => d.ICD)
                     .AsNoTracking().SingleOrDefaultAsync(h => h.Id == id);
             }
             else
@@ -44,6 +47,17 @@ namespace hNext.MSSQLCoreRepository
             dbSet.Update(history);
             await db.SaveChangesAsync();
 
+            return await dbSet
+                .Include(h => h.DocumentRegistry)
+                .Include(h => h.Hospital)
+                .Include(h => h.Admissions).ThenInclude(a => a.Department)
+                .AsNoTracking().SingleOrDefaultAsync(h => h.Id == history.Id);
+        }
+
+        public override async Task<CaseHistory> Put(CaseHistory history)
+        {
+            dbSet.Update(history);
+            await db.SaveChangesAsync();
             return await dbSet
                 .Include(h => h.DocumentRegistry)
                 .Include(h => h.Hospital)

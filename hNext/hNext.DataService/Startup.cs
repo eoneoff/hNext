@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using hNext.IRepository;
 using hNext.MSSQLCoreRepository;
 using Microsoft.AspNetCore.Http.Features;
+using hNext.Model;
 
 namespace hNext.DataService
 {
@@ -34,6 +35,7 @@ namespace hNext.DataService
                 sqlServerOptions => sqlServerOptions.CommandTimeout(180)));
 
             services.AddScoped(typeof(IGetter<>), typeof(Getter<>));
+            services.AddScoped(typeof(IPoster<>), typeof(Poster<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddScoped<IPatientsRepository, PatientsRepository>();
@@ -52,13 +54,15 @@ namespace hNext.DataService
 
             services.AddScoped<IHospitalRepository, HospitalRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-            services.AddScoped<IDepartmentSpecialtyRepository, DepartmentSpecialtyRepository>();
+            services.AddScoped<IRepository<DepartmentSpecialty>, DepartmentSpecialtyRepository>();
 
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IDoctorSpecialtyRepository, DoctorSpecialtyRepository>();
             services.AddScoped<IDoctorPositionRepository, DoctorPositionRepository>();
 
             services.AddScoped<ICaseHistoryRepository, CaseHistoryRepository>();
+            services.AddScoped<IRepository<CaseHistoryDiagnosys>, CaseHistoryDiagnosysRepository>();
+            services.AddScoped<IRepository<PatientDiagnosys>, PatientDiagnosysRepository>();
 
             services.AddCors(options =>
             {

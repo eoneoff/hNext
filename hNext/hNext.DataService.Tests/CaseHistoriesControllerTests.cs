@@ -14,11 +14,12 @@ namespace hNext.DataService.Tests
     public class CaseHistoriesControllerTests
     {
         private Mock<ICaseHistoryRepository> repository = new Mock<ICaseHistoryRepository>();
+        private Mock<IRepository<CaseHistoryDiagnosys>> diagnosesRepository = new Mock<IRepository<CaseHistoryDiagnosys>>();
         private CaseHistoriesController controller;
 
         public CaseHistoriesControllerTests()
         {
-            controller = new CaseHistoriesController(repository.Object);
+            controller = new CaseHistoriesController(repository.Object, diagnosesRepository.Object);
         }
 
         [TestMethod]
@@ -99,6 +100,38 @@ namespace hNext.DataService.Tests
             //Assert
             Assert.IsInstanceOfType(result, typeof(CaseHistory));
             Assert.AreEqual(historyId, (result as CaseHistory)?.Id);
+        }
+
+        [TestMethod]
+        public void AddDiagnosysReturnsCaseHistoryDiagnosys()
+        {
+            //Arrange
+            repository.Setup(r => r.Exists(It.IsAny<object[]>())).ReturnsAsync(true);
+            diagnosesRepository.Setup(d => d.Exists(It.IsAny<object[]>())).ReturnsAsync(false);
+            diagnosesRepository.Setup(d => d.Post(It.IsAny<CaseHistoryDiagnosys>()))
+                .ReturnsAsync((CaseHistoryDiagnosys d) => { return d; });
+            long caseHistoryId = 1;
+
+            //Act
+            var result = (controller.AddDiagnosys(caseHistoryId, new CaseHistoryDiagnosys()).Result as OkObjectResult).Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(CaseHistoryDiagnosys));
+            Assert.AreEqual(caseHistoryId, (result as CaseHistoryDiagnosys)?.CaseHistoryId);
+        }
+
+        [TestMethod]
+        public void RemoveDiagnosysReturnsCaseHistoryDiagnosys()
+        {
+            //Arrange
+            diagnosesRepository.Setup(dr => dr.Exists(It.IsAny<object[]>())).ReturnsAsync(true);
+            diagnosesRepository.Setup(dr => dr.Delete(It.IsAny<object[]>())).ReturnsAsync(new CaseHistoryDiagnosys());
+
+            //Act
+            var result = (controller.RemoveDiagnosys(1, 1).Result as OkObjectResult).Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(CaseHistoryDiagnosys));
         }
     }
 }

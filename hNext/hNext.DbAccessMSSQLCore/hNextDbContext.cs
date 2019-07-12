@@ -146,7 +146,9 @@ namespace hNext.DbAccessMSSQLCore
             modelBuilder.Entity<ICD>().HasIndex(i => i.Letter);
             modelBuilder.Entity<Diagnosys>().HasIndex(d => d.ICDId);
             modelBuilder.Entity<PatientDiagnosys>().HasKey(pd => new { pd.PatientId, pd.DiagnosysId });
+            modelBuilder.Entity<PatientDiagnosys>().Property(pd => pd.Active).HasDefaultValue(true);
             modelBuilder.Entity<CaseHistoryDiagnosys>().HasKey(hd => new { hd.CaseHistoryId, hd.DiagnosysId });
+            modelBuilder.Entity<CaseHistoryDiagnosys>().Property(hd => hd.Active).HasDefaultValue(true);;
         }
     }
 }

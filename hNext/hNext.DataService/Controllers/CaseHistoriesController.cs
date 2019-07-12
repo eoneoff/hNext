@@ -14,10 +14,13 @@ namespace hNext.DataService.Controllers
     public class CaseHistoriesController : Controller
     {
         private ICaseHistoryRepository _repository;
+        private IRepository<CaseHistoryDiagnosys> _diagnosesRepository;
 
-        public CaseHistoriesController(ICaseHistoryRepository repository)
+        public CaseHistoriesController(ICaseHistoryRepository repository,
+                                        IRepository<CaseHistoryDiagnosys> diagnosesRepository)
         {
             _repository = repository;
+            _diagnosesRepository = diagnosesRepository;
         }
 
         [HttpGet]
@@ -54,6 +57,35 @@ namespace hNext.DataService.Controllers
             }
 
             return Ok(await _repository.Put(history));
+        }
+
+        [HttpPost("{id:long}/diagnoses/")]
+        public async Task<IActionResult> AddDiagnosys(long id, CaseHistoryDiagnosys diagnosys)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(! await _repository.Exists(id) || await _diagnosesRepository.Exists(id, diagnosys.DiagnosysId))
+            {
+                return BadRequest();
+            }
+
+            diagnosys.CaseHistoryId = id;
+
+            return Ok(await _diagnosesRepository.Post(diagnosys));
+        }
+
+        [HttpDelete("{id:long}/diagnoses/{diagnosysId:long}")]
+        public async Task<IActionResult> RemoveDiagnosys(long id, long diagnosysId)
+        {
+            if(! await _diagnosesRepository.Exists(id, diagnosysId))
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _diagnosesRepository.Delete(id, diagnosysId));
         }
     }
 }
