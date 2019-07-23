@@ -441,6 +441,39 @@ class DataClient {
             `casehistories/${id}/info`
         )).data;
     }
+    
+    async addDiagnosys(diagnosys) {
+        return (await this_client.post(
+            'diagnoses',
+            diagnosys
+        )).data;
+    }
+
+    async addDiagnosysToPatient(diagnosys) {
+        return (await this._client.post(
+            `patients/${diagnosys.patientId}`,
+            diagnosys
+        )).data;
+    }
+
+    async removeDiagnosysFromPatient(diagnosys) {
+        return (await this._client.delete(
+            `patients/${diagnosys.patientId}/diagnoses/${diagnosys.diagnosysId}`
+        )).data;
+    }
+
+    async addDiagnosysToCaseHistory(diagnosys) {
+        return (await this._client.post(
+            `casehistories/${diagnosys.caseHistoryId}/diagnoses`,
+            diagnosys
+        )).data;
+    }
+
+    async removeDiagnosysFromCaseHistory(diagnosis) {
+        return (await this._client.delete(
+            `casehistories/${diagnosis.caseHistoryId}/diagnoses/${diagnosis.diagnosysId}`
+        )).data;
+    }
 }
 
 const DATA_CLIENT = new DataClient(API_SERVER);

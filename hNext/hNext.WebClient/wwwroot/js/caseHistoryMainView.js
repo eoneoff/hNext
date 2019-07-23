@@ -8,6 +8,12 @@ if (!store.state['caseHistory']) {
         mutations: {
             setHistory(state, history) {
                 state.history = history;
+            },
+            setDiagnosys(state, diagnosys) {
+                state.history.diagnoses.push(diagnosys);
+            },
+            addDiagnosysToPatient(state, diagnosys) {
+                state.history.patient.diagnoses.push(diagnosys);
             }
         }
     };

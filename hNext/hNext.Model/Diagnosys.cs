@@ -19,6 +19,8 @@ namespace hNext.Model
             Name = nameof(Resources.Diagnosys))]
         public string Name { get; set; }
 
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.ICD))]
         public int? ICDId { get; set; }
 
         [ForeignKey(nameof(ICDId))]

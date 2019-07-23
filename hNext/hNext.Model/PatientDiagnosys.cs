@@ -10,6 +10,11 @@ namespace hNext.Model
     public class PatientDiagnosys
     {
         public long PatientId { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.SelectDiagnosys))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Diagnosys))]
         public long DiagnosysId { get; set; }
 
         [Display(ResourceType = typeof(Resources),

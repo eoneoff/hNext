@@ -2,6 +2,8 @@
 
 <template id="case-history-general-info-template">
     <div class="d-flex flex-column">
+        <case-history-diagnosys-editor v-if="showDiagnosysEditor" :initial-enabled="enabled" :level="1"
+                                       @@save="saveDiagnosys" @@cancel="showDiagnosysEditor = false"></case-history-diagnosys-editor>
         <div class="d-flex flex-column mt-2">
             <div class="row">
                 <label asp-for="HospitalId" class="col-lg-2 text-left text-lg-right font-weight-bold"></label>
@@ -14,8 +16,8 @@
             <div class="row">
                 <label asp-for="PatientId" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
                 <span class="col-lg-4 text-left">
-                    @Model.Patient.Person.FamilyName 
-                    @Model.Patient.Person.FirstName 
+                    @Model.Patient.Person.FamilyName
+                    @Model.Patient.Person.FirstName
                     @Model.Patient.Person.Patronimic
                 </span>
                 <label asp-for="Patient.Person.DateOfBirth" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
@@ -23,19 +25,19 @@
                     @if (Model.Patient.Person.DateOfBirth is DateTime dateOfBirth)
                     {
                         @dateOfBirth.ToString("dd.MM.yyyy");
-                        <text> (</text>@(DateTime.Today.Year - dateOfBirth.Year)<text>)</text>
+                        <text>&nbsp;(</text>@(DateTime.Today.Year - dateOfBirth.Year)<text>)</text>
                     }
                 </span>
             </div>
             <div class="row">
                 <label asp-for="Admitted" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
                 <span class="col-lg-2 text-left">
-                    @Model.Admitted.ToString("dd.MM.yyyy");
+                    @Model.Admitted.ToString("dd.MM.yyyy")
                 </span>
                 <span class="col-lg-2 text-left text-lg-center mt-3 mt-lg-0">
-                    @{ 
+                    @{
                         int days = 1;
-                        if(Model.Discharged is DateTime discharged)
+                        if (Model.Discharged is DateTime discharged)
                         {
                             days += (discharged - Model.Admitted).Days;
                         }
@@ -45,7 +47,7 @@
                         }
 
                         string day = String.Empty;
-                        switch(days%10)
+                        switch (days % 10)
                         {
                             case 1:
                                 day = Resources.Day;
@@ -71,12 +73,12 @@
                 <label asp-for="ReferredById" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
                 <span class="col-lg-4 text-left">@Model.ReferredBy?.Name</span>
                 <label asp-for="Urgency" class="col-lg-2 text-left text-lg-right font-weight-bold mt-3 mt-lg-0"></label>
-                <span>
+                <span class="col-lg-4 text-left">
                     @{
                         string hosp = String.Empty;
-                        if(Model.Urgency is byte urgency)
+                        if (Model.Urgency is byte urgency)
                         {
-                            switch(urgency)
+                            switch (urgency)
                             {
                                 case 1:
                                     hosp = Localizer[nameof(Resources.RoutineHospitalization)];
@@ -89,6 +91,43 @@
                     }
                     @hosp
                 </span>
+            </div>
+        </div>
+        <div class="d-flex flex-column mt-3">
+            <h5 class="w-100 text-center">@Localizer[nameof(Resources.Diagnoses)]</h5>
+            <div class="d-flex flex-row">
+                <div class="flex-grow-1" style="border-style:solid; border-width:1px;">
+                    <table class="table table-borderless">
+                        <tr v-for="d in diagnoses" @@click="selectDiagnosys(d)" :class="{'selected-table-row' : d.diagnosysId == selectedDiagnosys.diagnosysId}">
+                            <td>{{ d.diagnosys.name }}</td>
+                            <td>{{ (d.type ? diagnosysType[1 + d.type] : '') }}</td>
+                            <td>{{ (d.whenSet ? diagnosysWhenSet[1 + d.whenSet] : '') }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="d-flex flex-column ml-1">
+                    <button class="btn btn-primary" :disabled="!enabled" @@click.stop.perevent="addDiagnosys"><i class="fa fa-plus"></i></button>
+                    <button class="btn btn-danger mt-1" :disabled="!enabled"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column mt-3">
+            <h5 class="w-100 text-center">@Localizer[nameof(Resources.Transfers)]</h5>
+            <div class="d-flex flex-row">
+                <div class="flex-grow-1" style="border-style:solid; border-width:1px;">
+                    <table class="table table-borderless">
+                       
+                    </table>
+                </div>
+                <div class="d-flex flex-column ml-1">
+                    <button class="btn btn-primary" :disabled="!enabled"><i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <div class="row">
+                <label class="col-lg-2 text-left text-lg-right font-weight-bold">@Localizer[nameof(Resources.DoctorInCharge)]</label>
+                <span class="col-lg-10 text-left"></span>
             </div>
         </div>
     </div>

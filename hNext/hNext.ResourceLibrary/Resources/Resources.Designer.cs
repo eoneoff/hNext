@@ -322,6 +322,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на ускладнення.
+        /// </summary>
+        public static string ComplicationDiagnosys {
+            get {
+                return ResourceManager.GetString("ComplicationDiagnosys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на супутній.
+        /// </summary>
+        public static string ConcurrendDiagnosys {
+            get {
+                return ResourceManager.GetString("ConcurrendDiagnosys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Країна.
         /// </summary>
         public static string Country {
@@ -534,6 +552,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Doctor {
             get {
                 return ResourceManager.GetString("Doctor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Лікуючий лікар.
+        /// </summary>
+        public static string DoctorInCharge {
+            get {
+                return ResourceManager.GetString("DoctorInCharge", resourceCulture);
             }
         }
         
@@ -781,6 +808,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на заключний.
+        /// </summary>
+        public static string FinalDiagnosys {
+            get {
+                return ResourceManager.GetString("FinalDiagnosys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ім&apos;я.
         /// </summary>
         public static string FirstName {
@@ -871,11 +907,29 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на МКХ.
+        /// </summary>
+        public static string ICD {
+            get {
+                return ResourceManager.GetString("ICD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Застрахований.
         /// </summary>
         public static string Insured {
             get {
                 return ResourceManager.GetString("Insured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на проміжний.
+        /// </summary>
+        public static string IntermediateDiagnosys {
+            get {
+                return ResourceManager.GetString("IntermediateDiagnosys", resourceCulture);
             }
         }
         
@@ -939,6 +993,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Number {
             get {
                 return ResourceManager.GetString("Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на при надходженні.
+        /// </summary>
+        public static string OnAdmissionDiagnosys {
+            get {
+                return ResourceManager.GetString("OnAdmissionDiagnosys", resourceCulture);
             }
         }
         
@@ -1060,6 +1123,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на первинний.
+        /// </summary>
+        public static string PrimaryDiagnosys {
+            get {
+                return ResourceManager.GetString("PrimaryDiagnosys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Тип власності.
         /// </summary>
         public static string PropertyType {
@@ -1074,6 +1146,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string RecordBelongsToOthers {
             get {
                 return ResourceManager.GetString("RecordBelongsToOthers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Довідка.
+        /// </summary>
+        public static string Reference {
+            get {
+                return ResourceManager.GetString("Reference", resourceCulture);
             }
         }
         
@@ -1200,6 +1281,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SelectDepartment {
             get {
                 return ResourceManager.GetString("SelectDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть діагноз.
+        /// </summary>
+        public static string SelectDiagnosys {
+            get {
+                return ResourceManager.GetString("SelectDiagnosys", resourceCulture);
             }
         }
         
@@ -1411,6 +1501,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Перевод.
+        /// </summary>
+        public static string Transfer {
+            get {
+                return ResourceManager.GetString("Transfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Переводи.
+        /// </summary>
+        public static string Transfers {
+            get {
+                return ResourceManager.GetString("Transfers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Тип.
         /// </summary>
         public static string Type {
@@ -1461,6 +1569,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string WhenIssued {
             get {
                 return ResourceManager.GetString("WhenIssued", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Коли встановлений.
+        /// </summary>
+        public static string WhenSet {
+            get {
+                return ResourceManager.GetString("WhenSet", resourceCulture);
             }
         }
         

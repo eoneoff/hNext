@@ -10,6 +10,11 @@ namespace hNext.Model
     public class CaseHistoryDiagnosys
     {
         public long CaseHistoryId { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.SelectDiagnosys))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Diagnosys))]
         public long DiagnosysId { get; set; }
 
         [Display(ResourceType = typeof(Resources),
@@ -18,6 +23,9 @@ namespace hNext.Model
         [Column(TypeName = "date")]
         public DateTime? Date { get; set; }
         public byte? Type { get; set; }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.WhenSet))]
         public byte? WhenSet { get; set; }
         public bool Active { get; set; } = true;
 

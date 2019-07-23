@@ -11,10 +11,10 @@ using System.Text;
 namespace hNext.WebClient.Tests
 {
     [TestClass]
-    public class CaseHistoryGeneralInfoViewComponentTests
+    public class DiagnosysEditorViewComponentTests
     {
-        CaseHistoryGeneralInfoViewComponent component = new CaseHistoryGeneralInfoViewComponent();
-        UniqueList<string> modules = new UniqueList<string>();
+        private DiagnosysEditorViewComponent component = new DiagnosysEditorViewComponent();
+        private UniqueList<string> modules = new UniqueList<string>();
 
         [TestMethod]
         public void InvokeReturnsView()
@@ -29,7 +29,7 @@ namespace hNext.WebClient.Tests
         }
 
         [TestMethod]
-        public void InvokeReturnsCorectModel()
+        public void InvokeReturnsCorrrectModel()
         {
             //Arrange
 
@@ -37,20 +37,23 @@ namespace hNext.WebClient.Tests
             var result = (component.Invoke(modules) as ViewViewComponentResult).ViewData.Model;
 
             //Assert
-            Assert.IsInstanceOfType(result, typeof(CaseHistory));
+            Assert.IsInstanceOfType(result, typeof(Diagnosys));
         }
 
         [TestMethod]
         public void InvokeAddsNecessaryModules()
         {
             //Arrange
+            var mod = new List<string>
+            {
+                nameof(ConfirmationDialogViewComponent).ViewComponentName()
+            };
 
             //Act
             var result = component.Invoke(modules);
 
             //Assert
-            CollectionAssert.Contains(modules, nameof(ConfirmationDialogViewComponent).ViewComponentName());
-            CollectionAssert.Contains(modules, nameof(CaseHistoryDiagnosysEditorViewComponent).ViewComponentName());
+            CollectionAssert.AreEquivalent(mod, modules);
         }
     }
 }

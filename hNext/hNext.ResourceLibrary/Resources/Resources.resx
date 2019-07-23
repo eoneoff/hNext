@@ -594,4 +594,43 @@
   <data name="EnterDiagnosys" xml:space="preserve">
     <value>Введіть діагноз</value>
   </data>
+  <data name="ComplicationDiagnosys" xml:space="preserve">
+    <value>ускладнення</value>
+  </data>
+  <data name="ConcurrendDiagnosys" xml:space="preserve">
+    <value>супутній</value>
+  </data>
+  <data name="DoctorInCharge" xml:space="preserve">
+    <value>Лікуючий лікар</value>
+  </data>
+  <data name="FinalDiagnosys" xml:space="preserve">
+    <value>заключний</value>
+  </data>
+  <data name="IntermediateDiagnosys" xml:space="preserve">
+    <value>проміжний</value>
+  </data>
+  <data name="OnAdmissionDiagnosys" xml:space="preserve">
+    <value>при надходженні</value>
+  </data>
+  <data name="PrimaryDiagnosys" xml:space="preserve">
+    <value>первинний</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Перевод</value>
+  </data>
+  <data name="Transfers" xml:space="preserve">
+    <value>Переводи</value>
+  </data>
+  <data name="SelectDiagnosys" xml:space="preserve">
+    <value>Оберіть діагноз</value>
+  </data>
+  <data name="WhenSet" xml:space="preserve">
+    <value>Коли встановлений</value>
+  </data>
+  <data name="ICD" xml:space="preserve">
+    <value>МКХ</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Довідка</value>
+  </data>
 </root>

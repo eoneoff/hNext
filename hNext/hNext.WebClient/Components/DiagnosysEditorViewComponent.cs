@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 
 namespace hNext.WebClient.Components
 {
-    public class CaseHistoryGeneralInfoViewComponent : ViewComponent
+    public class DiagnosysEditorViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke(UniqueList<string> modules, CaseHistory history = null)
+        public IViewComponentResult Invoke(UniqueList<string> modules)
         {
             modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
-            modules.Add(nameof(CaseHistoryDiagnosysEditorViewComponent).ViewComponentName());
 
-            return View(history ?? new CaseHistory());
+            return View(new Diagnosys());
         }
     }
 }

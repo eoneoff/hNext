@@ -18,8 +18,15 @@
 @section Scripts
 {
     <script>
+        "use strict";
         const START_TAB = '@Model.Tabs.FirstOrDefault().Key';
         const CASE_HISTORY_ID = @Model.CaseHistory?.Id;
+        const DIAGNOSYS_TYPE = ['@Localizer[nameof(Resources.PrimaryDiagnosys)]',
+            '@Localizer[nameof(Resources.ComplicationDiagnosys)]',
+            '@Localizer[nameof(Resources.ConcurrendDiagnosys)]'];
+        const WHEN_SET = ['@Localizer[nameof(Resources.OnAdmissionDiagnosys)]',
+            '@Localizer[nameof(Resources.IntermediateDiagnosys)]',
+            '@Localizer[nameof(Resources.FinalDiagnosys)]'];
     </script>
 
     @await Component.InvokeAsync("CaseHistoryMainView", new { model = Model})

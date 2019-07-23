@@ -1,0 +1,43 @@
+﻿@model Diagnosys
+
+<template id="diagnosys-template">
+    <form class="modal-window" :style="{zIndex:level*1000}">
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="d-flex flex-column show-panel modal-window-show-panel">
+            <div class="form-group row mx-0 align-items-lg-end mt-2">
+                <label class="col-lg-3 align-self-lg-start col-form-label text-left text-lg-right h-100" asp-for="Name"></label>
+                <div class="col-lg-9">
+                    <div><span asp-validation-for="Name"></span></div>
+                    <textarea asp-for="Name" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group row mx-0">
+                <label asp-for="ICDId" class="col-lg-3 text-left text-lg-right align-self-lg-end"></label>
+                <div class="col-lg-9 d-flex flex-row">
+                    <select asp-for="ICD.Letter" class="form-control" style="width:3rem;">
+                        @foreach (var letter in Enumerable.Range('A', 'Z' - 'A'))
+                        {
+                            <option value="@(((char)letter).ToString())">@(((char)letter).ToString())</option>
+                        }
+                    </select>
+                    <input asp-for="ICD.PrimaryNumber" min="0" max="99" class="form-control mx-1" style="width:4rem;"/>
+                    <span class="align-self-end">.</span>
+                    <input asp-for="ICD.SecondaryNumber" min="0" max="9" class="form-control mx-1" style="width:3rem;"/>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <button class="btn btn-primary col" @@click.stop.prevent="">
+                    @Localizer[nameof(Resources.Reference)] @Localizer[nameof(Resources.ICD)]
+                </button>
+            </div>
+            <div class="d-flex flex-row flex-nowrap justify-content-between justify-content-lg-end mt-2 mx-3">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="cancel">@Localizer[nameof(Resources.Cancel)]</button>
+            </div>
+        </div>
+    </form>
+</template>
