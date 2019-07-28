@@ -14,6 +14,7 @@ namespace hNext.WebClient.Components
         public IViewComponentResult Invoke(UniqueList<string> modules)
         {
             modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
+            modules.Add(nameof(ICDReferenceViewComponent).ViewComponentName());
 
             return View(new Diagnosys());
         }

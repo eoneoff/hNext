@@ -1,0 +1,111 @@
+﻿<template id="icd-reference-template">
+    <div class="modal-window" style="width: 90vw;" :style="{zIndex:level*1000}">
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="d-flex flex-column show-panel modal-window-show-panel h-100">
+            <div class="d-flex flex-row">
+                <div style="position:relative;" class="flex-grow-1">
+                    <input class="form-control w-100" v-model="searchQuery" />
+                    <button style="position:absolute; top:0%; right:0%" :style="{zIndex:level*1000+10}"
+                            class="h-100 btn btn-link" @@click.stop.prevent="searchQuery = ''">
+                     <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <i class="fa fa-search align-self-center mx-2" style="font-size:larger;"></i>
+            </div>
+            <div class="flex-grow-1 my-2" style="max-height:80vh; overflow-y:auto">
+                <div class="accordion" id="icdaccordion" v-if="searchQuery.length < 3">
+                   <div v-for="(subcategories, category) in icd" class="card">
+                       <div class="card-header">
+                           <h2>
+                               <button class="btn btn-link text-left h-auto" type="button" data-toggle="collapse" :data-target="`#collapsesubcat${htmlify(category)}`"
+                                       @@click="selectedICD = {id:0}">
+                                   {{ category }}
+                               </button>
+                           </h2>
+                       </div>
+                       <div :id="`collapsesubcat${htmlify(category)}`" class="collapse" data-parent="#icdaccordion">
+                           <div class="card-body">
+                               <div class="row">
+                                   <div class="accordion offset-1" :id="`categoryaccordion${htmlify(category)}`">
+                                       <div v-for="(primaryNames, subcategory) in subcategories" class="card">
+                                           <div class="card-header">
+                                               <h4>
+                                                   <button class="btn btn-link text-left h-auto" type="button" @@click="selectedICD = {id:0}"
+                                                           data-toggle="collapse" :data-target="`#collapseprimaryname${htmlify(subcategory)}`">
+                                                       {{ subcategory }}
+                                                   </button>
+                                               </h4>
+                                           </div>
+                                           <div :id="`collapseprimaryname${htmlify(subcategory)}`" class="collapse"
+                                                :data-parent="`#categoryaccordion${htmlify(category)}`">
+                                               <div class="card-body">
+                                                   <div class="row">
+                                                       <div class="accordion offset-1" :id="`primarynameaccordion${htmlify(subcategory)}`">
+                                                           <div v-for="(items, primaryName) in primaryNames" class="card">
+                                                               <div class="card-header">
+                                                                   <h4>
+                                                                       <button class="btn btn-link text-left h-auto" type="button" @@click="selectedICD = {id:0}"
+                                                                               data-toggle="collapse" :data-target="`#collapseitems${htmlify(primaryName)}`">
+                                                                           {{ primaryName }}
+                                                                       </button>
+                                                                   </h4>
+                                                               </div>
+                                                               <div :id="`collapseitems${htmlify(primaryName)}`" class="collapse"
+                                                                    :data-parent="`#primarynameaccordion${htmlify(subcategory)}`">
+                                                                   <div class="card-body">
+                                                                       <div class="row">
+                                                                           <table class="offset-1 table table-borderless table-hover table-sm">
+                                                                               <tr v-for="item in items" @@click="selectedICD = item" @@dblclick="$emit('save', item)"
+                                                                                   :class="{'selected-table-row' : item.id == selectedICD.id}">
+                                                                                   <td>
+                                                                                       {{
+                                                                                        item.letter +
+                                                                                        (item.primaryNumber < 10 ? `0${item.primaryNumber}`: item.primaryNumber) +
+                                                                                        `.${item.secondaryNumber}`
+                                                                                       }}
+                                                                                   </td>
+                                                                                   <td>{{ item.name }}</td>
+                                                                               </tr>
+                                                                           </table>
+                                                                       </div>
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+                <div v-else>
+                    <table class="table table-borderless table-hover table-sm">
+                        <tr v-for="item in foundItems" @@click="selectedICD = item" @@dblclick="$emit('save', item)"
+                            :class="{'selected-table-row' : item.id == selectedICD.id}">
+                            <td>
+                                {{
+                                    item.letter +
+                                    (item.primaryNumber < 10 ? `0${item.primaryNumber}` : item.primaryNumber) +
+                                    `.${item.secondaryNumber}`
+                                }}
+                            </td>
+                            <td v-html="highlightSelected(item.name)"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="d-flex flex-row flex-nowrap justify-content-between justify-content-lg-end mt-2 mx-3">
+                <button class="btn btn-primary" :disabled="!enabled || !selectedICD.id" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="cancel">@Localizer[nameof(Resources.Cancel)]</button>
+            </div>
+        </div>
+    </div>
+</template>

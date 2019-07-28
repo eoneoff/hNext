@@ -19,10 +19,10 @@ class DbRecord:
             self.id = next(DbRecord.id)
             self.letter = record['secondary'][0]
             self.primary = int(record['secondary'][1:3])
-            self.secondary = int(record['secondary'][4:])
-            self.category = DbRecord.category[9:]
-            self.subcategory = DbRecord.subcategory[9:]
-            self.primaryName = DbRecord.primary[5:]
+            self.secondary = int(record['secondary'][4:])/10
+            self.category = DbRecord.category
+            self.subcategory = DbRecord.subcategory
+            self.primaryName = DbRecord.primary
             self.name = record['name']
 
     def __str__(self):
@@ -49,9 +49,9 @@ def loadToDb(records):
     connString = 'Driver={ODBC Driver 17 for SQL Server};Server=DESKTOP-FD6IG6K;Database=hNextDb;Trusted_Connection=yes'
     insertString = 'INSERT INTO ICD(Id, Letter, PrimaryNumber, SecondaryNumber, Category, SubCategory, PrimaryName, Name) VALUES(?,?,?,?,?,?,?,?)'
     with pyodbc.connect(connString, autocommit = True) as conn:
-		cursor = conn.cursor()
-		cursor.fast_executemany = True
-		cursor.executemany(insertString, map(lambda row: (row.id, row.letter, row.primary, row.secondary, row.category, row.subcategory, row.primaryName, row.name), records))
+        cursor = conn.cursor()
+        cursor.fast_executemany = True
+        cursor.executemany(insertString, map(lambda row: (row.id, row.letter, row.primary, row.secondary, row.category, row.subcategory, row.primaryName, row.name), records))
 
 
 if __name__ == '__main__':

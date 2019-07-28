@@ -474,6 +474,10 @@ class DataClient {
             `casehistories/${diagnosis.caseHistoryId}/diagnoses/${diagnosis.diagnosysId}`
         )).data;
     }
+
+    async getICD() {
+        return (await this._client.get('icd')).data;
+    }
 }
 
 const DATA_CLIENT = new DataClient(API_SERVER);

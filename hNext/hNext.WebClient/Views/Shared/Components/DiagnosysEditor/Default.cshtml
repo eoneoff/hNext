@@ -1,7 +1,8 @@
 ﻿@model Diagnosys
 
-<template id="diagnosys-template">
+<template id="diagnosys-editor-template">
     <form class="modal-window" :style="{zIndex:level*1000}">
+        <icd-reference v-if="showReference" :level="level+1" @@cancel="showReference=false"></icd-reference>
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
                 <i class="fa fa-times"></i>
@@ -30,9 +31,18 @@
                 </div>
             </div>
             <div class="row mx-0">
-                <button class="btn btn-primary col" @@click.stop.prevent="">
-                    @Localizer[nameof(Resources.Reference)] @Localizer[nameof(Resources.ICD)]
-                </button>
+                <div class="col-lg-6">
+                    <button class="btn btn-primary w-100" :disabled="!enabled"
+                            @@click.stop.prevent="reference">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+                <div class="col-lg-6 btn-group btn-group-toggle mt-2 mt-lg-0" data-toggle="buttons">
+                    <label class="btn btn-primary w-100" :disabled="!enabled">
+                        <input type="checkbox" :disabled="!enabled"/>
+                        <i class="fa fa-pen"></i>
+                    </label>
+                </div>
             </div>
             <div class="d-flex flex-row flex-nowrap justify-content-between justify-content-lg-end mt-2 mx-3">
                 <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>

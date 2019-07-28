@@ -46,7 +46,8 @@ namespace hNext.WebClient.Tests
             //Arrange
             var mod = new List<string>
             {
-                nameof(ConfirmationDialogViewComponent).ViewComponentName()
+                nameof(ConfirmationDialogViewComponent).ViewComponentName(),
+                nameof(ICDReferenceViewComponent).ViewComponentName()
             };
 
             //Act
