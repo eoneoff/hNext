@@ -9,8 +9,8 @@ Vue.component("CaseHistoryGeneralInfo", {
             selectedDiagnosys: { diagnosysId: 0 },
             diagnosysTypes: DIAGNOSYS_TYPE,
             diagnosysWhenSet: WHEN_SET,
-            showDiagnosysEditor:false
-        }
+            showDiagnosysEditor: false
+        };
     },
     computed: {
         history: function () {
@@ -37,8 +37,12 @@ Vue.component("CaseHistoryGeneralInfo", {
         addDiagnosys: function () {
             this.showDiagnosysEditor = true;
         },
-        saveDiagnosys: async function () {
+        saveDiagnosys: async function (diagnosys) {
             this.showDiagnosysEditor = false;
+            diagnosys.caseHistoryId = this.history.id;
+            if (this.diagnoses.findIndex(d => d.diagnosysId == diagnosys.diagnosysId) == -1) {
+                this.$store.commit('setDiagnosys', await DATA_CLIENT.addDiagnosysToCaseHistory(diagnosys));
+            }
         }
     },
     watch: {

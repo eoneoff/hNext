@@ -63,6 +63,8 @@ namespace hNext.DataService
             services.AddScoped<ICaseHistoryRepository, CaseHistoryRepository>();
             services.AddScoped<IRepository<CaseHistoryDiagnosys>, CaseHistoryDiagnosysRepository>();
             services.AddScoped<IRepository<PatientDiagnosys>, PatientDiagnosysRepository>();
+            services.AddScoped<IPoster<Diagnosys>, DiagnosesRepository>();
+            services.AddScoped<IICDRepository, ICDRepository>();
 
             services.AddCors(options =>
             {

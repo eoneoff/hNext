@@ -13,7 +13,7 @@ Vue.component('IcdReference', {
     store,
     methods: {
         save: function () {
-            this.$emit('save', selectedICD);
+            this.$emit('save', this.selectedICD);
         },
         cancel: function () {
             this.$emit('cancel');

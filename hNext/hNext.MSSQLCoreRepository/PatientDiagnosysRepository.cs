@@ -16,7 +16,16 @@ namespace hNext.MSSQLCoreRepository
 
         public override async Task<PatientDiagnosys> Post(PatientDiagnosys patient)
         {
-            dbSet.Update(patient);
+            if(patient.Diagnosys != null && patient.Diagnosys.Id == 0)
+            {
+                patient.Diagnosys.ICD = null;
+                dbSet.Update(patient);
+            }
+            else
+            {
+                patient.Diagnosys = null;
+                dbSet.Add(patient);
+            }
             await db.SaveChangesAsync();
             return await dbSet.
                 Include(p => p.Diagnosys).ThenInclude(d => d.ICD)

@@ -13,11 +13,14 @@ namespace hNext.DataService.Controllers
     [ApiController]
     public class ICDController : Controller
     {
-        private IGetter<ICD> _repository;
+        private IICDRepository _repository;
 
-        public ICDController(IGetter<ICD> repository) => _repository = repository;
+        public ICDController(IICDRepository repository) => _repository = repository;
 
         [HttpGet]
-        public async Task<IEnumerable<ICD>> Get() => (await _repository.Get());
+        public async Task<IEnumerable<ICD>> Get() => await _repository.Get();
+
+        [HttpPost("search")]
+        public async Task<ICD> Search(ICD icd) => await _repository.Search(icd);
     }
 }

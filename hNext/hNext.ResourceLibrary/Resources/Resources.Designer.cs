@@ -619,6 +619,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Код МКХ не введено.
+        /// </summary>
+        public static string EmptyICD {
+            get {
+                return ResourceManager.GetString("EmptyICD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Звільнений.
         /// </summary>
         public static string EndPosition {
@@ -1231,6 +1240,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Зберегти діагноз без коду МКХ.
+        /// </summary>
+        public static string SaveWithoutICD {
+            get {
+                return ResourceManager.GetString("SaveWithoutICD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Пошук.
         /// </summary>
         public static string Search {
@@ -1578,6 +1596,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string WhenSet {
             get {
                 return ResourceManager.GetString("WhenSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введений код МКХ не існує.
+        /// </summary>
+        public static string WrongICD {
+            get {
+                return ResourceManager.GetString("WrongICD", resourceCulture);
             }
         }
         

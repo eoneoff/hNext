@@ -9,5 +9,6 @@ namespace hNext.IRepository
     public interface IPatientsRepository:IRepository<Patient>
     {
         Task<IEnumerable<Patient>> SearchPatients(PatientSearchModel model);
+        Task<IEnumerable<PatientDiagnosys>> GetDiagnoses(long id);
     }
 }

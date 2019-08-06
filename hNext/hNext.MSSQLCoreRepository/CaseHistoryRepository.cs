@@ -26,7 +26,8 @@ namespace hNext.MSSQLCoreRepository
                     .Include(h => h.Admissions).ThenInclude(a => a.Department)
                     .Include(h => h.Patient).ThenInclude(h => h.Person)
                     .Include(h => h.Patient).ThenInclude(h => h.Diagnoses)
-                    .Include(h => h.Diagnoses).ThenInclude(d => d.Diagnosys).ThenInclude(d => d.ICD)
+                    .ThenInclude(d => d.Diagnosys).ThenInclude(d => d.ICD)
+                    .Include(h => h.Diagnoses).ThenInclude(d => d.Diagnosys)
                     .AsNoTracking().SingleOrDefaultAsync(h => h.Id == id);
             }
             else

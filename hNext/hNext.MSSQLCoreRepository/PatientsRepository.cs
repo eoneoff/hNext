@@ -127,5 +127,9 @@ namespace hNext.MSSQLCoreRepository
                 .Include(p => p.CaseHistories).ThenInclude(h => h.Admissions).ThenInclude(a => a.Department)
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
+
+        public async Task<IEnumerable<PatientDiagnosys>> GetDiagnoses(long id) =>
+            await db.PatientDiagnoses.Include(pd => pd.Diagnosys).ThenInclude(d => d.ICD)
+                .Where(pd => pd.PatientId == id).AsNoTracking().ToListAsync();
     }
 }

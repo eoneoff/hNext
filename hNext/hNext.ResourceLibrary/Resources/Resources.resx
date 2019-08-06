@@ -633,4 +633,13 @@
   <data name="Reference" xml:space="preserve">
     <value>Довідка</value>
   </data>
+  <data name="EmptyICD" xml:space="preserve">
+    <value>Код МКХ не введено</value>
+  </data>
+  <data name="SaveWithoutICD" xml:space="preserve">
+    <value>Зберегти діагноз без коду МКХ</value>
+  </data>
+  <data name="WrongICD" xml:space="preserve">
+    <value>Введений код МКХ не існує</value>
+  </data>
 </root>

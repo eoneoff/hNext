@@ -12,7 +12,7 @@
                 <label asp-for="SpecialtyId" class="mr-2 align-text-bottom mt-auto"></label>
                 <div style="max-width:20rem;">
                     <span asp-validation-for="SpecialtyId" class="text-danger"></span>
-                    <select class="form-control" asp-for="SpecialtyId" v-model="selectedSpecialty.specialtyId"
+                    <select class="custom-select" asp-for="SpecialtyId" v-model="selectedSpecialty.specialtyId"
                             asp-items="@new SelectList(Model.Specialties, nameof(Specialty.Id), nameof(Specialty.Name))">
                         <option value="">@Localizer[nameof(Resources.SelectSpecialty)]</option>
                     </select>

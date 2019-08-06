@@ -21,12 +21,12 @@
         "use strict";
         const START_TAB = '@Model.Tabs.FirstOrDefault().Key';
         const CASE_HISTORY_ID = @Model.CaseHistory?.Id;
-        const DIAGNOSYS_TYPE = ['@Localizer[nameof(Resources.PrimaryDiagnosys)]',
-            '@Localizer[nameof(Resources.ComplicationDiagnosys)]',
-            '@Localizer[nameof(Resources.ConcurrendDiagnosys)]'];
-        const WHEN_SET = ['@Localizer[nameof(Resources.OnAdmissionDiagnosys)]',
-            '@Localizer[nameof(Resources.IntermediateDiagnosys)]',
-            '@Localizer[nameof(Resources.FinalDiagnosys)]'];
+        const DIAGNOSYS_TYPE = [$('<div/>').html('@Localizer[nameof(Resources.PrimaryDiagnosys)]').text(),
+            $('<div/>').html('@Localizer[nameof(Resources.ComplicationDiagnosys)]').text(),
+            $('<div/>').html('@Localizer[nameof(Resources.ConcurrendDiagnosys)]').text()];
+        const WHEN_SET = [$('<div/>').html('@Localizer[nameof(Resources.OnAdmissionDiagnosys)]').text(),
+            $('<div/>').html('@Localizer[nameof(Resources.IntermediateDiagnosys)]').text(),
+            $('<div/>').html('@Localizer[nameof(Resources.FinalDiagnosys)]').text()];
     </script>
 
     @await Component.InvokeAsync("CaseHistoryMainView", new { model = Model})

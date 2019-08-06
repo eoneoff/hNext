@@ -67,6 +67,10 @@ namespace hNext.DataService.Controllers
             return Ok(await _repository.Put(patient));
         }
 
+        [HttpGet("{id:long}/diagnoses")]
+        public async Task<IEnumerable<PatientDiagnosys>> GetDiagnoses(long id) =>
+            await _repository.GetDiagnoses(id);
+
         [HttpPost("{id:long}/diagnoses/")]
         public async Task<IActionResult> AddDiagnosys(long id, PatientDiagnosys diagnosys)
         {

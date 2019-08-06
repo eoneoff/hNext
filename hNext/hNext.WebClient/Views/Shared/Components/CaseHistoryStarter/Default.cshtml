@@ -19,7 +19,7 @@
                     <label asp-for="HospitalId" class="col-lg-6 col-form-label text-left text-lg-right"></label>
                     <div class="col-lg-6">
                         <div><span asp-validation-for="HospitalId" class="text-danger"></span></div>
-                        <select asp-for="HospitalId" class="form-control" v-model="history.hospitalId">
+                        <select asp-for="HospitalId" class="custom-select" v-model="history.hospitalId">
                             <option value="">@Localizer[nameof(Resources.SelectHospital)]</option>
                             <option v-for="h in hospitals" :key="h.id" :value="h.id">
                                 {{ h.name }}
@@ -30,7 +30,7 @@
                 <div class="form-group row mx-0">
                     <label class="col-lg-6 col-form-label text-left text-lg-right">@Localizer[nameof(Resources.Department)]</label>
                     <div class="col-lg-6">
-                        <select class="form-control" v-model="departmentId">
+                        <select class="custom-select" v-model="departmentId">
                             <option value="">@Localizer[nameof(Resources.SelectDepartment)]</option>
                             <option v-for="d in departments" :key="d.id" :value="d.id">
                                 {{ d.name }}

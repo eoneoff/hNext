@@ -100,8 +100,8 @@
                     <table class="table table-borderless">
                         <tr v-for="d in diagnoses" @@click="selectDiagnosys(d)" :class="{'selected-table-row' : d.diagnosysId == selectedDiagnosys.diagnosysId}">
                             <td>{{ d.diagnosys.name }}</td>
-                            <td>{{ (d.type ? diagnosysType[1 + d.type] : '') }}</td>
-                            <td>{{ (d.whenSet ? diagnosysWhenSet[1 + d.whenSet] : '') }}</td>
+                            <td>{{ (d.type ? diagnosysTypes[d.type - 1] : '') }}</td>
+                            <td>{{ (d.whenSet ? diagnosysWhenSet[d.whenSet - 1] : '') }}</td>
                         </tr>
                     </table>
                 </div>

@@ -65,6 +65,19 @@ namespace hNext.DataService.Tests
         }
 
         [TestMethod]
+        public void GetDiagnosesReturnsListOfPatientDiagnoses()
+        {
+            //Arrange
+            repository.Setup(r => r.GetDiagnoses(It.IsAny<long>())).ReturnsAsync(new List<PatientDiagnosys>() as IEnumerable<PatientDiagnosys>);
+
+            //Act
+            var result = controller.GetDiagnoses(1).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<PatientDiagnosys>));
+        }
+
+        [TestMethod]
         public void AddDiagnosysReturnsPatientDiagnosys()
         {
             //Arrange

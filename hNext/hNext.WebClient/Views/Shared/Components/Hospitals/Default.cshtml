@@ -86,7 +86,7 @@
                         <label class="w-100" :class="editing ? 'text-left text-lg-right' : 'text-right'" asp-for="Hospital.Address.CountryId"></label>
                     </div>
                     <div :class="editing ? 'col-lg-7' : 'col-7'">
-                        <select v-if="editing" class="form-control" asp-for="Hospital.Address.CountryId"
+                        <select v-if="editing" class="custom-select" asp-for="Hospital.Address.CountryId"
                                 asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
                                 :disabled="!enabled" v-model="editingHospital.address.countryId" v-on:change="selectedCountryChanged">
                             <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
@@ -101,7 +101,7 @@
                     <div  :class="[{'pt-2':regionsLoading || !editing}, editing ? 'col-lg-7' : 'col-7']">
                         <div v-if="editing">
                             <span v-if="regionsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
-                            <select v-else class="form-control" asp-for="Hospital.Address.RegionId"
+                            <select v-else class="custom-select" asp-for="Hospital.Address.RegionId"
                                     :disabled="!enabled" v-model="editingHospital.address.regionId" v-on:change="selectedRegionChanged">
                                 <option value="" v-if="regions.length">@Localizer[nameof(Resources.SelectRegion)]</option>
                                 <option v-for="r in regions" :key="r.id" :value="r.id">{{ r.name }}</option>
@@ -117,7 +117,7 @@
                     <div :class="[{'pt-2':districtsLoading || !editing}, editing ? 'col-lg-7' : 'col-7']">
                         <div v-if="editing">
                             <span v-if="districtsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
-                            <select v-else class="form-control" asp-for="Hospital.Address.DistrictId"
+                            <select v-else class="custom-select" asp-for="Hospital.Address.DistrictId"
                                     :disabled="!enabled" v-model="editingHospital.address.districtId" v-on:change="selectedDistrictChanged">
                                 <option value="" v-if="districts.length">@Localizer[nameof(Resources.SelectDistrict)]</option>
                                 <option v-for="d in districts" :key="d.id" :value="d.id">{{ d.name }}</option>
@@ -134,7 +134,7 @@
                         <div v-if="editing">
                             <span v-if="citiesLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                             <div v-else>
-                                <select v-if="filteredCities.length < 50" class="form-control" asp-for="Hospital.Address.CityId"
+                                <select v-if="filteredCities.length < 50" class="custom-select" asp-for="Hospital.Address.CityId"
                                         :disabled="!enabled" v-model="editingHospital.address.cityId" v-on:change="selectedCityChanged">
                                     <option value="" v-if="cities.length">@Localizer[nameof(Resources.SelectCity)]</option>
                                     <option value="$reset" v-if="cities.length">@Localizer[nameof(Resources.ResetSearch)]</option>
@@ -153,7 +153,7 @@
                     <div :class="[{'pt-2': streetsLoading || !editing}, editing ? 'col-lg-7' : 'col-7']">
                         <div v-if="editing">
                             <span v-if="streetsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
-                            <select v-else class="form-control" asp-for="Hospital.Address.StreetId"
+                            <select v-else class="custom-select" asp-for="Hospital.Address.StreetId"
                                     :disabled="!enabled" v-model="editingHospital.address.streetId" v-on:change="selectedStreetChanged">
                                 <option v-if="streets.length" value="">@Localizer[nameof(Resources.SelectStreet)]</option>
                                 <option v-for="s in streets" :key="s.id" :value="s.id">{{ s.name }}</option>
@@ -194,7 +194,7 @@
                     <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <div v-if="editing">
                             <div><span asp-validation-for="Hospital.HospitalTypeId" class="text-danger"></span></div>
-                            <select class="form-control" asp-for="Hospital.HospitalTypeId"
+                            <select class="custom-select" asp-for="Hospital.HospitalTypeId"
                                 asp-items="@new SelectList(Model.HospitalTypes, nameof(HospitalType.Id), nameof(HospitalType.Name))"
                                 :disabled="!enabled" v-model="editingHospital.hospitalTypeId">
                                 <option value="">@Localizer[nameof(Resources.SelectHospitalType)]</option>
@@ -210,7 +210,7 @@
                     <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <div v-if="editing">
                             <div><span asp-validation-for="Hospital.PropertyTypeId" class="text-danger"></span></div>
-                            <select class=" form-control" asp-for="Hospital.PropertyTypeId"
+                            <select class="custom-select" asp-for="Hospital.PropertyTypeId"
                                     asp-items="@new SelectList(Model.PropertyTypes, nameof(PropertyType.Id), nameof(PropertyType.Name))"
                                     :disabled="!enabled" v-model="editingHospital.propertyTypeId">
                                 <option value="">@Localizer[nameof(Resources.SelectPropertyType)]</option>

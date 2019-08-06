@@ -14,6 +14,12 @@ if (!store.state['caseHistory']) {
             },
             addDiagnosysToPatient(state, diagnosys) {
                 state.history.patient.diagnoses.push(diagnosys);
+            },
+            setDiagnosysInactive(state, diagnosysId) {
+                let index = state.history.diagnoses.findIndex(d => d.diagnosysId == diagnosysId);
+                let diagnosis = state.history.diagnoses[index];
+                diagnosis.active = false;
+                Vue.set(state.history.diagnoses, index, diagnosys);
             }
         }
     };

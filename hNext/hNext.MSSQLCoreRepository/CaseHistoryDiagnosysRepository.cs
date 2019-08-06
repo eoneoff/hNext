@@ -17,7 +17,7 @@ namespace hNext.MSSQLCoreRepository
 
         public override async Task<CaseHistoryDiagnosys> Post(CaseHistoryDiagnosys history)
         {
-            dbSet.Update(history);
+            dbSet.Add(history);
             await db.SaveChangesAsync();
             return await dbSet.
                 Include(h => h.Diagnosys).ThenInclude(d => d.ICD)

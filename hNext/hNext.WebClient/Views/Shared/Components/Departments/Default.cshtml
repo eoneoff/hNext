@@ -58,7 +58,7 @@
                     <div :class="editing ? 'col-lg-7' : 'col-7'">
                         <div v-if="editing">
                             <div><span asp-validation-for="Department.HospitalId" class="text-danger"></span></div>
-                            <select class="form-control" asp-for="Department.HospitalId" :disabled="!enabled" v-model="editingDepartment.hospitalId">
+                            <select class="custom-select" asp-for="Department.HospitalId" :disabled="!enabled" v-model="editingDepartment.hospitalId">
                                 <option value=''>@Localizer[nameof(Resources.SelectHospital)]</option>
                                 <option v-for="h in hospitals" :key="h.id" :value="h.id">{{ h.name }}</option>
                             </select>

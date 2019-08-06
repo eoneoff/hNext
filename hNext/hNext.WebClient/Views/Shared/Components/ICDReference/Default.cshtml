@@ -8,13 +8,16 @@
         <div class="d-flex flex-column show-panel modal-window-show-panel h-100">
             <div class="d-flex flex-row">
                 <div style="position:relative;" class="flex-grow-1">
-                    <input class="form-control w-100" v-model="searchQuery" />
-                    <button style="position:absolute; top:0%; right:0%" :style="{zIndex:level*1000+10}"
-                            class="h-100 btn btn-link" @@click.stop.prevent="searchQuery = ''">
-                     <i class="fa fa-times"></i>
-                    </button>
-                </div>
-                <i class="fa fa-search align-self-center mx-2" style="font-size:larger;"></i>
+                    <div class="input-group">
+                        <input class="form-control" v-model="searchQuery" />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary h-100" @@click.stop.prevent="searchQuery = ''">
+                                <i class="fa fa-times"></i>
+                            </button>
+                            <i class="fa fa-search align-self-center mx-2" style="font-size:larger;"></i>
+                        </div>
+                    </div>
+                </div>                
             </div>
             <div class="flex-grow-1 my-2" style="max-height:80vh; overflow-y:auto">
                 <div class="accordion" id="icdaccordion" v-if="searchQuery.length < 3">

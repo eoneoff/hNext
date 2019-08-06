@@ -22,6 +22,9 @@ namespace hNext.Model
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
         public DateTime? Date { get; set; }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Type))]
         public byte? Type { get; set; }
 
         [Display(ResourceType = typeof(Resources),

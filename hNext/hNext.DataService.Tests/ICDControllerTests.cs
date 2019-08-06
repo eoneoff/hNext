@@ -12,7 +12,7 @@ namespace hNext.DataService.Tests
     [TestClass]
     public class ICDControllerTests
     {
-        private Mock<IGetter<ICD>> repository = new Mock<IGetter<ICD>>();
+        private Mock<IICDRepository> repository = new Mock<IICDRepository>();
         private ICDController controller;
 
         public ICDControllerTests()
@@ -31,6 +31,19 @@ namespace hNext.DataService.Tests
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(IEnumerable<ICD>));
+        }
+
+        [TestMethod]
+        public void SearchReturnsICD()
+        {
+            //Arrange
+            repository.Setup(r => r.Search(It.IsAny<ICD>())).ReturnsAsync(new ICD());
+
+            //Act
+            var result = controller.Search(new ICD()).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(ICD));
         }
     }
 }

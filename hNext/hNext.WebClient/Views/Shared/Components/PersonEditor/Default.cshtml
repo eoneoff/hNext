@@ -66,7 +66,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <div><span asp-validation-for="Person.GenderId" class="text-danger"></span></div>
-                                <select class="form-control" asp-for="Person.GenderId"
+                                <select class="custom-select" asp-for="Person.GenderId"
                                         asp-items="@new SelectList(Model.Genders, nameof(Gender.Id), nameof(Gender.Name))"
                                         :disabled="!enabled" v-model="person.genderId">
                                     <option value="">@Localizer[nameof(Resources.SelectGender)]</option>
@@ -86,7 +86,7 @@
                                 <label asp-for="Person.CountryOfBirthId" class="col-form-label text-left text-lg-right"></label>
                             </div>
                             <div class="col-lg-8">
-                                <select class="form-control" asp-for="Person.CountryOfBirthId"
+                                <select class="custom-select" asp-for="Person.CountryOfBirthId"
                                         asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
                                         :disabled="!enabled" v-model="person.countryOfBirthId">
                                     <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
@@ -101,7 +101,7 @@
                                 <span v-if="placesOfBirthLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
                                 <div v-else>
                                     <input class="form-control" v-if="filteredPlacesOfBirth.length > 50" v-model="placeOfBirthName" :disabled="!enabled" />
-                                    <select v-if="filteredPlacesOfBirth.length <= 50" class="form-control" asp-for="Person.PlaceOfBirthId"
+                                    <select v-if="filteredPlacesOfBirth.length <= 50" class="custom-select" asp-for="Person.PlaceOfBirthId"
                                             asp-items="@new SelectList(Model.PlacesOfBirth, nameof(City.Id), nameof(City.Name))"
                                             :disabled="!enabled || !placesOfBirth.length" v-model="person.placeOfBirthId">
                                         <option value="0">@Localizer[nameof(Resources.ResetSearch)]</option>
@@ -127,7 +127,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <div><span asp-validation-for="Person.Address.CountryId" class="text-danger"></span></div>
-                                <select class="form-control" asp-for="Person.Address.CountryId"
+                                <select class="custom-select" asp-for="Person.Address.CountryId"
                                         asp-items="@new SelectList(Model.Countries, nameof(Country.Id), nameof(Country.Name))"
                                         :disabled="!enabled" v-model="person.address.countryId" v-on:change="selectedCountryChanged">
                                     <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
@@ -140,7 +140,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <span v-if="regionsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
-                                <select class="form-control" asp-for="Person.Address.RegionId" v-else v-on:change="selectedRegionChanged"
+                                <select class="custom-select" asp-for="Person.Address.RegionId" v-else v-on:change="selectedRegionChanged"
                                         asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))"
                                         :disabled="!enabled || regions.length < 1" v-model="person.address.regionId">
                                     <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
@@ -154,7 +154,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <span v-if="districtsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
-                                <select class="form-control" asp-for="Person.Address.DistrictId"
+                                <select class="custom-select" asp-for="Person.Address.DistrictId"
                                         asp-items="@new SelectList(Model.Districts, nameof(District.Id),nameof(District.Name))"
                                         v-else :disabled="!enabled || districts.length < 1" v-model="districtId" v-on:change="selectedDistrictChanged">
                                     <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
@@ -171,7 +171,7 @@
                                 <div v-else>
                                     <input class="form-control" v-if="filteredCities.length > 50" v-model="cityName" :disabled="!enabled" />
                                     <div><span asp-validation-for="Person.Address.CityId" class="text-danger"></span></div>
-                                    <select v-if="filteredCities.length <= 50" class="form-control" asp-for="Person.Address.CityId"
+                                    <select v-if="filteredCities.length <= 50" class="custom-select" asp-for="Person.Address.CityId"
                                             asp-items="@new SelectList(Model.Cities, nameof(City.Id), nameof(City.Name))"
                                             :disabled="!enabled" v-model="person.address.cityId" v-on:change="selectedCityChanged">
                                         <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
@@ -189,7 +189,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <span v-if="streetsLoading">@Localizer[nameof(Resources.PleaseWait)]</span>
-                                <select class="form-control" asp-for="Person.Address.StreetId"
+                                <select class="custom-select" asp-for="Person.Address.StreetId"
                                         asp-items="@new SelectList(Model.Streets, nameof(Street.Id), nameof(Street.Name))"
                                         v-else :disabled="!enabled && streets.length" v-model="person.address.streetId">
                                     <option value="">@Localizer[nameof(Resources.SelectStreet)]</option>
