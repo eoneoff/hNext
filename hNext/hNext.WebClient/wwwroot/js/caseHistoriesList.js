@@ -40,6 +40,12 @@ Vue.component("CaseHistoriesList", {
         date: function (history) {
             return this.$options.filters.shortDate(history.admitted)
                 + (history.discharged ? ` - ${this.$options.filters.shortDate(history.discharged)}` : '');
+        },
+        openHistory: function(id) {
+            window.open(`casehistories/${id}`, "_blank");
+        },
+        currentDepartment(admissions) {
+            return (admissions.find(a => !a.discharged).department || {}).name || '';
         }
     },
     watch: {

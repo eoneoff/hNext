@@ -16,7 +16,7 @@ namespace hNext.DataService.Tests
         private Mock<IDepartmentRepository> repository = new Mock<IDepartmentRepository>();
         private Mock<IRepository<DepartmentPhone>> phoneRepository = new Mock<IRepository<DepartmentPhone>>();
         private Mock<IRepository<DepartmentEmail>> emailRepository = new Mock<IRepository<DepartmentEmail>>();
-        private Mock<IDepartmentSpecialtyRepository> specialtyRepository = new Mock<IDepartmentSpecialtyRepository>();
+        private Mock<IRepository<DepartmentSpecialty>> specialtyRepository = new Mock<IRepository<DepartmentSpecialty>>();
         private Mock<IGetter<Specialty>> specialtyGetter = new Mock<IGetter<Specialty>>();
         private DepartmentsController controller;
 

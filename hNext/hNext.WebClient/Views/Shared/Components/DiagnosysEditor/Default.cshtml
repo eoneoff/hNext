@@ -1,0 +1,73 @@
+﻿@model Diagnosys
+
+<script>
+    const WRONG_ICD = $('<div/>').html('@Localizer[nameof(Resources.WrongICD)]').text();
+    const EMPTY_ICD = $('<div/>').html('@Localizer[nameof(Resources.EmptyICD)]').text();
+</script>
+
+<template id="diagnosys-editor-template">
+    <form class="modal-window" :style="{zIndex:level*1000}">
+        <icd-reference v-if="showReference" :level="level+1" @@cancel="showReference=false" @@save="getICDCode"></icd-reference>
+        <confirmation-dialog v-if="showSaveConfirmation" :level="level+1" @@yes="$emit('save', diagnosys)" @@no="showSaveConfirmation = false">
+            @Localizer[nameof(Resources.SaveAndExit)]
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showCancelConfirmation" :level="level+1" @@yes="$emit('cancel')" @@no="showCancelConfirmation = false">
+            @Localizer[nameof(Resources.CancelAndExit)]
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showIcdConfirmation" :level="level+1" @@no="showIcdConfirmation = false"
+                             @@yes="">
+            <span>{{ icdConfirmationText }}</span>&nbsp;@Localizer[nameof(Resources.SaveWithoutICD)]? 
+        </confirmation-dialog>
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="d-flex flex-column show-panel modal-window-show-panel">
+            <div class="form-group row mx-0 align-items-lg-end mt-2">
+                <label class="col-lg-3 align-self-lg-start col-form-label text-left text-lg-right h-100" asp-for="Name"></label>
+                <div class="col-lg-9">
+                    <div><span asp-validation-for="Name"></span></div>
+                    <textarea asp-for="Name" class="form-control" v-model="diagnosys.name"></textarea>
+                </div>
+            </div>
+            <div class="form-group row mx-0">
+                <label asp-for="ICDId" class="col-lg-3 text-left text-lg-right align-self-lg-end"></label>
+                <div class="col-lg-9 d-flex flex-row">
+                    <template v-if="editMode">
+                        <select asp-for="ICD.Letter" class="custom-select" style="width:3rem;" v-model="icd.letter">
+                            @foreach (var letter in Enumerable.Range('A', 'Z' - 'A'))
+                            {
+                                <option value="@(((char)letter).ToString())">@(((char)letter).ToString())</option>
+                            }
+                        </select>
+                        <input asp-for="ICD.PrimaryNumber" min="0" max="99" class="form-control mx-1" style="width:4rem;" v-model="icd.primaryNumber"/>
+                        <span class="align-self-end">.</span>
+                        <input asp-for="ICD.SecondaryNumber" min="0" max="9" class="form-control mx-1" style="width:3rem;" v-model="icd.secondaryNumber"/>
+                    </template>
+                    <span v-else>{{ ICDCode }}</span>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <div class="col d-flex flex-row">
+                    <div class="flex-grow-1">
+                        <button class="btn btn-primary w-100" :disabled="!enabled"
+                                @@click.stop.prevent="reference">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="custom-control custom-switch align-self-center ml-2">
+                        <input type="checkbox" class="custom-control-input" id="mode-switch" :disabled="!enabled" v-model="editMode" />
+                        <label class="custom-control-label" for="mode-switch">
+                            <i class="fa fa-pen" style="font-size:larger;"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row flex-nowrap justify-content-between justify-content-lg-end mt-2 mx-3">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="cancel">@Localizer[nameof(Resources.Cancel)]</button>
+            </div>
+        </div>
+    </form>
+</template>

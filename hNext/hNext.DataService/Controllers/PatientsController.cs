@@ -16,10 +16,13 @@ namespace hNext.DataService.Controllers
     public class PatientsController : Controller
     {
         private IPatientsRepository _repository;
+        private IRepository<PatientDiagnosys> _diagnosysRepository;
 
-        public PatientsController(IPatientsRepository repository)
+        public PatientsController(IPatientsRepository repository,
+                                    IRepository<PatientDiagnosys> diagnosysRepository)
         {
             _repository = repository;
+            _diagnosysRepository = diagnosysRepository;
         }
 
         // GET: api/<controller>
@@ -62,6 +65,39 @@ namespace hNext.DataService.Controllers
             }
 
             return Ok(await _repository.Put(patient));
+        }
+
+        [HttpGet("{id:long}/diagnoses")]
+        public async Task<IEnumerable<PatientDiagnosys>> GetDiagnoses(long id) =>
+            await _repository.GetDiagnoses(id);
+
+        [HttpPost("{id:long}/diagnoses/")]
+        public async Task<IActionResult> AddDiagnosys(long id, PatientDiagnosys diagnosys)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(! await _repository.Exists(id) || await _diagnosysRepository.Exists(id, diagnosys.DiagnosysId))
+            {
+                return BadRequest();
+            }
+
+            diagnosys.PatientId = id;
+
+            return Ok(await _diagnosysRepository.Post(diagnosys));
+        }
+
+        [HttpDelete("{id:long}/diagnoses/{diagnosysId:long}")]
+        public async Task<IActionResult> RemoveDiagnosys(long id, long diagnosysId)
+        {
+            if (!await _diagnosysRepository.Exists(id, diagnosysId))
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _diagnosysRepository.Delete(id, diagnosysId));
         }
     }
 }

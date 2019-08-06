@@ -1,0 +1,74 @@
+﻿@model CaseHistoryDiagnosys
+
+<template id="case-history-diagnosys-editor-template">
+    <form class="modal-window" :style="{zIndex:level*1000}">
+        <patient-diagnosys-editor v-if="showDiagnosysEditor" :level="level+1" :initial-enabled="enabled" :patient-id="patientId"
+                                  @@save="addDiagnosys" @@cancel="showDiagnosysEditor = false"></patient-diagnosys-editor>
+        <confirmation-dialog v-if="showSaveConfirmation" :level="level+1" :initial-enabled="enabled"
+                             @@yes="$emit('save', diagnosys)" @@no="showSaveConfirmation = false">
+            @Localizer[nameof(Resources.SaveAndExit)]?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showCancelConfirmation" :level="level+1" :initial-enabled="enabled"
+                             @@yes ="$emit('cancel')" @@no="showCancelConfirmation = false">
+            @Localizer[nameof(Resources.CancelAndExit)]?
+        </confirmation-dialog>
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="d-flex flex-column show-panel modal-window-show-panel">
+            <div class="form-group row mx-0 align-items-lg-end mt-2">
+                <label class="col-lg-3 col-form-label text-left text-lg-right" asp-for="DiagnosysId"></label>
+                <div class="col-lg-9">
+                    <div><span asp-validation-for="DiagnosysId"></span></div>
+                    <select class="custom-select" asp-for="DiagnosysId" v-model="diagnosys.diagnosysId">
+                        <option value="">@Localizer[nameof(Resources.SelectDiagnosys)]</option>
+                        <option v-for="d in diagnoses" :key="d.diagnosysId" :value="d.diagnosysId">
+                            {{ `${d.diagnosys.name} ${getICD(d.diagnosys)}` }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <div class="col d-flex flex-row justify-content-end">
+                    <button class="btn btn-primary flex-grow-1 flex-lg-grow-0" :disabled="!enabled" @@click.stop.prevent="showDiagnosysEditor = true">
+                        @($"{Localizer[nameof(Resources.Add)]} {Localizer[nameof(Diagnosys)].Value.ToLower()}")
+                    </button>
+                </div>
+            </div>
+            <div class="form-group row mx-0 mt-lg-3">
+                <label class="col-lg-3 col-form-label text-left text-lg-right" asp-for="Date"></label>
+                <div class="col-lg-9">
+                    <input asp-for="Date" class="form-control" v-model="diagnosys.date"/>
+                </div>
+            </div>
+            <div class="form-group row mx-0 mt-lg-3">
+                <label class="col-lg-3 col-form-label text-left text-lg-right text-nowrap" asp-for="WhenSet"></label>
+                <div class="col-lg-9">
+                    <select asp-for="WhenSet" class="custom-select" v-model="diagnosys.whenSet">
+                        <option value="">@Localizer[nameof(Resources.WhenSet)]</option>
+                        <option value="1">@Localizer[nameof(Resources.OnAdmissionDiagnosys)]</option>
+                        <option value="2">@Localizer[nameof(Resources.IntermediateDiagnosys)]</option>
+                        <option value="3">@Localizer[nameof(Resources.FinalDiagnosys)]</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <label class="col-lg-3 col-form-label text-left text-lg-right text-nowrap" asp-for="Type"></label>
+                <div class="col-lg-9">
+                    <select asp-for="Type" class="custom-select" v-model="diagnosys.type">
+                        <option value="">@Localizer[nameof(Resources.Type)]</option>
+                        <option value="1">@Localizer[nameof(Resources.PrimaryDiagnosys)]</option>
+                        <option value="2">@Localizer[nameof(Resources.ConcurrendDiagnosys)]</option>
+                        <option value="3">@Localizer[nameof(Resources.ComplicationDiagnosys)]</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex flex-row flex-nowrap justify-content-between justify-content-lg-end mt-2 mx-3">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="cancel">@Localizer[nameof(Resources.Cancel)]</button>
+            </div>
+        </div>
+    </form>
+</template>

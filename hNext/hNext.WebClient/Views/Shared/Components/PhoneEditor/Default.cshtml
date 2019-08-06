@@ -34,7 +34,7 @@
                     <td><label asp-for="Phone.PhoneTypeId" class="col-sm-4 col-form-label"></label></td>
                     <td class="align-middle">
                         <div><span asp-validation-for="Phone.PhoneTypeId"></span></div>
-                        <select class="form-control" asp-for="Phone.PhoneTypeId"
+                        <select class="custom-select" asp-for="Phone.PhoneTypeId"
                                 asp-items="@new SelectList(Model.PhoneTypes, nameof(PhoneType.Id), nameof(PhoneType.Name))"
                                 :disabled="!enabled" v-model="phone.phone.phoneTypeId">
                             <option value="">@Localizer[nameof(Resources.SelectPhoneType)]</option>

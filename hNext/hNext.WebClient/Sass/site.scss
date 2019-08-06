@@ -201,13 +201,20 @@ footer{
 .btn:active,
 .btn:active:focus,
 .btn.active:focus,
-.btn.active.focus {
+.btn.active.focus,
+.btn.focus {
     outline: none !important;
     box-shadow: none;
 }
 
-.btn:active{
-    transform:scale(0.95, 0.95)
+.btn:active,
+.btn.active {
+    transform: scale(0.95, 0.95);
+}
+
+.btn-group-toggle .btn.active {
+    background-image:$default-button-toggle-background;
+    border-width:2px 3px 3px 2px;
 }
 
 .btn-primary{

@@ -1,5 +1,4 @@
-﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<Resources> Localizer
-@model ApplicationViewModel
+﻿@model ApplicationViewModel
 
 @{
     ViewData["Title"] = $"hNext — {Localizer[nameof(Resources.MedicalInformationSystem)]}";
@@ -13,6 +12,7 @@
 @section Scripts
     {
     <script>
+        "use strict";
         const START_TAB = '@Model.Tabs.First().Key';
         const START_SIDE_TAB = '@Model.SideBar.First().Key';
     </script>

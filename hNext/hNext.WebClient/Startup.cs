@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Framework.WebEncoders;
 
 namespace hNext.WebClient
 {
@@ -48,6 +49,7 @@ namespace hNext.WebClient
             services.AddScoped(typeof(IGetter<>), typeof(Getter<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICaseHistoryRepository, CaseHistoryRepository>();
             services.AddSingleton<IValidationAttributeAdapterProvider, Infrastructure.Validators.ValidationAttrubuteAdapterProvider>();
             //services.Configure<CookiePolicyOptions>(options =>
             //{

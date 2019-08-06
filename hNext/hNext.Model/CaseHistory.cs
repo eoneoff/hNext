@@ -25,10 +25,6 @@ namespace hNext.Model
             Name = nameof(Resources.Hospital))]
         public int HospitalId { get; set; }
 
-        [Display(ResourceType = typeof(Resources),
-            Name = nameof(Resources.Department))]
-        public int? DepartmentId { get; set; }
-
         [Required(ErrorMessageResourceType = typeof(Resources),
             ErrorMessageResourceName = nameof(Resources.EnterDate))]
         [Display(ResourceType = typeof(Resources),
@@ -65,12 +61,11 @@ namespace hNext.Model
 
         public virtual Patient Patient { get; set; }
         public virtual Hospital Hospital { get; set; }
-
-        [ForeignKey(nameof(DepartmentId))]
-        public virtual Department Department { get; set; }
         public virtual Hospital ReferredBy { get; set; }
 
         [ForeignKey(nameof(Id))]
         public virtual DocumentRegistry DocumentRegistry { get; set; }
+        public virtual ICollection<CaseHistoryAdmission> Admissions { get; set; }
+        public virtual ICollection<CaseHistoryDiagnosys> Diagnoses { get; set; }
     }
 }

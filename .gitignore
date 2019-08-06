@@ -336,3 +336,5 @@ Blog
 About
 
 *.zip
+
+.vscode/

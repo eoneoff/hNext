@@ -24,7 +24,7 @@
                         <td class="align-bottom text-right"><label asp-for="Document.DocumentTypeId"></label></td>
                         <td>
                             <div><span asp-validation-for="Document.DocumentTypeId" class="text-danger"></span></div>
-                            <select class="form-control" asp-for="Document.DocumentTypeId"
+                            <select class="custom-select" asp-for="Document.DocumentTypeId"
                                     asp-items="@new SelectList(Model.DocumentTypes, nameof(DocumentType.Id), nameof(DocumentType.Name))"
                                     :disabled="!enabled" v-model="document.documentTypeId">
                                 <option value="0">@Localizer[nameof(Resources.SelectType)]</option>

@@ -15,12 +15,12 @@
                 <label  asp-for="Search.Name" class="mr-md-2"></label>
                 <input :disabled="!enabled || searching" class="form-control mr-md-3" v-model="searchModel.name"/>
                 <label asp-for="Search.SpecialtyId" class="mt-2 mt-md-0 mr-md-2"></label>
-                <select :disabled="!enabled || searching" class="form-control mr-md-3" v-model="searchModel.specialtyId"
+                <select :disabled="!enabled || searching" class="custom-select mr-md-3" v-model="searchModel.specialtyId"
                         asp-items="@new SelectList(Model.Specialties, nameof(Specialty.Id), nameof(Specialty.Name))">
                     <option value="">@Localizer[nameof(Resources.SelectSpecialty)]</option>
                 </select>
                 <label asp-for="Search.HospitalId" class="mt-2 mt-md-0 mr-md-3"></label>
-                <select :disabled="!enabled || searching" class="form-control mr-md-2 mb-2 mb-lg-0" v-model="searchModel.hospitalId">
+                <select :disabled="!enabled || searching" class="custom-select mr-md-2 mb-2 mb-lg-0" v-model="searchModel.hospitalId">
                     <option value="">@Localizer[nameof(Resources.SelectHospital)]</option>
                     <option v-for="h in hospitals" :key="h.id" :value="h.id">
                         {{ h.name }}

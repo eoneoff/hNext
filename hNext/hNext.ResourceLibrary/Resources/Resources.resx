@@ -567,4 +567,79 @@
   <data name="Add" xml:space="preserve">
     <value>Додати</value>
   </data>
+  <data name="GeneralInfo" xml:space="preserve">
+    <value>Загальна інформація</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>день</value>
+  </data>
+  <data name="DaysGen2_4" xml:space="preserve">
+    <value>дні</value>
+  </data>
+  <data name="DaysGen5_" xml:space="preserve">
+    <value>днів</value>
+  </data>
+  <data name="RoutineHospitalization" xml:space="preserve">
+    <value>планова</value>
+  </data>
+  <data name="UrgentHospitalization" xml:space="preserve">
+    <value>термінова</value>
+  </data>
+  <data name="Diagnoses" xml:space="preserve">
+    <value>Діагнози</value>
+  </data>
+  <data name="Diagnosys" xml:space="preserve">
+    <value>Діагноз</value>
+  </data>
+  <data name="EnterDiagnosys" xml:space="preserve">
+    <value>Введіть діагноз</value>
+  </data>
+  <data name="ComplicationDiagnosys" xml:space="preserve">
+    <value>ускладнення</value>
+  </data>
+  <data name="ConcurrendDiagnosys" xml:space="preserve">
+    <value>супутній</value>
+  </data>
+  <data name="DoctorInCharge" xml:space="preserve">
+    <value>Лікуючий лікар</value>
+  </data>
+  <data name="FinalDiagnosys" xml:space="preserve">
+    <value>заключний</value>
+  </data>
+  <data name="IntermediateDiagnosys" xml:space="preserve">
+    <value>проміжний</value>
+  </data>
+  <data name="OnAdmissionDiagnosys" xml:space="preserve">
+    <value>при надходженні</value>
+  </data>
+  <data name="PrimaryDiagnosys" xml:space="preserve">
+    <value>первинний</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Перевод</value>
+  </data>
+  <data name="Transfers" xml:space="preserve">
+    <value>Переводи</value>
+  </data>
+  <data name="SelectDiagnosys" xml:space="preserve">
+    <value>Оберіть діагноз</value>
+  </data>
+  <data name="WhenSet" xml:space="preserve">
+    <value>Коли встановлений</value>
+  </data>
+  <data name="ICD" xml:space="preserve">
+    <value>МКХ</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Довідка</value>
+  </data>
+  <data name="EmptyICD" xml:space="preserve">
+    <value>Код МКХ не введено</value>
+  </data>
+  <data name="SaveWithoutICD" xml:space="preserve">
+    <value>Зберегти діагноз без коду МКХ</value>
+  </data>
+  <data name="WrongICD" xml:space="preserve">
+    <value>Введений код МКХ не існує</value>
+  </data>
 </root>

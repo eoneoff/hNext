@@ -20,7 +20,7 @@
                     <div class="col-lg-10">
                         <div><span asp-validation-for="DoctorSpecialty.SpecialtyId" class="text-danger"></span></div>
                         <select asp-items="@new SelectList(Model.Specialties, nameof(Specialty.Id), nameof(Specialty.Name))"
-                                class="form-control" asp-for="DoctorSpecialty.SpecialtyId" v-model="specialty.specialtyId">
+                                class="custom-select" asp-for="DoctorSpecialty.SpecialtyId" v-model="specialty.specialtyId">
                             <option value="">@Localizer[nameof(Resources.SelectSpecialty)]</option>
                         </select>
                     </div>
@@ -28,7 +28,7 @@
                 <div class="form-group row mx-0">
                     <label class="col-lg-2 col-form-label text-left text-lg-right" asp-for="DoctorSpecialty.Category"></label>
                     <div class="col-lg-10">
-                        <select class="form-control" v-model="specialty.category">
+                        <select class="custom-select" v-model="specialty.category">
                             <option value="">@Localizer[nameof(Resources.SelectCategory)]</option>
                             <option value="1">@Localizer[nameof(Resources.Category1)]</option>
                             <option value="1">@Localizer[nameof(Resources.Category2)]</option>

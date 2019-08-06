@@ -27,5 +27,6 @@ namespace hNext.Model
         public virtual Person Person { get; set; }
 
         public virtual ICollection<CaseHistory> CaseHistories { get; set; }
+        public virtual ICollection<PatientDiagnosys> Diagnoses { get; set; }
     }
 }

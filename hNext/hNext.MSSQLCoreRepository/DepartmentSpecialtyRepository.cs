@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace hNext.MSSQLCoreRepository
 {
-    public class DepartmentSpecialtyRepository : Repository<DepartmentSpecialty>, IDepartmentSpecialtyRepository
+    public class DepartmentSpecialtyRepository : Repository<DepartmentSpecialty>
     {
         public DepartmentSpecialtyRepository(hNextDbContext db) : base(db)
         {

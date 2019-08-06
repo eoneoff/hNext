@@ -16,10 +16,10 @@ namespace hNext.DataService.Controllers
         private IDepartmentRepository _repository;
         private IRepository<DepartmentPhone> _phoneRepository;
         private IRepository<DepartmentEmail> _emailRepository;
-        private IDepartmentSpecialtyRepository _specialtyRepository;
+        private IRepository<DepartmentSpecialty> _specialtyRepository;
         private IGetter<Specialty> _specialtyGetter;
 
-        public DepartmentsController(IDepartmentRepository repository, IDepartmentSpecialtyRepository specialtyRepository,
+        public DepartmentsController(IDepartmentRepository repository, IRepository<DepartmentSpecialty> specialtyRepository,
             IRepository<DepartmentPhone> phoneRepository, IRepository<DepartmentEmail> emailRepository, IGetter<Specialty> specialtyGetter)
         {
             _repository = repository;

@@ -80,7 +80,7 @@ class DataClient {
     }
 
     async checkPhoneExists(number) {
-        number = number.replace('+', '$$plus$$')
+        number = number.replace('+', '$$plus$$');
         return (await this._client.get(
             `phones/exists/${number}`
         )).data;
@@ -427,6 +427,80 @@ class DataClient {
         return (await this._client.post(
             `casehistories`,
             history
+        )).data;
+    }
+
+    async getCaseHistory(id) {
+        return (await this._client.get(
+            `casehistories/${id}`
+        )).data;
+    }
+
+    async getCaseHistoryInfo(id) {
+        return (await this._client.get(
+            `casehistories/${id}/info`
+        )).data;
+    }
+    
+    async addDiagnosys(diagnosys) {
+        return (await this_client.post(
+            'diagnoses',
+            diagnosys
+        )).data;
+    }
+
+    async getDiagnosesOfPatient(patientId) {
+        return (await this._client.get(
+            `patients/${patiendId}/diagnoses`
+        )).data;
+    }
+
+    async addDiagnosysToPatient(diagnosys) {
+        return (await this._client.post(
+            `patients/${diagnosys.patientId}/diagnoses`,
+            diagnosys
+        )).data;
+    }
+
+    async removeDiagnosysFromPatient(diagnosys) {
+        return (await this._client.delete(
+            `patients/${diagnosys.patientId}/diagnoses/${diagnosys.diagnosysId}`
+        )).data;
+    }
+
+    async addDiagnosysToCaseHistory(diagnosys) {
+        return (await this._client.post(
+            `casehistories/${diagnosys.caseHistoryId}/diagnoses`,
+            diagnosys
+        )).data;
+    }
+
+    async removeDiagnosysFromCaseHistory(diagnosis) {
+        return (await this._client.delete(
+            `casehistories/${diagnosis.caseHistoryId}/diagnoses/${diagnosis.diagnosysId}`
+        )).data;
+    }
+
+    async getDiagnoses() {
+        return (await this._client.get(
+            'diagnoses'
+        )).data;
+    }
+
+    async addDiagnosys(diagnosys) {
+        return (await this._client.post(
+            'diagnoses', diagnosys
+        )).data;
+    }
+
+    async getICD() {
+        return (await this._client.get('icd')).data;
+    }
+
+    async searchICD(icd) {
+        return (await this._client.post(
+            'icd/search',
+            icd
         )).data;
     }
 }

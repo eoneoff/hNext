@@ -9,6 +9,7 @@ using hNext.ResourceLibrary.Resources;
 using hNext.WebClient.Components;
 using Microsoft.Extensions.Localization;
 using hNext.WebClient.Infrastructure;
+using hNext.IRepository;
 
 namespace hNext.WebClient.Controllers
 {

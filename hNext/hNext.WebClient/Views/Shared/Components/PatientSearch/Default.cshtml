@@ -16,17 +16,14 @@
                 <div class="form-group row flex-md-nowrap flex-sm-fill">
                     <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.YearOfBirth"></label>
                     <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
-                        <select class="form-control" asp-for="Search.YearOfBirth"
-                                asp-items="@new SelectList(Enumerable.Range(DateTime.Today.Year-119, 120).Reverse())"
-                                v-model="model.yearOfBirth" :disabled="searching || !enabled">
-                            <option value=""></option>
-                        </select>
+                        <input asp-for="Search.YearOfBirth" class="form-control" v-model="model.yearOfBirth" :disabled="searching || !enabled" 
+                               max="@DateTime.Today.Year" min="@(DateTime.Today.Year-120)"/>
                     </div>
                 </div>
                 <div class="form-group row flex-md-nowrap flex-fill">
                     <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.RegionId"></label>
                     <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
-                        <select class="form-control" asp-for="Search.RegionId"
+                        <select class="custom-select" asp-for="Search.RegionId"
                                 asp-items="@new SelectList(Model.Regions, nameof(Region.Id), nameof(Region.Name))"
                                 v-model="model.regionId" :disabled="searching || !enabled">
                             <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
@@ -36,7 +33,7 @@
                 <div class="form-group row flex-md-nowrap flex-fill">
                     <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.DistrictId"></label>
                     <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
-                        <select class="form-control" asp-for="Search.DistrictId"
+                        <select class="custom-select" asp-for="Search.DistrictId"
                                 v-model="model.districtId" :disabled="searching || !enabled">
                             <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
                             <option v-for="d in districts" :key="d.id" :value="d.id">{{ d.name }}</option>
@@ -47,7 +44,7 @@
                     <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1" asp-for="Search.CityId"></label>
                     <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
                         <input class="form-control" v-if="filteredCities.length > 50" v-model="cityName" :disabled="searching && !enabled"/>
-                        <select class="form-control" asp-for="Search.CityId" v-else v-model="model.cityId" :disabled="searching || !enabled">
+                        <select class="custom-select" asp-for="Search.CityId" v-else v-model="model.cityId" :disabled="searching || !enabled">
                             <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
                             <option value="$reset" v-if="cities.length">@Localizer[nameof(Resources.ResetSearch)]</option>
                             <option v-for="c in filteredCities" :key="c.id" :value="c.id">{{ c.name }}</option>
