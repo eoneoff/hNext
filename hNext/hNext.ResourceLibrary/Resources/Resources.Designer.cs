@@ -1195,6 +1195,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Зняти діагноз.
+        /// </summary>
+        public static string RemoveDiagnosys {
+            get {
+                return ResourceManager.GetString("RemoveDiagnosys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Скинути пошук.
         /// </summary>
         public static string ResetSearch {

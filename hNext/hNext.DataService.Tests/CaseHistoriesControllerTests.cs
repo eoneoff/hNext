@@ -15,11 +15,12 @@ namespace hNext.DataService.Tests
     {
         private Mock<ICaseHistoryRepository> repository = new Mock<ICaseHistoryRepository>();
         private Mock<IRepository<CaseHistoryDiagnosys>> diagnosesRepository = new Mock<IRepository<CaseHistoryDiagnosys>>();
+        private Mock<IRepository<CaseHistoryAdmission>> admissionRepository = new Mock<IRepository<CaseHistoryAdmission>>();
         private CaseHistoriesController controller;
 
         public CaseHistoriesControllerTests()
         {
-            controller = new CaseHistoriesController(repository.Object, diagnosesRepository.Object);
+            controller = new CaseHistoriesController(repository.Object, diagnosesRepository.Object, admissionRepository.Object);
         }
 
         [TestMethod]
@@ -132,6 +133,20 @@ namespace hNext.DataService.Tests
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(CaseHistoryDiagnosys));
+        }
+
+        [TestMethod]
+        public void AddAdmissionReturnsCaseHistoryAdmission()
+        {
+            //Arrange
+            admissionRepository.Setup(ar => ar.Post(It.IsAny<CaseHistoryAdmission>())).ReturnsAsync(new CaseHistoryAdmission());
+            repository.Setup(r => r.Exists(It.IsAny<object[]>())).ReturnsAsync(true);
+
+            //Act
+            var result = (controller.AddAdmission(1, new CaseHistoryAdmission()).Result as OkObjectResult)?.Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(CaseHistoryAdmission));
         }
     }
 }

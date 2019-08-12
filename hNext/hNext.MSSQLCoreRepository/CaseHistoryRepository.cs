@@ -22,12 +22,13 @@ namespace hNext.MSSQLCoreRepository
             {
                 return await dbSet
                     .Include(h => h.DocumentRegistry)
-                    .Include(h => h.Hospital)
+                    .Include(h => h.Hospital).ThenInclude(h => h.Departments)
                     .Include(h => h.Admissions).ThenInclude(a => a.Department)
                     .Include(h => h.Patient).ThenInclude(h => h.Person)
                     .Include(h => h.Patient).ThenInclude(h => h.Diagnoses)
                     .ThenInclude(d => d.Diagnosys).ThenInclude(d => d.ICD)
                     .Include(h => h.Diagnoses).ThenInclude(d => d.Diagnosys)
+                    .Include(h => h.Admissions).ThenInclude(a => a.Department)
                     .AsNoTracking().SingleOrDefaultAsync(h => h.Id == id);
             }
             else

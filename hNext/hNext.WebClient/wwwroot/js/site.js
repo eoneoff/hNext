@@ -481,6 +481,13 @@ class DataClient {
         )).data;
     }
 
+    async addAdmissionToCaseHistory(admission) {
+        return (await this._client.post(
+            `casehistories/${admission.caseHistoryId}/admissions`,
+            admission
+        )).data;
+    }
+
     async getDiagnoses() {
         return (await this._client.get(
             'diagnoses'

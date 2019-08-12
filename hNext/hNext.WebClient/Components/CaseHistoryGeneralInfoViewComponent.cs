@@ -15,6 +15,7 @@ namespace hNext.WebClient.Components
         {
             modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
             modules.Add(nameof(CaseHistoryDiagnosysEditorViewComponent).ViewComponentName());
+            modules.Add(nameof(CaseHistoryAdmissionEditorViewComponent).ViewComponentName());
 
             return View(history ?? new CaseHistory());
         }
