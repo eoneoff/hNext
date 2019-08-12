@@ -642,4 +642,7 @@
   <data name="WrongICD" xml:space="preserve">
     <value>Введений код МКХ не існує</value>
   </data>
+  <data name="RemoveDiagnosys" xml:space="preserve">
+    <value>Зняти діагноз</value>
+  </data>
 </root>

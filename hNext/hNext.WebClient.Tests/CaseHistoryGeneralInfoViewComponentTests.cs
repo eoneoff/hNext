@@ -44,13 +44,18 @@ namespace hNext.WebClient.Tests
         public void InvokeAddsNecessaryModules()
         {
             //Arrange
+            var mods = new List<string>
+            {
+                nameof(ConfirmationDialogViewComponent).ViewComponentName(),
+                nameof(CaseHistoryDiagnosysEditorViewComponent).ViewComponentName(),
+                nameof(CaseHistoryAdmissionEditorViewComponent).ViewComponentName()
+            };
 
             //Act
             var result = component.Invoke(modules);
 
             //Assert
-            CollectionAssert.Contains(modules, nameof(ConfirmationDialogViewComponent).ViewComponentName());
-            CollectionAssert.Contains(modules, nameof(CaseHistoryDiagnosysEditorViewComponent).ViewComponentName());
+            CollectionAssert.AreEquivalent(mods, modules);
         }
     }
 }

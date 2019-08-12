@@ -2,8 +2,15 @@
 
 <template id="case-history-general-info-template">
     <div class="d-flex flex-column">
-        <case-history-diagnosys-editor v-if="showDiagnosysEditor" :initial-enabled="enabled" :level="1"
+        <case-history-diagnosys-editor v-if="showDiagnosysEditor" :initial-enabled="enabled" level="1"
                                        @@save="saveDiagnosys" @@cancel="showDiagnosysEditor = false"></case-history-diagnosys-editor>
+        <confirmation-dialog v-if="showDiagnosysDeleteConfirmation" :initial-enabled="enabled" level="1"
+                             @@yes="removeConfirmed" @@no="showDiagnosysDeleteConfirmation = false">
+            {{ `@Localizer[nameof(Resources.RemoveDiagnosys)] ${selectedDiagnosys.diagnosys.name}?` }}
+        </confirmation-dialog>
+        <case-history-admission-editor v-if="showAdmissionEditor" level="1" :initial-enabled="enabled" @@save="addAdmission"
+                                       @@cancel="showAdmissionEditor = false">
+        </case-history-admission-editor>
         <div class="d-flex flex-column mt-2">
             <div class="row">
                 <label asp-for="HospitalId" class="col-lg-2 text-left text-lg-right font-weight-bold"></label>
@@ -107,7 +114,7 @@
                 </div>
                 <div class="d-flex flex-column ml-1">
                     <button class="btn btn-primary" :disabled="!enabled" @@click.stop.perevent="addDiagnosys"><i class="fa fa-plus"></i></button>
-                    <button class="btn btn-danger mt-1" :disabled="!enabled"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-danger mt-1" :disabled="!enabled" @@click.stop.prevent="removeDiagnosys"><i class="fa fa-minus"></i></button>
                 </div>
             </div>
         </div>
@@ -116,11 +123,26 @@
             <div class="d-flex flex-row">
                 <div class="flex-grow-1" style="border-style:solid; border-width:1px;">
                     <table class="table table-borderless">
-                       
+                        <thead class="thead-light">
+                            <tr>
+                                <th>@Localizer[nameof(Resources.Admitted)]</th>
+                                <th>@Localizer[nameof(Resources.Discharged)]</th>
+                                <th>@Localizer[nameof(Resources.Department)]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(a, index) in admissions" @@click="selectAdmission(a)" :class="{'selected-table-row' : a.id == selectedAdmission.id}">
+                                <td>{{ admissionStartDate(index) | shortDate }}</td>
+                                <td>{{ a.discharged | shortDate}}</td>
+                                <td>{{ a.department.name }}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 <div class="d-flex flex-column ml-1">
-                    <button class="btn btn-primary" :disabled="!enabled"><i class="fa fa-plus"></i></button>
+                    <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="showAdmissionEditor = true">
+                        <i class="fa fa-plus"></i>
+                    </button>
                 </div>
             </div>
         </div>

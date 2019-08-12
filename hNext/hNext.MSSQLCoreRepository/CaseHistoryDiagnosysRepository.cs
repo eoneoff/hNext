@@ -33,6 +33,7 @@ namespace hNext.MSSQLCoreRepository
                 {
                     diagnosys.Active = false;
                     dbSet.Update(diagnosys);
+                    await db.SaveChangesAsync();
                     return diagnosys;
                 }
                 else

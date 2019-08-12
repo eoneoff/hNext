@@ -20,6 +20,13 @@ if (!store.state['caseHistory']) {
                 let diagnosis = state.history.diagnoses[index];
                 diagnosis.active = false;
                 Vue.set(state.history.diagnoses, index, diagnosys);
+            },
+            addAdmission(state, admission) {
+                let index = state.history.admissions.findIndex(a => !a.discharged);
+                let oldLast = state.history.admissions[index];
+                oldLast.discharged = new Date();
+                Vue.set(state.history.admissions, index, oldLast);
+                state.history.admissions.push(admission);
             }
         }
     };
