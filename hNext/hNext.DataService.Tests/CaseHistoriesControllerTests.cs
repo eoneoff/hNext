@@ -148,5 +148,19 @@ namespace hNext.DataService.Tests
             //Assert
             Assert.IsInstanceOfType(result, typeof(CaseHistoryAdmission));
         }
+
+        [TestMethod]
+        public void EditAdmissionReturnsCaseHistoryAdmission()
+        {
+            //Arrange
+            admissionRepository.Setup(ar => ar.Put(It.IsAny<CaseHistoryAdmission>())).ReturnsAsync(new CaseHistoryAdmission());
+            repository.Setup(r => r.AdmissionExists(It.IsAny<long>(), It.IsAny<long>())).ReturnsAsync(true);
+
+            //Act
+            var result = (controller.EditAdmission(1, 2, new CaseHistoryAdmission()).Result as OkObjectResult).Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(CaseHistoryAdmission));
+        }
     }
 }

@@ -53,7 +53,7 @@ namespace hNext.MSSQLCoreRepository.Tests
             int patientId = 3;
             var patient = new Patient { Id = patientId };
             var dbSet = patients.AsQueryable().BuildMockDbSet();
-            dbSet.Setup(d => d.FindAsync(It.IsAny<int>())).Returns(Task.FromResult(patient));
+            dbSet.Setup(d => d.FindAsync(It.IsAny<int>())).ReturnsAsync(patient);
             var context = new Mock<hNextDbContext>(new DbContextOptions<hNextDbContext>());
             context.Setup(c => c.Set<Patient>()).Returns(dbSet.Object);
             Repository<Patient> repository = new Repository<Patient>(context.Object);

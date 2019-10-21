@@ -39,5 +39,7 @@ namespace hNext.Model
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Specialties))]
         public virtual ICollection<DoctorSpecialty> DoctorSpecialties { get; set; }
+
+        public virtual ICollection<RecordTemplate> RecordTemplates { get; set; }
     }
 }

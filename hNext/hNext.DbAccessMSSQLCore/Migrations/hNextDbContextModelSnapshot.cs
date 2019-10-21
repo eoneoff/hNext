@@ -865,6 +865,143 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.ToTable("PropertyTypes");
                 });
 
+            modelBuilder.Entity("hNext.Model.Record", b =>
+                {
+                    b.Property<long>("Id");
+
+                    b.Property<long?>("CaseHistoryId");
+
+                    b.Property<long?>("DoctorId");
+
+                    b.Property<string>("Header");
+
+                    b.Property<long>("PatientId");
+
+                    b.Property<int>("RecordTemplateId");
+
+                    b.Property<int?>("SpecialtyId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaseHistoryId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("RecordTemplateId");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("Records");
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordField", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RecordFieldTemplateId");
+
+                    b.Property<long>("RecordId");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecordFieldTemplateId");
+
+                    b.HasIndex("RecordId");
+
+                    b.ToTable("RecordFields");
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordFieldTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DefaultSelectedOption");
+
+                    b.Property<string>("DefaultValue");
+
+                    b.Property<int?>("DepartmentId");
+
+                    b.Property<string>("Header")
+                        .IsRequired();
+
+                    b.Property<bool>("NewLine")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("OrderNo");
+
+                    b.Property<byte>("RecordFieldType");
+
+                    b.Property<int>("RecordTemplateId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("RecordTemplateId");
+
+                    b.ToTable("RecordFieldTemplates");
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordFieldTemplateOption", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RecordFieldTemplateId");
+
+                    b.Property<string>("Value")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecordFieldTemplateId");
+
+                    b.ToTable("RecordFieldTemplateOptions");
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("DepartmentId");
+
+                    b.Property<long?>("DoctorId");
+
+                    b.Property<string>("Header")
+                        .IsRequired();
+
+                    b.Property<int?>("HospitalId");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int?>("SpecialtyId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("HospitalId");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("RecordTemplates");
+                });
+
             modelBuilder.Entity("hNext.Model.Region", b =>
                 {
                     b.Property<int>("Id")
@@ -1329,6 +1466,88 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .WithMany("Phones")
                         .HasForeignKey("PhoneTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("hNext.Model.Record", b =>
+                {
+                    b.HasOne("hNext.Model.CaseHistory", "CaseHistory")
+                        .WithMany()
+                        .HasForeignKey("CaseHistoryId");
+
+                    b.HasOne("hNext.Model.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("hNext.Model.DocumentRegistry", "DocumentRegistry")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.RecordTemplate", "RecordTemplate")
+                        .WithMany("Records")
+                        .HasForeignKey("RecordTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Specialty", "Specialty")
+                        .WithMany()
+                        .HasForeignKey("SpecialtyId");
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordField", b =>
+                {
+                    b.HasOne("hNext.Model.RecordFieldTemplate", "GetRecordFieldTemplate")
+                        .WithMany("RecordFields")
+                        .HasForeignKey("RecordFieldTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("hNext.Model.Record", "Record")
+                        .WithMany("RecordFields")
+                        .HasForeignKey("RecordId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordFieldTemplate", b =>
+                {
+                    b.HasOne("hNext.Model.Department")
+                        .WithMany("RecordFieldTemplates")
+                        .HasForeignKey("DepartmentId");
+
+                    b.HasOne("hNext.Model.RecordTemplate", "RecordTemplate")
+                        .WithMany("RecordFieldTemplates")
+                        .HasForeignKey("RecordTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordFieldTemplateOption", b =>
+                {
+                    b.HasOne("hNext.Model.RecordFieldTemplate", "RecordFieldTemplate")
+                        .WithMany("GetRecordFieldTemplateOptions")
+                        .HasForeignKey("RecordFieldTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordTemplate", b =>
+                {
+                    b.HasOne("hNext.Model.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.HasOne("hNext.Model.Doctor", "Doctor")
+                        .WithMany("RecordTemplates")
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("hNext.Model.Hospital", "Hospital")
+                        .WithMany("RecordTemplates")
+                        .HasForeignKey("HospitalId");
+
+                    b.HasOne("hNext.Model.Specialty", "Specialty")
+                        .WithMany("RecordTemplates")
+                        .HasForeignKey("SpecialtyId");
                 });
 
             modelBuilder.Entity("hNext.Model.Region", b =>

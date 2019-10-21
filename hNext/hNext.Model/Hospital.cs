@@ -1,4 +1,5 @@
 ﻿using hNext.ResourceLibrary.Resources;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,7 +26,7 @@ namespace hNext.Model
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.EDRPOU))]
-        [Newtonsoft.Json.JsonProperty(PropertyName="edrpou")]
+        [JsonProperty(PropertyName="edrpou")]
         public string EDRPOU { get; set; }
 
         [Display(ResourceType = typeof(Resources),
@@ -69,5 +70,6 @@ namespace hNext.Model
         public virtual ICollection<DoctorPosition> DoctorPositions { get; set; }
         public virtual ICollection<CaseHistory> CaseHistories { get; set; }
         public virtual ICollection<CaseHistory> Referred { get; set; }
+        public virtual ICollection<RecordTemplate> RecordTemplates { get; set; }
     }
 }

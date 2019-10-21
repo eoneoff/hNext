@@ -14,6 +14,8 @@ using hNext.IRepository;
 using hNext.MSSQLCoreRepository;
 using Microsoft.AspNetCore.Http.Features;
 using hNext.Model;
+using System.Text.Json;
+using Microsoft.Extensions.Hosting;
 
 namespace hNext.DataService
 {
@@ -73,30 +75,35 @@ namespace hNext.DataService
                 {
                     builder.AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+                    .AllowAnyMethod();
                 });
             });
 
-            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling =
+
+            services.AddMvc().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddMemoryCache();
             services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("AllowAll");
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
-            app.UseMvcWithDefaultRoute();
+            app.UseRouting();
+            app.UseCors("AllowAll");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
+            });
         }
     }
 }

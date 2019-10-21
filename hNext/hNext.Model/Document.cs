@@ -46,7 +46,7 @@ namespace hNext.Model
         public virtual DocumentType DocumentType { get; set; }
 
         [ForeignKey(nameof(PersonId))]
-        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual Person Person { get; set; }
     }
 }

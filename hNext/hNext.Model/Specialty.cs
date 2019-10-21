@@ -27,5 +27,8 @@ namespace hNext.Model
 
         [JsonIgnore]
         public virtual ICollection<DoctorSpecialty> DoctorSpecialties { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<RecordTemplate> RecordTemplates { get; set; }
     }
 }

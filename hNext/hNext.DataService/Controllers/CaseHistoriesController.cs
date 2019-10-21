@@ -106,5 +106,21 @@ namespace hNext.DataService.Controllers
 
             return Ok(await _admissionRepository.Post(admission));
         }
+
+        [HttpPut("{id:long}/admissions/{admissionId:long}")]
+        public async Task<IActionResult> EditAdmission(long id, long admissionId, CaseHistoryAdmission admission)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(! await _repository.AdmissionExists(id, admissionId))
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _admissionRepository.Put(admission));
+        }
     }
 }

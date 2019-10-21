@@ -1,0 +1,72 @@
+﻿@model RecordFieldTemplate
+
+<template id="record-field-template-editor-template">
+    <form class="modal-window" :style="{zIndex:level*1000}">
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="d-flex flex-column show-panel modal-window-show-panel">
+            <div class="form-group row mx-0 align-items-lg-end">
+                <label class="col-lg-3 col-form-label text-left" asp-for="Header"></label>
+                <div class="col-lg-9">
+                    <div><span asp-validation-for="Header" class="text-danger"></span></div>
+                    <input asp-for="Header" class="form-control" :disabled="!enabled" v-model="field.header" />
+                </div>
+            </div>
+            <div class="custom-control custom-switch ml-3">
+                <input type="checkbox" :disabled="!enabled" class="custom-control-input" asp-for="NewLine" v-model="field.newLine" />
+                <label class="custom-control-label" asp-for="NewLine"></label>
+            </div>
+            <div class="row mx-0 mt-2 justify-content-center">
+                <h6>@Localizer[nameof(Resources.Type)]</h6>
+            </div>
+            <div class="row mx-3">
+                <div class="col-lg-6 custom-control custom-radio">
+                    <input type="radio" :disabled="!enabled" name="record-field-type" id="lineType" class="custom-control-input" value="0" v-model="field.recordFieldType" />
+                    <label class="custom-control-label" for="lineType">@Localizer[nameof(Resources.Line)]</label>
+                </div>
+                <div class="col-lg-6 custom-control custom-radio">
+                    <input type="radio" :disabled="!enabled" name="record-field-type" id="integerType" class="custom-control-input" value="1" v-model="field.recordFieldType" />
+                    <label class="custom-control-label" for="integerType">@Localizer[nameof(Resources.Integer)]</label>
+                </div>
+            </div>
+            <div class="row mx-3 mt-lg-2">
+                <div class="col-lg-6 custom-control custom-radio">
+                    <input type="radio" :disabled="!enabled" name="record-field-type" id="decimalType" class="custom-control-input" value="2" v-model="field.recordFieldType" />
+                    <label class="custom-control-label" for="decimalType">@Localizer[nameof(Resources.Decimal)]</label>
+                </div>
+                <div class="col-lg-6 custom-control custom-radio">
+                    <input type="radio" :disabled="!enabled" name="record-field-type" id="optionsType" class="custom-control-input" value="3" v-model="field.recordFieldType" />
+                    <label class="custom-control-label" for="optionsType">@Localizer[nameof(Resources.Options)]</label>
+                </div>
+            </div>
+            <div class="form-group mt-lg-2 mx-3" v-if="field.recordFieldType == 0">
+                <label asp-for="DefaultValue" class="col-form-label text-left text-lg-right"></label>
+                <div class="">
+                    <textarea asp-for="DefaultValue" class="form-control" :disabled="!enabled" v-model="field.defaultValue"></textarea>
+                </div>
+            </div>
+            <div class="form-group row mx-0 mt-lg-2" v-else-if="field.recordFieldType == 1">
+                <label asp-for="DefaultValue" class="col-lg-6 col-form-label text-left"></label>
+                <div class="col-lg-6">
+                    <input type="number" step="1" asp-for="DefaultValue" class="form-control" :disabled="!enabled" v-model="field.defaultValue" />
+                </div>
+            </div>
+            <div class="form-group row mx-0 mt-lg-2" v-else-if="field.recordFieldType == 2">
+                <label asp-for="DefaultValue" class="col-lg-6 col-form-label text-left"></label>
+                <div class="col-lg-6">
+                    <input type="number" asp-for="DefaultValue" class="form-control" :disabled="!enabled" v-model="field.defaultValue" />
+                </div>
+            </div>
+            <div class="d-flex flex-column mx-3">
+
+            </div>
+            <div class="d-flex flex-row flex-nowrap justify-content-between justify-content-lg-end mt-2 mx-3">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="cancel">@Localizer[nameof(Resources.Cancel)]</button>
+            </div>
+        </div>
+    </form>
+</template>

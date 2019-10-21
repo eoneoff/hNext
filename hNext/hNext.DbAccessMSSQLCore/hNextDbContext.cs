@@ -59,6 +59,11 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<Diagnosys> Diagnoses { get; set; }
         public virtual DbSet<PatientDiagnosys> PatientDiagnoses { get; set; }
         public virtual DbSet<CaseHistoryDiagnosys> CaseHistoryDiagnoses { get; set; }
+        public virtual DbSet<RecordFieldTemplate> RecordFieldTemplates { get; set; }
+        public virtual DbSet<RecordTemplate> RecordTemplates { get; set; }
+        public virtual DbSet<RecordField> RecordFields { get; set; }
+        public virtual  DbSet<RecordFieldTemplateOption> RecordFieldTemplateOptions { get; set; }
+        public virtual DbSet<Record> Records { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -148,7 +153,20 @@ namespace hNext.DbAccessMSSQLCore
             modelBuilder.Entity<PatientDiagnosys>().HasKey(pd => new { pd.PatientId, pd.DiagnosysId });
             modelBuilder.Entity<PatientDiagnosys>().Property(pd => pd.Active).HasDefaultValue(true);
             modelBuilder.Entity<CaseHistoryDiagnosys>().HasKey(hd => new { hd.CaseHistoryId, hd.DiagnosysId });
-            modelBuilder.Entity<CaseHistoryDiagnosys>().Property(hd => hd.Active).HasDefaultValue(true);;
+            modelBuilder.Entity<CaseHistoryDiagnosys>().Property(hd => hd.Active).HasDefaultValue(true);
+
+            modelBuilder.Entity<RecordFieldTemplate>().HasIndex(t => t.RecordTemplateId);
+            modelBuilder.Entity<RecordFieldTemplate>().Property(t => t.NewLine).HasDefaultValue(false);
+            modelBuilder.Entity<RecordFieldTemplateOption>().HasIndex(o => o.RecordFieldTemplateId);
+            modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.HospitalId);
+            modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.DepartmentId);
+            modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.SpecialtyId);
+            modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.DoctorId);
+            modelBuilder.Entity<RecordField>().HasOne(f => f.Record).WithMany(r => r.RecordFields)
+                .HasForeignKey(f => f.RecordId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<RecordField>().HasIndex(f => f.RecordId);
+            modelBuilder.Entity<Record>().HasIndex(r => r.PatientId);
+            modelBuilder.Entity<Record>().HasIndex(r => r.CaseHistoryId);
         }
     }
 }

@@ -1,0 +1,15 @@
+﻿<template id="records-template">
+    <div class="d-flex flex-column flex-lg-row-reverse">
+        <record-template-editor v-if="showTemplateEditor" level="1" @@cancel="showTemplateEditor = false"></record-template-editor>
+        <div class="mt-2">
+            <button class="btn btn-primary w-100" :disabled="!enabled" @@click="showTemplateEditor = true">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+        <div class="flex-lg-grow-1 mt-2">
+            <table>
+
+            </table>
+        </div>
+    </div>
+</template>
