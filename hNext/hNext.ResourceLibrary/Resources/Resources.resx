@@ -658,7 +658,7 @@
     <value>Введіть назву</value>
   </data>
   <data name="EnterOption" xml:space="preserve">
-    <value>Введтіть опцію</value>
+    <value>Введіть опцію</value>
   </data>
   <data name="Header" xml:space="preserve">
     <value>Заголовок</value>
@@ -704,5 +704,17 @@
   </data>
   <data name="NewLine" xml:space="preserve">
     <value>Новий рядок</value>
+  </data>
+  <data name="EnterValue" xml:space="preserve">
+    <value>Введіть значення</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Значення</value>
+  </data>
+  <data name="EditOption" xml:space="preserve">
+    <value>Змінити опцію</value>
+  </data>
+  <data name="DeleteOption" xml:space="preserve">
+    <value>Видалити опцію</value>
   </data>
 </root>

@@ -1,6 +1,7 @@
 ﻿using hNext.Infrastructure;
 using hNext.Model;
 using hNext.WebClient.Infrastructure;
+using hNext.WebClient.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace hNext.WebClient.Components
         {
             modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
 
-            return View(new RecordFieldTemplate());
+            return View(new RecordFieldTemplateEditorViewModel());
         }
     }
 }

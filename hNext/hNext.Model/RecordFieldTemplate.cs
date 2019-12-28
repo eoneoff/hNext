@@ -31,14 +31,12 @@ namespace hNext.Model
             Name = nameof(Resources.DefaultValue))]
         public string DefaultValue { get; set; }
 
-        public int DefaultSelectedOption { get; set; }
-
         [Required]
         public int RecordTemplateId { get; set; }
 
         [ForeignKey(nameof(RecordTemplateId))]
         public virtual RecordTemplate RecordTemplate { get; set; }
         public virtual ICollection<RecordField> RecordFields { get; set; }
-        public virtual ICollection<RecordFieldTemplateOption> GetRecordFieldTemplateOptions { get; set; }
+        public virtual ICollection<RecordFieldTemplateOption> RecordFieldTemplateOptions { get; set; }
     }
 }

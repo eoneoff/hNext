@@ -21,6 +21,7 @@ namespace hNext.Model
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Option))]
         public string Value { get; set; }
+        public int OrderNo { get; set; }
 
         [ForeignKey(nameof(RecordFieldTemplateId))]
         public virtual RecordFieldTemplate RecordFieldTemplate { get; set; }

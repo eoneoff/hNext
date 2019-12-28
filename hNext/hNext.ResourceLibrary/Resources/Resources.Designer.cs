@@ -493,6 +493,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Видалити опцію.
+        /// </summary>
+        public static string DeleteOption {
+            get {
+                return ResourceManager.GetString("DeleteOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Видалити посаду.
         /// </summary>
         public static string DeletePosition {
@@ -624,6 +633,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Documents {
             get {
                 return ResourceManager.GetString("Documents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Змінити опцію.
+        /// </summary>
+        public static string EditOption {
+            get {
+                return ResourceManager.GetString("EditOption", resourceCulture);
             }
         }
         
@@ -790,7 +808,7 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Введтіть опцію.
+        ///   Ищет локализованную строку, похожую на Введіть опцію.
         /// </summary>
         public static string EnterOption {
             get {
@@ -849,6 +867,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string EnterUniversity {
             get {
                 return ResourceManager.GetString("EnterUniversity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть значення.
+        /// </summary>
+        public static string EnterValue {
+            get {
+                return ResourceManager.GetString("EnterValue", resourceCulture);
             }
         }
         
@@ -1758,6 +1785,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Url {
             get {
                 return ResourceManager.GetString("Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Значення.
+        /// </summary>
+        public static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
         
