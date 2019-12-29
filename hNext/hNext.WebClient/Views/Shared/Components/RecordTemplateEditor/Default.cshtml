@@ -2,8 +2,9 @@
 
 <template id="record-template-editor-template">
     <form class="modal-window" :style="{zIndex:level*1000}">
-        <record-field-template-editor v-if="showFieldEditor" :level="level+1"
-                @@cancel="showFieldEditor = false"></record-field-template-editor>
+        <record-field-template-editor v-if="showFieldEditor" :level="level+1" :initial-enabled="enabled"
+                :initial-field="selectedField"
+                @@cancel="showFieldEditor = false" @@save="addField"></record-field-template-editor>
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
                 <i class="fa fa-times"></i>
@@ -69,11 +70,18 @@
                 <h6>@Localizer[Resources.Fields]</h6>
             </div>
             <div class="d-flex flex-row mx-3">
-                <table class="table table-bordered table-hover w-100">
-                    
+                <table class="table table-borderless table-hover table-sm w-100">
+                    <tbody>
+                        <tr v-for="f in recordTemplate.recordFieldTemplates" :key="f.orderNo"
+                            :class="{'selected-table-row':f.orderNo = selectedField.orderNo}"
+                            @@click.stop.prevent="selectedField = f">
+                            <td>{{ f.header }}</td>
+                            <td>{{ defaultOptionValue(f) }}</td>
+                        </tr>
+                    </tbody>
                 </table>
                 <div class="d-flex flex-column">
-                    <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="showFieldEditor = true"><i class="fa fa-plus"></i></button>
+                    <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="addNewField"><i class="fa fa-plus"></i></button>
                     <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-pen"></i></button>
                     <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-arrow-up"></i></button>
                     <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-arrow-down"></i></button>

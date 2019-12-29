@@ -35,13 +35,16 @@ Vue.component("RecordTemplateEditor", {
             doctors: [],
             showFieldEditor: false,
             recordTemplate: {
+                id: '',
                 name: '',
                 header:'',
                 hospitalId: '',
                 departmentId: '',
                 specialtyId: '',
-                doctorId: ''
-            }
+                doctorId: '',
+                recordFieldTemplates:[]
+            },
+            selectedField: this.field()
         };
     },
     methods: {
@@ -52,6 +55,29 @@ Vue.component("RecordTemplateEditor", {
             if ($(this.$el).valid()) {
 
             }
+        },
+        addNewField: function () {
+            this.selectedField = this.field();
+            this.showFieldEditor = true;
+        },
+        addField: function (field) {
+            this.recordTemplate.recordFieldTemplates.push(field);
+            this.showFieldEditor = false;
+        },
+        field: function () {
+            return {
+                id: '',
+                header: '',
+                newLine: false,
+                recordFieldType: 0,
+                defaultValue: '',
+                recordFieldTemplateOptions: []
+            };
+        },
+        defaultOptionValue: function (field) {
+            return field.recordFieldTemplateOptions.length > 0
+                ? field.recordFieldTemplateOptions.find(o => o.orderNo == 0).value
+                : field.defaultValue;
         }
     },
     computed: {

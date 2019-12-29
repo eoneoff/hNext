@@ -78,7 +78,7 @@
                         <div class="flex-grow-1 mr-1" style="max-height: 20vh; overflow-y: auto;">
                             <table class="table table-striped table-bordered table-hover table-sm">
                                 <tbody>
-                                    <tr v-for="f in field.recordFieldTemplateOptions" :v-key="f.orderNo"
+                                    <tr v-for="f in field.recordFieldTemplateOptions" :key="f.orderNo"
                                         :class="{'selected-table-row': f.orderNo == selectedOption.orderNo}"
                                         @@click="optionClicked(f)">
                                         <td>{{f.value}}</td>

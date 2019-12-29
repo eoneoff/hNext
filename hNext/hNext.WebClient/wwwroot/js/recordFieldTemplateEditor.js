@@ -2,18 +2,11 @@
 
 Vue.component('RecordFieldTemplateEditor', {
     template: '#record-field-template-editor-template',
-    props: ['level', 'initialEnabled'],
+    props: ['level', 'initialEnabled', 'initialField'],
     data: function () {
         return {
             enabled: true,
-            field: {
-                id:'',
-                header: '',
-                newLine: false,
-                recordFieldType: 0,
-                defaultValue: '',
-                recordFieldTemplateOptions: []
-            },
+            field: this.initialField,
             selectedOption: {},
             newOptionValue: '',
             showSaveConfirmation: false,
