@@ -13,8 +13,25 @@ namespace hNext.DataService.Controllers
     [ApiController]
     public class RecordTemplateController : ControllerBase
     {
-        private IRepository<RecordTemplate> _repository;
+        private IPoster<RecordTemplate> _repository;
 
-        public RecordTemplateController(IRepository<RecordTemplate> repository) => _repository = repository;
+        public RecordTemplateController (IPoster<RecordTemplate> repository) => _repository = repository;
+
+        [HttpGet]
+        public async Task<IEnumerable<RecordTemplate>> Get() => await _repository.Get();
+
+        [HttpGet("{id:int}")]
+        public async Task<RecordTemplate> Get(int id) => await _repository.Get(id);
+
+        [HttpPost("{id:int}")]
+        public async Task<IActionResult> Post(RecordTemplate recordTemplate)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return Ok(await _repository.Post(recordTemplate));
+        }
     }
 }
