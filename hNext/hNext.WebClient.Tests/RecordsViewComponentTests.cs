@@ -33,7 +33,8 @@ namespace hNext.WebClient.Tests
             //Arrange
             var mod = new List<string>
             {
-                nameof(RecordTemplateEditorViewComponent).ViewComponentName()
+                nameof(RecordTemplateEditorViewComponent).ViewComponentName(),
+                nameof(ConfirmationDialogViewComponent).ViewComponentName()
             };
 
             //Act

@@ -27,33 +27,28 @@ if (!store.state['departments']) {
 
 Vue.component("RecordTemplateEditor", {
     template: '#record-template-editor-template',
-    props: ['level', 'initialEnabled'],
+    props: ['level', 'initialEnabled', 'initialTemplate'],
     data: function () {
         return {
             enabled: true,
             specialties: [],
             doctors: [],
             showFieldEditor: false,
-            recordTemplate: {
-                id: '',
-                name: '',
-                header:'',
-                hospitalId: '',
-                departmentId: '',
-                specialtyId: '',
-                doctorId: '',
-                recordFieldTemplates:[]
-            },
-            selectedField: this.field()
+            recordTemplate: this.copyTemplate(),
+            selectedField: this.field(),
+            noFieldsError: false,
+            showSaveConfirmation: false,
+            showCancelConfirmation: false
         };
     },
     methods: {
         cancel: function () {
-            this.$emit('cancel');
+            this.showCancelConfirmation = true;
         },
         save: function () {
-            if ($(this.$el).valid()) {
-
+            this.noFieldsError = this.recordTemplate.recordFieldTemplates.length == 0;
+            if ($(this.$el).valid() && !this.noFieldsError  ) {
+                this.showSaveConfirmation = true;
             }
         },
         addNewField: function () {
@@ -61,8 +56,17 @@ Vue.component("RecordTemplateEditor", {
             this.showFieldEditor = true;
         },
         addField: function (field) {
+            this.noFieldsError = false;
             this.recordTemplate.recordFieldTemplates.push(field);
             this.showFieldEditor = false;
+            this.selectedField = {};
+        },
+        copyTemplate: function () {
+            const template = {};
+            for (const field in this.initialTemplate) {
+                template[field] = this.initialTemplate[field];
+            }
+            return template;
         },
         field: function () {
             return {
@@ -91,6 +95,12 @@ Vue.component("RecordTemplateEditor", {
     },
     watch: {
         showFieldEditor: function (val) {
+            this.enabled = !val;
+        },
+        showSaveConfirmation: function (val) {
+            this.enabled = !val;
+        },
+        showCancelConfirmation: function (val) {
             this.enabled = !val;
         }
     },

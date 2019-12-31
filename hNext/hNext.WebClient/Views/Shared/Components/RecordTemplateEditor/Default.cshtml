@@ -3,8 +3,16 @@
 <template id="record-template-editor-template">
     <form class="modal-window" :style="{zIndex:level*1000}">
         <record-field-template-editor v-if="showFieldEditor" :level="level+1" :initial-enabled="enabled"
-                :initial-field="selectedField"
-                @@cancel="showFieldEditor = false" @@save="addField"></record-field-template-editor>
+                                      :initial-field="selectedField"
+                                      @@cancel="showFieldEditor = false" @@save="addField"></record-field-template-editor>
+        <confirmation-dialog v-if="showSaveConfirmation" :level="level+1" :initial-enabled="enabled"
+                             @@yes="$emit('save', recordTemplate)" @@no="showSaveConfirmation = false">
+            @Localizer[nameof(Resources.SaveAndExit)]?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showCancelConfirmation" :level="level+1" :initial-enabled="enabled"
+                             @@yes="$emit('cancel')" @@no="showCancelConfirmation = false">
+            @Localizer[nameof(Resources.CancelAndExit)]?
+        </confirmation-dialog>
         <div class="d-flex flex-column mb-1">
             <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
                 <i class="fa fa-times"></i>
@@ -60,32 +68,37 @@
                     <select asp-for="RecordTemplate.DoctorId" class="custom-select" v-model="recordTemplate.doctorId"
                             :disabled="!enabled || !filteredDoctors.length">
                         <option value="">@Localizer[nameof(Resources.SelectDoctor)]</option>
-                        <option v-for="d in filteredDoctors" :key="d.id" :value="d.id">{{
+                        <option v-for="d in filteredDoctors" :key="d.id" :value="d.id">
+                            {{
                             `${d.person.familyName} ${d.person.firstName} ${d.person.patronimic}`
-                        }}</option>
+                            }}
+                        </option>
                     </select>
                 </div>
             </div>
             <div class="row mx-0 justify-content-center">
                 <h6>@Localizer[Resources.Fields]</h6>
             </div>
-            <div class="d-flex flex-row mx-3">
-                <table class="table table-borderless table-hover table-sm w-100">
-                    <tbody>
-                        <tr v-for="f in recordTemplate.recordFieldTemplates" :key="f.orderNo"
-                            :class="{'selected-table-row':f.orderNo = selectedField.orderNo}"
-                            @@click.stop.prevent="selectedField = f">
-                            <td>{{ f.header }}</td>
-                            <td>{{ defaultOptionValue(f) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="d-flex flex-column">
-                    <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="addNewField"><i class="fa fa-plus"></i></button>
-                    <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-pen"></i></button>
-                    <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-arrow-up"></i></button>
-                    <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-arrow-down"></i></button>
-                    <button class="btn btn-danger mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-minus"></i></button>
+            <div class="d-flex flex-column mx-3">
+                <div><span class="text-danger" v-if="noFieldsError">@Localizer[nameof(Resources.NoFieldsError)]</span></div>
+                <div class="d-flex flex-row" :class="{'input-validation-error': noFieldsError}">
+                    <table class="table table-borderless table-hover table-sm w-100">
+                        <tbody>
+                            <tr v-for="f in recordTemplate.recordFieldTemplates" :key="f.orderNo"
+                                :class="{'selected-table-row':f.orderNo = selectedField.orderNo}"
+                                @@click.stop.prevent="selectedField = f">
+                                <td>{{ f.header }}</td>
+                                <td>{{ defaultOptionValue(f) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex flex-column">
+                        <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="addNewField"><i class="fa fa-plus"></i></button>
+                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-pen"></i></button>
+                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-arrow-up"></i></button>
+                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-arrow-down"></i></button>
+                        <button class="btn btn-danger mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-minus"></i></button>
+                    </div>
                 </div>
             </div>
             <div class="d-flex flex-row flex-nowrap justify-content-between justify-content-lg-end mt-2 mx-3">

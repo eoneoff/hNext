@@ -367,6 +367,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Створити новий елемент на основі обраного.
+        /// </summary>
+        public static string CreateNewBasedOnSelected {
+            get {
+                return ResourceManager.GetString("CreateNewBasedOnSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Створити новий документ.
         /// </summary>
         public static string CreateNewDocument {
@@ -642,6 +651,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string EditOption {
             get {
                 return ResourceManager.GetString("EditOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Зміна елементу заборонена.
+        /// </summary>
+        public static string EditProhibited {
+            get {
+                return ResourceManager.GetString("EditProhibited", resourceCulture);
             }
         }
         
@@ -1137,6 +1155,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Додайте поля.
+        /// </summary>
+        public static string NoFieldsError {
+            get {
+                return ResourceManager.GetString("NoFieldsError", resourceCulture);
             }
         }
         

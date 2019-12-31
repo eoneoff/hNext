@@ -717,4 +717,13 @@
   <data name="DeleteOption" xml:space="preserve">
     <value>Видалити опцію</value>
   </data>
+  <data name="CreateNewBasedOnSelected" xml:space="preserve">
+    <value>Створити новий елемент на основі обраного</value>
+  </data>
+  <data name="EditProhibited" xml:space="preserve">
+    <value>Зміна елементу заборонена</value>
+  </data>
+  <data name="NoFieldsError" xml:space="preserve">
+    <value>Додайте поля</value>
+  </data>
 </root>
