@@ -2,6 +2,7 @@
 using hNext.Model;
 using hNext.WebClient.Components;
 using hNext.WebClient.Infrastructure;
+using hNext.WebClient.Models;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -37,7 +38,7 @@ namespace hNext.WebClient.Tests
             var result = (component.Invoke(modules) as ViewViewComponentResult).ViewData.Model;
 
             //Assert
-            Assert.IsInstanceOfType(result, typeof(RecordFieldTemplate));
+            Assert.IsInstanceOfType(result, typeof(RecordFieldTemplateEditorViewModel));
         }
 
         [TestMethod]

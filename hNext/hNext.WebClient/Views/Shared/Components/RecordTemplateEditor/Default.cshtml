@@ -9,6 +9,10 @@
                              @@yes="$emit('save', recordTemplate)" @@no="showSaveConfirmation = false">
             @Localizer[nameof(Resources.SaveAndExit)]?
         </confirmation-dialog>
+        <confirmation-dialog v-if="showDeleteFieldConfirmation" :level="level+1" :initial-enabled="enabled"
+                             @@yes="deleteOption" @@no="showDeleteFieldConfirmation=false">
+            @Localizer[nameof(Resources.Delete)] @Localizer[nameof(Resources.Field)].Value.ToLower()?
+        </confirmation-dialog>
         <confirmation-dialog v-if="showCancelConfirmation" :level="level+1" :initial-enabled="enabled"
                              @@yes="$emit('cancel')" @@no="showCancelConfirmation = false">
             @Localizer[nameof(Resources.CancelAndExit)]?
@@ -85,19 +89,19 @@
                     <table class="table table-borderless table-hover table-sm w-100">
                         <tbody>
                             <tr v-for="f in recordTemplate.recordFieldTemplates" :key="f.orderNo"
-                                :class="{'selected-table-row':f.orderNo = selectedField.orderNo}"
+                                :class="{'selected-table-row':f.orderNo == selectedField.orderNo}"
                                 @@click.stop.prevent="selectedField = f">
                                 <td>{{ f.header }}</td>
                                 <td>{{ defaultOptionValue(f) }}</td>
                             </tr>
                         </tbody>
                     </table>
-                    <div class="d-flex flex-column">
+                    <div class="d-flex flex-column ml-1">
                         <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="addNewField"><i class="fa fa-plus"></i></button>
-                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-pen"></i></button>
-                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-arrow-up"></i></button>
-                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-arrow-down"></i></button>
-                        <button class="btn btn-danger mt-1" :disabled="!enabled" @@click.stop.prevent=""><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent="editField"><i class="fa fa-pen"></i></button>
+                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent="moveOptionUp"><i class="fa fa-arrow-up"></i></button>
+                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent="moveOptionDown"><i class="fa fa-arrow-down"></i></button>
+                        <button class="btn btn-danger mt-1" :disabled="!enabled" @@click.stop.prevent="deleteOptionClicked"><i class="fa fa-minus"></i></button>
                     </div>
                 </div>
             </div>

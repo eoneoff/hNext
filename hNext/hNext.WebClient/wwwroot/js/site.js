@@ -525,6 +525,14 @@ class DataClient {
     async getSpecialties() {
         return (await this._client.get('specialties')).data;
     }
+
+    async getRecordTemplates() {
+        return (await this._client.get('recordtemplates')).data;
+    }
+
+    async addRecordTemplate(template) {
+        return (await this._clientpost('recordtemplates', template)).data;
+    }
 }
 
 const DATA_CLIENT = new DataClient(API_SERVER);

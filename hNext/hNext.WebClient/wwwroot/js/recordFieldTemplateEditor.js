@@ -48,7 +48,7 @@ Vue.component('RecordFieldTemplateEditor', {
             this.showEditOptionConfirmation = false;
         },
         moveOptionUp: function () {
-            if (this.selectedOption && this.selectedOption.orderNo > 0) {
+            if (this.selectedOption.orderNo) {
                 let upperOption = this.field.recordFieldTemplateOptions.find(o => o.orderNo == this.selectedOption.orderNo - 1);
                 upperOption.orderNo = this.selectedOption.orderNo;
                 this.selectedOption.orderNo--;
@@ -56,7 +56,7 @@ Vue.component('RecordFieldTemplateEditor', {
             }
         },
         moveOptionDown: function () {
-            if (this.selectedOption && this.selectedOption.orderNo < this.field.recordFieldTemplateOptions.length - 1) {
+            if (this.selectedOption.orderNo !== undefined && this.selectedOption.orderNo < this.field.recordFieldTemplateOptions.length - 1) {
                 let lowerOption = this.field.recordFieldTemplateOptions.find(o => o.orderNo == this.selectedOption.orderNo + 1);
                 lowerOption.orderNo = this.selectedOption.orderNo;
                 this.selectedOption.orderNo++;

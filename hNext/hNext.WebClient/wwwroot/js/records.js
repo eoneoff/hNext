@@ -8,8 +8,7 @@ Vue.component("Records", {
             templates: [],
             selectedRecord: {},
             showTemplateEditor: false,
-            showEditConfirmation: false,
-            dummy:0
+            showEditConfirmation: false
         };
     },
     methods: {
@@ -26,11 +25,10 @@ Vue.component("Records", {
             this.showEditConfirmation = false;
             this.showTemplateEditor = true;
         },
-        saveTemplate: function (template) {
+        saveTemplate: async function (template) {
             this.showTemplateEditor = false;
-            template.id = ++this.dummy;
+            this.templates.push(await DATA_CLIENT.addRecordTemplate(template));
             this.selectedRecord = {};
-            this.templates.push(template);
         },
         template: function () {
             return {
@@ -62,5 +60,8 @@ Vue.component("Records", {
         showEditConfirmation: function (val) {
             this.enabled = !val;
         }
+    },
+    mounted: function () {
+        DATA_CLIENT.getRecordTemplates().then(result => this.templates = result);
     }
 });

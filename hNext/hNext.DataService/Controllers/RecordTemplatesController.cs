@@ -11,11 +11,11 @@ namespace hNext.DataService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RecordTemplateController : ControllerBase
+    public class RecordTemplatesController : ControllerBase
     {
         private IPoster<RecordTemplate> _repository;
 
-        public RecordTemplateController (IPoster<RecordTemplate> repository) => _repository = repository;
+        public RecordTemplatesController (IPoster<RecordTemplate> repository) => _repository = repository;
 
         [HttpGet]
         public async Task<IEnumerable<RecordTemplate>> Get() => await _repository.Get();

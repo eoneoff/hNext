@@ -19,7 +19,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace hNext.DataService
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -32,42 +32,7 @@ namespace hNext.DataService
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<hNextDbContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"],
-                sqlServerOptions => sqlServerOptions.CommandTimeout(180)));
-
-            services.AddScoped(typeof(IGetter<>), typeof(Getter<>));
-            services.AddScoped(typeof(IPoster<>), typeof(Poster<>));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-            services.AddScoped<IPatientsRepository, PatientsRepository>();
-            services.AddScoped<IPersonRepository, PersonRepository>();
-
-            services.AddScoped<IPhoneRepository, PhoneRepository>();
-            services.AddScoped<IEmailRepository, EmailRepository>();
-            services.AddScoped<IDocumentsRepository, DocumentsRepository>();
-            services.AddScoped<IGuardianRepository, GuardianRepository>();
-
-            services.AddScoped<IAddressRepository, AddressRepository>();
-            services.AddScoped<ICountryRepository, CountryRepository>();
-            services.AddScoped<IRegionsRepository, RegionsRepository>();
-            services.AddScoped<IDistrictsRepository, DistrictsRepository>();
-            services.AddScoped<ICityRepository, CityRepository>();
-
-            services.AddScoped<IHospitalRepository, HospitalRepository>();
-            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-            services.AddScoped<IRepository<DepartmentSpecialty>, DepartmentSpecialtyRepository>();
-
-            services.AddScoped<IDoctorRepository, DoctorRepository>();
-            services.AddScoped<IDoctorSpecialtyRepository, DoctorSpecialtyRepository>();
-            services.AddScoped<IDoctorPositionRepository, DoctorPositionRepository>();
-
-            services.AddScoped<ICaseHistoryRepository, CaseHistoryRepository>();
-            services.AddScoped<IRepository<CaseHistoryDiagnosys>, CaseHistoryDiagnosysRepository>();
-            services.AddScoped<IRepository<PatientDiagnosys>, PatientDiagnosysRepository>();
-            services.AddScoped<IPoster<Diagnosys>, DiagnosesRepository>();
-            services.AddScoped<IICDRepository, ICDRepository>();
-            services.AddScoped<IRepository<CaseHistoryAdmission>, CaseHistoryAdmissionRepository>();
+            AddDependencies(services);
 
             services.AddCors(options =>
             {

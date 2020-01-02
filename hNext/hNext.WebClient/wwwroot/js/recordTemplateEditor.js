@@ -34,11 +34,12 @@ Vue.component("RecordTemplateEditor", {
             specialties: [],
             doctors: [],
             showFieldEditor: false,
-            recordTemplate: this.copyTemplate(),
+            recordTemplate: this.copyTemplate(this.initialTemplate),
             selectedField: this.field(),
             noFieldsError: false,
             showSaveConfirmation: false,
-            showCancelConfirmation: false
+            showCancelConfirmation: false,
+            showDeleteFieldConfirmation: false
         };
     },
     methods: {
@@ -55,16 +56,57 @@ Vue.component("RecordTemplateEditor", {
             this.selectedField = this.field();
             this.showFieldEditor = true;
         },
-        addField: function (field) {
-            this.noFieldsError = false;
-            this.recordTemplate.recordFieldTemplates.push(field);
-            this.showFieldEditor = false;
+        editField: function () {
+            this.selectedField = this.copyTemplate(this.selectedField);
+            this.showFieldEditor = true;
+        },
+        moveOptionUp: function () {
+            if (this.selectedField.orderNo) {
+                const upperOption = this.recordTemplate.recordFieldTemplates.find(t => t.orderNo == this.selectedField.orderNo - 1);
+                upperOption.orderNo++;
+                this.selectedField.orderNo--;
+                this.recordTemplate.recordFieldTemplates.sort((f1, f2) => f1.orderNo - f2.orderNo);
+            }
+        },
+        moveOptionDown: function () {
+            if (this.selectedField.orderNo !== undefined && this.selectedField.orderNo < this.recordTemplate.recordFieldTemplates.length - 1) {
+                const upperOption = this.recordTemplate.recordFieldTemplates.find(t => t.orderNo == this.selectedField.orderNo + 1);
+                upperOption.orderNo--;
+                this.selectedField.orderNo++;
+                this.recordTemplate.recordFieldTemplates.sort((f1, f2) => f1.orderNo - f2.orderNo);
+            }
+        },
+        deleteOptionClicked: function () {
+            if (this.selectedField.orderNo !== undefined) {
+                this.showDeleteFieldConfirmation = true;
+            }
+        },
+        deleteOption: function () {
+            this.showDeleteFieldConfirmation = false;
+            const index = this.recordTemplate.recordFieldTemplates.findIndex(f => f.orderNo == this.selectedField.orderNo);
+            this.$delete(this.recordTemplate.recordFieldTemplates, index);
+            for (let i = index; i < this.recordTemplate.recordFieldTemplates.length; i++) {
+                this.recordTemplate.recordFieldTemplates[i].orderNo--;
+            }
             this.selectedField = {};
         },
-        copyTemplate: function () {
+        addField: function (field) {
+            this.showFieldEditor = false;
+            if (field.orderNo === undefined) {
+                this.noFieldsError = false;
+                field.orderNo = this.recordTemplate.recordFieldTemplates.length;
+                this.recordTemplate.recordFieldTemplates.push(field);
+                this.selectedField = {};
+            } else {
+                const index = this.recordTemplate.recordFieldTemplates.findIndex(t => t.orderNo == field.orderNo);
+                this.recordTemplate.recordFieldTemplates.splice(index, 1, field);
+                this.selectedField = field;
+            }
+        },
+        copyTemplate: function (initialTemplate) {
             const template = {};
-            for (const field in this.initialTemplate) {
-                template[field] = this.initialTemplate[field];
+            for (const field in initialTemplate) {
+                template[field] = initialTemplate[field];
             }
             return template;
         },
