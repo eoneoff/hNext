@@ -27,8 +27,8 @@
                     <tr v-for="t in templates" :key="t.id" :class="{'selected-table-row': selectedRecord.id == t.id}"
                         @@click.stop.prevent="selectedRecord = t">
                         <td>{{t.name}}</td>
-                        <td></td>
-                        <td></td>
+                        <td>{{`${t.hospital.shortName || t.hospital.name}`}}</td>
+                        <td>{{ t.specialty.name }}</td>
                     </tr>
                 </tbody>
             </table>

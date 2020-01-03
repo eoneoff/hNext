@@ -19,6 +19,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(t => t.Department)
                 .Include(t => t.Specialty)
                 .Include(t => t.Doctor)
+                .Include(t => t.RecordFieldTemplates).ThenInclude(f => f.RecordFieldTemplateOptions)
                 .AsNoTracking().ToListAsync();
         }
 
@@ -31,6 +32,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(t => t.Department)
                 .Include(t => t.Specialty)
                 .Include(t => t.Doctor)
+                .Include(t => t.RecordFieldTemplates).ThenInclude(f => f.RecordFieldTemplateOptions)
                 .AsNoTracking().SingleOrDefaultAsync(t => t.Id == id);
             }
             else
@@ -46,6 +48,7 @@ namespace hNext.MSSQLCoreRepository
                 .Include(t => t.Department)
                 .Include(t => t.Specialty)
                 .Include(t => t.Doctor)
+                .Include(t => t.RecordFieldTemplates).ThenInclude(f => f.RecordFieldTemplateOptions)
                 .AsNoTracking().SingleOrDefaultAsync(t => t.Id == item.Id);
         }
     }

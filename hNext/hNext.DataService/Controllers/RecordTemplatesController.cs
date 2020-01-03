@@ -23,7 +23,7 @@ namespace hNext.DataService.Controllers
         [HttpGet("{id:int}")]
         public async Task<RecordTemplate> Get(int id) => await _repository.Get(id);
 
-        [HttpPost("{id:int}")]
+        [HttpPost]
         public async Task<IActionResult> Post(RecordTemplate recordTemplate)
         {
             if(!ModelState.IsValid)

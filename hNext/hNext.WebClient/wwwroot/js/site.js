@@ -531,7 +531,7 @@ class DataClient {
     }
 
     async addRecordTemplate(template) {
-        return (await this._clientpost('recordtemplates', template)).data;
+        return (await this._client.post('recordtemplates', template)).data;
     }
 }
 

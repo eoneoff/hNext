@@ -32,7 +32,6 @@ Vue.component("Records", {
         },
         template: function () {
             return {
-                id: '',
                 name: '',
                 header: '',
                 hospitalId: '',

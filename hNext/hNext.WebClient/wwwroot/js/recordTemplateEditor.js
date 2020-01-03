@@ -112,7 +112,6 @@ Vue.component("RecordTemplateEditor", {
         },
         field: function () {
             return {
-                id: '',
                 header: '',
                 newLine: false,
                 recordFieldType: 0,
