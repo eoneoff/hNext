@@ -29,6 +29,7 @@ namespace hNext.WebClient.Controllers
             model.Tabs.Add(nameof(HospitalsViewComponent).ViewComponentName(), _localizer[nameof(Resources.Hospitals)]);
             model.Tabs.Add(nameof(DepartmentsViewComponent).ViewComponentName(), _localizer[nameof(Resources.Departments)]);
             model.Tabs.Add(nameof(DoctorViewComponent).ViewComponentName(), _localizer[nameof(Resources.Doctors)]);
+            model.Tabs.Add(nameof(RecordsViewComponent).ViewComponentName(), _localizer[nameof(Resources.Templates)]);
             model.SideBar.Add(nameof(PatientDetailsViewComponent).ViewComponentName(), _localizer[nameof(Resources.Patient)]);
             model.SideBar.Add(nameof(PatientAdditionalDataViewComponent).ViewComponentName(),
                 _localizer[nameof(Resources.PatientAdditionalData)]);

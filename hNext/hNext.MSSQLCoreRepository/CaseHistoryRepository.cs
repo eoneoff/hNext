@@ -66,5 +66,9 @@ namespace hNext.MSSQLCoreRepository
                 .Include(h => h.Admissions).ThenInclude(a => a.Department)
                 .AsNoTracking().SingleOrDefaultAsync(h => h.Id == history.Id);
         }
+
+        public async Task<bool> AdmissionExists(long id, long admissionId) =>
+            await db.CaseHistoryAdmissions.Where(a => a.Id == admissionId && a.CaseHistoryId == id)
+                .CountAsync() > 0;
     }
 }

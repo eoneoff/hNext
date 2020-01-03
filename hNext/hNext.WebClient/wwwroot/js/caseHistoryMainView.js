@@ -27,6 +27,7 @@ if (!store.state['caseHistory']) {
                 oldLast.discharged = new Date();
                 Vue.set(state.history.admissions, index, oldLast);
                 state.history.admissions.push(admission);
+                DATA_CLIENT.editAdmissionOfCaseHistory(oldLast);
             }
         }
     };

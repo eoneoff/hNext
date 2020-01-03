@@ -645,4 +645,85 @@
   <data name="RemoveDiagnosys" xml:space="preserve">
     <value>Зняти діагноз</value>
   </data>
+  <data name="DecimalType" xml:space="preserve">
+    <value>дробне число</value>
+  </data>
+  <data name="DefaultValue" xml:space="preserve">
+    <value>Значеня за замовчанням</value>
+  </data>
+  <data name="EnterHeader" xml:space="preserve">
+    <value>Введіть заголовок</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Введіть назву</value>
+  </data>
+  <data name="EnterOption" xml:space="preserve">
+    <value>Введіть опцію</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="IntegerType" xml:space="preserve">
+    <value>ціле число</value>
+  </data>
+  <data name="Option" xml:space="preserve">
+    <value>Опція</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>список значень</value>
+  </data>
+  <data name="StringType" xml:space="preserve">
+    <value>текст</value>
+  </data>
+  <data name="Template" xml:space="preserve">
+    <value>Шаблон</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Шаблони</value>
+  </data>
+  <data name="SelectDoctor" xml:space="preserve">
+    <value>Оберіть лікаря</value>
+  </data>
+  <data name="Field" xml:space="preserve">
+    <value>Поле</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Поля</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Опції</value>
+  </data>
+  <data name="Decimal" xml:space="preserve">
+    <value>Число</value>
+  </data>
+  <data name="Integer" xml:space="preserve">
+    <value>Ціле число</value>
+  </data>
+  <data name="Line" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="NewLine" xml:space="preserve">
+    <value>Новий рядок</value>
+  </data>
+  <data name="EnterValue" xml:space="preserve">
+    <value>Введіть значення</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Значення</value>
+  </data>
+  <data name="EditOption" xml:space="preserve">
+    <value>Змінити опцію</value>
+  </data>
+  <data name="DeleteOption" xml:space="preserve">
+    <value>Видалити опцію</value>
+  </data>
+  <data name="CreateNewBasedOnSelected" xml:space="preserve">
+    <value>Створити новий елемент на основі обраного</value>
+  </data>
+  <data name="EditProhibited" xml:space="preserve">
+    <value>Зміна елементу заборонена</value>
+  </data>
+  <data name="NoFieldsError" xml:space="preserve">
+    <value>Додайте поля</value>
+  </data>
 </root>

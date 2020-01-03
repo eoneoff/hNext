@@ -28,6 +28,7 @@ namespace hNext.MSSQLCoreRepository
             .Include(d => d.Person).ThenInclude(p => p.Phones).ThenInclude(p => p.Phone)
             .Include(d => d.Person).ThenInclude(p => p.Emails).ThenInclude(e => e.Email)
             .Include(d => d.Person).ThenInclude(p => p.Documents).ThenInclude(d => d.DocumentType)
+            .Include(d => d.DoctorPositions).Include(d => d.DoctorSpecialties)
             .AsNoTracking().ToListAsync();
 
         public override async Task<Doctor> Get(params object[] keys)

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace hNext.WebClient
 {
@@ -58,14 +59,14 @@ namespace hNext.WebClient
             //});
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization(options => 
                 options.DataAnnotationLocalizerProvider = (type, factory) => 
                 factory.Create(typeof(ResourceLibrary.Resources.Resources)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -79,12 +80,13 @@ namespace hNext.WebClient
             app.UseStaticFiles();
             app.UseRequestLocalization();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints => 
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+                    pattern: "{controller=Home}/{action=Index}/{id?}")
+            );
         }
     }
 }

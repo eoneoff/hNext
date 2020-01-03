@@ -1,8 +1,8 @@
 ﻿using hNext.Model;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
@@ -18,7 +18,7 @@ namespace hNext.DbAccessMSSQLCore
             var districtId = new SqlParameter("@districtId", (object)model.DistrictId ?? DBNull.Value);
             var cityId = new SqlParameter("@cityId", (object)model.CityId ?? DBNull.Value);
 
-            var patients = Patients.FromSql("SELECT * FROM SearchPatients(@name, @year, @regionId, @districtId, @cityId)",
+            var patients = Patients.FromSqlRaw("SELECT * FROM SearchPatients(@name, @year, @regionId, @districtId, @cityId)",
                 name, year, regionId, districtId, cityId);
 
             return patients;
@@ -31,7 +31,7 @@ namespace hNext.DbAccessMSSQLCore
             var hospitalId = new SqlParameter("@hospitalId", (object)model.HospitalId ?? DBNull.Value);
             var departmentId = new SqlParameter("@departmentId", (object)model.DepartmentId ?? DBNull.Value);
 
-            var doctors = Doctors.FromSql("SELECT * FROM SearchDoctors(@name, @specialtyId, @hospitalId, @departmentId)",
+            var doctors = Doctors.FromSqlRaw("SELECT * FROM SearchDoctors(@name, @specialtyId, @hospitalId, @departmentId)",
                 name, specialtyId, hospitalId, departmentId);
 
             return doctors;

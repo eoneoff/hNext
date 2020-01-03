@@ -349,6 +349,10 @@ class DataClient {
         )).data;
     }
 
+    async getDoctors() {
+        return (await this._client('doctors')).data;
+    }
+
     async saveDoctor(doctor) {
         return (await this._client.post(
             `doctors`,
@@ -488,6 +492,13 @@ class DataClient {
         )).data;
     }
 
+    async editAdmissionOfCaseHistory(admission) {
+        return await this._client.put(
+            `casehistory/${admission.caseHistoryId}/admissions/${admission.id}`,
+            admission
+        ).data;
+    }
+
     async getDiagnoses() {
         return (await this._client.get(
             'diagnoses'
@@ -509,6 +520,18 @@ class DataClient {
             'icd/search',
             icd
         )).data;
+    }
+
+    async getSpecialties() {
+        return (await this._client.get('specialties')).data;
+    }
+
+    async getRecordTemplates() {
+        return (await this._client.get('recordtemplates')).data;
+    }
+
+    async addRecordTemplate(template) {
+        return (await this._client.post('recordtemplates', template)).data;
     }
 }
 

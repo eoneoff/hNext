@@ -1,0 +1,116 @@
+﻿@model RecordTemplateEditorViewModel
+
+<template id="record-template-editor-template">
+    <form class="modal-window" :style="{zIndex:level*1000}">
+        <record-field-template-editor v-if="showFieldEditor" :level="level+1" :initial-enabled="enabled"
+                                      :initial-field="selectedField"
+                                      @@cancel="showFieldEditor = false" @@save="addField"></record-field-template-editor>
+        <confirmation-dialog v-if="showSaveConfirmation" :level="level+1" :initial-enabled="enabled"
+                             @@yes="$emit('save', recordTemplate)" @@no="showSaveConfirmation = false">
+            @Localizer[nameof(Resources.SaveAndExit)]?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showDeleteFieldConfirmation" :level="level+1" :initial-enabled="enabled"
+                             @@yes="deleteOption" @@no="showDeleteFieldConfirmation=false">
+            @Localizer[nameof(Resources.Delete)] @Localizer[nameof(Resources.Field)].Value.ToLower()?
+        </confirmation-dialog>
+        <confirmation-dialog v-if="showCancelConfirmation" :level="level+1" :initial-enabled="enabled"
+                             @@yes="$emit('cancel')" @@no="showCancelConfirmation = false">
+            @Localizer[nameof(Resources.CancelAndExit)]?
+        </confirmation-dialog>
+        <div class="d-flex flex-column mb-1">
+            <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="d-flex flex-column show-panel modal-window-show-panel">
+            <div class="form-group row mx-0 align-items-lg-end">
+                <label class="col-lg-3 col-form-label text-left text-lg-right" asp-for="RecordTemplate.Name"></label>
+                <div class="col-lg-9">
+                    <div><span asp-validation-for="RecordTemplate.Name" class="text-danger"></span></div>
+                    <input class="form-control" :disabled="!enabled" asp-for="RecordTemplate.Name" v-model="recordTemplate.name" />
+                </div>
+            </div>
+            <div class="form-group row mx-0 align-items-lg-end">
+                <label class="col-lg-3 col-form-label text-left text-lg-right" asp-for="RecordTemplate.Header"></label>
+                <div class="col-lg-9">
+                    <div><span asp-validation-for="RecordTemplate.Header" class="text-danger"></span></div>
+                    <input class="form-control" :disabled="!enabled" asp-for="RecordTemplate.Header" v-model="recordTemplate.header" />
+                </div>
+            </div>
+            <div class="form-group row mx-0">
+                <label class="col-lg-3 col-form-label text-left text-lg-right" asp-for="RecordTemplate.HospitalId"></label>
+                <div class="col-lg-9">
+                    <select asp-for="RecordTemplate.HospitalId" class="custom-select" v-model="recordTemplate.hospitalId" :disabled="!enabled"
+                            asp-items="@new SelectList(Model.Hospitals, nameof(Hospital.Id), nameof(Hospital.Name))">
+                        <option value="">@Localizer[nameof(Resources.SelectHospital)]</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mx-0">
+                <label class="col-lg-3 col-form-label text-left text-lg-right" asp-for="RecordTemplate.DepartmentId"></label>
+                <div class="col-lg-9">
+                    <select asp-for="RecordTemplate.DepartmentId" class="custom-select" v-model="recordTemplate.departmentId"
+                            :disabled="!enabled || !departments.length">
+                        <option value="">@Localizer[nameof(Resources.SelectDepartment)]</option>
+                        <option v-for="d in departments" :key="d.id" :value="d.id">{{ d.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mx-0">
+                <label class="col-lg-3 col-form-label text-left text-lg-right" asp-for="RecordTemplate.SpecialtyId"></label>
+                <div class="col-lg-9">
+                    <select asp-for="RecordTemplate.SpecialtyId" class="custom-select" v-model="recordTemplate.specialtyId"
+                            :disabled="!enabled || !specialties.length">
+                        <option value="">@Localizer[nameof(Resources.SelectSpecialty)]</option>
+                        <option v-for="s in specialties" :key="s.id" :value="s.id">{{ s.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mx-0">
+                <label class="col-lg-3 col-form-label text-left text-lg-right" asp-for="RecordTemplate.DoctorId"></label>
+                <div class="col-lg-9">
+                    <select asp-for="RecordTemplate.DoctorId" class="custom-select" v-model="recordTemplate.doctorId"
+                            :disabled="!enabled || !filteredDoctors.length">
+                        <option value="">@Localizer[nameof(Resources.SelectDoctor)]</option>
+                        <option v-for="d in filteredDoctors" :key="d.id" :value="d.id">
+                            {{
+                            `${d.person.familyName} ${d.person.firstName} ${d.person.patronimic}`
+                            }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mx-0 justify-content-center">
+                <h6>@Localizer[Resources.Fields]</h6>
+            </div>
+            <div class="d-flex flex-column mx-3">
+                <div><span class="text-danger" v-if="noFieldsError">@Localizer[nameof(Resources.NoFieldsError)]</span></div>
+                <div class="d-flex flex-row" :class="{'input-validation-error': noFieldsError}">
+                    <div class="flex-grow-1" style="max-height: 20vh; overflow-y: auto;">
+                        <table class="table table-borderless table-hover table-sm w-100" style="max-height:25vh">
+                            <tbody>
+                                <tr v-for="f in recordTemplate.recordFieldTemplates" :key="f.orderNo"
+                                    :class="{'selected-table-row':f.orderNo == selectedField.orderNo}"
+                                    @@click.stop.prevent="selectedField = f">
+                                    <td>{{ f.header }}</td>
+                                    <td>{{ defaultOptionValue(f) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex flex-column ml-1">
+                        <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="addNewField"><i class="fa fa-plus"></i></button>
+                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent="editField"><i class="fa fa-pen"></i></button>
+                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent="moveOptionUp"><i class="fa fa-arrow-up"></i></button>
+                        <button class="btn btn-primary mt-1" :disabled="!enabled" @@click.stop.prevent="moveOptionDown"><i class="fa fa-arrow-down"></i></button>
+                        <button class="btn btn-danger mt-1" :disabled="!enabled" @@click.stop.prevent="deleteOptionClicked"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row flex-nowrap justify-content-between justify-content-lg-end mt-2 mx-3">
+                <button class="btn btn-primary" :disabled="!enabled" @@click.stop.prevent="save">@Localizer[nameof(Resources.Save)]</button>
+                <button class="btn btn-danger ml-2" :disabled="!enabled" @@click.stop.prevent="cancel">@Localizer[nameof(Resources.Cancel)]</button>
+            </div>
+        </div>
+    </form>
+</template>

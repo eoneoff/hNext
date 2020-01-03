@@ -5,8 +5,8 @@ Vue.component("CaseHistoriesList", {
     store,
     data: function () {
         return {
-            showEditor:false
-        }
+            showEditor: false
+        };
     },
     computed: {
         enabled: {

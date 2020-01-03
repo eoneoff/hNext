@@ -17,7 +17,7 @@ namespace hNext.Model
         [MaxLength(50)]
         public string eHealthId { get; set; }
 
-        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<Person> People { get; set; }
     }
 }

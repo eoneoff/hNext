@@ -40,5 +40,29 @@ namespace hNext.MSSQLCoreRepository.Tests
             Assert.IsInstanceOfType(result, typeof(CaseHistory));
             Assert.AreEqual(caseHistoryId, result.Id);
         }
+
+        [TestMethod]
+        public void AdmissionExistsReturnsBool()
+        {
+            //Arrange
+            long id = 1;
+            long admissionId = id + 1;
+            var admissions = new List<CaseHistoryAdmission>
+            {
+                new CaseHistoryAdmission {Id = admissionId, CaseHistoryId = id},
+                new CaseHistoryAdmission {Id = admissionId +1, CaseHistoryId = id + 1},
+                new CaseHistoryAdmission {Id = admissionId +1 , CaseHistoryId = id}
+            };
+            var dbSet = admissions.AsQueryable().BuildMockDbSet();
+            context.Setup(c => c.CaseHistoryAdmissions).Returns(dbSet.Object);
+            repository = new CaseHistoryRepository(context.Object);
+
+            //Act
+            var result = repository.AdmissionExists(id, admissionId).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(bool));
+            Assert.IsTrue(result);
+        }
     }
 }

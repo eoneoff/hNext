@@ -39,5 +39,6 @@ namespace hNext.Model
         public virtual ICollection<DepartmentEmail> Emails { get; set; }
         public virtual ICollection<DoctorPosition> DoctorPositions { get; set; }
         public virtual ICollection<CaseHistoryAdmission> Admissions { get; set; }
+        public virtual ICollection<RecordFieldTemplate> RecordFieldTemplates { get; set; }
     }
 }

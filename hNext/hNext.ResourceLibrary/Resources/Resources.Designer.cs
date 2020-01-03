@@ -367,6 +367,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Створити новий елемент на основі обраного.
+        /// </summary>
+        public static string CreateNewBasedOnSelected {
+            get {
+                return ResourceManager.GetString("CreateNewBasedOnSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Створити новий документ.
         /// </summary>
         public static string CreateNewDocument {
@@ -448,6 +457,33 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Число.
+        /// </summary>
+        public static string Decimal {
+            get {
+                return ResourceManager.GetString("Decimal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на дробне число.
+        /// </summary>
+        public static string DecimalType {
+            get {
+                return ResourceManager.GetString("DecimalType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Значеня за замовчанням.
+        /// </summary>
+        public static string DefaultValue {
+            get {
+                return ResourceManager.GetString("DefaultValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Видалити.
         /// </summary>
         public static string Delete {
@@ -462,6 +498,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string DeleteGuardian {
             get {
                 return ResourceManager.GetString("DeleteGuardian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Видалити опцію.
+        /// </summary>
+        public static string DeleteOption {
+            get {
+                return ResourceManager.GetString("DeleteOption", resourceCulture);
             }
         }
         
@@ -601,6 +646,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Змінити опцію.
+        /// </summary>
+        public static string EditOption {
+            get {
+                return ResourceManager.GetString("EditOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Зміна елементу заборонена.
+        /// </summary>
+        public static string EditProhibited {
+            get {
+                return ResourceManager.GetString("EditProhibited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на ЄДРПОУ.
         /// </summary>
         public static string EDRPOU {
@@ -727,6 +790,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть заголовок.
+        /// </summary>
+        public static string EnterHeader {
+            get {
+                return ResourceManager.GetString("EnterHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Введіть назву лікарні.
         /// </summary>
         public static string EnterHospitalName {
@@ -736,11 +808,29 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть назву.
+        /// </summary>
+        public static string EnterName {
+            get {
+                return ResourceManager.GetString("EnterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Введіть номер.
         /// </summary>
         public static string EnterNumber {
             get {
                 return ResourceManager.GetString("EnterNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть опцію.
+        /// </summary>
+        public static string EnterOption {
+            get {
+                return ResourceManager.GetString("EnterOption", resourceCulture);
             }
         }
         
@@ -799,6 +889,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть значення.
+        /// </summary>
+        public static string EnterValue {
+            get {
+                return ResourceManager.GetString("EnterValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Дата закінчення.
         /// </summary>
         public static string ExpiryDate {
@@ -813,6 +912,24 @@ namespace hNext.ResourceLibrary.Resources {
         public static string FamilyName {
             get {
                 return ResourceManager.GetString("FamilyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Поле.
+        /// </summary>
+        public static string Field {
+            get {
+                return ResourceManager.GetString("Field", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Поля.
+        /// </summary>
+        public static string Fields {
+            get {
+                return ResourceManager.GetString("Fields", resourceCulture);
             }
         }
         
@@ -867,6 +984,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Guardians {
             get {
                 return ResourceManager.GetString("Guardians", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заголовок.
+        /// </summary>
+        public static string Header {
+            get {
+                return ResourceManager.GetString("Header", resourceCulture);
             }
         }
         
@@ -934,6 +1060,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ціле число.
+        /// </summary>
+        public static string Integer {
+            get {
+                return ResourceManager.GetString("Integer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ціле число.
+        /// </summary>
+        public static string IntegerType {
+            get {
+                return ResourceManager.GetString("IntegerType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на проміжний.
         /// </summary>
         public static string IntermediateDiagnosys {
@@ -948,6 +1092,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string IssuedBy {
             get {
                 return ResourceManager.GetString("IssuedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Текст.
+        /// </summary>
+        public static string Line {
+            get {
+                return ResourceManager.GetString("Line", resourceCulture);
             }
         }
         
@@ -979,6 +1132,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Новий рядок.
+        /// </summary>
+        public static string NewLine {
+            get {
+                return ResourceManager.GetString("NewLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Новий пацієнт.
         /// </summary>
         public static string NewPatient {
@@ -997,6 +1159,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Додайте поля.
+        /// </summary>
+        public static string NoFieldsError {
+            get {
+                return ResourceManager.GetString("NoFieldsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Номер.
         /// </summary>
         public static string Number {
@@ -1011,6 +1182,24 @@ namespace hNext.ResourceLibrary.Resources {
         public static string OnAdmissionDiagnosys {
             get {
                 return ResourceManager.GetString("OnAdmissionDiagnosys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Опція.
+        /// </summary>
+        public static string Option {
+            get {
+                return ResourceManager.GetString("Option", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Опції.
+        /// </summary>
+        public static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
             }
         }
         
@@ -1330,6 +1519,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть лікаря.
+        /// </summary>
+        public static string SelectDoctor {
+            get {
+                return ResourceManager.GetString("SelectDoctor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Оберіть стать.
         /// </summary>
         public static string SelectGender {
@@ -1362,6 +1560,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SelectHospitalType {
             get {
                 return ResourceManager.GetString("SelectHospitalType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на список значень.
+        /// </summary>
+        public static string SelectorType {
+            get {
+                return ResourceManager.GetString("SelectorType", resourceCulture);
             }
         }
         
@@ -1519,11 +1726,38 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на текст.
+        /// </summary>
+        public static string StringType {
+            get {
+                return ResourceManager.GetString("StringType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ідентифікаційний код.
         /// </summary>
         public static string TaxId {
             get {
                 return ResourceManager.GetString("TaxId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Шаблон.
+        /// </summary>
+        public static string Template {
+            get {
+                return ResourceManager.GetString("Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Шаблони.
+        /// </summary>
+        public static string Templates {
+            get {
+                return ResourceManager.GetString("Templates", resourceCulture);
             }
         }
         
@@ -1578,6 +1812,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Url {
             get {
                 return ResourceManager.GetString("Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Значення.
+        /// </summary>
+        public static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
         

@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using hNext.ResourceLibrary.Resources;
+using System.Text.Json.Serialization;
 
 namespace hNext.Model
 {

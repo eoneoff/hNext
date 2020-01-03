@@ -1,0 +1,37 @@
+﻿<template id="records-template">
+    <div class="d-flex flex-column flex-lg-row-reverse">
+        <record-template-editor v-if="showTemplateEditor" level="1" :initial-template ="selectedRecord"
+                    @@save="saveTemplate" @@cancel="showTemplateEditor = false"></record-template-editor>
+        <confirmation-dialog v-if="showEditConfirmation" level="1" :initial-enabled="enabled"
+                             @@yes="editTemplate" @@no="showEditConfirmation = false">
+            @Localizer[nameof(Resources.EditProhibited)]. @Localizer[nameof(Resources.CreateNewBasedOnSelected)]?
+        </confirmation-dialog>
+        <div class="d-flex flex-column mt-2 ml-lg-2">
+            <button class="btn btn-primary w-100" :disabled="!enabled" @@click.stop.prevent="newTemplate">
+                <i class="fa fa-plus"></i>
+            </button>
+            <button class="btn btn-primary w-100 mt-2" :disabled="!enabled" @@click.stop.prevent="editTemplateClicked">
+                <i class="fa fa-edit"></i>
+            </button>
+        </div>
+        <div class="flex-lg-grow-1 mt-2">
+            <table class="table table-hover table-borderless w-100">
+                <thead class="thead-light">
+                    <tr>
+                        <th>@Localizer[nameof(Resources.Name)]</th>
+                        <th>@Localizer[nameof(Resources.Hospital)]</th>
+                        <th>@Localizer[nameof(Resources.Specialty)]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="t in templates" :key="t.id" :class="{'selected-table-row': selectedRecord.id == t.id}"
+                        @@click.stop.prevent="selectedRecord = t">
+                        <td>{{t.name}}</td>
+                        <td>{{`${t.hospital.shortName || t.hospital.name}`}}</td>
+                        <td>{{ t.specialty.name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>

@@ -9,5 +9,6 @@ namespace hNext.IRepository
     public interface ICaseHistoryRepository:IRepository<CaseHistory>
     {
         Task<CaseHistory> Info(long id);
+        Task<bool> AdmissionExists(long id, long admissionId);
     }
 }

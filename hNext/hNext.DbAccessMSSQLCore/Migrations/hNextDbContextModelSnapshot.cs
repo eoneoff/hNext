@@ -15,7 +15,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -23,27 +23,37 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddressTypeId");
+                    b.Property<int>("AddressTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Apartment")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("Building")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int>("CityId");
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("CountryId");
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("DistrictId");
+                    b.Property<int?>("DistrictId")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RegionId");
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("StreetId");
+                    b.Property<int?>("StreetId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Zip")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.HasKey("Id");
@@ -65,12 +75,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.AddressType", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -80,7 +93,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.CaseHistory", b =>
                 {
-                    b.Property<long>("Id");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("Admitted")
                         .HasColumnType("date");
@@ -88,19 +102,26 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.Property<DateTime?>("Discharged")
                         .HasColumnType("date");
 
-                    b.Property<int>("HospitalId");
+                    b.Property<int>("HospitalId")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("Insured");
+                    b.Property<bool>("Insured")
+                        .HasColumnType("bit");
 
-                    b.Property<long>("PatientId");
+                    b.Property<long>("PatientId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int?>("ReferredById");
+                    b.Property<int?>("ReferredById")
+                        .HasColumnType("int");
 
-                    b.Property<byte?>("Result");
+                    b.Property<byte?>("Result")
+                        .HasColumnType("tinyint");
 
-                    b.Property<byte?>("Severity");
+                    b.Property<byte?>("Severity")
+                        .HasColumnType("tinyint");
 
-                    b.Property<byte?>("Urgency");
+                    b.Property<byte?>("Urgency")
+                        .HasColumnType("tinyint");
 
                     b.HasKey("Id");
 
@@ -117,11 +138,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CaseHistoryId");
+                    b.Property<long>("CaseHistoryId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int?>("DepartmentId");
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("Discharged")
                         .HasColumnType("date");
@@ -137,20 +161,25 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.CaseHistoryDiagnosys", b =>
                 {
-                    b.Property<long>("CaseHistoryId");
+                    b.Property<long>("CaseHistoryId")
+                        .HasColumnType("bigint");
 
-                    b.Property<long>("DiagnosysId");
+                    b.Property<long>("DiagnosysId")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("Active")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
                         .HasDefaultValue(true);
 
                     b.Property<DateTime?>("Date")
                         .HasColumnType("date");
 
-                    b.Property<byte?>("Type");
+                    b.Property<byte?>("Type")
+                        .HasColumnType("tinyint");
 
-                    b.Property<byte?>("WhenSet");
+                    b.Property<byte?>("WhenSet")
+                        .HasColumnType("tinyint");
 
                     b.HasKey("CaseHistoryId", "DiagnosysId");
 
@@ -163,20 +192,27 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CityTypeId");
+                    b.Property<int>("CityTypeId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("CountryId");
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("DistrictId");
+                    b.Property<int?>("DistrictId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("RegionId");
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -196,12 +232,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.CityType", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.HasKey("Id");
@@ -213,12 +252,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -230,16 +272,21 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("HospitalId");
+                    b.Property<int>("HospitalId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Login");
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.HasKey("Id");
@@ -253,9 +300,11 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.DepartmentEmail", b =>
                 {
-                    b.Property<int>("DepartmentId");
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("EmailId");
+                    b.Property<long>("EmailId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("DepartmentId", "EmailId");
 
@@ -266,9 +315,11 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.DepartmentPhone", b =>
                 {
-                    b.Property<int>("DepartmentId");
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("PhoneId");
+                    b.Property<long>("PhoneId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("DepartmentId", "PhoneId");
 
@@ -279,9 +330,11 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.DepartmentSpecialty", b =>
                 {
-                    b.Property<int>("DeparmentId");
+                    b.Property<int>("DeparmentId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("SpecialtyId");
+                    b.Property<int>("SpecialtyId")
+                        .HasColumnType("int");
 
                     b.HasKey("DeparmentId", "SpecialtyId");
 
@@ -294,12 +347,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ICDId");
+                    b.Property<int?>("ICDId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -312,20 +368,26 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("DoctorId");
+                    b.Property<long>("DoctorId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Number")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Specialty")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("University")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("WhenIssued");
+                    b.Property<DateTime>("WhenIssued")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -338,14 +400,18 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("RegionId");
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -361,13 +427,17 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Code");
+                    b.Property<int?>("Code")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Login");
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("PersonId");
+                    b.Property<long>("PersonId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -381,21 +451,29 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DepartmentId");
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("DoctorId");
+                    b.Property<long>("DoctorId")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("EndDate");
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("HospitalId");
+                    b.Property<int>("HospitalId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("PositionId");
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("SpecialtyId");
+                    b.Property<int>("SpecialtyId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("StartDate");
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -416,21 +494,29 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Category");
+                    b.Property<int?>("Category")
+                        .HasColumnType("int");
 
-                    b.Property<long>("DoctorId");
+                    b.Property<long>("DoctorId")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("Expires");
+                    b.Property<DateTime?>("Expires")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("IssuedDate");
+                    b.Property<DateTime?>("IssuedDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Number");
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SertifiedBy");
+                    b.Property<string>("SertifiedBy")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SpecialtyId");
+                    b.Property<int>("SpecialtyId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -445,20 +531,26 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("DateOfIssue");
+                    b.Property<DateTime?>("DateOfIssue")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("DocumentTypeId");
+                    b.Property<int>("DocumentTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("IssuedBy")
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Number")
                         .IsRequired()
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
-                    b.Property<long>("PersonId");
+                    b.Property<long>("PersonId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -473,14 +565,17 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("AuthorId");
+                    b.Property<long?>("AuthorId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("CreationDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("Number");
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -491,12 +586,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.DocumentType", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -508,10 +606,12 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .IsRequired()
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -523,12 +623,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -538,12 +641,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.GuardianWard", b =>
                 {
-                    b.Property<long>("WardId");
+                    b.Property<long>("WardId")
+                        .HasColumnType("bigint");
 
-                    b.Property<long>("GuardianId");
+                    b.Property<long>("GuardianId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Relation")
                         .IsRequired()
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("WardId", "GuardianId");
@@ -557,26 +663,36 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("AddressId");
+                    b.Property<long>("AddressId")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("EDRPOU");
+                    b.Property<string>("EDRPOU")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HospitalTypeId");
+                    b.Property<int>("HospitalTypeId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Login");
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("PropertyTypeId");
+                    b.Property<int>("PropertyTypeId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("ShortName");
+                    b.Property<string>("ShortName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Url");
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealtId")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.HasKey("Id");
@@ -594,9 +710,11 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.HospitalEmail", b =>
                 {
-                    b.Property<int>("HospitalId");
+                    b.Property<int>("HospitalId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("EmailId");
+                    b.Property<long>("EmailId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("HospitalId", "EmailId");
 
@@ -607,9 +725,11 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.HospitalPhone", b =>
                 {
-                    b.Property<int>("HospitalId");
+                    b.Property<int>("HospitalId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("PhoneId");
+                    b.Property<long>("PhoneId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("HospitalId", "PhoneId");
 
@@ -620,12 +740,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.HospitalType", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealtId")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.HasKey("Id");
@@ -635,23 +758,31 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.ICD", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Category");
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Letter")
                         .IsRequired()
+                        .HasColumnType("nvarchar(1)")
                         .HasMaxLength(1);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrimaryName");
+                    b.Property<string>("PrimaryName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PrimaryNumber");
+                    b.Property<int>("PrimaryNumber")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("SecondaryNumber");
+                    b.Property<int?>("SecondaryNumber")
+                        .HasColumnType("int");
 
-                    b.Property<string>("SubCategory");
+                    b.Property<string>("SubCategory")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -664,22 +795,30 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ActivityLicensed");
+                    b.Property<string>("ActivityLicensed")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DateOfIssue");
+                    b.Property<DateTime?>("DateOfIssue")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Discriminator")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ExpiryDate");
+                    b.Property<DateTime?>("ExpiryDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("IssuedBy");
+                    b.Property<string>("IssuedBy")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Number");
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OrderNo");
+                    b.Property<string>("OrderNo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -692,13 +831,17 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Login");
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("PersonId");
+                    b.Property<long>("PersonId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -711,12 +854,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.PatientDiagnosys", b =>
                 {
-                    b.Property<long>("PatientId");
+                    b.Property<long>("PatientId")
+                        .HasColumnType("bigint");
 
-                    b.Property<long>("DiagnosysId");
+                    b.Property<long>("DiagnosysId")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("Active")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
                         .HasDefaultValue(true);
 
                     b.Property<DateTime?>("Date")
@@ -733,27 +879,37 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("AddressId");
+                    b.Property<long>("AddressId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int?>("CountryOfBirthId");
+                    b.Property<int?>("CountryOfBirthId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("DateOfBirth");
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FamilyName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GenderId");
+                    b.Property<int>("GenderId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Patronimic");
+                    b.Property<string>("Patronimic")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PlaceOfBirthId");
+                    b.Property<int?>("PlaceOfBirthId")
+                        .HasColumnType("int");
 
                     b.Property<string>("TaxId")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.HasKey("Id");
@@ -775,9 +931,11 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.PersonEmails", b =>
                 {
-                    b.Property<long>("PersonId");
+                    b.Property<long>("PersonId")
+                        .HasColumnType("bigint");
 
-                    b.Property<long>("EmailId");
+                    b.Property<long>("EmailId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("PersonId", "EmailId");
 
@@ -788,9 +946,11 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.PersonPhone", b =>
                 {
-                    b.Property<long>("PersonId");
+                    b.Property<long>("PersonId")
+                        .HasColumnType("bigint");
 
-                    b.Property<long>("PhoneId");
+                    b.Property<long>("PhoneId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("PersonId", "PhoneId");
 
@@ -803,13 +963,16 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Number")
                         .IsRequired()
+                        .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
 
-                    b.Property<int>("PhoneTypeId");
+                    b.Property<int>("PhoneTypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -822,12 +985,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.PhoneType", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthName")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -837,12 +1003,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.Position", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.HasKey("Id");
@@ -852,12 +1021,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.PropertyType", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.HasKey("Id");
@@ -865,18 +1037,189 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.ToTable("PropertyTypes");
                 });
 
+            modelBuilder.Entity("hNext.Model.Record", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CaseHistoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DoctorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Header")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("PatientId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("RecordTemplateId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpecialtyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaseHistoryId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("RecordTemplateId");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("Records");
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordField", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RecordFieldTemplateId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("RecordId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecordFieldTemplateId");
+
+                    b.HasIndex("RecordId");
+
+                    b.ToTable("RecordFields");
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordFieldTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DefaultValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("NewLine")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("OrderNo")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("RecordFieldType")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("RecordTemplateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("RecordTemplateId");
+
+                    b.ToTable("RecordFieldTemplates");
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordFieldTemplateOption", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderNo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecordFieldTemplateId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecordFieldTemplateId");
+
+                    b.ToTable("RecordFieldTemplateOptions");
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("DoctorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("HospitalId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SpecialtyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("HospitalId");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("RecordTemplates");
+                });
+
             modelBuilder.Entity("hNext.Model.Region", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CountryId");
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -888,12 +1231,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.Specialty", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.HasKey("Id");
@@ -905,16 +1251,21 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CityId");
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("StreetTypeId");
+                    b.Property<int>("StreetTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -930,12 +1281,15 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.StreetType", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eHealthId")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -947,7 +1301,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                 {
                     b.HasBaseType("hNext.Model.License");
 
-                    b.Property<int>("HospitalId");
+                    b.Property<int>("HospitalId")
+                        .HasColumnType("int");
 
                     b.HasIndex("HospitalId");
 
@@ -959,17 +1314,20 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.AddressType", "AddressType")
                         .WithMany("Addresses")
                         .HasForeignKey("AddressTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.City", "City")
                         .WithMany("Addresses")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Country", "Country")
                         .WithMany("Addresses")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.District", "District")
                         .WithMany("Addresses")
@@ -992,17 +1350,20 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Hospital", "Hospital")
                         .WithMany("CaseHistories")
                         .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.DocumentRegistry", "DocumentRegistry")
                         .WithOne("CaseHistory")
                         .HasForeignKey("hNext.Model.CaseHistory", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Patient", "Patient")
                         .WithMany("CaseHistories")
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Hospital", "ReferredBy")
                         .WithMany("Referred")
@@ -1014,7 +1375,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.CaseHistory", "CaseHistory")
                         .WithMany("Admissions")
                         .HasForeignKey("CaseHistoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Department", "Department")
                         .WithMany("Admissions")
@@ -1026,12 +1388,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.CaseHistory", "CaseHistory")
                         .WithMany("Diagnoses")
                         .HasForeignKey("CaseHistoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Diagnosys", "Diagnosys")
                         .WithMany("CaseHistories")
                         .HasForeignKey("DiagnosysId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.City", b =>
@@ -1039,12 +1403,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.CityType", "CityType")
                         .WithMany("Cities")
                         .HasForeignKey("CityTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Country", "Country")
                         .WithMany("Cities")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.District", "District")
                         .WithMany("Cities")
@@ -1062,7 +1428,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Hospital", "Hospital")
                         .WithMany("Departments")
                         .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.DepartmentEmail", b =>
@@ -1070,12 +1437,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Department", "Department")
                         .WithMany("Emails")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Email", "Email")
                         .WithMany("Departments")
                         .HasForeignKey("EmailId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.DepartmentPhone", b =>
@@ -1083,12 +1452,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Department", "Department")
                         .WithMany("Phones")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Phone", "Phone")
                         .WithMany("Departments")
                         .HasForeignKey("PhoneId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.DepartmentSpecialty", b =>
@@ -1096,12 +1467,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Department", "Department")
                         .WithMany("Specialties")
                         .HasForeignKey("DeparmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Specialty", "Specialty")
                         .WithMany("DepartmentSpecialties")
                         .HasForeignKey("SpecialtyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.Diagnosys", b =>
@@ -1116,7 +1489,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Doctor", "Doctor")
                         .WithMany("Diplomas")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.District", b =>
@@ -1124,7 +1498,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Region", "Region")
                         .WithMany("Districts")
                         .HasForeignKey("RegionId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.Doctor", b =>
@@ -1132,7 +1507,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Person", "Person")
                         .WithOne("Doctor")
                         .HasForeignKey("hNext.Model.Doctor", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.DoctorPosition", b =>
@@ -1145,22 +1521,26 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Doctor", "Doctor")
                         .WithMany("DoctorPositions")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Hospital", "Hospital")
                         .WithMany("DoctorPositions")
                         .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Position", "Position")
                         .WithMany("DoctorPositions")
                         .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Specialty", "Specialty")
                         .WithMany("DoctorPositions")
                         .HasForeignKey("SpecialtyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.DoctorSpecialty", b =>
@@ -1168,12 +1548,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Doctor", "Doctor")
                         .WithMany("DoctorSpecialties")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Specialty", "Specialty")
                         .WithMany("DoctorSpecialties")
                         .HasForeignKey("SpecialtyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.Document", b =>
@@ -1181,12 +1563,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.DocumentType", "DocumentType")
                         .WithMany("Documents")
                         .HasForeignKey("DocumentTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Person", "Person")
                         .WithMany("Documents")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.DocumentRegistry", b =>
@@ -1201,12 +1585,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Person", "Guardian")
                         .WithMany("Wards")
                         .HasForeignKey("GuardianId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Person", "Ward")
                         .WithMany("Guardians")
                         .HasForeignKey("WardId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.Hospital", b =>
@@ -1214,17 +1600,20 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Address", "Address")
                         .WithMany("Hospitals")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.HospitalType", "HospitalType")
                         .WithMany("Hospitals")
                         .HasForeignKey("HospitalTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.PropertyType", "PropertyType")
                         .WithMany("Hospitals")
                         .HasForeignKey("PropertyTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.HospitalEmail", b =>
@@ -1232,12 +1621,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Email", "Email")
                         .WithMany("Hospitals")
                         .HasForeignKey("EmailId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Hospital", "Hospital")
                         .WithMany("Emails")
                         .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.HospitalPhone", b =>
@@ -1245,12 +1636,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Hospital", "Hospital")
                         .WithMany("Phones")
                         .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Phone", "Phone")
                         .WithMany("Hospitals")
                         .HasForeignKey("PhoneId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.Patient", b =>
@@ -1258,7 +1651,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Person", "Person")
                         .WithOne("Patient")
                         .HasForeignKey("hNext.Model.Patient", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.PatientDiagnosys", b =>
@@ -1266,12 +1660,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Diagnosys", "Diagnosys")
                         .WithMany("Patients")
                         .HasForeignKey("DiagnosysId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Patient", "Patient")
                         .WithMany("Diagnoses")
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.Person", b =>
@@ -1279,7 +1675,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Address", "Address")
                         .WithMany("People")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Country", "CountryOfBirth")
                         .WithMany("PeopleBorn")
@@ -1289,7 +1686,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Gender", "Gender")
                         .WithMany("People")
                         .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.City", "PlaceOfBirth")
                         .WithMany("PeopleBorn")
@@ -1302,12 +1700,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Email", "Email")
                         .WithMany("People")
                         .HasForeignKey("EmailId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Person", "Person")
                         .WithMany("Emails")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.PersonPhone", b =>
@@ -1315,12 +1715,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Person", "Person")
                         .WithMany("Phones")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Phone", "Phone")
                         .WithMany("People")
                         .HasForeignKey("PhoneId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.Phone", b =>
@@ -1328,7 +1730,97 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.PhoneType", "PhoneType")
                         .WithMany("Phones")
                         .HasForeignKey("PhoneTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("hNext.Model.Record", b =>
+                {
+                    b.HasOne("hNext.Model.CaseHistory", "CaseHistory")
+                        .WithMany()
+                        .HasForeignKey("CaseHistoryId");
+
+                    b.HasOne("hNext.Model.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("hNext.Model.DocumentRegistry", "DocumentRegistry")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hNext.Model.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hNext.Model.RecordTemplate", "RecordTemplate")
+                        .WithMany("Records")
+                        .HasForeignKey("RecordTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hNext.Model.Specialty", "Specialty")
+                        .WithMany()
+                        .HasForeignKey("SpecialtyId");
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordField", b =>
+                {
+                    b.HasOne("hNext.Model.RecordFieldTemplate", "GetRecordFieldTemplate")
+                        .WithMany("RecordFields")
+                        .HasForeignKey("RecordFieldTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hNext.Model.Record", "Record")
+                        .WithMany("RecordFields")
+                        .HasForeignKey("RecordId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordFieldTemplate", b =>
+                {
+                    b.HasOne("hNext.Model.Department", null)
+                        .WithMany("RecordFieldTemplates")
+                        .HasForeignKey("DepartmentId");
+
+                    b.HasOne("hNext.Model.RecordTemplate", "RecordTemplate")
+                        .WithMany("RecordFieldTemplates")
+                        .HasForeignKey("RecordTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordFieldTemplateOption", b =>
+                {
+                    b.HasOne("hNext.Model.RecordFieldTemplate", "RecordFieldTemplate")
+                        .WithMany("RecordFieldTemplateOptions")
+                        .HasForeignKey("RecordFieldTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("hNext.Model.RecordTemplate", b =>
+                {
+                    b.HasOne("hNext.Model.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.HasOne("hNext.Model.Doctor", "Doctor")
+                        .WithMany("RecordTemplates")
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("hNext.Model.Hospital", "Hospital")
+                        .WithMany("RecordTemplates")
+                        .HasForeignKey("HospitalId");
+
+                    b.HasOne("hNext.Model.Specialty", "Specialty")
+                        .WithMany("RecordTemplates")
+                        .HasForeignKey("SpecialtyId");
                 });
 
             modelBuilder.Entity("hNext.Model.Region", b =>
@@ -1336,7 +1828,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Country", "Country")
                         .WithMany("Regions")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.Street", b =>
@@ -1344,12 +1837,14 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.City", "City")
                         .WithMany("Streets")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.StreetType", "StreetType")
                         .WithMany("Streets")
                         .HasForeignKey("StreetTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("hNext.Model.HospitalLicense", b =>
@@ -1357,7 +1852,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasOne("hNext.Model.Hospital", "Hospital")
                         .WithMany("Licenses")
                         .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
