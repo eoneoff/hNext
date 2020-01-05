@@ -1348,6 +1348,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Записи.
+        /// </summary>
+        public static string Records {
+            get {
+                return ResourceManager.GetString("Records", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Довідка.
         /// </summary>
         public static string Reference {

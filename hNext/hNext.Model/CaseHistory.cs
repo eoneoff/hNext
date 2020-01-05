@@ -67,5 +67,6 @@ namespace hNext.Model
         public virtual DocumentRegistry DocumentRegistry { get; set; }
         public virtual ICollection<CaseHistoryAdmission> Admissions { get; set; }
         public virtual ICollection<CaseHistoryDiagnosys> Diagnoses { get; set; }
+        public virtual ICollection<Record> Records { get; set; }
     }
 }

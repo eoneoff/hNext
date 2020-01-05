@@ -726,4 +726,7 @@
   <data name="NoFieldsError" xml:space="preserve">
     <value>Додайте поля</value>
   </data>
+  <data name="Records" xml:space="preserve">
+    <value>Записи</value>
+  </data>
 </root>

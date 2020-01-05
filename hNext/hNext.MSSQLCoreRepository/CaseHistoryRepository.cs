@@ -29,6 +29,7 @@ namespace hNext.MSSQLCoreRepository
                     .ThenInclude(d => d.Diagnosys).ThenInclude(d => d.ICD)
                     .Include(h => h.Diagnoses).ThenInclude(d => d.Diagnosys)
                     .Include(h => h.Admissions).ThenInclude(a => a.Department)
+                    .Include(h => h.Records)
                     .AsNoTracking().SingleOrDefaultAsync(h => h.Id == id);
             }
             else

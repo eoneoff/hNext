@@ -20,6 +20,9 @@ namespace hNext.Model
 
         public string Value { get; set; }
 
+        [Required]
+        public int OrderNo { get; set; }
+
         [ForeignKey(nameof(RecordFieldTemplateId))]
         public virtual RecordFieldTemplate GetRecordFieldTemplate { get; set; }
 
