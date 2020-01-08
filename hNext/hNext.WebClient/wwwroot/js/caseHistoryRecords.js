@@ -5,7 +5,12 @@ Vue.component("CaseHistoryRecords", {
     store,
     data: function () {
         return {
-
+            selectedRecord: -1
         };
+    },
+    methods: {
+        selectRecord: function (rec) {
+            this.selectedRecord = this.selectedRecord == rec ? -1 : rec;
+        }
     }
 });

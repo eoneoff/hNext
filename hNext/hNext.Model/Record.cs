@@ -18,7 +18,6 @@ namespace hNext.Model
 
         [Required]
         public long PatientId { get; set; }
-        public long? CaseHistoryId { get; set; }
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Specialty))]
@@ -41,9 +40,6 @@ namespace hNext.Model
 
         [ForeignKey(nameof(PatientId))]
         public virtual Patient Patient { get; set; }
-
-        [ForeignKey(nameof(CaseHistoryId))]
-        public virtual CaseHistory CaseHistory { get; set; }
 
         [ForeignKey(nameof(SpecialtyId))]
         public virtual Specialty Specialty { get; set; }
