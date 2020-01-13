@@ -14,6 +14,7 @@ namespace hNext.WebClient.Components
         {
             modules.Add(nameof(RecordTemplateEditorViewComponent).ViewComponentName());
             modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
+            modules.Add(nameof(RecordViewComponent).ViewComponentName());
 
             return View();
         }

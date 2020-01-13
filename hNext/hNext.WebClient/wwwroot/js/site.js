@@ -530,6 +530,10 @@ class DataClient {
         return (await this._client.get('recordtemplates')).data;
     }
 
+    async getRecordTemplate(id) {
+        return (await this._client.get(`recordtemplates/${id}`)).data;
+    }
+
     async addRecordTemplate(template) {
         return (await this._client.post('recordtemplates', template)).data;
     }

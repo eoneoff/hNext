@@ -101,6 +101,7 @@ footer{
 
 /*selectable table style*/
 .selected-table-row {
+    background-color: $selected-grid-row-color !important;
     tr {
         background-color: $selected-grid-row-color !important;
     }

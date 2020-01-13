@@ -1168,6 +1168,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Запис без шаблону.
+        /// </summary>
+        public static string NoTemplateRecord {
+            get {
+                return ResourceManager.GetString("NoTemplateRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Номер.
         /// </summary>
         public static string Number {
@@ -1650,6 +1659,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SelectStreetType {
             get {
                 return ResourceManager.GetString("SelectStreetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть шаблон.
+        /// </summary>
+        public static string SelectTemplate {
+            get {
+                return ResourceManager.GetString("SelectTemplate", resourceCulture);
             }
         }
         

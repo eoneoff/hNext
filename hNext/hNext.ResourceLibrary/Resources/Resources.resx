@@ -729,4 +729,10 @@
   <data name="Records" xml:space="preserve">
     <value>Записи</value>
   </data>
+  <data name="SelectTemplate" xml:space="preserve">
+    <value>Оберіть шаблон</value>
+  </data>
+  <data name="NoTemplateRecord" xml:space="preserve">
+    <value>Запис без шаблону</value>
+  </data>
 </root>

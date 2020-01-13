@@ -1,0 +1,21 @@
+﻿@model Record
+
+<template id="record-template">
+    <form :style="{zIndex:level*1000}" class="d-flex flex-column p-1" style="border:1px solid black;">
+        <div class="mb-2">
+            <div><span asp-validation-for="Header"></span></div>
+            <input asp-for="Header" class="form-control" v-model="record.header" />
+        </div>
+        <div v-for="r in record.recordFields" class="d-flex flex-column flex-lg-row mb-2">
+            <label class="mb-1 mb-lg-0 text-nowrap mx-lg-2 align-middle align-self-center">{{(r.recordFieldTemplate || {}).header}}</label>
+            <input v-if="(r.recordFieldTemplate || {}).recordFieldType == 1" class="form-control mb-1" type="number" step="1" :disabled="!enabled" v-model="r.value" />
+            <input v-else-if="(r.recordFieldTemplate || {}).recordFieldType == 2" class="form-control mb-1" type="number" v-model="r.value" />
+            <select v-else-if="(r.recordFieldTemplate || {}).recordFieldType == 3" class="custom-select mb-1" v-model="r.value">
+                <option v-for="o in orderSort(r.recordFieldTemplate.recordFieldTemplateOptions)" :key="o.orderNo" :value="o.value">{{o.value}}</option>
+            </select>
+            <textarea v-else class="form-control flex-lg-grow-1 mb-1 mb-lg-0" v-model="r.value"></textarea>
+            <button class="btn btn-danger ml-lg-1 mb-1 mb-lg-0" @@click.stop.prevent=""><i class="fa fa-minus"></i></button>
+            <button class="btn btn-primary ml-lg-1" @@click.stop.prevent=""><i class="fa fa-level-down-alt"></i></button>
+        </div>
+    </form>
+</template>

@@ -1,6 +1,6 @@
 ﻿using hNext.Infrastructure;
+using hNext.Model;
 using hNext.WebClient.Components;
-using hNext.WebClient.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -10,10 +10,15 @@ using System.Text;
 namespace hNext.WebClient.Tests
 {
     [TestClass]
-    public class RecordsViewComponentTests
+    public class RecordViewComponentTests
     {
-        private RecordsViewComponent component = new RecordsViewComponent();
+        private RecordViewComponent component;
         private UniqueList<string> modules = new UniqueList<string>();
+
+        public RecordViewComponentTests()
+        {
+            component = new RecordViewComponent();
+        }
 
         [TestMethod]
         public void InvokeReturnsView()
@@ -28,21 +33,15 @@ namespace hNext.WebClient.Tests
         }
 
         [TestMethod]
-        public void InvokeAddsNecessaryModules()
+        public void InvokeReturnsCorrectModel()
         {
             //Arrange
-            var mod = new List<string>
-            {
-                nameof(RecordTemplateEditorViewComponent).ViewComponentName(),
-                nameof(ConfirmationDialogViewComponent).ViewComponentName(),
-                nameof(RecordViewComponent).ViewComponentName()
-            };
 
             //Act
-            var result = component.Invoke(modules);
+            var result = (component.Invoke(modules) as ViewViewComponentResult).ViewData.Model;
 
             //Assert
-            CollectionAssert.AreEquivalent(mod, modules);
+            Assert.IsInstanceOfType(result, typeof(Record));
         }
     }
 }

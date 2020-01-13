@@ -24,7 +24,7 @@ namespace hNext.Model
         public int OrderNo { get; set; }
 
         [ForeignKey(nameof(RecordFieldTemplateId))]
-        public virtual RecordFieldTemplate GetRecordFieldTemplate { get; set; }
+        public virtual RecordFieldTemplate RecordFieldTemplate { get; set; }
 
         public virtual Record Record { get; set; }
     }

@@ -13,8 +13,7 @@ namespace hNext.Model
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
 
-        [Required]
-        public int RecordTemplateId { get; set; }
+        public int? RecordTemplateId { get; set; }
 
         [Required]
         public long PatientId { get; set; }
@@ -26,7 +25,16 @@ namespace hNext.Model
         [Display(ResourceType = typeof(Resources),
             Name =nameof(Resources.Doctor))]
         public long? DoctorId { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterHeader))]
         public string Header { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources),
+           ErrorMessageResourceName = nameof(Resources.EnterDate))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Date))]
+        public DateTime Date { get; set; }
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Diagnosys))]

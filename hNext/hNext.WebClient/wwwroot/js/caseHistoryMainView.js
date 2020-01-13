@@ -28,6 +28,9 @@ if (!store.state['caseHistory']) {
                 Vue.set(state.history.admissions, index, oldLast);
                 state.history.admissions.push(admission);
                 DATA_CLIENT.editAdmissionOfCaseHistory(oldLast);
+            },
+            addRecord(state, record) {
+                state.history.records.push(record);
             }
         }
     };

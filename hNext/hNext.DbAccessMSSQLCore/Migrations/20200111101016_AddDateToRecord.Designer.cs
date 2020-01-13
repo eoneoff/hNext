@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hNext.DbAccessMSSQLCore;
 
 namespace hNext.DbAccessMSSQLCore.Migrations
 {
     [DbContext(typeof(hNextDbContext))]
-    partial class hNextDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200111101016_AddDateToRecord")]
+    partial class AddDateToRecord
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1062,7 +1064,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.Property<long>("PatientId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("RecordTemplateId")
+                    b.Property<int>("RecordTemplateId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SpecialtyId")
@@ -1798,7 +1800,9 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
                     b.HasOne("hNext.Model.RecordTemplate", "RecordTemplate")
                         .WithMany("Records")
-                        .HasForeignKey("RecordTemplateId");
+                        .HasForeignKey("RecordTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Specialty", "Specialty")
                         .WithMany()
