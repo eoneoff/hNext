@@ -55,7 +55,7 @@ namespace hNext.WebClient.Tests
             //Arrange
             var mods = new List<string>
             {
-                nameof(RecordViewComponent).ViewComponentName()
+                nameof(RecordViewComponent).ViewComponentName(),
             };
 
             //Act

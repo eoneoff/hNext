@@ -2,31 +2,28 @@
 
 <template id="case-history-records-template">
     <div class="m-3 d-flex flex-column">
-        <div class="accordion" id="records-acordion">
+        <div class="accordion">
             <div class="card" v-for="r in records">
                 <div class="card-header">
                     <h5 class="mb-0 d-flex">
                         <button class="btn btn-light d-flex flex-row justify-content-between w-100" data-toggle="collapse" :data-target="`#c-${r.id}`"
-                                @@click="selectRecord(n)">
-                            {{`${r.header} ${r.date}`}}
-                            <i class="fa fa-chevron-circle-up" :class="selectedRecord.id == r.id ? 'header-opened' : 'header-closed'"></i>
+                                @@click="clickRecord(r.id)" :disabled="!enabled">
+                            {{`${r.header} ${$options.filters.shortDate(r.date)}`}}
+                            <i class="fa fa-chevron-circle-up" :class="openedRecords.includes(r.id) ? 'header-opened' : 'header-closed'"></i>
                         </button>
                     </h5>
                 </div>
-                <div class="collapse" :id="`c-${n}`" data-parent="#records-acordion">
+                <div class="collapse" :id="`c-${r.id}`">
                     <div class="card-body">
-                        <record></record>
+                        <record level="0" :patient-id="patientId" :initial-record="r"></record>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="mt-1">
+        <div class="mt-2">
             <div v-if="recordAddMode">
-                <record class="mb-2" level="0" :patient-id="patientId" :record-template="selectedTemplate"></record>
-                <button class="btn btn-danger w-100 mt-1" :disabled="!enabled"
-                        @@click.stop.prevent="recordAddMode = false">
-                    <i class="fa fa-minus"></i>
-                </button>
+                <record style="border:1px solid black;" class="mb-2" level="0" :patient-id="patientId" :record-template="selectedTemplate" editor="true"
+                        @@save="addRecord" @@cancel="recordAddMode=false"></record>
             </div>
             <div v-else>
                 <select class="custom-select" :disabled="!enabled && !templateLoading" v-model="selectedTemplateId"

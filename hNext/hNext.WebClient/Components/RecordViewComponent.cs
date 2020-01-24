@@ -1,5 +1,6 @@
 ﻿using hNext.Infrastructure;
 using hNext.Model;
+using hNext.WebClient.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace hNext.WebClient.Components
     {
         public IViewComponentResult Invoke(UniqueList<string> modules)
         {
+            modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
+
             return View(new Record());
         }
     }

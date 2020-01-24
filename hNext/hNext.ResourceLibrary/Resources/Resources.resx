@@ -735,4 +735,13 @@
   <data name="NoTemplateRecord" xml:space="preserve">
     <value>Запис без шаблону</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="SaveWithEmptyFields" xml:space="preserve">
+    <value>Зберегти з пустими полями</value>
+  </data>
+  <data name="RecordContainsEmptyFieldsDelete" xml:space="preserve">
+    <value>Запис містить пусті поля. Видалити їх перед збереженням</value>
+  </data>
 </root>

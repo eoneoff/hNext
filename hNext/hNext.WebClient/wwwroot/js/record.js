@@ -3,7 +3,7 @@
 Vue.component('Record', {
     template: '#record-template',
     store,
-    props:['level', 'initialRecord', 'recordTemplate', 'patientId'],
+    props:['level', 'initialRecord', 'recordTemplate', 'patientId', 'editor'],
     data: function () {
         return {
             record: this.initialRecord || {
@@ -11,8 +11,13 @@ Vue.component('Record', {
                 header: this.recordTemplate.header,
                 date: new Date(),
                 recordTemplate: this.recordTemplate,
-                recordFields:[]
-            }
+                recordFields: [],
+            },
+            editMode: false,
+            emptyDateError: false,
+            showEmptyFieldsWarning: false,
+            showSaveConfirmation: false,
+            showCancelConfirmation: false
         };
     },
     computed: {
@@ -23,6 +28,48 @@ Vue.component('Record', {
             set: function (val) {
                 this.$store.commit('enable', val);
             }
+        },
+        date: {
+            get: function () {
+                return moment(this.record.date).isValid()
+                    ? moment(this.record.date).format('YYYY-MM-DD')
+                    : '';
+            },
+            set: function (val) {
+                this.emptyDateError = false;
+                const date = val ? val.split('-') : [new Date().getFullYear(), new Date().getMonth(), new Date().getDate()];
+                this.record.date.setFullYear(date[0]);
+                this.record.date.setMonth(date[1]);
+                this.record.date.setDate(date[2]);
+                this.record.date = new Date(this.record.date);
+            }
+        },
+        time: {
+            get: function () {
+                return moment(this.record.date).isValid()
+                    ? moment(this.record.date).format('HH:mm')
+                    : '';
+            },
+            set: function (val) {
+                const time = val ? val.split(':') : [0,0];
+                this.record.date.setHours(time[0]);
+                this.record.date.setMinutes(time[1]);
+                this.record.date = new Date(this.record.date);
+            }
+        },
+        moment: function () {
+            return moment;
+        }
+    },
+    watch: {
+        showEmptyFieldsWarning: function (val) {
+            this.enabled = !val;
+        },
+        showSaveConfirmation: function (val) {
+            this.enabled = !val;
+        },
+        showCancelConfirmation: function (val) {
+            this.enabled = !val;
         }
     },
     methods: {
@@ -42,9 +89,47 @@ Vue.component('Record', {
             for (let i = +row; i < this.record.recordFields.length; i++) {
                 this.record.recordFields[i].orderNo--;
             }
+        },
+        saveClicked: function () {
+            this.emptyDateError = !this.date;
+            if ($(this.$refs.editor).valid() && !this.emptyDateError) {
+                if (this.record.recordFields.some(f => !f.value)) {
+                    this.showEmptyFieldsWarning = true;
+                } else {
+                    if (this.editor) {
+                        this.showSaveConfirmation = true;
+                    } else {
+                        this.editMode = false;
+                    }
+                }
+            }
+        },
+        cancelClicked: function () {
+            if (this.editor) {
+                this.showCancelConfirmation = true;
+            } else {
+                this.editMode = false;
+            }
+        },
+        saveFiltered: function () {
+            this.record.recordFields = this.record.recordFields.filter(f => f.value);
+            if (this.editor) {
+                this.$emit('save', this.record);
+            } else {
+                this.editMode = false;
+            }
+        },
+        save: function () {
+            this.enabled = true;
+            this.$emit('save', this.record);
+        },
+        exit: function () {
+            this.enabled = true;
+            this.$emit('cancel');
         }
     },
     mounted: function () {
+        $.validator.unobtrusive.parse($(this.$refs.editor));
         if (!this.initialRecord) {
             this.record.recordFields = this.recordTemplate.id
                 ? this.recordTemplate.recordFieldTemplates.map(ft => {

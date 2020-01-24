@@ -5,12 +5,14 @@ Vue.component("CaseHistoryRecords", {
     store,
     data: function () {
         return {
-            selectedRecord: {},
             newRecord: {},
             recordAddMode: false,
             selectedTemplate: {},
-            selectedTemplateId: "",
-            templateLoading:false
+            selectedTemplateId: '',
+            templateLoading: false,
+            cancelAddRecordConfirmation: false,
+            openedRecords:[],
+            recordId:0
         };
     },
     computed: {
@@ -29,9 +31,19 @@ Vue.component("CaseHistoryRecords", {
             }
         }
     },
+    watch: {
+        cancelAddRecordConfirmation: function (val) {
+            this.enabled = !val;
+        }
+    },
     methods: {
-        selectRecord: function (record) {
-            this.selectedRecord = this.selectedRecord.id == record.id ? {} : record;
+        clickRecord: function (id) {
+            const index = this.openedRecords.indexOf(id);
+            if (index == -1) {
+                this.openedRecords.push(id);
+            } else {
+                this.openedRecords.splice(index, 1);
+            }
         },
         saveRecord: function (record) {
             this.$store.commit('addRecord', record);
@@ -43,8 +55,16 @@ Vue.component("CaseHistoryRecords", {
                     this.selectedTemplate = await DATA_CLIENT.getRecordTemplate(this.selectedTemplateId);
                     this.templateLoading = false;
                 }
+                else {
+                    this.selectedTemplate = '';
+                }
                 this.recordAddMode = true;
             }
+        },
+        addRecord: function (record) {
+            record.id = this.recordId++;
+            this.$store.commit('addRecord', record);
+            this.recordAddMode = false;
         }
     }
 });

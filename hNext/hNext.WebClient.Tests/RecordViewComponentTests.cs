@@ -1,6 +1,7 @@
 ﻿using hNext.Infrastructure;
 using hNext.Model;
 using hNext.WebClient.Components;
+using hNext.WebClient.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -42,6 +43,22 @@ namespace hNext.WebClient.Tests
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(Record));
+        }
+
+        [TestMethod]
+        public void InvokeAddNecessaryModules()
+        {
+            //Arrange
+            List<string> mods = new List<string>
+            {
+                nameof(ConfirmationDialogViewComponent).ViewComponentName()
+            };
+
+            //Act
+            var result = component.Invoke(modules);
+
+            //Assert
+            CollectionAssert.AreEquivalent(mods, modules);
         }
     }
 }

@@ -1357,6 +1357,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Запис містить пусті поля. Видалити їх перед збереженням.
+        /// </summary>
+        public static string RecordContainsEmptyFieldsDelete {
+            get {
+                return ResourceManager.GetString("RecordContainsEmptyFieldsDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Записи.
         /// </summary>
         public static string Records {
@@ -1452,6 +1461,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SaveAndExit {
             get {
                 return ResourceManager.GetString("SaveAndExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Зберегти з пустими полями.
+        /// </summary>
+        public static string SaveWithEmptyFields {
+            get {
+                return ResourceManager.GetString("SaveWithEmptyFields", resourceCulture);
             }
         }
         
@@ -1785,6 +1803,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Templates {
             get {
                 return ResourceManager.GetString("Templates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Час.
+        /// </summary>
+        public static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
             }
         }
         

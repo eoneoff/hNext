@@ -30,6 +30,7 @@ if (!store.state['caseHistory']) {
                 DATA_CLIENT.editAdmissionOfCaseHistory(oldLast);
             },
             addRecord(state, record) {
+                record.caseHistoryId = state.history.id;
                 state.history.records.push(record);
             }
         }
