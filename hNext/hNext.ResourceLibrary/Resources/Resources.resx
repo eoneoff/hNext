@@ -726,4 +726,25 @@
   <data name="NoFieldsError" xml:space="preserve">
     <value>Додайте поля</value>
   </data>
+  <data name="Records" xml:space="preserve">
+    <value>Записи</value>
+  </data>
+  <data name="SelectTemplate" xml:space="preserve">
+    <value>Оберіть шаблон</value>
+  </data>
+  <data name="NoTemplateRecord" xml:space="preserve">
+    <value>Запис без шаблону</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="SaveWithEmptyFields" xml:space="preserve">
+    <value>Зберегти з пустими полями</value>
+  </data>
+  <data name="RecordContainsEmptyFieldsDelete" xml:space="preserve">
+    <value>Запис містить пусті поля. Видалити їх перед збереженням</value>
+  </data>
+  <data name="DeleteRecord" xml:space="preserve">
+    <value>Видалити запис</value>
+  </data>
 </root>

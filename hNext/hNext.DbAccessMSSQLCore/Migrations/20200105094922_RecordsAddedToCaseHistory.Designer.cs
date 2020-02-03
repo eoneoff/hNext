@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hNext.DbAccessMSSQLCore;
 
 namespace hNext.DbAccessMSSQLCore.Migrations
 {
     [DbContext(typeof(hNextDbContext))]
-    partial class hNextDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200105094922_RecordsAddedToCaseHistory")]
+    partial class RecordsAddedToCaseHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1042,33 +1044,30 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("CaseHistoryId")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("DiagnosysId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("DoctorId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Header")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("PatientId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("RecordTemplateId")
+                    b.Property<int>("RecordTemplateId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SpecialtyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CaseHistoryId");
 
                     b.HasIndex("DiagnosysId");
 
@@ -1081,8 +1080,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasIndex("SpecialtyId");
 
                     b.ToTable("Records");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Record");
                 });
 
             modelBuilder.Entity("hNext.Model.RecordField", b =>
@@ -1095,7 +1092,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.Property<int>("OrderNo")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RecordFieldTemplateId")
+                    b.Property<int>("RecordFieldTemplateId")
                         .HasColumnType("int");
 
                     b.Property<long>("RecordId")
@@ -1320,33 +1317,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.HasIndex("HospitalId");
 
                     b.HasDiscriminator().HasValue("HospitalLicense");
-                });
-
-            modelBuilder.Entity("hNext.Model.CaseHistoryConsultation", b =>
-                {
-                    b.HasBaseType("hNext.Model.Record");
-
-                    b.Property<long>("CaseHistoryId")
-                        .HasColumnName("CaseHistoryId")
-                        .HasColumnType("bigint");
-
-                    b.HasIndex("CaseHistoryId");
-
-                    b.HasDiscriminator().HasValue("CaseHistoryConsultation");
-                });
-
-            modelBuilder.Entity("hNext.Model.CaseHistoryRecord", b =>
-                {
-                    b.HasBaseType("hNext.Model.Record");
-
-                    b.Property<long>("CaseHistoryId")
-                        .HasColumnName("CaseHistoryId")
-                        .HasColumnType("bigint");
-
-                    b.HasIndex("CaseHistoryId")
-                        .HasName("IX_Records_CaseHistoryId1");
-
-                    b.HasDiscriminator().HasValue("CaseHistoryRecord");
                 });
 
             modelBuilder.Entity("hNext.Model.Address", b =>
@@ -1776,6 +1746,10 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.Record", b =>
                 {
+                    b.HasOne("hNext.Model.CaseHistory", "CaseHistory")
+                        .WithMany("Records")
+                        .HasForeignKey("CaseHistoryId");
+
                     b.HasOne("hNext.Model.Diagnosys", "Diagnosys")
                         .WithMany()
                         .HasForeignKey("DiagnosysId");
@@ -1785,8 +1759,8 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .HasForeignKey("DoctorId");
 
                     b.HasOne("hNext.Model.DocumentRegistry", "DocumentRegistry")
-                        .WithOne("Record")
-                        .HasForeignKey("hNext.Model.Record", "Id")
+                        .WithMany()
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1798,7 +1772,9 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
                     b.HasOne("hNext.Model.RecordTemplate", "RecordTemplate")
                         .WithMany("Records")
-                        .HasForeignKey("RecordTemplateId");
+                        .HasForeignKey("RecordTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Specialty", "Specialty")
                         .WithMany()
@@ -1807,14 +1783,16 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
             modelBuilder.Entity("hNext.Model.RecordField", b =>
                 {
-                    b.HasOne("hNext.Model.RecordFieldTemplate", "RecordFieldTemplate")
+                    b.HasOne("hNext.Model.RecordFieldTemplate", "GetRecordFieldTemplate")
                         .WithMany("RecordFields")
-                        .HasForeignKey("RecordFieldTemplateId");
+                        .HasForeignKey("RecordFieldTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("hNext.Model.Record", "Record")
                         .WithMany("RecordFields")
                         .HasForeignKey("RecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -1889,25 +1867,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .WithMany("Licenses")
                         .HasForeignKey("HospitalId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("hNext.Model.CaseHistoryConsultation", b =>
-                {
-                    b.HasOne("hNext.Model.CaseHistory", "CaseHistory")
-                        .WithMany("Consultations")
-                        .HasForeignKey("CaseHistoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("hNext.Model.CaseHistoryRecord", b =>
-                {
-                    b.HasOne("hNext.Model.CaseHistory", "CaseHistory")
-                        .WithMany("Records")
-                        .HasForeignKey("CaseHistoryId")
-                        .HasConstraintName("FK_Records_CaseHistories_CaseHistoryId1")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

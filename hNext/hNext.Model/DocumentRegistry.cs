@@ -31,5 +31,7 @@ namespace hNext.Model
         public virtual Person Author { get; set; }
 
         public virtual CaseHistory CaseHistory {get;set;}
+
+        public virtual Record Record { get; set; }
     }
 }

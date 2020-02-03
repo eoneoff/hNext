@@ -1,4 +1,5 @@
 ﻿using hNext.Infrastructure;
+using hNext.Model;
 using hNext.WebClient.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,15 +9,13 @@ using System.Threading.Tasks;
 
 namespace hNext.WebClient.Components
 {
-    public class RecordsViewComponent : ViewComponent
+    public class RecordViewComponent:ViewComponent
     {
         public IViewComponentResult Invoke(UniqueList<string> modules)
         {
-            modules.Add(nameof(RecordTemplateEditorViewComponent).ViewComponentName());
             modules.Add(nameof(ConfirmationDialogViewComponent).ViewComponentName());
-            modules.Add(nameof(RecordViewComponent).ViewComponentName());
 
-            return View();
+            return View(new Record());
         }
     }
 }

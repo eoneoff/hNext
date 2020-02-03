@@ -64,5 +64,29 @@ namespace hNext.MSSQLCoreRepository.Tests
             Assert.IsInstanceOfType(result, typeof(bool));
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void RecordExitstReturnsBool()
+        {
+            //Arrange
+            long id = 1;
+            long recordId = id + 1;
+            var records = new List<CaseHistoryRecord>
+            {
+                new CaseHistoryRecord {Id = recordId, CaseHistoryId = id},
+                new CaseHistoryRecord {Id = recordId + 1, CaseHistoryId = id},
+                new CaseHistoryRecord {Id = recordId + 2, CaseHistoryId = id + 1}
+            };
+            var dbSet = records.AsQueryable().BuildMockDbSet();
+            context.Setup(c => c.CaseHistoryRecords).Returns(dbSet.Object);
+            repository = new CaseHistoryRepository(context.Object);
+
+            //Act
+            var result = repository.RecordExists(id, recordId).Result;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(bool));
+            Assert.IsTrue(result);
+        }
     }
 }

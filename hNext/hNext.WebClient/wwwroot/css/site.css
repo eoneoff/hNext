@@ -71,11 +71,12 @@ footer {
   color: white; }
 
 /*selectable table style*/
-.selected-table-row tr {
+.selected-table-row {
   background-color: #85C1E9 !important; }
-
-.selected-table-row td {
-  background-color: #85C1E9 !important; }
+  .selected-table-row tr {
+    background-color: #85C1E9 !important; }
+  .selected-table-row td {
+    background-color: #85C1E9 !important; }
 
 .table-responsive-vertical {
   max-height: 50vh;
@@ -182,3 +183,14 @@ footer {
 /*confirmation dialog*/
 .confirmation-dialog {
   width: 400px; }
+
+/*accordion*/
+.header-closed {
+  transform: rotate(0deg);
+  transition-property: transform;
+  transition-duration: 1s; }
+
+.header-opened {
+  transform: rotate(180deg);
+  transition-property: transform;
+  transition-duration: 1s; }

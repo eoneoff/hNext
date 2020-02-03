@@ -40,6 +40,7 @@ namespace hNext.WebClient.Controllers
             };
 
             model.Tabs.Add(nameof(CaseHistoryGeneralInfoViewComponent).ViewComponentName(), _localizer[nameof(Resources.GeneralInfo)]);
+            model.Tabs.Add(nameof(CaseHistoryRecordsViewComponent).ViewComponentName(), _localizer[nameof(Resources.Records)]);
 
             return View(model);
         }

@@ -520,6 +520,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Видалити запис.
+        /// </summary>
+        public static string DeleteRecord {
+            get {
+                return ResourceManager.GetString("DeleteRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Відділення.
         /// </summary>
         public static string Department {
@@ -1168,6 +1177,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Запис без шаблону.
+        /// </summary>
+        public static string NoTemplateRecord {
+            get {
+                return ResourceManager.GetString("NoTemplateRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Номер.
         /// </summary>
         public static string Number {
@@ -1348,6 +1366,24 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Запис містить пусті поля. Видалити їх перед збереженням.
+        /// </summary>
+        public static string RecordContainsEmptyFieldsDelete {
+            get {
+                return ResourceManager.GetString("RecordContainsEmptyFieldsDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Записи.
+        /// </summary>
+        public static string Records {
+            get {
+                return ResourceManager.GetString("Records", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Довідка.
         /// </summary>
         public static string Reference {
@@ -1434,6 +1470,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SaveAndExit {
             get {
                 return ResourceManager.GetString("SaveAndExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Зберегти з пустими полями.
+        /// </summary>
+        public static string SaveWithEmptyFields {
+            get {
+                return ResourceManager.GetString("SaveWithEmptyFields", resourceCulture);
             }
         }
         
@@ -1645,6 +1690,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Оберіть шаблон.
+        /// </summary>
+        public static string SelectTemplate {
+            get {
+                return ResourceManager.GetString("SelectTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Оберіть тип.
         /// </summary>
         public static string SelectType {
@@ -1758,6 +1812,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Templates {
             get {
                 return ResourceManager.GetString("Templates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Час.
+        /// </summary>
+        public static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
             }
         }
         

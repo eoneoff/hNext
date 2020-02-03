@@ -101,6 +101,7 @@ footer{
 
 /*selectable table style*/
 .selected-table-row {
+    background-color: $selected-grid-row-color !important;
     tr {
         background-color: $selected-grid-row-color !important;
     }
@@ -239,5 +240,18 @@ footer{
 
 /*confirmation dialog*/
 .confirmation-dialog{
-    width: 400px;
+    width:400px;
+}
+
+/*accordion*/
+.header-closed {
+    transform: rotate(0deg);
+    transition-property: transform;
+    transition-duration: 1s;
+}
+
+.header-opened {
+    transform: rotate(180deg);
+    transition-property: transform;
+    transition-duration:1s;
 }

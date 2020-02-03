@@ -16,11 +16,15 @@ namespace hNext.DataService.Tests
         private Mock<ICaseHistoryRepository> repository = new Mock<ICaseHistoryRepository>();
         private Mock<IRepository<CaseHistoryDiagnosys>> diagnosesRepository = new Mock<IRepository<CaseHistoryDiagnosys>>();
         private Mock<IRepository<CaseHistoryAdmission>> admissionRepository = new Mock<IRepository<CaseHistoryAdmission>>();
+        private Mock<IRepository<CaseHistoryRecord>> recordsRepository = new Mock<IRepository<CaseHistoryRecord>>();
         private CaseHistoriesController controller;
 
         public CaseHistoriesControllerTests()
         {
-            controller = new CaseHistoriesController(repository.Object, diagnosesRepository.Object, admissionRepository.Object);
+            controller = new CaseHistoriesController(repository.Object,
+                diagnosesRepository.Object,
+                admissionRepository.Object,
+                recordsRepository.Object);
         }
 
         [TestMethod]
@@ -161,6 +165,58 @@ namespace hNext.DataService.Tests
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(CaseHistoryAdmission));
+        }
+
+        [TestMethod]
+        public void AddRecordReturnsCaseHistoryRecord()
+        {
+            //Arrange
+            long caseHistoryId = 1;
+            recordsRepository.Setup(rr => rr.Post(It.IsAny<CaseHistoryRecord>())).ReturnsAsync((CaseHistoryRecord record) =>
+            {
+                return record;
+            });
+            repository.Setup(r => r.Exists(It.IsAny<object[]>())).ReturnsAsync(true);
+
+            //Act
+            var result = (controller.AddRecord(caseHistoryId, new CaseHistoryRecord()).Result as OkObjectResult)?.Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(CaseHistoryRecord));
+            Assert.AreEqual(caseHistoryId, (result as CaseHistoryRecord)?.CaseHistoryId);
+        }
+
+        [TestMethod]
+        public void EditRecordReturnsCaseHistoryRecord()
+        {
+            //Arrange
+            recordsRepository.Setup(rr => rr.Put(It.IsAny<CaseHistoryRecord>())).ReturnsAsync(new CaseHistoryRecord());
+            repository.Setup(r => r.RecordExists(It.IsAny<long>(), It.IsAny<long>())).ReturnsAsync(true);
+
+            //Act
+            var result = (controller.EditRecord(1, 2, new CaseHistoryRecord()).Result as OkObjectResult)?.Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(CaseHistoryRecord));
+        }
+
+        [TestMethod]
+        public void DeleteRecordReturndsCaseHistoryRecord()
+        {
+            //Arrange
+            long recordId = 1;
+            recordsRepository.Setup(rr => rr.Delete(It.IsAny<object[]>())).ReturnsAsync((object[] data) =>
+            {
+                return new CaseHistoryRecord { Id = (long)data[0] };
+            });
+            repository.Setup(r => r.RecordExists(It.IsAny<long>(), It.IsAny<long>())).ReturnsAsync(true);
+
+            //Act
+            var result = (controller.DeleteRecord(2, recordId).Result as OkObjectResult)?.Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(CaseHistoryRecord));
+            Assert.AreEqual(recordId, (result as CaseHistoryRecord).Id);
         }
     }
 }

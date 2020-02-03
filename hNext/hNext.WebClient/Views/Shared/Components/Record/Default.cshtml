@@ -1,0 +1,87 @@
+﻿@model Record
+
+<template id="record-template">
+    <div :style="{zIndex:level*1000}">
+        <form v-if="editMode || editor" class="d-flex flex-column p-1" ref="editor">
+            <confirmation-dialog v-if="showEmptyFieldsWarning" :level="level+1"
+                                 cancel-button="true" @@yes="saveFiltered" @@no="$emit('save', record)" @@cancel="showEmptyFieldsWarning = false">
+                <template #no-button>
+                    @Localizer[nameof(Resources.SaveWithEmptyFields)]
+                </template>
+                @Localizer[nameof(Resources.RecordContainsEmptyFieldsDelete)]?
+            </confirmation-dialog>
+            <confirmation-dialog v-if="showSaveConfirmation" :level="level+1" @@yes="save" @@no="showSaveConfirmation = false">
+                @Localizer[nameof(Resources.SaveAndExit)]?
+            </confirmation-dialog>
+            <confirmation-dialog v-if="showCancelConfirmation" :level="level+1" @@yes="exit" @@no="showCancelConfirmation=false">
+                @Localizer[nameof(Resources.CancelAndExit)]?
+            </confirmation-dialog>
+            <div class="d-flex flex-column flex-lg-row ml-lg-3">
+                <div class="form-group row">
+                    <label class="col-lg-auto col-form-label">@Localizer[nameof(Resources.Date)]</label>
+                    <div class="col-lg-auto">
+                        <div><span v-if="emptyDateError" class="text-danger">@Localizer[nameof(Resources.EnterDate)]</span></div>
+                        <input type="date" class="form-control" v-model="date" :disabled="!enabled"
+                               :class="{'input-validation-error':emptyDateError}" :min="startDate"/>
+                    </div>
+                </div>
+                <div class="form-group row ml-lg-2">
+                    <label class="col-lg-auto col-form-label">@Localizer[nameof(Resources.Time)]</label>
+                    <div class="col-lg-auto">
+                        <input type="time" class="form-control" v-model="time" :disabled="!enabled" />
+                    </div>
+                </div>
+            </div>
+            <div class="mb-2 d-flex flex-column flex-lg-row align-items-lg-end">
+                <div class="flex-lg-grow-1 mb-1 mb-lg-0 ml-lg-3">
+                    <div><span asp-validation-for="Header"></span></div>
+                    <input asp-for="Header" type="datetime" class="form-control" v-model="record.header" placeholder="@Localizer[Resources.Header]" />
+                </div>
+                <button class="btn btn-primary ml-lg-1" @@click.stop.prevent="insertRecordRow(-1)"><i class="fa fa-level-down-alt" :disabled="!enabled"></i></button>
+            </div>
+            <div v-for="r in fields" class="d-flex flex-column flex-lg-row mb-2">
+                <label class="mb-1 mb-lg-0 text-nowrap mx-lg-2 align-middle align-self-lg-start">{{(r.recordFieldTemplate || {}).header}}</label>
+                <input v-if="(r.recordFieldTemplate || {}).recordFieldType == 1" class="form-control mb-1" type="number" step="1" :disabled="!enabled" v-model="r.value" />
+                <input v-else-if="(r.recordFieldTemplate || {}).recordFieldType == 2" class="form-control mb-1" type="number" v-model="r.value" :disabled="!enabled" />
+                <select v-else-if="(r.recordFieldTemplate || {}).recordFieldType == 3" class="custom-select mb-1" v-model="r.value" :disabled="!enabled">
+                    <option v-for="o in orderSort(r.recordFieldTemplate.recordFieldTemplateOptions)" :key="o.orderNo" :value="o.value">{{o.value}}</option>
+                </select>
+                <textarea v-else class="form-control flex-lg-grow-1 mb-1 mb-lg-0" v-model="r.value" :disabled="!enabled"></textarea>
+                <button v-if="!(r.recordFieldTemplate || {}).id" class="btn btn-danger ml-lg-1 mb-1 mb-lg-0" @@click.stop.prevent="deleteRecordRow(r.orderNo)"
+                        :disabled="!enabled">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button class="btn btn-primary ml-lg-1" @@click.stop.prevent="insertRecordRow(r.orderNo)"
+                        :disabled="!enabled">
+                    <i class="fa fa-level-down-alt"></i>
+                </button>
+            </div>
+            <div class="d-flex flex-row justify-content-between justify-content-lg-end">
+                <button class="btn btn-danger mr-lg-2" @@click.stop.prevent="cancelClicked" :disabled="!enabled">@Localizer[Resources.Cancel]</button>
+                <button class="btn btn-primary" @@click.stop.prevent="saveClicked" :disabled="!enabled">@Localizer[Resources.Save]</button>
+            </div>
+        </form>
+        <div v-else class="d-flex flex-column">
+            <confirmation-dialog v-if="showDeleteConfirmation" :level="level+1" @@yes="deleteRecord" @@no="showDeleteConfirmation=false">
+                @Localizer[nameof(Resources.DeleteRecord)]?
+            </confirmation-dialog>
+            <p>
+                <span v-for="r in fields">
+                    {{ `${(r.recordFieldTemplate || {}).header || ''}${r.recordFieldTemplate ? ': ' : ''}${r.value}` }}
+                    <span v-if="(r.recordFieldTemplate || {}).newLine">
+                        <br />
+                        <br />
+                    </span>
+                </span>
+            </p>
+            <div class="d-flex flex-row mt-1 justify-content-between justify-content-lg-end">
+                <button class="btn btn-danger mr-lg-2" @@click.stop.prevent="showDeleteConfirmation=true" :disabled="!enabled">
+                    @Localizer[nameof(Resources.Delete)]
+                </button>
+                <button class="btn btn-primary" @@click.stop.prevent="editMode=true" :disabled="!enabled">
+                    @Localizer[nameof(Resources.Change)]
+                </button>
+            </div>
+        </div>
+    </div>
+</template>

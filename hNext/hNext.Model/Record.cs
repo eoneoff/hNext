@@ -13,12 +13,10 @@ namespace hNext.Model
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
 
-        [Required]
-        public int RecordTemplateId { get; set; }
+        public int? RecordTemplateId { get; set; }
 
         [Required]
         public long PatientId { get; set; }
-        public long? CaseHistoryId { get; set; }
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Specialty))]
@@ -27,7 +25,20 @@ namespace hNext.Model
         [Display(ResourceType = typeof(Resources),
             Name =nameof(Resources.Doctor))]
         public long? DoctorId { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources),
+            ErrorMessageResourceName = nameof(Resources.EnterHeader))]
         public string Header { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources),
+           ErrorMessageResourceName = nameof(Resources.EnterDate))]
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Date))]
+        public DateTime Date { get; set; }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Diagnosys))]
+        public long? DiagnosysId { get; set; }
 
         [ForeignKey(nameof(Id))]
         public DocumentRegistry DocumentRegistry { get; set; }
@@ -38,14 +49,15 @@ namespace hNext.Model
         [ForeignKey(nameof(PatientId))]
         public virtual Patient Patient { get; set; }
 
-        [ForeignKey(nameof(CaseHistoryId))]
-        public virtual CaseHistory CaseHistory { get; set; }
-
         [ForeignKey(nameof(SpecialtyId))]
         public virtual Specialty Specialty { get; set; }
 
         [ForeignKey(nameof(DoctorId))]
         public virtual Doctor Doctor { get; set; }
+
+        [ForeignKey(nameof(DiagnosysId))]
+        public virtual Diagnosys Diagnosys { get; set; }
+
         public virtual ICollection<RecordField> RecordFields { get; set; }
     }
 }

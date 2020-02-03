@@ -63,7 +63,9 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<RecordTemplate> RecordTemplates { get; set; }
         public virtual DbSet<RecordField> RecordFields { get; set; }
         public virtual  DbSet<RecordFieldTemplateOption> RecordFieldTemplateOptions { get; set; }
-        public virtual DbSet<Record> Records { get; set; } 
+        public virtual DbSet<Record> Records { get; set; }
+        public virtual DbSet<CaseHistoryRecord> CaseHistoryRecords { get; set; }
+        public virtual DbSet<CaseHistoryConsultation> CaseHistoryConsultations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -163,10 +165,18 @@ namespace hNext.DbAccessMSSQLCore
             modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.SpecialtyId);
             modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.DoctorId);
             modelBuilder.Entity<RecordField>().HasOne(f => f.Record).WithMany(r => r.RecordFields)
-                .HasForeignKey(f => f.RecordId).OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(f => f.RecordId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<RecordField>().HasIndex(f => f.RecordId);
             modelBuilder.Entity<Record>().HasIndex(r => r.PatientId);
-            modelBuilder.Entity<Record>().HasIndex(r => r.CaseHistoryId);
+
+            modelBuilder.Entity<CaseHistoryRecord>().Property(r => r.CaseHistoryId).HasColumnName("CaseHistoryId");
+            modelBuilder.Entity<CaseHistoryConsultation>().Property(r => r.CaseHistoryId).HasColumnName("CaseHistoryId");
+            modelBuilder.Entity<CaseHistoryRecord>().HasOne(r => r.CaseHistory).WithMany(h => h.Records)
+                .HasForeignKey(r => r.CaseHistoryId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<CaseHistoryConsultation>().HasOne(r => r.CaseHistory).WithMany(h => h.Consultations)
+                .HasForeignKey(r => r.CaseHistoryId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<CaseHistoryRecord>().HasIndex(r => r.CaseHistoryId);
+            modelBuilder.Entity<CaseHistoryConsultation>().HasIndex(r => r.CaseHistoryId);
         }
     }
 }
