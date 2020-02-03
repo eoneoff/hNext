@@ -30,8 +30,29 @@ if (!store.state['caseHistory']) {
                 DATA_CLIENT.editAdmissionOfCaseHistory(oldLast);
             },
             addRecord(state, record) {
-                record.caseHistoryId = state.history.id;
                 state.history.records.push(record);
+            },
+            editRecord(state, record) {
+                const index = state.history.records.findIndex(r => r.id == record.id);
+                Vue.set(state.history.records, index, record);
+            },
+            deleteRecord(state, record) {
+                const index = state.history.records.indexOf(r => r.id == record.id);
+                state.history.records.splice(index, 1);
+            }
+        },
+        actions: {
+            async saveRecord(context, record) {
+                if (record.id) {
+                    context.commit('editRecord', await DATA_CLIENT.editRecordOfCaseHistory(record));
+                } else {
+                    record.caseHistoryId = context.state.history.id;
+                    record.patientId = context.state.history.patientId;
+                    context.commit('addRecord', await DATA_CLIENT.addRecordToCaseHistory(record.caseHistoryId, record));
+                }
+            },
+            async removeRecord(state, record) {
+                state.commit('deleteRecord', await DATA_CLIENT.deleteRecordFromCaseHistory(record));
             }
         }
     };

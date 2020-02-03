@@ -744,4 +744,7 @@
   <data name="RecordContainsEmptyFieldsDelete" xml:space="preserve">
     <value>Запис містить пусті поля. Видалити їх перед збереженням</value>
   </data>
+  <data name="DeleteRecord" xml:space="preserve">
+    <value>Видалити запис</value>
+  </data>
 </root>

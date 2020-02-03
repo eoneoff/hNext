@@ -31,9 +31,9 @@ namespace hNext.MSSQLCoreRepository
                     .Include(h => h.Admissions).ThenInclude(a => a.Department)
                     .Include(h => h.Records).ThenInclude(r => r.RecordFields)
                     .Include(h => h.Records).ThenInclude(r => r.RecordTemplate)
-                    .ThenInclude(t => t.RecordFieldTemplates).ThenInclude(f => f.RecordFieldTemplateOptions)
-                    .Include(h => h.Consultations).ThenInclude(r => r.RecordFields)
-                    .ThenInclude(t => t.RecordFieldTemplate)
+                    .Include(h => h.Records).ThenInclude(r => r.RecordFields).ThenInclude(f => f.RecordFieldTemplate)
+                    .Include(h => h.Consultations).ThenInclude(r => r.RecordTemplate)
+                    .Include(h => h.Consultations).ThenInclude(c => c.RecordFields).ThenInclude(f => f.RecordFieldTemplate)
                     .Include(h => h.Consultations).ThenInclude(r => r.RecordTemplate)
                     .AsNoTracking().SingleOrDefaultAsync(h => h.Id == id);
             }
@@ -74,7 +74,9 @@ namespace hNext.MSSQLCoreRepository
         }
 
         public async Task<bool> AdmissionExists(long id, long admissionId) =>
-            await db.CaseHistoryAdmissions.Where(a => a.Id == admissionId && a.CaseHistoryId == id)
-                .CountAsync() > 0;
+            await db.CaseHistoryAdmissions.AnyAsync(a => a.Id == admissionId && a.CaseHistoryId == id);
+
+        public async Task<bool> RecordExists(long id, long recordId) =>
+            await db.CaseHistoryRecords.AnyAsync(r => r.Id == recordId && r.CaseHistoryId == id);
     }
 }

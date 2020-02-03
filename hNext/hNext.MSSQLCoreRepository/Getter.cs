@@ -27,7 +27,14 @@ namespace hNext.MSSQLCoreRepository
 
         public virtual async Task<T> Get(params object[] keys)
         {
-            return await dbSet.FindAsync(keys);
+            var result =  await dbSet.FindAsync(keys);
+
+            if (result != null)
+            {
+                db.Entry(result).State = EntityState.Detached;
+            }
+
+            return result;
         }
 
         public virtual async Task<bool> Exists(params object[] key)

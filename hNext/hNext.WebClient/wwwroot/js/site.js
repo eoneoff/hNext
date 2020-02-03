@@ -537,6 +537,18 @@ class DataClient {
     async addRecordTemplate(template) {
         return (await this._client.post('recordtemplates', template)).data;
     }
+
+    async addRecordToCaseHistory(caseHistoryId, record) {
+        return (await this._client.post(`casehistories/${caseHistoryId}/records`, record)).data;
+    }
+
+    async editRecordOfCaseHistory(record) {
+        return (await this._client.put(`casehistories/${record.caseHistoryId}/records/${record.id}`, record)).data;
+    }
+
+    async deleteRecordFromCaseHistory(record) {
+        return (await this._client.delete(`casehistories/${record.caseHistoryId}/records/${record.id}`)).data;
+    }
 }
 
 const DATA_CLIENT = new DataClient(API_SERVER);
@@ -558,7 +570,7 @@ const store = new Vuex.Store({
 
 Vue.filter('shortDate', (date) => {
     if (moment(date).isValid()) {
-        let locale = window.navigator.userLanguage || window.navigator.language;
+        let locale = document.getElementsByTagName('html')[0].getAttribute('lang');
         moment.locale(locale);
         return moment(date).format('L');
     } else return '';

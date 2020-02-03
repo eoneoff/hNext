@@ -15,7 +15,7 @@
                 </div>
                 <div class="collapse" :id="`c-${r.id}`">
                     <div class="card-body">
-                        <record level="0" :patient-id="patientId" :initial-record="r"></record>
+                        <record level="0" :patient-id="patientId" :initial-record="r" @@delete="deleteRecord(r)" @@save="saveRecord"></record>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
         <div class="mt-2">
             <div v-if="recordAddMode">
                 <record style="border:1px solid black;" class="mb-2" level="0" :patient-id="patientId" :record-template="selectedTemplate" editor="true"
-                        @@save="addRecord" @@cancel="recordAddMode=false"></record>
+                        @@save="saveRecord" @@cancel="recordAddMode=false"></record>
             </div>
             <div v-else>
                 <select class="custom-select" :disabled="!enabled && !templateLoading" v-model="selectedTemplateId"

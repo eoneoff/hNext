@@ -11,13 +11,12 @@ Vue.component("CaseHistoryRecords", {
             selectedTemplateId: '',
             templateLoading: false,
             cancelAddRecordConfirmation: false,
-            openedRecords:[],
-            recordId:0
+            openedRecords:[]
         };
     },
     computed: {
         records: function () {
-            return this.$store.state.caseHistory.history.records;
+            return (this.$store.state.caseHistory.history.records || []).sort((r1, r2) => r1.date - r2.date);
         },
         patientId: function () {
             return this.$store.state.caseHistory.patientId;
@@ -34,6 +33,11 @@ Vue.component("CaseHistoryRecords", {
     watch: {
         cancelAddRecordConfirmation: function (val) {
             this.enabled = !val;
+        },
+        records: function (newList, oldList) {
+            if (!oldList.length) {
+                this.selectedTemplateId = newList[newList.length - 1].recordTemplateId;
+            }
         }
     },
     methods: {
@@ -45,26 +49,47 @@ Vue.component("CaseHistoryRecords", {
                 this.openedRecords.splice(index, 1);
             }
         },
-        saveRecord: function (record) {
-            this.$store.commit('addRecord', record);
-        },
         addRecordClicked: async function () {
             if (this.selectedTemplateId) {
-                if (this.selectedTemplateId > 0) {
-                    this.templateLoading = true;
-                    this.selectedTemplate = await DATA_CLIENT.getRecordTemplate(this.selectedTemplateId);
-                    this.templateLoading = false;
+                this.enabled = false;
+                try {
+                    if (this.selectedTemplateId > 0) {
+                        const template = (this.records.find(r => r.templateId == this.selectedTemplateId) || {}).recordTemplate;
+                        if (template) {
+                            this.selectedTemplate = template;
+                        } else {
+                            this.templateLoading = true;
+                            this.selectedTemplate = await DATA_CLIENT.getRecordTemplate(this.selectedTemplateId);
+                            this.templateLoading = false;
+                        }
+                    }
+                    else {
+                        this.selectedTemplate = '';
+                    }
+                } finally {
+                    this.enabled = true;
                 }
-                else {
-                    this.selectedTemplate = '';
-                }
+                
                 this.recordAddMode = true;
             }
         },
-        addRecord: function (record) {
-            record.id = this.recordId++;
-            this.$store.commit('addRecord', record);
+        saveRecord: function (record) {
             this.recordAddMode = false;
+            this.$store.dispatch('saveRecord', record);
+        },
+        deleteRecord: async function (record) {
+            this.enabled = false;
+            try {
+                this.$store.dispatch('removeRecord', record);
+            } finally {
+                this.enabled = false;
+            }
+            
+        }
+    },
+    mounted: function () {
+        if (this.records.length) {
+            this.selectedTemplateId = this.records[this.records.length - 1].recordTemplateId;
         }
     }
 });

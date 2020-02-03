@@ -520,6 +520,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Видалити запис.
+        /// </summary>
+        public static string DeleteRecord {
+            get {
+                return ResourceManager.GetString("DeleteRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Відділення.
         /// </summary>
         public static string Department {

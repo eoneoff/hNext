@@ -165,7 +165,7 @@ namespace hNext.DbAccessMSSQLCore
             modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.SpecialtyId);
             modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.DoctorId);
             modelBuilder.Entity<RecordField>().HasOne(f => f.Record).WithMany(r => r.RecordFields)
-                .HasForeignKey(f => f.RecordId).OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(f => f.RecordId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<RecordField>().HasIndex(f => f.RecordId);
             modelBuilder.Entity<Record>().HasIndex(r => r.PatientId);
 

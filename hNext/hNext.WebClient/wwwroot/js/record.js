@@ -17,7 +17,8 @@ Vue.component('Record', {
             emptyDateError: false,
             showEmptyFieldsWarning: false,
             showSaveConfirmation: false,
-            showCancelConfirmation: false
+            showCancelConfirmation: false,
+            showDeleteConfirmation: false
         };
     },
     computed: {
@@ -29,6 +30,11 @@ Vue.component('Record', {
                 this.$store.commit('enable', val);
             }
         },
+        startDate: function () {
+            return moment(this.$store.state.caseHistory.history.admitted).isValid()
+                ? moment(this.$store.state.caseHistory.history.admitted).format('YYYY-MM-DD')
+                : '';
+        },
         date: {
             get: function () {
                 return moment(this.record.date).isValid()
@@ -39,7 +45,7 @@ Vue.component('Record', {
                 this.emptyDateError = false;
                 const date = val ? val.split('-') : [new Date().getFullYear(), new Date().getMonth(), new Date().getDate()];
                 this.record.date.setFullYear(date[0]);
-                this.record.date.setMonth(date[1]);
+                this.record.date.setMonth(+date[1]-1);
                 this.record.date.setDate(date[2]);
                 this.record.date = new Date(this.record.date);
             }
@@ -57,6 +63,9 @@ Vue.component('Record', {
                 this.record.date = new Date(this.record.date);
             }
         },
+        fields: function () {
+            return this.record.recordFields.sort((f1, f2) => f1.orderNo - f2.orderNo);
+        },
         moment: function () {
             return moment;
         }
@@ -69,6 +78,9 @@ Vue.component('Record', {
             this.enabled = !val;
         },
         showCancelConfirmation: function (val) {
+            this.enabled = !val;
+        },
+        showDeleteConfirmation: function (val) {
             this.enabled = !val;
         }
     },
@@ -100,6 +112,7 @@ Vue.component('Record', {
                         this.showSaveConfirmation = true;
                     } else {
                         this.editMode = false;
+                        this.$emit('save', this.record);
                     }
                 }
             }
@@ -126,6 +139,11 @@ Vue.component('Record', {
         exit: function () {
             this.enabled = true;
             this.$emit('cancel');
+        },
+        deleteRecord: function () {
+            this.enabled = true;
+            this.showDeleteConfirmation = false;
+            this.$emit('delete');
         }
     },
     mounted: function () {

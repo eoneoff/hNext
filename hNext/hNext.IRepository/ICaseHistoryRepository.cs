@@ -10,5 +10,6 @@ namespace hNext.IRepository
     {
         Task<CaseHistory> Info(long id);
         Task<bool> AdmissionExists(long id, long admissionId);
+        Task<bool> RecordExists(long id, long recordId);
     }
 }

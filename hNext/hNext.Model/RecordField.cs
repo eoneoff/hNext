@@ -11,9 +11,7 @@ namespace hNext.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-
-        [Required]
-        public int RecordFieldTemplateId { get; set; }
+        public int? RecordFieldTemplateId { get; set; }
 
         [Required]
         public long RecordId { get; set; }
