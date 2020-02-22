@@ -19,6 +19,7 @@ namespace hNext.WebClient.Components
         public async Task<IViewComponentResult> InvokeAsync(UniqueList<string> modules)
         {
             modules.Add(nameof(RecordViewComponent).ViewComponentName());
+            modules.Add(nameof(CaseHistoryDiagnosysEditorViewComponent).ViewComponentName());
 
             return View(await _repository.Get());
         }

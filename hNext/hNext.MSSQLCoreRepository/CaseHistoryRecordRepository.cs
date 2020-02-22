@@ -25,6 +25,7 @@ namespace hNext.MSSQLCoreRepository
             await dbSet.AddAsync(RemoveTemplates(record));
             await db.SaveChangesAsync();
             return await dbSet
+                .Include(r => r.Diagnoses)
                 .Include(r => r.RecordTemplate)
                 .Include(r => r.RecordFields).ThenInclude(f => f.RecordFieldTemplate)
                 .AsNoTracking().SingleOrDefaultAsync(r => r.Id == record.Id);
@@ -36,6 +37,7 @@ namespace hNext.MSSQLCoreRepository
             await db.SaveChangesAsync();
 
             return await dbSet
+                .Include(r => r.Diagnoses)
                 .Include(r => r.RecordTemplate)
                 .Include(r => r.RecordFields).ThenInclude(f => f.RecordFieldTemplate)
                 .AsNoTracking().SingleOrDefaultAsync(r => r.Id == record.Id);

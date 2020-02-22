@@ -29,5 +29,7 @@ namespace hNext.Model
 
         [ForeignKey(nameof(DiagnosysId))]
         public virtual Diagnosys Diagnosys { get; set; }
+
+        public virtual Record Records { get; set; }
     }
 }

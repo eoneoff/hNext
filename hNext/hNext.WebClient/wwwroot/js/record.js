@@ -3,7 +3,7 @@
 Vue.component('Record', {
     template: '#record-template',
     store,
-    props:['level', 'initialRecord', 'recordTemplate', 'patientId', 'editor'],
+    props:['level', 'initialRecord', 'recordTemplate', 'patientId', 'editor', 'initialDiagnoses', 'initialPrecriptions'],
     data: function () {
         return {
             record: this.initialRecord || {
@@ -12,13 +12,15 @@ Vue.component('Record', {
                 date: new Date(),
                 recordTemplate: this.recordTemplate,
                 recordFields: [],
+                diagnoses:[]
             },
             editMode: false,
             emptyDateError: false,
             showEmptyFieldsWarning: false,
             showSaveConfirmation: false,
             showCancelConfirmation: false,
-            showDeleteConfirmation: false
+            showDeleteConfirmation: false,
+            showDiagnosysEditor: false
         };
     },
     computed: {
@@ -66,6 +68,9 @@ Vue.component('Record', {
         fields: function () {
             return this.record.recordFields.sort((f1, f2) => f1.orderNo - f2.orderNo);
         },
+        diagnoses: function () {
+            this.initialDiagnoses.filter(d => this.record.diagnoses.findIndex(rd => rd.diagnosysId == d.id) >= 0);
+        },
         moment: function () {
             return moment;
         }
@@ -81,6 +86,9 @@ Vue.component('Record', {
             this.enabled = !val;
         },
         showDeleteConfirmation: function (val) {
+            this.enabled = !val;
+        },
+        showDiagnosysEditor: function (val) {
             this.enabled = !val;
         }
     },
@@ -144,6 +152,9 @@ Vue.component('Record', {
             this.enabled = true;
             this.showDeleteConfirmation = false;
             this.$emit('delete');
+        },
+        closeDiagnosysEditor: function () {
+            this.showDiagnosysEditor = false;
         }
     },
     mounted: function () {

@@ -2,6 +2,9 @@
 
 <template id="record-template">
     <div :style="{zIndex:level*1000}">
+        <div v-if="showDiagnosysEditor">
+            <slot name="diagnosys-editor" :close="closeDiagnosysEditor"></slot>
+        </div>
         <form v-if="editMode || editor" class="d-flex flex-column p-1" ref="editor">
             <confirmation-dialog v-if="showEmptyFieldsWarning" :level="level+1"
                                  cancel-button="true" @@yes="saveFiltered" @@no="$emit('save', record)" @@cancel="showEmptyFieldsWarning = false">
@@ -22,7 +25,7 @@
                     <div class="col-lg-auto">
                         <div><span v-if="emptyDateError" class="text-danger">@Localizer[nameof(Resources.EnterDate)]</span></div>
                         <input type="date" class="form-control" v-model="date" :disabled="!enabled"
-                               :class="{'input-validation-error':emptyDateError}" :min="startDate"/>
+                               :class="{'input-validation-error':emptyDateError}" :min="startDate" />
                     </div>
                 </div>
                 <div class="form-group row ml-lg-2">
@@ -81,6 +84,21 @@
                 <button class="btn btn-primary" @@click.stop.prevent="editMode=true" :disabled="!enabled">
                     @Localizer[nameof(Resources.Change)]
                 </button>
+            </div>
+        </div>
+        <div class="d-flex flex-column">
+            <div>
+                <h5>@Localizer[nameof(Resources.Diagnoses)]</h5>
+            </div>
+            <div class="d-flex flex-row">
+                <div class="flex-grow-1 p-1" style="border:1px solid black;">
+                    <p v-for="d in diagnoses">
+                        {{`{d.diagnosys.name} {d.diagnosys.icd ? d.diagnosys.icd.letter + d.diagnosys.icd.primary + '.' + d.diagosys.icd.secondary : ''`}}
+                    </p>
+                </div>
+                <div class="ml-1 d-flex flex-column">
+                    <button class="btn btn-primary" @@click.stop.prevent="showDiagnosysEditor=true"><i class="fa fa-plus"></i></button>
+                </div>
             </div>
         </div>
     </div>

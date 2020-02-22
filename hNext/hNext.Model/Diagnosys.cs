@@ -28,5 +28,6 @@ namespace hNext.Model
 
         public virtual ICollection<PatientDiagnosys> Patients { get; set; }
         public virtual ICollection<CaseHistoryDiagnosys> CaseHistories { get; set; }
+        public virtual ICollection<RecordDiagnosys> Records { get; set; }
     }
 }

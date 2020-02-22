@@ -36,10 +36,6 @@ namespace hNext.Model
             Name = nameof(Resources.Date))]
         public DateTime Date { get; set; }
 
-        [Display(ResourceType = typeof(Resources),
-            Name = nameof(Resources.Diagnosys))]
-        public long? DiagnosysId { get; set; }
-
         [ForeignKey(nameof(Id))]
         public DocumentRegistry DocumentRegistry { get; set; }
 
@@ -54,10 +50,7 @@ namespace hNext.Model
 
         [ForeignKey(nameof(DoctorId))]
         public virtual Doctor Doctor { get; set; }
-
-        [ForeignKey(nameof(DiagnosysId))]
-        public virtual Diagnosys Diagnosys { get; set; }
-
+        public virtual ICollection<RecordDiagnosys> Diagnoses { get; set; }
         public virtual ICollection<RecordField> RecordFields { get; set; }
     }
 }

@@ -25,10 +25,10 @@ namespace hNext.Model
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Type))]
-        public byte? Type { get; set; }
+        public byte? Type { get; set; } //Primary, Concurrent, Complication
 
         [Display(ResourceType = typeof(Resources),
-            Name = nameof(Resources.WhenSet))]
+            Name = nameof(Resources.WhenSet))] //OnAdmission, Intermediate, Final
         public byte? WhenSet { get; set; }
         public bool Active { get; set; } = true;
 

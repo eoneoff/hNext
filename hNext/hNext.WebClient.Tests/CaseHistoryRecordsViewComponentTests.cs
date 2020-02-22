@@ -56,6 +56,7 @@ namespace hNext.WebClient.Tests
             var mods = new List<string>
             {
                 nameof(RecordViewComponent).ViewComponentName(),
+                nameof(CaseHistoryDiagnosysEditorViewComponent).ViewComponentName()
             };
 
             //Act
