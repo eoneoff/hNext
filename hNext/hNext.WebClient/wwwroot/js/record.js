@@ -70,7 +70,7 @@ Vue.component('Record', {
             return this.record.recordFields.sort((f1, f2) => f1.orderNo - f2.orderNo);
         },
         diagnoses: function () {
-            (this.nitialDiagnoses || []).filter(d => this.record.diagnoses.findIndex(rd => rd.diagnosysId == d.diagnosysId) >= 0);
+            return (this.initialDiagnoses || []).filter(d => this.record.diagnoses.some(rd => rd.diagnosysId == d.diagnosysId));
         },
         moment: function () {
             return moment;
@@ -156,7 +156,13 @@ Vue.component('Record', {
         },
         saveDiagnosis: function(diagnosys) {
             this.showDiagnosysEditor = false;
-            this.baseSaveDiagnosys(diagnosys);
+            const recordDiagnosys = {
+                diagnosysId: diagnosys.diagnosysId,
+                recordId: this.record.id
+            };
+            this.baseSaveDiagnosys(diagnosys, recordDiagnosys);
+            this.record.diagnoses.push(recordDiagnosys);
+            const a = this.diagnoses;
         },
         closeDiagnosysEditor: function () {
             this.showDiagnosysEditor = false;

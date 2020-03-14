@@ -174,7 +174,7 @@ namespace hNext.DataService.Controllers
             return Ok(await _recordsRepository.Delete(recordId));
         }
 
-        [HttpPost("{id:long}/records/{recordId:long}/diagnosys/{long:diagnosysId}")]
+        [HttpPost("{id:long}/records/{recordId:long}/diagnoses/{diagnosysId:long}")]
         public async Task<IActionResult> AddDiagnosysToRecord(long id, long recordId, long diagnosysId)
         {
             if(!await _repository.RecordExists(id, recordId))

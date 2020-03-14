@@ -549,6 +549,10 @@ class DataClient {
     async deleteRecordFromCaseHistory(record) {
         return (await this._client.delete(`casehistories/${record.caseHistoryId}/records/${record.id}`)).data;
     }
+
+    async addDiagnosysToCaseHistoryRecord(historyId, recordId, diagnosysId) {
+        return (await this._client.post(`casehistories/${historyId}/records/${recordId}/diagnoses/${diagnosysId}`)).data;
+    }
 }
 
 const DATA_CLIENT = new DataClient(API_SERVER);

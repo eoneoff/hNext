@@ -27,7 +27,7 @@ namespace hNext.MSSQLCoreRepository
                     .Include(h => h.Patient).ThenInclude(h => h.Person)
                     .Include(h => h.Patient).ThenInclude(h => h.Diagnoses)
                     .ThenInclude(d => d.Diagnosys).ThenInclude(d => d.ICD)
-                    .Include(h => h.Diagnoses).ThenInclude(d => d.Diagnosys)
+                    .Include(h => h.Diagnoses).ThenInclude(d => d.Diagnosys).ThenInclude(d => d.ICD)
                     .Include(h => h.Admissions).ThenInclude(a => a.Department)
                     .Include(r => r.Records).ThenInclude(r => r.Diagnoses)
                     .Include(h => h.Records).ThenInclude(r => r.RecordFields)

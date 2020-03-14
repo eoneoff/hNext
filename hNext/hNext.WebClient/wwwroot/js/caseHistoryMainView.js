@@ -42,6 +42,10 @@ if (!store.state['caseHistory']) {
             }
         },
         actions: {
+            async saveDiagnosys(context, diagnosys) {
+                diagnosys.caseHistoryId = this.history.id;
+                context.commit('setDiagnosys', await DATA_CLIENT.addDiagnosysToCaseHistory(diagnosys));
+            },
             async saveRecord(context, record) {
                 if (record.id) {
                     context.commit('editRecord', await DATA_CLIENT.editRecordOfCaseHistory(record));

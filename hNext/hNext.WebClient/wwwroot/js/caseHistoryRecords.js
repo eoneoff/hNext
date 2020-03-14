@@ -94,12 +94,9 @@ Vue.component("CaseHistoryRecords", {
             }
             
         },
-        saveDiagnosys: function (diagnosys, close) {
-            close();
-            if (diagnosys.id) {
-
-            } else {
-
+        saveDiagnosys: function (diagnosys, recordDiagnosys) {
+            if(!this.rawDiagnoses.some(d => d.diagnosysId == diagnosys.diagnosysId)) {
+                
             }
         }
     },
