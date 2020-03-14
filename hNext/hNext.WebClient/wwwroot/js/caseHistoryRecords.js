@@ -19,7 +19,7 @@ Vue.component("CaseHistoryRecords", {
             return (this.$store.state.caseHistory.history.records || []).sort((r1, r2) => r1.date - r2.date);
         },
         rawDiagnoses: function () {
-            return this.$store.state.caseHistory.diagnoses.orderBy((d1, d2) => d1.type - d2.type).map(d => d.diagnosys);
+            return this.$store.state.caseHistory.history.diagnoses.sort((d1, d2) => d1.type - d2.type).map(d => d.diagnosys);
         },
         patientId: function () {
             return this.$store.state.caseHistory.patientId;

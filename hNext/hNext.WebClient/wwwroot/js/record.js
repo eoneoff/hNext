@@ -69,7 +69,7 @@ Vue.component('Record', {
             return this.record.recordFields.sort((f1, f2) => f1.orderNo - f2.orderNo);
         },
         diagnoses: function () {
-            this.initialDiagnoses.filter(d => this.record.diagnoses.findIndex(rd => rd.diagnosysId == d.id) >= 0);
+            (this.nitialDiagnoses || []).filter(d => this.record.diagnoses.findIndex(rd => rd.diagnosysId == d.id) >= 0);
         },
         moment: function () {
             return moment;
