@@ -4,6 +4,7 @@ Vue.component('Record', {
     template: '#record-template',
     store,
     props:['level', 'initialRecord', 'recordTemplate', 'patientId', 'editor', 'initialDiagnoses', 'initialPrecriptions'],
+    inject:{baseSaveDiagnosys:'saveDiagnosys'},
     data: function () {
         return {
             record: this.initialRecord || {
@@ -69,7 +70,7 @@ Vue.component('Record', {
             return this.record.recordFields.sort((f1, f2) => f1.orderNo - f2.orderNo);
         },
         diagnoses: function () {
-            (this.nitialDiagnoses || []).filter(d => this.record.diagnoses.findIndex(rd => rd.diagnosysId == d.id) >= 0);
+            (this.nitialDiagnoses || []).filter(d => this.record.diagnoses.findIndex(rd => rd.diagnosysId == d.diagnosysId) >= 0);
         },
         moment: function () {
             return moment;
@@ -152,6 +153,10 @@ Vue.component('Record', {
             this.enabled = true;
             this.showDeleteConfirmation = false;
             this.$emit('delete');
+        },
+        saveDiagnosis: function(diagnosys) {
+            this.showDiagnosysEditor = false;
+            this.baseSaveDiagnosys(diagnosys);
         },
         closeDiagnosysEditor: function () {
             this.showDiagnosysEditor = false;

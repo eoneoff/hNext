@@ -3,6 +3,11 @@
 Vue.component("CaseHistoryRecords", {
     template: '#case-history-records-template',
     store,
+    provide: function (){
+        return {
+            saveDiagnosys: this.saveDiagnosys
+        }
+    },
     data: function () {
         return {
             newRecord: {},
@@ -19,7 +24,7 @@ Vue.component("CaseHistoryRecords", {
             return (this.$store.state.caseHistory.history.records || []).sort((r1, r2) => r1.date - r2.date);
         },
         rawDiagnoses: function () {
-            return this.$store.state.caseHistory.history.diagnoses.sort((d1, d2) => d1.type - d2.type).map(d => d.diagnosys);
+            return this.$store.state.caseHistory.history.diagnoses.sort((d1, d2) => d1.type - d2.type);
         },
         patientId: function () {
             return this.$store.state.caseHistory.patientId;

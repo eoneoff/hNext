@@ -3,7 +3,7 @@
 <template id="record-template">
     <div :style="{zIndex:level*1000}">
         <div v-if="showDiagnosysEditor">
-            <slot name="diagnosys-editor" :close="closeDiagnosysEditor"></slot>
+            <slot name="diagnosys-editor" :close="closeDiagnosysEditor" :save="saveDiagnosis"></slot>
         </div>
         <form v-if="editMode || editor" class="d-flex flex-column p-1" ref="editor">
             <confirmation-dialog v-if="showEmptyFieldsWarning" :level="level+1"

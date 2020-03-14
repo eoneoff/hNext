@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <record level="0" :patient-id="patientId" :initial-record="r" @@delete="deleteRecord(r)" @@save="saveRecord">
                             <template #diagnosys-editor="record">
-                                <case-history-diagnosys-editor :initial-enabled="enabled" :level="1" @@save="saveDiagnosys($event, record.close)" :initial-diagnoses="rawDiagnoses"
+                                <case-history-diagnosys-editor :initial-enabled="enabled" :level="1" @@save="record.save" :initial-diagnoses="rawDiagnoses"
                                                                @@cancel="record.close"></case-history-diagnosys-editor>
                             </template>
                         </record>

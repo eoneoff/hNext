@@ -17,16 +17,19 @@ namespace hNext.DataService.Controllers
         private IRepository<CaseHistoryDiagnosys> _diagnosesRepository;
         private IRepository<CaseHistoryAdmission> _admissionRepository;
         private IRepository<CaseHistoryRecord> _recordsRepository;
+        private IRepository<RecordDiagnosys> _recordDiagnosysRepository;
 
         public CaseHistoriesController(ICaseHistoryRepository repository,
                                         IRepository<CaseHistoryDiagnosys> diagnosesRepository,
                                         IRepository<CaseHistoryAdmission> admissionRepository,
-                                        IRepository<CaseHistoryRecord> recordsRepository)
+                                        IRepository<CaseHistoryRecord> recordsRepository,
+                                        IRepository<RecordDiagnosys> recordDiagnosysRepository)
         {
             _repository = repository;
             _diagnosesRepository = diagnosesRepository;
             _admissionRepository = admissionRepository;
             _recordsRepository = recordsRepository;
+            _recordDiagnosysRepository = recordDiagnosysRepository;
         }
 
         [HttpGet]
@@ -169,6 +172,26 @@ namespace hNext.DataService.Controllers
             }
 
             return Ok(await _recordsRepository.Delete(recordId));
+        }
+
+        [HttpPost("{id:long}/records/{recordId:long}/diagnosys/{long:diagnosysId}")]
+        public async Task<IActionResult> AddDiagnosysToRecord(long id, long recordId, long diagnosysId)
+        {
+            if(!await _repository.RecordExists(id, recordId))
+            {
+                return BadRequest("Attempting to write to non existing record");
+            }
+
+            if(await _recordDiagnosysRepository.Exists(recordId, diagnosysId))
+            {
+                return BadRequest("The diagnosys is already added to this record");
+            }
+
+            return Ok(await _recordDiagnosysRepository.Post(new RecordDiagnosys
+            {
+                RecordId = recordId,
+                DiagnosysId = diagnosysId
+            }));
         }
     }
 }
