@@ -64,6 +64,7 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<RecordField> RecordFields { get; set; }
         public virtual  DbSet<RecordFieldTemplateOption> RecordFieldTemplateOptions { get; set; }
         public virtual DbSet<Record> Records { get; set; }
+        public virtual DbSet<RecordDiagnosys> RecordDiagnoses { get; set; }
         public virtual DbSet<CaseHistoryRecord> CaseHistoryRecords { get; set; }
         public virtual DbSet<CaseHistoryConsultation> CaseHistoryConsultations { get; set; }
 
@@ -164,6 +165,7 @@ namespace hNext.DbAccessMSSQLCore
             modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.DepartmentId);
             modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.SpecialtyId);
             modelBuilder.Entity<RecordTemplate>().HasIndex(t => t.DoctorId);
+            modelBuilder.Entity<RecordDiagnosys>().HasKey(rd => new { rd.RecordId, rd.DiagnosysId });
             modelBuilder.Entity<RecordField>().HasOne(f => f.Record).WithMany(r => r.RecordFields)
                 .HasForeignKey(f => f.RecordId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<RecordField>().HasIndex(f => f.RecordId);

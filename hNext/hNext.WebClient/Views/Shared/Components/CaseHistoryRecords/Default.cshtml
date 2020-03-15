@@ -9,13 +9,18 @@
                         <button class="btn btn-light d-flex flex-row justify-content-between w-100" data-toggle="collapse" :data-target="`#c-${r.id}`"
                                 @@click="clickRecord(r.id)" :disabled="!enabled">
                             {{`${r.header} ${$options.filters.shortDate(r.date)}`}}
-                            <i class="fa fa-chevron-circle-up" :class="openedRecords.includes(r.id) ? 'header-opened' : 'header-closed'"></i>
+                            <i class="fa fa-chevron-circle-up" :class="openedRecords.includes(r.id) ? 'header-opened' : 'header-closed'" ></i>
                         </button>
                     </h5>
                 </div>
                 <div class="collapse" :id="`c-${r.id}`">
                     <div class="card-body">
-                        <record level="0" :patient-id="patientId" :initial-record="r" @@delete="deleteRecord(r)" @@save="saveRecord"></record>
+                        <record level="0" :patient-id="patientId" :initial-record="r" @@delete="deleteRecord(r)" @@save="saveRecord" :initial-diagnoses="rawDiagnoses">
+                            <template #diagnosys-editor="record">
+                                <case-history-diagnosys-editor :initial-enabled="enabled" :level="1" @@save="record.save" :initial-diagnoses="rawDiagnoses"
+                                                               @@cancel="record.close"></case-history-diagnosys-editor>
+                            </template>
+                        </record>
                     </div>
                 </div>
             </div>

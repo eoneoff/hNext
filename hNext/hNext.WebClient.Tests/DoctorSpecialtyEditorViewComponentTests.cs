@@ -55,7 +55,7 @@ namespace hNext.WebClient.Tests
             //Arrange
 
             //Act
-            component.InvokeAsync(modules);
+            var result = component.InvokeAsync(modules).Result;
 
             //Assert
             CollectionAssert.Contains(modules, nameof(ConfirmationDialogViewComponent).ViewComponentName());

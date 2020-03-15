@@ -17,6 +17,7 @@ namespace hNext.DataService.Tests
         private Mock<IRepository<CaseHistoryDiagnosys>> diagnosesRepository = new Mock<IRepository<CaseHistoryDiagnosys>>();
         private Mock<IRepository<CaseHistoryAdmission>> admissionRepository = new Mock<IRepository<CaseHistoryAdmission>>();
         private Mock<IRepository<CaseHistoryRecord>> recordsRepository = new Mock<IRepository<CaseHistoryRecord>>();
+        private Mock<IRepository<RecordDiagnosys>> recordDiagnosysRepository = new Mock<IRepository<RecordDiagnosys>>();
         private CaseHistoriesController controller;
 
         public CaseHistoriesControllerTests()
@@ -24,7 +25,8 @@ namespace hNext.DataService.Tests
             controller = new CaseHistoriesController(repository.Object,
                 diagnosesRepository.Object,
                 admissionRepository.Object,
-                recordsRepository.Object);
+                recordsRepository.Object,
+                recordDiagnosysRepository.Object);
         }
 
         [TestMethod]
@@ -217,6 +219,26 @@ namespace hNext.DataService.Tests
             //Assert
             Assert.IsInstanceOfType(result, typeof(CaseHistoryRecord));
             Assert.AreEqual(recordId, (result as CaseHistoryRecord).Id);
+        }
+
+        [TestMethod]
+        public void AddDiagnosysToRecordReturnsRecordDiagnosys()
+        {
+            //Arrange
+            long caseHistoryId = 1;
+            long recordId = caseHistoryId +1;
+            long diagnosysId = caseHistoryId +2;
+            repository.Setup(r => r.RecordExists(It.IsAny<long>(), It.IsAny<long>())).ReturnsAsync(true);
+            recordDiagnosysRepository.Setup(rdr => rdr.Exists(It.IsAny<object[]>())).ReturnsAsync(false);
+            recordDiagnosysRepository.Setup(rdr => rdr.Post(It.IsAny<RecordDiagnosys>())).ReturnsAsync((RecordDiagnosys d) => { return d; });
+
+            //Act
+            var result = (controller.AddDiagnosysToRecord(caseHistoryId, recordId, diagnosysId).Result as OkObjectResult).Value;
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(RecordDiagnosys));
+            Assert.AreEqual(recordId, (result as RecordDiagnosys)?.RecordId ?? 0);
+            Assert.AreEqual(diagnosysId, (result as RecordDiagnosys)?.DiagnosysId ?? 0);
         }
     }
 }

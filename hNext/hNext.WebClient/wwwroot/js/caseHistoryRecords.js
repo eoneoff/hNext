@@ -3,6 +3,11 @@
 Vue.component("CaseHistoryRecords", {
     template: '#case-history-records-template',
     store,
+    provide: function (){
+        return {
+            saveDiagnosys: this.saveDiagnosys
+        }
+    },
     data: function () {
         return {
             newRecord: {},
@@ -18,6 +23,9 @@ Vue.component("CaseHistoryRecords", {
         records: function () {
             return (this.$store.state.caseHistory.history.records || []).sort((r1, r2) => r1.date - r2.date);
         },
+        rawDiagnoses: function () {
+            return this.$store.state.caseHistory.history.diagnoses.sort((d1, d2) => d1.type - d2.type);
+        },
         patientId: function () {
             return this.$store.state.caseHistory.patientId;
         },
@@ -28,6 +36,9 @@ Vue.component("CaseHistoryRecords", {
             set: function (val) {
                 this.$store.commit('enable', val);
             }
+        },
+        caseHistoryId: function () {
+            return this.$store.state.caseHistory.history.id;
         }
     },
     watch: {
@@ -85,6 +96,10 @@ Vue.component("CaseHistoryRecords", {
                 this.enabled = false;
             }
             
+        },
+        saveDiagnosys: async function (diagnosys, recordDiagnosys) {
+            this.$store.dispatch('saveDiagnosys', diagnosys);
+            await DATA_CLIENT.addDiagnosysToCaseHistoryRecord(this.caseHistoryId, recordDiagnosys.recordId, recordDiagnosys.diagnosysId);
         }
     },
     mounted: function () {
