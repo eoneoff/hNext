@@ -36,6 +36,9 @@ Vue.component("CaseHistoryRecords", {
             set: function (val) {
                 this.$store.commit('enable', val);
             }
+        },
+        caseHistoryId: function () {
+            return this.$store.state.caseHistory.history.id;
         }
     },
     watch: {
@@ -94,10 +97,9 @@ Vue.component("CaseHistoryRecords", {
             }
             
         },
-        saveDiagnosys: function (diagnosys, recordDiagnosys) {
-            if(!this.rawDiagnoses.some(d => d.diagnosysId == diagnosys.diagnosysId)) {
-                
-            }
+        saveDiagnosys: async function (diagnosys, recordDiagnosys) {
+            this.$store.dispatch('saveDiagnosys', diagnosys);
+            await DATA_CLIENT.addDiagnosysToCaseHistoryRecord(this.caseHistoryId, recordDiagnosys.recordId, recordDiagnosys.diagnosysId);
         }
     },
     mounted: function () {

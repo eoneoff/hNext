@@ -11,7 +11,7 @@ if (!store.state.diagnoses) {
             },
             addDiagnosys: function (state, diagnosys) {
                 let i = -1;
-                while (++i < state.diagnoses.length && state.diagnoses[i].localeCompare(diagnosys.name) <= 0);
+                while (++i < state.diagnoses.length && state.diagnoses[i].name.localeCompare(diagnosys.name) <= 0);
                 state.diagnoses.splice(i, 0, diagnosys);
             }
         },

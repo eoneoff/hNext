@@ -43,8 +43,10 @@ if (!store.state['caseHistory']) {
         },
         actions: {
             async saveDiagnosys(context, diagnosys) {
-                diagnosys.caseHistoryId = this.history.id;
-                context.commit('setDiagnosys', await DATA_CLIENT.addDiagnosysToCaseHistory(diagnosys));
+                if (context.state.history.diagnoses.findIndex(d => d.diagnosysId == diagnosys.diagnosysId) == -1) {
+                    diagnosys.caseHistoryId = context.state.history.id;
+                    context.commit('setDiagnosys', await DATA_CLIENT.addDiagnosysToCaseHistory(diagnosys));
+                }
             },
             async saveRecord(context, record) {
                 if (record.id) {

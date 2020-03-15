@@ -154,15 +154,14 @@ Vue.component('Record', {
             this.showDeleteConfirmation = false;
             this.$emit('delete');
         },
-        saveDiagnosis: function(diagnosys) {
+        saveDiagnosis: async function(diagnosys) {
             this.showDiagnosysEditor = false;
             const recordDiagnosys = {
                 diagnosysId: diagnosys.diagnosysId,
                 recordId: this.record.id
             };
-            this.baseSaveDiagnosys(diagnosys, recordDiagnosys);
+            await this.baseSaveDiagnosys(diagnosys, recordDiagnosys);
             this.record.diagnoses.push(recordDiagnosys);
-            const a = this.diagnoses;
         },
         closeDiagnosysEditor: function () {
             this.showDiagnosysEditor = false;

@@ -78,7 +78,7 @@ namespace hNext.DataService.Controllers
 
             if (!await _repository.Exists(id) || await _diagnosesRepository.Exists(id, diagnosys.DiagnosysId))
             {
-                return BadRequest();
+                return BadRequest("Diagnosys exitsts");
             }
 
             diagnosys.CaseHistoryId = id;

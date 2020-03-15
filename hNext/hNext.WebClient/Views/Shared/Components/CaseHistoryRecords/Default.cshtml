@@ -9,7 +9,7 @@
                         <button class="btn btn-light d-flex flex-row justify-content-between w-100" data-toggle="collapse" :data-target="`#c-${r.id}`"
                                 @@click="clickRecord(r.id)" :disabled="!enabled">
                             {{`${r.header} ${$options.filters.shortDate(r.date)}`}}
-                            <i class="fa fa-chevron-circle-up" :class="openedRecords.includes(r.id) ? 'header-opened' : 'header-closed'"></i>
+                            <i class="fa fa-chevron-circle-up" :class="openedRecords.includes(r.id) ? 'header-opened' : 'header-closed'" ></i>
                         </button>
                     </h5>
                 </div>
