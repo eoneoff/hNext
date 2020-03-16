@@ -52,5 +52,6 @@ namespace hNext.Model
         public virtual Doctor Doctor { get; set; }
         public virtual ICollection<RecordDiagnosys> Diagnoses { get; set; }
         public virtual ICollection<RecordField> RecordFields { get; set; }
+        public virtual ICollection<RecordPrescription> Prescriptions { get; set; }
     }
 }
