@@ -41,5 +41,6 @@ namespace hNext.Model
         public virtual ICollection<DoctorSpecialty> DoctorSpecialties { get; set; }
 
         public virtual ICollection<RecordTemplate> RecordTemplates { get; set; }
+        public virtual ICollection<Prescription> Prescriptions { get; set; }
     }
 }
