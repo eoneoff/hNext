@@ -747,4 +747,34 @@
   <data name="DeleteRecord" xml:space="preserve">
     <value>Видалити запис</value>
   </data>
+  <data name="Dosage" xml:space="preserve">
+    <value>Доза</value>
+  </data>
+  <data name="Drug" xml:space="preserve">
+    <value>Препарат</value>
+  </data>
+  <data name="InternationalName" xml:space="preserve">
+    <value>Міжнародна назва</value>
+  </data>
+  <data name="Manufacturer" xml:space="preserve">
+    <value>Виробник</value>
+  </data>
+  <data name="Substance" xml:space="preserve">
+    <value>Речовина</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Одиниця</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Тривалість</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Дата закінчення</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Дата початку</value>
+  </data>
+  <data name="TimesPerDay" xml:space="preserve">
+    <value>Разів на день</value>
+  </data>
 </root>

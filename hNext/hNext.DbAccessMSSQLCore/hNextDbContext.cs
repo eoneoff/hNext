@@ -1,5 +1,6 @@
 ﻿using hNext.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -67,6 +68,14 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<RecordDiagnosys> RecordDiagnoses { get; set; }
         public virtual DbSet<CaseHistoryRecord> CaseHistoryRecords { get; set; }
         public virtual DbSet<CaseHistoryConsultation> CaseHistoryConsultations { get; set; }
+        public virtual DbSet<DrugSubstance> DrugSubstances { get; set; }
+        public virtual DbSet<DrugDosage> DrugDosages { get; set; }
+        public virtual DbSet<DrugComponent> DrugComponents { get; set; }
+        public virtual DbSet<Drug> Drugs { get; set; }
+        public virtual DbSet<Prescription> Prescriptions { get; set; }
+        public virtual DbSet<DrugPrescription> DrugPrescriptions { get; set; }
+        public virtual DbSet<RecordPrescription> RecordPrescriptions { get; set; }
+        public virtual DbSet<CaseHistoryPrescription> CaseHistoryPrescriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -179,6 +188,21 @@ namespace hNext.DbAccessMSSQLCore
                 .HasForeignKey(r => r.CaseHistoryId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<CaseHistoryRecord>().HasIndex(r => r.CaseHistoryId);
             modelBuilder.Entity<CaseHistoryConsultation>().HasIndex(r => r.CaseHistoryId);
+
+            modelBuilder.Entity<DrugSubstance>().HasIndex(ds => ds.InternationalName);
+            modelBuilder.Entity<DrugDosage>().HasIndex(dd => dd.SubstanceId);
+            modelBuilder.Entity<DrugComponent>().HasKey(dc => new { dc.DrugId, dc.DrugDosageId });
+            modelBuilder.Entity<Drug>().HasIndex(d => d.Name);
+            modelBuilder.Entity<Prescription>().HasOne(p => p.Patient).WithMany(p => p.Prescriptions).HasForeignKey(p => p.PatientId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Prescription>().HasIndex(p => p.PatientId);
+            modelBuilder.Entity<RecordPrescription>().HasKey(rp => new { rp.RecordId, rp.PrescriptionId });
+            modelBuilder.Entity<RecordPrescription>().HasOne(rp => rp.Record).WithMany(r => r.Prescriptions).HasForeignKey(rp => rp.RecordId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<CaseHistoryPrescription>().HasOne(cp => cp.Prescription).WithMany(p => p.CaseHistories).HasForeignKey(cp => cp.CaseHistoryId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<CaseHistoryPrescription>().HasKey(hp => new { hp.CaseHistoryId, hp.PrescriptionId });
+            modelBuilder.Entity<Prescription>().Property(p => p.Duration).HasConversion(new ValueConverter<TimeSpan, long>(
+                t => t.Ticks,
+                t => new TimeSpan(t)
+            ));
         }
     }
 }

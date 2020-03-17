@@ -7,8 +7,6 @@ namespace hNext.Model
         public long RecordId { get; set;}
 
         public long PrescriptionId { get; set; }
-
-        [ForeignKey(nameof(RecordId))]
         public virtual Record Record { get; set; }
 
         [ForeignKey(nameof(PrescriptionId))]

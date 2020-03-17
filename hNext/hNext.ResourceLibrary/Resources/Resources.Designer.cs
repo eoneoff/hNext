@@ -655,6 +655,33 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Доза.
+        /// </summary>
+        public static string Dosage {
+            get {
+                return ResourceManager.GetString("Dosage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Препарат.
+        /// </summary>
+        public static string Drug {
+            get {
+                return ResourceManager.GetString("Drug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Тривалість.
+        /// </summary>
+        public static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Змінити опцію.
         /// </summary>
         public static string EditOption {
@@ -696,6 +723,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string EmptyICD {
             get {
                 return ResourceManager.GetString("EmptyICD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дата закінчення.
+        /// </summary>
+        public static string EndDate {
+            get {
+                return ResourceManager.GetString("EndDate", resourceCulture);
             }
         }
         
@@ -1096,6 +1132,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Міжнародна назва.
+        /// </summary>
+        public static string InternationalName {
+            get {
+                return ResourceManager.GetString("InternationalName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ким виданий.
         /// </summary>
         public static string IssuedBy {
@@ -1119,6 +1164,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Виробник.
+        /// </summary>
+        public static string Manufacturer {
+            get {
+                return ResourceManager.GetString("Manufacturer", resourceCulture);
             }
         }
         
@@ -1762,6 +1816,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Дата початку.
+        /// </summary>
+        public static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Прийнятий.
         /// </summary>
         public static string StartPosition {
@@ -1785,6 +1848,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string StringType {
             get {
                 return ResourceManager.GetString("StringType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Речовина.
+        /// </summary>
+        public static string Substance {
+            get {
+                return ResourceManager.GetString("Substance", resourceCulture);
             }
         }
         
@@ -1825,6 +1897,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Разів на день.
+        /// </summary>
+        public static string TimesPerDay {
+            get {
+                return ResourceManager.GetString("TimesPerDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Перевод.
         /// </summary>
         public static string Transfer {
@@ -1848,6 +1929,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Type {
             get {
                 return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Одиниця.
+        /// </summary>
+        public static string Unit {
+            get {
+                return ResourceManager.GetString("Unit", resourceCulture);
             }
         }
         

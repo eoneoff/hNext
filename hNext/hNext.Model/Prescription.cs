@@ -21,6 +21,15 @@ namespace hNext.Model
         Name = nameof(Resources.Doctor))]
         public long DoctorId {get; set; }
 
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EndDate))]
+        public DateTime? StartDate { get; set; }
+
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EndDate))]
+        public DateTime? EndDate { get; set; }
+
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Duration))]
+        public TimeSpan Duration { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resources),
         ErrorMessageResourceName = nameof(Resources.SelectPatient))]
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Patient))]
@@ -29,8 +38,8 @@ namespace hNext.Model
 
         [ForeignKey(nameof(DoctorId))]
         public virtual Doctor Doctor {get; set;}
-        [ForeignKey(nameof(PatientId))]
         public virtual Patient Patient {get; set; }
         public virtual ICollection<RecordPrescription> Records { get; set; }
+        public virtual ICollection<CaseHistoryPrescription> CaseHistories { get; set; }
     }
 }

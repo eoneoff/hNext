@@ -17,7 +17,8 @@ namespace hNext.Model
 
         public string Manufacturer {get; set; }
 
-        public string eHealtId { get; set; }
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Manufacturer))]
+        public string eHealthId { get; set; }
 
         public virtual ICollection<DrugComponent> DrugComponents {get; set; }
     }
