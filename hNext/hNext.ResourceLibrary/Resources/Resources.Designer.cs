@@ -1391,6 +1391,15 @@ namespace hNext.ResourceLibrary.Resources {
                 return ResourceManager.GetString("Positions", resourceCulture);
             }
         }
+
+         /// <summary>
+        ///   Ищет локализованную строку, похожую на Призначення.
+        /// </summary>
+        public static string Prescriptions {
+            get {
+                return ResourceManager.GetString("Prescriptions", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на первинний.

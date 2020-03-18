@@ -249,6 +249,9 @@
   <data name="PlaceOfBirth" xml:space="preserve">
     <value>Місце народження</value>
   </data>
+  <data name="Prescriptions" xml:space="preserve">
+    <value>Призначення</value>
+  </data>
   <data name="Region" xml:space="preserve">
     <value>Область</value>
   </data>
