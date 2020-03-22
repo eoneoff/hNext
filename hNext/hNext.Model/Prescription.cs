@@ -35,6 +35,8 @@ namespace hNext.Model
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Patient))]
         public long PatientId {get; set;}
 
+        public string Text { get; set; }
+
 
         [ForeignKey(nameof(DoctorId))]
         public virtual Doctor Doctor {get; set;}

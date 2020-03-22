@@ -68,10 +68,7 @@ namespace hNext.DbAccessMSSQLCore
         public virtual DbSet<RecordDiagnosys> RecordDiagnoses { get; set; }
         public virtual DbSet<CaseHistoryRecord> CaseHistoryRecords { get; set; }
         public virtual DbSet<CaseHistoryConsultation> CaseHistoryConsultations { get; set; }
-        public virtual DbSet<DrugSubstance> DrugSubstances { get; set; }
-        public virtual DbSet<DrugDosage> DrugDosages { get; set; }
-        public virtual DbSet<DrugComponent> DrugComponents { get; set; }
-        public virtual DbSet<Drug> Drugs { get; set; }
+        public virtual DbSet<Drug> Drugs {get; set;}   
         public virtual DbSet<Prescription> Prescriptions { get; set; }
         public virtual DbSet<DrugPrescription> DrugPrescriptions { get; set; }
         public virtual DbSet<RecordPrescription> RecordPrescriptions { get; set; }
@@ -189,10 +186,8 @@ namespace hNext.DbAccessMSSQLCore
             modelBuilder.Entity<CaseHistoryRecord>().HasIndex(r => r.CaseHistoryId);
             modelBuilder.Entity<CaseHistoryConsultation>().HasIndex(r => r.CaseHistoryId);
 
-            modelBuilder.Entity<DrugSubstance>().HasIndex(ds => ds.InternationalName);
-            modelBuilder.Entity<DrugDosage>().HasIndex(dd => dd.SubstanceId);
-            modelBuilder.Entity<DrugComponent>().HasKey(dc => new { dc.DrugId, dc.DrugDosageId });
             modelBuilder.Entity<Drug>().HasIndex(d => d.Name);
+            modelBuilder.Entity<Drug>().HasIndex(d => d.InternationalName);
             modelBuilder.Entity<Prescription>().HasOne(p => p.Patient).WithMany(p => p.Prescriptions).HasForeignKey(p => p.PatientId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Prescription>().HasIndex(p => p.PatientId);
             modelBuilder.Entity<RecordPrescription>().HasKey(rp => new { rp.RecordId, rp.PrescriptionId });

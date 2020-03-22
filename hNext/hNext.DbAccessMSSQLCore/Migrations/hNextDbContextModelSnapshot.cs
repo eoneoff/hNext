@@ -622,86 +622,35 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Manufacturer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("eHealthId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("Drugs");
-                });
-
-            modelBuilder.Entity("hNext.Model.DrugComponent", b =>
-                {
-                    b.Property<int>("DrugId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DrugDosageId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DrugId", "DrugDosageId");
-
-                    b.HasIndex("DrugDosageId");
-
-                    b.ToTable("DrugComponents");
-                });
-
-            modelBuilder.Entity("hNext.Model.DrugDosage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Dosage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("SubstanceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Unit")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubstanceId");
-
-                    b.ToTable("DrugDosages");
-                });
-
-            modelBuilder.Entity("hNext.Model.DrugSubstance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("ATC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Compound")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Form")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Group")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InternationalName")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("Manufatcturer")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("eHealthId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("InternationalName");
 
-                    b.ToTable("DrugSubstances");
+                    b.HasIndex("Name");
+
+                    b.ToTable("Drugs");
                 });
 
             modelBuilder.Entity("hNext.Model.Email", b =>
@@ -1154,6 +1103,9 @@ namespace hNext.DbAccessMSSQLCore.Migrations
 
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -1825,30 +1777,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                         .HasForeignKey("AuthorId");
                 });
 
-            modelBuilder.Entity("hNext.Model.DrugComponent", b =>
-                {
-                    b.HasOne("hNext.Model.DrugDosage", "DrugDosage")
-                        .WithMany("Drugs")
-                        .HasForeignKey("DrugDosageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("hNext.Model.Drug", "Drug")
-                        .WithMany("DrugComponents")
-                        .HasForeignKey("DrugId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("hNext.Model.DrugDosage", b =>
-                {
-                    b.HasOne("hNext.Model.DrugSubstance", "DrugSubstance")
-                        .WithMany("DrugDosages")
-                        .HasForeignKey("SubstanceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("hNext.Model.GuardianWard", b =>
                 {
                     b.HasOne("hNext.Model.Person", "Guardian")
@@ -2169,7 +2097,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
             modelBuilder.Entity("hNext.Model.DrugPrescription", b =>
                 {
                     b.HasOne("hNext.Model.Drug", "Drug")
-                        .WithMany()
+                        .WithMany("Prescriptions")
                         .HasForeignKey("DrugId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

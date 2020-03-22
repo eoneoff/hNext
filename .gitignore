@@ -338,3 +338,5 @@ About
 *.zip
 
 .vscode/
+
+*.ipynb*
