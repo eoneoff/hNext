@@ -35,7 +35,8 @@ namespace hNext.MSSQLCoreRepository
                     .Include(h => h.Records).ThenInclude(r => r.RecordFields).ThenInclude(f => f.RecordFieldTemplate)
                     .Include(h => h.Consultations).ThenInclude(r => r.RecordTemplate)
                     .Include(h => h.Consultations).ThenInclude(c => c.RecordFields).ThenInclude(f => f.RecordFieldTemplate)
-                    .Include(h => h.Consultations).ThenInclude(r => r.RecordTemplate)
+                    .Include(h => h.Consultations).ThenInclude(r => r.RecordTemplate).
+                    Include(h => h.Prescriptions).ThenInclude(p => p.Prescription)
                     .AsNoTracking().SingleOrDefaultAsync(h => h.Id == id);
             }
             else

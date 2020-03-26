@@ -1,15 +1,15 @@
-using Microsoft.AspNetCore.Mvc;
 using hNext.Infrastructure;
+using hNext.Model;
 using hNext.WebClient.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 
 namespace hNext.WebClient.Components
 {
-    public class CaseHistoryPrescriptionsViewComponent : ViewComponent
+    public class PrescriptionViewComponent : ViewComponent
     {
         public IViewComponentResult Invoke(UniqueList<string> modules)
         {
-            modules.Add(nameof(PrescriptionViewComponent).ViewComponentName());
             return View();
         }
-    } 
+    }
 }

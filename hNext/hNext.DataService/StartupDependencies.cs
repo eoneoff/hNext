@@ -16,7 +16,7 @@ namespace hNext.DataService
         private void AddDependencies(IServiceCollection services)
         {
             services.AddDbContext<hNextDbContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"],
+                options.UseSqlServer(Configuration[$"ConnectionsStrings:{hNext.Infrastructure.ConnString.ConnectionString}"],
                 sqlServerOptions => sqlServerOptions.CommandTimeout(180)));
 
             services.AddScoped(typeof(IGetter<>), typeof(Getter<>));

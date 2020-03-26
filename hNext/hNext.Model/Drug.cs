@@ -30,7 +30,7 @@ namespace hNext.Model
         public string ATC { get; set; }
 
         [Display(ResourceType = typeof(Resources), Name=nameof(Resources.Manufacturer))]
-        public string Manufatcturer {get; set; }
+        public string Manufacturer {get; set; }
 
         public virtual ICollection<DrugPrescription> Prescriptions {get; set; }
     }

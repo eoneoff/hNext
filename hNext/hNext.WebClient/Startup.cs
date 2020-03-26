@@ -45,7 +45,7 @@ namespace hNext.WebClient
                 options.SupportedUICultures = supportedCultures;
             });
             services.AddDbContext<hNextDbContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionsStrings:hNextDbConnectionString"]));
+                options.UseSqlServer(Configuration[$"ConnectionsStrings:{hNext.Infrastructure.ConnString.ConnectionString}"]));
             services.AddScoped(typeof(IGetter<>), typeof(Getter<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICountryRepository, CountryRepository>();
