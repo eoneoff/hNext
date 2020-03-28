@@ -2,7 +2,7 @@ Vue.component("Prescription", {
     template:'#prescription-template',
     data: function() {
         return {
-
+            editMode:false
         }
     },
     computed: {

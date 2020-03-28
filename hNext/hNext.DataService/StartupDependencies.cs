@@ -55,6 +55,7 @@ namespace hNext.DataService
             services.AddScoped<IRepository<CaseHistoryAdmission>, CaseHistoryAdmissionRepository>();
             services.AddScoped<IRepository<CaseHistoryRecord>, CaseHistoryRecordRepository>();
             services.AddScoped<IRepository<RecordDiagnosys>, RecordDiagnosysRepository>();
+            services.AddScoped<IDrugRepository, DrugRepository>();
         }
     }
 }
