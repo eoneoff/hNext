@@ -1,5 +1,18 @@
 <template id = "case-history-prescriptions-template">
-    <div>
-        
+    <div class="m-3 d-flex flex-column">
+        <div>
+            <presription v-for="p in prescription">
+
+            </presription>
+        </div>
+        <div class="mt-2">
+            <prescription v-if="showAddPrescription">
+
+            </prescription>
+            <button class="btn btn-primary w-100 mt-2"
+                @@click.stop.prevent="addPrescriptionClicked">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
     </div>
 </template>

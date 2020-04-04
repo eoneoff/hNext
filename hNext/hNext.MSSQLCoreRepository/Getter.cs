@@ -29,11 +29,6 @@ namespace hNext.MSSQLCoreRepository
         {
             var result =  await dbSet.FindAsync(keys);
 
-            if (result != null)
-            {
-                db.Entry(result).State = EntityState.Detached;
-            }
-
             return result;
         }
 

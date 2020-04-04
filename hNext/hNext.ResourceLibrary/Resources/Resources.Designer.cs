@@ -2048,5 +2048,32 @@ namespace hNext.ResourceLibrary.Resources {
                 return ResourceManager.GetString("Zip", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Лікарська форма.
+        /// </summary>
+        public static string DrugForm {
+            get {
+                return ResourceManager.GetString("DrugForm", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Склад.
+        /// </summary>
+        public static string Compound {
+            get {
+                return ResourceManager.GetString("Compound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Група.
+        /// </summary>
+        public static string Group {
+            get {
+                return ResourceManager.GetString("Group", resourceCulture);
+            }
+        }
     }
 }

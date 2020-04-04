@@ -1,0 +1,31 @@
+<template id='prescription-template'>
+    <div class="d-flex flex-column">
+        <div class="d-flex flex-column-reverse" :class="!editMode ? 'flex-lg-row' : ''">
+            <div class="flex-lg-grow-1">
+                <div v-if="editMode" class="d-flex flex-column">
+                    <div class="d-flex flex-row justify-content-between mt-2">
+                        <button class="btn btn-primary" @@click.stop.prevent="">
+                            @Localizer[nameof(Resources.Save)]
+                        </button>
+                        <button class="btn btn-danger" @@click.stop.prevent="">
+                            @Localizer[nameof(Resources.Cancel)]
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="align-self-end">
+                <button class="btn btn-outline-info" v-if="editMode"
+                    @@click.stop.prevent="editMode=false">
+                    <i class="fa fa-arrow-up"></i>
+                </button>
+                <button class="btn btn-outline-info" v-else
+                    @@click.stop.prevent="editMode=true">
+                    <i class="fa fa-arrow-down"></i>
+                </button>
+                <button class="btn btn-outline-info">
+                    <i class="fa fa-pen"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</template>

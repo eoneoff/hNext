@@ -780,4 +780,13 @@
   <data name="TimesPerDay" xml:space="preserve">
     <value>Разів на день</value>
   </data>
+  <data name="DrugForm" xml:space="preserve">
+    <value>Лікарська форма</value>
+  </data>
+  <data name="Compound" xml:space="preserve">
+    <value>Склад</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Група</value>
+  </data>
 </root>
