@@ -1,0 +1,289 @@
+﻿@import "partials/_colors.scss";
+
+
+
+body {
+    background-color: $base-back-color;
+    font-size: 14px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+}
+
+app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/*header style*/
+.header-panel {
+    background-color: $base-back-color;
+}
+
+.header-text {
+    color: $header-text-color;
+}
+
+.header-image {
+    height: 5vh;
+    width: 5vh;
+}
+
+
+/*main view style*/
+[v-cloak] {
+    display: none;
+}
+
+.content-wrapper {
+    margin: 10px;
+}
+
+.main-panel {
+    background-color: $neutral-background-color;
+    min-height: 90vh;
+}
+
+.show-panel {
+    background-color: $neutral-background-color;
+    padding: 5px;
+}
+
+/*tab styles*/
+
+.nav-link {
+    background-color: $inactive-tab !important;
+    color: $inactive-tab-text !important;
+    border-style: solid !important;
+}
+
+.nav-link.active {
+    background-color: $active-tab !important;
+    color: $active-tab-text !important;
+}
+
+.nav-link:hover {
+    box-shadow: 0 0 10px $active-tab-hover-shadow;
+}
+
+.tab-item {
+    margin: 5px;
+}
+
+.side-tab-selector {
+    background-color: $neutral-background-color;
+    writing-mode: vertical-lr;
+    margin-bottom: 2px;
+    cursor: default;
+}
+
+.side-tab-field {
+    min-width: 150px;
+}
+
+/*footer style*/
+footer {
+    margin: 10px;
+    color: $footer-text-color;
+}
+
+/*selectable table style*/
+.selected-table-row {
+    background-color: $selected-grid-row-color !important;
+
+    tr {
+        background-color: $selected-grid-row-color !important;
+    }
+
+    td {
+        background-color: $selected-grid-row-color !important;
+    }
+}
+
+.table-responsive-vertical {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+/*scrollable table*/
+.scrollable-table {
+    tbody {
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    thead, tbody, tr, td, th {
+        display: block;
+        width: 100%;
+    }
+
+    tbody {
+        td {
+            float: left;
+        }
+    }
+
+    thead {
+        tr {
+            td {
+                float: left;
+            }
+        }
+    }
+}
+
+/*additional data table style*/
+.additional-data-table {
+    border-style: solid;
+    border-width: 1px;
+    height: 115px;
+    overflow-y: auto;
+    min-width: 235px;
+}
+
+/*modal window style*/
+.modal-window {
+    border-style: solid;
+    border-width: 1px;
+    border-color: $neutral-background-color;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background-color: $base-back-color;
+    padding: 10px;
+    max-height: 90vh;
+    overflow: visible;
+}
+
+.modal-window-show-panel {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-backdrop {
+    background: $backdrop-background-color;
+}
+
+.modal-header {
+    color: $modal-window-text-color;
+
+    button {
+        color: $modal-window-text-color;
+    }
+}
+
+/*validation styles*/
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid $valid-outline-color;
+}
+
+.invalid {
+    outline: 1px solid $error-text-color;
+}
+
+.validation-message {
+    color: $error-text-color;
+}
+
+#blazor-error-ui {
+    background: $error-background-color;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+
+/*button styles*/
+.btn {
+    height: 35px;
+    padding-top: 3px;
+}
+
+.btn:focus,
+.btn:active,
+.btn:active:focus,
+.btn.active:focus,
+.btn.active.focus,
+.btn.focus {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.btn:active,
+.btn.active {
+    transform: scale(0.95, 0.95);
+}
+
+.btn-group-toggle .btn.active {
+    background-image: $default-button-toggle-background;
+    border-width: 2px 3px 3px 2px;
+}
+
+.btn-primary {
+    background-image: $default-button-background;
+    border-color: $default-button-border-color;
+    border-width: 1px 2px 2px 1px;
+}
+
+.btn-primary:hover {
+    background-image: $default-button-hover-background;
+}
+
+.btn-danger {
+    background-image: $danger-button-background;
+    border-color: $default-button-border-color;
+    border-width: 1px 2px 2px 1px;
+}
+
+.btn-danger:hover {
+    background-image: $danger-button-hover-background;
+}
+
+/*confirmation dialog*/
+.confirmation-dialog {
+    width: 400px;
+}
+
+/*accordion*/
+.header-closed {
+    transform: rotate(0deg);
+    transition-property: transform;
+    transition-duration: 1s;
+}
+
+.header-opened {
+    transform: rotate(180deg);
+    transition-property: transform;
+    transition-duration: 1s;
+}

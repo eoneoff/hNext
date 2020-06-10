@@ -21,14 +21,13 @@ namespace hNext.Model
         Name = nameof(Resources.Doctor))]
         public long DoctorId {get; set; }
 
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EndDate))]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.StartDate))]
+        [DataType(DataType.Date)]
         public DateTime? StartDate { get; set; }
 
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EndDate))]
+        [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
-
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Duration))]
-        public TimeSpan Duration { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources),
         ErrorMessageResourceName = nameof(Resources.SelectPatient))]

@@ -9,7 +9,9 @@ namespace hNext.WebClient.Components
     {
         public IViewComponentResult Invoke(UniqueList<string> modules)
         {
-            return View();
+            modules.Add(nameof(DrugPrescriptionViewComponent).ViewComponentName());
+
+            return View(new Prescription());
         }
     }
 }

@@ -194,10 +194,6 @@ namespace hNext.DbAccessMSSQLCore
             modelBuilder.Entity<RecordPrescription>().HasOne(rp => rp.Record).WithMany(r => r.Prescriptions).HasForeignKey(rp => rp.RecordId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<CaseHistoryPrescription>().HasOne(cp => cp.Prescription).WithMany(p => p.CaseHistories).HasForeignKey(cp => cp.CaseHistoryId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<CaseHistoryPrescription>().HasKey(hp => new { hp.CaseHistoryId, hp.PrescriptionId });
-            modelBuilder.Entity<Prescription>().Property(p => p.Duration).HasConversion(new ValueConverter<TimeSpan, long>(
-                t => t.Ticks,
-                t => new TimeSpan(t)
-            ));
         }
     }
 }

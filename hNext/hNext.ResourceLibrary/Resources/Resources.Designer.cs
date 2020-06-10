@@ -331,6 +331,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Склад.
+        /// </summary>
+        public static string Compound {
+            get {
+                return ResourceManager.GetString("Compound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на супутній.
         /// </summary>
         public static string ConcurrendDiagnosys {
@@ -435,6 +444,24 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Day {
             get {
                 return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Щоденно.
+        /// </summary>
+        public static string Dayly {
+            get {
+                return ResourceManager.GetString("Dayly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Днів.
+        /// </summary>
+        public static string Days {
+            get {
+                return ResourceManager.GetString("Days", resourceCulture);
             }
         }
         
@@ -669,6 +696,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Drug {
             get {
                 return ResourceManager.GetString("Drug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Лікарська форма.
+        /// </summary>
+        public static string DrugForm {
+            get {
+                return ResourceManager.GetString("DrugForm", resourceCulture);
             }
         }
         
@@ -1024,6 +1060,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Група.
+        /// </summary>
+        public static string Group {
+            get {
+                return ResourceManager.GetString("Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Опекуни.
         /// </summary>
         public static string Guardians {
@@ -1168,6 +1213,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Вручну.
+        /// </summary>
+        public static string Manually {
+            get {
+                return ResourceManager.GetString("Manually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Виробник.
         /// </summary>
         public static string Manufacturer {
@@ -1182,6 +1236,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string MedicalInformationSystem {
             get {
                 return ResourceManager.GetString("MedicalInformationSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на МІсяців.
+        /// </summary>
+        public static string Months {
+            get {
+                return ResourceManager.GetString("Months", resourceCulture);
             }
         }
         
@@ -1391,8 +1454,8 @@ namespace hNext.ResourceLibrary.Resources {
                 return ResourceManager.GetString("Positions", resourceCulture);
             }
         }
-
-         /// <summary>
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Призначення.
         /// </summary>
         public static string Prescriptions {
@@ -1551,6 +1614,15 @@ namespace hNext.ResourceLibrary.Resources {
         public static string SaveWithoutICD {
             get {
                 return ResourceManager.GetString("SaveWithoutICD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Схема.
+        /// </summary>
+        public static string Scheme {
+            get {
+                return ResourceManager.GetString("Scheme", resourceCulture);
             }
         }
         
@@ -1996,6 +2068,15 @@ namespace hNext.ResourceLibrary.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Тижнів.
+        /// </summary>
+        public static string Weeks {
+            get {
+                return ResourceManager.GetString("Weeks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Коли виданий.
         /// </summary>
         public static string WhenIssued {
@@ -2046,33 +2127,6 @@ namespace hNext.ResourceLibrary.Resources {
         public static string Zip {
             get {
                 return ResourceManager.GetString("Zip", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Лікарська форма.
-        /// </summary>
-        public static string DrugForm {
-            get {
-                return ResourceManager.GetString("DrugForm", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Склад.
-        /// </summary>
-        public static string Compound {
-            get {
-                return ResourceManager.GetString("Compound", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Група.
-        /// </summary>
-        public static string Group {
-            get {
-                return ResourceManager.GetString("Group", resourceCulture);
             }
         }
     }

@@ -25,6 +25,11 @@ Vue.component("CaseHistoryPrescriptions", {
             return this.$store.state.caseHistory.history.id;
         } 
     },
+    watch: {
+        showAddPrescription: function (val) {
+            this.enabled = !val;
+        }
+    },
     methods: {
         addPrescriptionClicked: function(){
             this.showAddPrescription = true;

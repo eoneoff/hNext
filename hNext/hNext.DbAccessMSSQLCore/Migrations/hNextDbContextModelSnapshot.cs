@@ -1092,9 +1092,6 @@ namespace hNext.DbAccessMSSQLCore.Migrations
                     b.Property<long>("DoctorId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("Duration")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -1583,7 +1580,7 @@ namespace hNext.DbAccessMSSQLCore.Migrations
             modelBuilder.Entity("hNext.Model.CaseHistoryPrescription", b =>
                 {
                     b.HasOne("hNext.Model.CaseHistory", "CaseHistory")
-                        .WithMany()
+                        .WithMany("Prescriptions")
                         .HasForeignKey("CaseHistoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

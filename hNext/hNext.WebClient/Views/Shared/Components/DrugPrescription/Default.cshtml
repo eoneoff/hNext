@@ -1,0 +1,19 @@
+﻿@model DrugPrescription
+
+<template id="drug-prescription-template">
+    <div class="d-flex flex-column">
+        <div class="d-flex flex-column flex-lg-row">
+            <input type="text" class="form-control" placeholder="@Localizer[nameof(Resources.Drug)]" />
+        </div>
+        <div class="d-flex flex-column mt-2">
+            <div class="d-flex flex-column flex-lg-row">
+                <label asp-for="Dosage" class="mr-lg-2 align-self-center"></label>
+                <input asp-for="Dosage" class="form-control" />
+            </div> 
+            <div class="d-flex flex-column flex-lg-row mt-2">
+                <label asp-for="Times" class="text-nowrap align-self-center mr-lg-2"></label>
+                <input asp-for="Times" class="form-control" />
+            </div>
+        </div>
+    </div>
+</template>

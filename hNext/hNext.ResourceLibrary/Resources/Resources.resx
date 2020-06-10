@@ -789,4 +789,22 @@
   <data name="Group" xml:space="preserve">
     <value>Група</value>
   </data>
+  <data name="Dayly" xml:space="preserve">
+    <value>Щоденно</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Днів</value>
+  </data>
+  <data name="Manually" xml:space="preserve">
+    <value>Вручну</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>МІсяців</value>
+  </data>
+  <data name="Scheme" xml:space="preserve">
+    <value>Схема</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Тижнів</value>
+  </data>
 </root>

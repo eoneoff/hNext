@@ -1,31 +1,71 @@
+@model Prescription
+
 <template id='prescription-template'>
-    <div class="d-flex flex-column">
-        <div class="d-flex flex-column-reverse" :class="!editMode ? 'flex-lg-row' : ''">
-            <div class="flex-lg-grow-1">
-                <div v-if="editMode" class="d-flex flex-column">
-                    <div class="d-flex flex-row justify-content-between mt-2">
-                        <button class="btn btn-primary" @@click.stop.prevent="">
-                            @Localizer[nameof(Resources.Save)]
-                        </button>
-                        <button class="btn btn-danger" @@click.stop.prevent="">
-                            @Localizer[nameof(Resources.Cancel)]
-                        </button>
+    <div class="modal-window" :style="{zIndex:level*1000}">
+        <div class="d-flex flex-column">
+            <div class="d-flex flex-column mb-1">
+                <button class="btn btn-danger ml-auto" :disabled="!enabled" @@click.stop.prevent="cancel">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="d-flex flex-column show-panel modal-window-show-panel">
+                <div class="d-flex flex-column flex-lg-row">
+                    <div class="form-group row mx-0">
+                        <label asp-for="StartDate" class="col-lg col-form-label text-left text-lg-right"></label>
+                        <input asp-for="StartDate" class="form-control col-lg" />
+                    </div>
+                    <div class="mb-1 mb-lg-0 mx-0">
+                        <select class="custom-select" v-model="endDateMode">
+                            <option value="0"></option>
+                            <option value="1">@Localizer[nameof(Resources.Duration)]</option>
+                            <option value="2">@Localizer[nameof(Resources.EndDate)]</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div v-if="endDateMode==1" class="ml-lg-1 d-flex flex-column flex-lg-row">
+                            <input type="number" step="1" min="1" class="form-control mb-1 mb-lg-0" />
+                            <select class="custom-select ml-lg-1">
+                                <option value="1">@Localizer[nameof(Resources.Days)]</option>
+                                <option value="2">@Localizer[nameof(Resources.Weeks)]</option>
+                                <option value="3">@Localizer[nameof(Resources.Months)]</option>
+                            </select>
+                        </div>
+                        <div v-else-if="endDateMode==2" class="ml-lg-1">
+                            <input asp-for="EndDate" class="form-control" />
+                        </div>
                     </div>
                 </div>
+                <div class="d-flex flex-column flex-lg-row mx-lg-1 mb-1 mb-lg-0">
+                    <select class="custom-select mb-1 mb-lg-0 mr-lg-1" v-model="prescriptionSchema">
+                        <option value="0"></option>
+                        <option value="1">@Localizer[nameof(Resources.Dayly)]</option>
+                        <option value="2">@Localizer[nameof(Resources.Scheme)]</option>
+                    </select>
+                    <div v-if="prescriptionSchema==2" class="d-flex flex-column flex-lg-row">
+                        <div class="flex-grow-0 mb-1 mb-lg-0">
+                            <input type="number" step="1" min="0" class="form-control" placeholder="@Localizer[nameof(Resources.Duration)]" v-model="schemaLength" style="min-width:7em"/>
+                        </div>
+                        <div class="d-flex flex-row flex-nowrap align-items-center ml-lg-1 flex-grow-1 justify-content-center justify-content-lg-start">
+                            <div class="custom-control custom-checkbox" v-for="(day, index) in schema">
+                                <input type="checkbox" class="custom-control-input" :id="`schema-length-${index}`" />
+                                <label class="custom-control-label" :for="`schema-length-${index}`"></label>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="mt-2">
+                    <drug-prescription></drug-prescription>
+                </div>              
+                <textarea asp-for="Text" class="form-control mt-2"></textarea>
             </div>
-            <div class="align-self-end">
-                <button class="btn btn-outline-info" v-if="editMode"
-                    @@click.stop.prevent="editMode=false">
-                    <i class="fa fa-arrow-up"></i>
-                </button>
-                <button class="btn btn-outline-info" v-else
-                    @@click.stop.prevent="editMode=true">
-                    <i class="fa fa-arrow-down"></i>
-                </button>
-                <button class="btn btn-outline-info">
-                    <i class="fa fa-pen"></i>
-                </button>
+                <div class="d-flex flex-row justify-content-between mt-2">
+                    <button class="btn btn-primary" @@click.stop.prevent="" :disabled="!enabled">
+                        @Localizer[nameof(Resources.Save)]
+                    </button>
+                    <button class="btn btn-danger" @@click.stop.prevent="cancel" :disabled="!enabled">
+                        @Localizer[nameof(Resources.Cancel)]
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 </template>
