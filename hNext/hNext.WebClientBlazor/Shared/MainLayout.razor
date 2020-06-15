@@ -2,7 +2,63 @@
 
 
 <div>
-    <div class="px-4">
-        @Body
+    <header>
+        <div class="d-flex flex-column flex-lg-row px-2 py-1 header-panel header-text">
+            <img src="/images/headerlogo.png" class="m-auto mx-lg-1 align-middle header-image" />
+            <div class="d-flex flex-column flex-grow-1">
+                <h3 class="display-4 text-center flex-grow-1 align-text-middle mx-auto">@Resources.MedicalInformationSystem hNext</h3>
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="container-fluid ml-0">
+            <div class="row no-gutters mx-0">
+                <div class="col-lg-8 col-xl-9 d-flex flex-row">
+                    <nav>
+                        <ul class="nav nav-tabs flex-column">
+                            <li class="nav-item">
+                                <AuthorizeView>
+                                    <NavLink class="nav-link side-tab-selector p-1" href="patients" Match="NavLinkMatch.All">
+                                        @Localizer[nameof(Resources.Patients)]
+                                    </NavLink>
+                                </AuthorizeView>
+                            </li>
+                        </ul>
+                    </nav>
+                    <main class="container-fluid flex-grow-1 main-panel">
+                        @Body
+                    </main>
+                </div>
+                <aside class="col-lg-4 col-xl-3 d-flex flex-row ml-4 ml-lg-0 mt-3 mt-lg-0">
+                    <div class="d-flex flex-row flex-grow-1 h-100">
+                        @switch(SelectedSideTab)
+                        {
+                            case nameof(PatientDetailsTabComponent):
+                                <PatientDetailsTabComponent/>
+                                break;
+                        }
+                    </div>
+                    <nav>
+                        <ul class="nav nav-tabs flex-column">
+                            <AuthorizeView>
+                                <li class="nav-item">
+                                    <a class="nav-link side-tab-selector p-1 @(SelectedSideTab = nameof(PatientDetailsTabComponent) ? "active" ? "")" @onclick="()=>SelectedSideTab = nameof(PatientDetailsTabComponent)">
+                                        @Localizer[nameof(Resources.Patient)]
+                                    </a>
+                                </li>
+                            </AuthorizeView>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
     </div>
+    <footer>
+        <span>© Dmytro Ivanov — 2019-@DateTime.Today.Year</span>
+    </footer>
 </div>
+
+@code
+{
+    private string SelectedSideTab { get; set; } = nameof(PatientDetailsTabComponent);
+                        }

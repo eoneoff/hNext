@@ -1,0 +1,70 @@
+﻿@inherits PatientDetailsTabComponentViewModel
+
+    <div class="main-panel ml-2 w-100">
+        <table class="table table-borderless table-sm mt-1 mx-1">
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.FamilyName)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.FamilyName</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.FirstName)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.FirstName</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.Patronimic)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.Patronimic</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.Gender)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.Gender?.Name</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.DateOfBirth)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.DateOfBirth?.ToString("dd.MM.YYYY")</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.CountryOfBirth)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.CountryOfBirth?.Name</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.PlaceOfBirth)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.PlaceOfBirth?.Name</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap font-weight-bold">@Localizer[nameof(Resources.Address)]</td>
+                <td class="side-tab-field"></td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.Country)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.Address?.Country?.Name</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.Region)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.Address?.Region?.Name</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.District)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.Address?.District?.Name</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">
+                    @(Patient?.Person?.Address?.City?.CityType?.Name ?? Localizer[nameof(Resources.City)]):
+                </td>
+                <td class="side-tab-field">@Patient?.Person?.Address?.City?.Name</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap" v-text="`${addressStreetType || '@Localizer[nameof(Resources.Street)]'}:`">
+                    @(Patient?.Person?.Address?.Street?.StreetType?.Name ?? Localizer[nameof(Resources.Street)])
+                </td>
+                <td class="side-tab-field">@Patient?.Person?.Address?.Street?.Name</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.Building)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.Address?.Building</td>
+            </tr>
+            <tr>
+                <td class="text-right text-nowrap">@Localizer[nameof(Resources.Apartment)]:</td>
+                <td class="side-tab-field">@Patient?.Person?.Address?.Apartment</td>
+            </tr>
+        </table>
+    </div>

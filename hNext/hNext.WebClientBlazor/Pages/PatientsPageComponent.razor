@@ -1,0 +1,99 @@
+﻿@page  "/patients"
+
+@inherits PatientsPageComponentViewModel
+
+    <div class="f-flex flex-column flex-grow-1 mt-2">
+        <form class="d-flex justify-content-md-between flex-column flex-md-row flex-wrap">
+            <div class="form-group row flex-md-nowrap flex-fill">
+                <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1">@Localizer[nameof(Resources.FirstName)]</label>
+                <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
+                    <input class="form-control" @bind="SearchModel.Name"/>
+                </div>
+            </div>
+            <div class="form-group row flex-md-nowrap flex-sm-fill">
+                <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1">@Localizer[nameof(Resources.YearOfBirth)]</label>
+                <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
+                    <input asp-for="Search.YearOfBirth" class="form-control" @bind="SearchModel.YearOfBirth"
+                           max="@DateTime.Today.Year" min="@(DateTime.Today.Year-120)" />
+                </div>
+            </div>
+            <div class="form-group row flex-md-nowrap flex-fill">
+                <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1">@Localizer[nameof(Resources.Region)]</label>
+                <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
+                    <select class="custom-select" @bind="SearchModel.RegionId">
+                        <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
+                        @foreach(var region in Regions)
+                        {
+                            <option value="@region.Id" @key="region.Id">@region.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row flex-md-nowrap flex-fill">
+                <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1">@Localizer[nameof(Resources.District)]</label>
+                <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
+                    <select class="custom-select" asp-for="Search.DistrictId" @bind="SearchModel.DistrictId">
+                        <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
+                        @foreach(var district in Districts)
+                        {
+                            <option value="@district.Id" @key="district.Id">@district.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row flex-md-nowrap flex-fill">
+                <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1">@Localizer[nameof(Resources.City)]</label>
+                <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
+                    @if (FilteredCities.Count() > 50)
+                    {
+                        <input class="form-control" @bind="CityName" />
+                    }
+                    else
+                    {
+                        <select class="custom-select" @bind="SearchModel.CityId">
+                            <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
+                            <option value="-1" v-if="cities.length">@Localizer[nameof(Resources.ResetSearch)]</option>
+                            @foreach(var city in FilteredCities)
+                            {
+                                <option value="city.Id" @key="city.Id">@city.Name</option>
+                            }
+                        </select>
+                    }
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-md-row flex-md-nowrap ml-md-auto">
+                <button type="button" class="btn btn-primary mr-md-1 mb-2 mb-md-0" @onclick="SearchPatients">@Localizer[nameof(Resources.Search)]</button>
+                <button type="button" class="btn btn-primary mr-md-2" @onclick="CreateNewPatient">@Localizer[nameof(Resources.NewPatient)]</button>
+            </div>
+        </form>
+        <div class="mt-2 table-responsive-vertical">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>@Localizer[nameof(Resources.FullName)]</th>
+                        <th>@Localizer[nameof(Resources.DateOfBirth)]</th>
+                        <th>@Localizer[nameof(Resources.Address)]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var patient in FoundPatients)
+                    {
+                        <tr class="@(patient?.Id == SelectedPatient?.Id ? "selected-table-row": string.Empty)"
+                            @onclick="@(()=>SelectedPatient = patient)" @ondblclick="()=> { }">
+                            <td>@($"{patient?.Person?.FamilyName} {patient?.Person?.FirstName} {patient?.Person?.Patronimic}"?.Trim())</td>
+                            <td>@patient?.Person?.DateOfBirth?.ToString("dd.MM.YYYY")</td>
+                            <td>
+                                @($"{patient.Person.Address.Country.Name}" +
+                                patient?.Person?.Address?.Region != null ? $", {patient.Person.Address.Region.Name} {Localizer[nameof(Resources.Region)].Value.ToLower()}" : string.Empty +
+                                patient?.Person?.Address?.District != null ? $", {patient.Person.Address.District.Name} {Localizer[nameof(Resources.District)].Value.ToLower()}" : string.Empty +
+                                $", {patient?.Person?.Address?.City?.CityType?.Name} {patient?.Person?.Address?.City?.Name}" +
+                                $", {patient?.Person?.Address?.Street?.StreetType?.Name} {patient?.Person?.Address?.Street?.Name}" +
+                                $", {Localizer[nameof(Resources.Building)].Value.ToLower()} {patient?.Person?.Address?.Building}" +
+                                (!string.IsNullOrWhiteSpace(patient?.Person?.Address?.Apartment) ? $", {Localizer[nameof(Resources.Apartment)].Value.ToLower()} {patient.Person.Address.Apartment}" : string.Empty))
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.WebClient.Tests", "hN
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.MSSQLCoreRepository.Tests", "hNext.MSSQLCoreRepository.Tests\hNext.MSSQLCoreRepository.Tests.csproj", "{E90DDB24-BC46-4D58-8DBD-9813D12D73B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hNext.WebClientBlazor", "hNext.WebClientBlazor\hNext.WebClientBlazor.csproj", "{3C1188FE-D7A8-4B8B-A6A4-A3BE76F3585D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.WebClientBlazor", "hNext.WebClientBlazor\hNext.WebClientBlazor.csproj", "{3C1188FE-D7A8-4B8B-A6A4-A3BE76F3585D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

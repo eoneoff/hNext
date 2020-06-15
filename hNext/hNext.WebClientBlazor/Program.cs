@@ -35,6 +35,7 @@ namespace hNext.WebClientBlazor
 
             builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
             builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(sp.GetRequiredService<IConfiguration>()["ApiSever"]) });
+            builder.Services.AddSingleton<ViewModels.AppStateViewModel>();
 
             await builder.Build().RunAsync();
         }
