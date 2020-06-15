@@ -42,7 +42,7 @@
                         <ul class="nav nav-tabs flex-column">
                             <AuthorizeView>
                                 <li class="nav-item">
-                                    <a class="nav-link side-tab-selector p-1 @(SelectedSideTab = nameof(PatientDetailsTabComponent) ? "active" ? "")" @onclick="()=>SelectedSideTab = nameof(PatientDetailsTabComponent)">
+                                    <a class="nav-link side-tab-selector p-1 @(SelectedSideTab == nameof(PatientDetailsTabComponent) ? "active" : "")" @onclick="()=>SelectedSideTab = nameof(PatientDetailsTabComponent)">
                                         @Localizer[nameof(Resources.Patient)]
                                     </a>
                                 </li>
