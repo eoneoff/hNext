@@ -12,7 +12,7 @@ namespace hNext.MSSQLCoreRepository
     {
         public Repository(hNextDbContext db) : base(db) { }
 
-        public virtual async Task<T> Put(T item)
+        public virtual async Task<T> Put(T item, params object[] key)
         {
             dbSet.Update(item);
             await db.SaveChangesAsync();

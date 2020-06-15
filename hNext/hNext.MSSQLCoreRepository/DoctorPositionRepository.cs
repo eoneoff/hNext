@@ -27,7 +27,7 @@ namespace hNext.MSSQLCoreRepository
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == position.Id);
         }
 
-        public override async Task<DoctorPosition> Put(DoctorPosition position) => await Post(position);
+        public override async Task<DoctorPosition> Put(DoctorPosition position, params object[] key) => await Post(position);
 
         public async Task<DoctorPosition> Exists(DoctorPosition position) => await dbSet
             .Include(p => p.Hospital)

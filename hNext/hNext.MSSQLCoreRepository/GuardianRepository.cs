@@ -71,6 +71,6 @@ namespace hNext.MSSQLCoreRepository
             return guardian;
         }
 
-        public override async Task<GuardianWard> Put(GuardianWard guardian) => await Post(guardian);
+        public override async Task<GuardianWard> Put(GuardianWard guardian, params object [] key) => await Post(guardian);
     }
 }

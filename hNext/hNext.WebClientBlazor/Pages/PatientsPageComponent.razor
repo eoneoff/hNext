@@ -81,15 +81,15 @@
                         <tr class="@(patient?.Id == SelectedPatient?.Id ? "selected-table-row": string.Empty)"
                             @onclick="@(()=>SelectedPatient = patient)" @ondblclick="()=> { }">
                             <td>@($"{patient?.Person?.FamilyName} {patient?.Person?.FirstName} {patient?.Person?.Patronimic}"?.Trim())</td>
-                            <td>@patient?.Person?.DateOfBirth?.ToString("dd.MM.YYYY")</td>
+                            <td>@patient?.Person?.DateOfBirth?.ToString("dd.MM.yyyy")</td>
                             <td>
                                 @($"{patient.Person.Address.Country.Name}" +
-                                patient?.Person?.Address?.Region != null ? $", {patient.Person.Address.Region.Name} {Localizer[nameof(Resources.Region)].Value.ToLower()}" : string.Empty +
-                                patient?.Person?.Address?.District != null ? $", {patient.Person.Address.District.Name} {Localizer[nameof(Resources.District)].Value.ToLower()}" : string.Empty +
-                                $", {patient?.Person?.Address?.City?.CityType?.Name} {patient?.Person?.Address?.City?.Name}" +
-                                $", {patient?.Person?.Address?.Street?.StreetType?.Name} {patient?.Person?.Address?.Street?.Name}" +
-                                $", {Localizer[nameof(Resources.Building)].Value.ToLower()} {patient?.Person?.Address?.Building}" +
-                                (!string.IsNullOrWhiteSpace(patient?.Person?.Address?.Apartment) ? $", {Localizer[nameof(Resources.Apartment)].Value.ToLower()} {patient.Person.Address.Apartment}" : string.Empty))
+                                  $"{(patient?.Person?.Address?.Region != null ? $", {patient.Person.Address.Region.Name} {Localizer[nameof(Resources.Region)].Value.ToLower()}" : string.Empty)}" +
+                                  $"{(patient?.Person?.Address?.District != null ? $", {patient.Person.Address.District.Name} {Localizer[nameof(Resources.District)].Value.ToLower()}" : string.Empty)}" +
+                                  $", {patient?.Person?.Address?.City?.CityType?.Name} {patient?.Person?.Address?.City?.Name}" +
+                                  $", {patient?.Person?.Address?.Street?.StreetType?.Name} {patient?.Person?.Address?.Street?.Name}" +
+                                  $", {Localizer[nameof(Resources.Building)].Value.ToLower()} {patient?.Person?.Address?.Building}" +
+                                  $"{(!string.IsNullOrWhiteSpace(patient?.Person?.Address?.Apartment) ? $", {Localizer[nameof(Resources.Apartment)].Value.ToLower()} {patient.Person.Address.Apartment}" : string.Empty)}")
                             </td>
                         </tr>
                     }

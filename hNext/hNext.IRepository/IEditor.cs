@@ -8,7 +8,7 @@ namespace hNext.IRepository
 {
     public interface IEditor<T>
     {
-        Task<T> Put(T item);
+        Task<T> Put(T item, params object[] key);
         Task<T> Delete(params object[] key);
     }
 }

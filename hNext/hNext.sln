@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.MSSQLCoreRepository.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.WebClientBlazor", "hNext.WebClientBlazor\hNext.WebClientBlazor.csproj", "{3C1188FE-D7A8-4B8B-A6A4-A3BE76F3585D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hNext.WebApiRepository", "hNext.WebApiRepository\hNext.WebApiRepository.csproj", "{F8688C98-F484-4BCD-85B0-4121310ECD6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{3C1188FE-D7A8-4B8B-A6A4-A3BE76F3585D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C1188FE-D7A8-4B8B-A6A4-A3BE76F3585D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C1188FE-D7A8-4B8B-A6A4-A3BE76F3585D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8688C98-F484-4BCD-85B0-4121310ECD6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8688C98-F484-4BCD-85B0-4121310ECD6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8688C98-F484-4BCD-85B0-4121310ECD6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8688C98-F484-4BCD-85B0-4121310ECD6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,7 +29,7 @@ namespace hNext.MSSQLCoreRepository
         public override async Task<Document> Post(Document document) =>
             await LoadAdditionaInfo(await base.Post(document));
 
-        public override async Task<Document> Put(Document document) =>
+        public override async Task<Document> Put(Document document, params object[] key) =>
             await LoadAdditionaInfo(await base.Put(document));
 
         public override async Task<Document> Delete(params object[] key) =>

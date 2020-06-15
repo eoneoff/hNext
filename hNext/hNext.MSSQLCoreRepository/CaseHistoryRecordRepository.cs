@@ -31,7 +31,7 @@ namespace hNext.MSSQLCoreRepository
                 .AsNoTracking().SingleOrDefaultAsync(r => r.Id == record.Id);
         }
 
-        public override async Task<CaseHistoryRecord> Put(CaseHistoryRecord record)
+        public override async Task<CaseHistoryRecord> Put(CaseHistoryRecord record, params object[] key)
         {
             dbSet.Update(RemoveTemplates(record));
             await db.SaveChangesAsync();

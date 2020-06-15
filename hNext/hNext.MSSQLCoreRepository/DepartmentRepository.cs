@@ -60,6 +60,6 @@ namespace hNext.MSSQLCoreRepository
             return department;
         }
 
-        public override async Task<Department> Put(Department department) => await Post(department);
+        public override async Task<Department> Put(Department department, params object[] key) => await Post(department);
     }
 }

@@ -1,16 +1,21 @@
-﻿using hNext.Model;
+﻿using hNext.IRepository;
+using hNext.Model;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace hNext.WebClientBlazor.ViewModels
 {
     public class PatientsPageComponentViewModel:ComponentBase
     {
         [Inject]
-        protected AppStateViewModel State { get; set; }
+        public AppStateViewModel State { get; set; }
+
+        [Inject]
+        public IRepository<Patient> Repository { get; set; }
 
         protected PatientSearchModel SearchModel { get; set; } = new PatientSearchModel();
         protected IEnumerable<Region> Regions { get; set; } = new List<Region>();
@@ -30,9 +35,16 @@ namespace hNext.WebClientBlazor.ViewModels
             if (!State.State.ContainsKey(nameof(Patient))) State.State[nameof(Patient)] = new Patient();
         }
 
-        protected async void SearchPatients()
+        protected async Task SearchPatients()
         {
-
+            try
+            {
+                FoundPatients = await (Repository as IPatientsRepository).SearchPatients(SearchModel);         
+            }
+            catch(HttpResponseException ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
         }
 
         protected async void CreateNewPatient()

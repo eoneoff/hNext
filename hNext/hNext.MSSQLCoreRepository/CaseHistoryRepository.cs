@@ -64,7 +64,7 @@ namespace hNext.MSSQLCoreRepository
                 .AsNoTracking().SingleOrDefaultAsync(h => h.Id == history.Id);
         }
 
-        public override async Task<CaseHistory> Put(CaseHistory history)
+        public override async Task<CaseHistory> Put(CaseHistory history, params object[] key)
         {
             dbSet.Update(history);
             await db.SaveChangesAsync();

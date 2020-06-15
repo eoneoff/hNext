@@ -23,7 +23,7 @@ namespace hNext.MSSQLCoreRepository
                 .AsNoTracking().SingleOrDefaultAsync(a => a.Id == admission.Id);
         }
 
-        public override async Task<CaseHistoryAdmission> Put(CaseHistoryAdmission admission) =>
+        public override async Task<CaseHistoryAdmission> Put(CaseHistoryAdmission admission, params object[] key) =>
             await Post(admission);
     }
 }

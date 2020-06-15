@@ -74,7 +74,7 @@ namespace hNext.MSSQLCoreRepository
 
         }
 
-        public override async Task<Doctor> Put(Doctor doctor) => await Post(doctor);
+        public override async Task<Doctor> Put(Doctor doctor, params object[] key) => await Post(doctor);
 
         public async Task<IEnumerable<Doctor>> SearchDoctors(DoctorSearchModel model) => await db.SearchDoctor(model)
             .Include(d => d.Person).ThenInclude(p => p.Address).ThenInclude(a => a.Country)

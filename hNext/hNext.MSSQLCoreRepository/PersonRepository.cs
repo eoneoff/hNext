@@ -79,7 +79,7 @@ namespace hNext.MSSQLCoreRepository
                 .AsNoTracking().SingleOrDefaultAsync(p => p.Id == item.Id);
         }
 
-        public override async Task<Person> Put(Person item)
+        public override async Task<Person> Put(Person item, params object[] key)
         {
             dbSet.Update(item);
             await db.SaveChangesAsync();

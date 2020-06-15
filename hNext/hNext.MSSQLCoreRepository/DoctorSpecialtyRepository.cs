@@ -28,7 +28,7 @@ namespace hNext.MSSQLCoreRepository
                 .SingleOrDefaultAsync(s => s.DoctorId == specialty.DoctorId && s.SpecialtyId == specialty.SpecialtyId);
         }
 
-        public override async Task<DoctorSpecialty> Put(DoctorSpecialty specialty)
+        public override async Task<DoctorSpecialty> Put(DoctorSpecialty specialty, params object[] key)
         {
             dbSet.Update(specialty);
             await db.SaveChangesAsync();

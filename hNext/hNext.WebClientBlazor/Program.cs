@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Builder;
+using hNext.IRepository;
+using hNext.WebApiRepository;
+using hNext.Model;
 
 namespace hNext.WebClientBlazor
 {
@@ -34,8 +37,14 @@ namespace hNext.WebClientBlazor
             });
 
             builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
-            builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(sp.GetRequiredService<IConfiguration>()["ApiSever"]) });
+            builder.Services.AddSingleton(sp =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                return new HttpClient { BaseAddress = new Uri(configuration["ApiServer"]) };
+             });
             builder.Services.AddSingleton<ViewModels.AppStateViewModel>();
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IRepository<Patient>, PatientsRepository>();
 
             await builder.Build().RunAsync();
         }

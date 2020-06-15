@@ -73,6 +73,6 @@ namespace hNext.MSSQLCoreRepository
                 .AsNoTracking().SingleOrDefaultAsync(h => h.Id == hospital.Id);
         }
 
-        public override async Task<Hospital> Put(Hospital hospital) => await Post(hospital);
+        public override async Task<Hospital> Put(Hospital hospital, params object[] key) => await Post(hospital);
     }
 }
