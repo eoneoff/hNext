@@ -29,6 +29,9 @@ namespace hNext.WebClientBlazor.ViewModels
             get => State.State[nameof(Patient)] as Patient;
             set => State.State[nameof(Patient)] = value;
         }
+        protected bool loading = false;
+        protected bool showError = false;
+        protected string errorText = "Error";
 
         protected override void OnInitialized()
         {
@@ -37,13 +40,19 @@ namespace hNext.WebClientBlazor.ViewModels
 
         protected async Task SearchPatients()
         {
+            loading = true;
             try
             {
                 FoundPatients = await (Repository as IPatientsRepository).SearchPatients(SearchModel);         
             }
-            catch(HttpResponseException ex)
+            catch(Exception ex)
             {
-                Console.WriteLine($"{ex.Message}");
+                errorText = ex.Message;
+                showError = true;
+            }
+            finally
+            {
+                loading = false;
             }
         }
 
