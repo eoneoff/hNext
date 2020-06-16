@@ -12,9 +12,10 @@ namespace hNext.WebApiRepository
     public class Repository<T> : IRepository<T>
     {
         protected static Dictionary<string, string> ApiKeys = new Dictionary<string, string>
-    {
-        {nameof(Person), "people"}
-    };
+        {
+            {nameof(Person), "people"},
+            {nameof(Region), "regions" }
+        };
 
         protected HttpClient _httpClient;
 
@@ -22,7 +23,7 @@ namespace hNext.WebApiRepository
 
         public async Task<T> Delete(params object[] key)
         {
-            StringBuilder requestUrl = new StringBuilder(ApiKeys[nameof(T)]);
+            StringBuilder requestUrl = new StringBuilder(ApiKeys[typeof(T).Name]);
             foreach (var k in key)
             {
                 requestUrl.Append($"/{k}");
@@ -38,12 +39,12 @@ namespace hNext.WebApiRepository
 
         public async Task<IEnumerable<T>> Get()
         {
-            return await ReadResponse<IEnumerable<T>>(await _httpClient.GetAsync(ApiKeys[nameof(T)]));
+            return await ReadResponse<IEnumerable<T>>(await _httpClient.GetAsync(ApiKeys[typeof(T).Name]));
         }
 
         public async Task<T> Get(params object[] key)
         {
-            StringBuilder requestUrl = new StringBuilder(ApiKeys[nameof(T)]);
+            StringBuilder requestUrl = new StringBuilder(ApiKeys[typeof(T).Name]);
             foreach (var k in key)
             {
                 requestUrl.Append($"/{k}");
@@ -53,18 +54,18 @@ namespace hNext.WebApiRepository
 
         public async Task<T> Post(T item)
         {
-            return await ReadResponse<T>(await _httpClient.PostAsJsonAsync(ApiKeys[nameof(T)], item));
+            return await ReadResponse<T>(await _httpClient.PostAsJsonAsync(ApiKeys[typeof(T).Name], item));
         }
 
         public async Task<T> Put(T item, params object[] key)
         {
-            StringBuilder requestUrl = new StringBuilder(ApiKeys[nameof(T)]);
+            StringBuilder requestUrl = new StringBuilder(ApiKeys[typeof(T).Name]);
             foreach (var k in key)
             {
                 requestUrl.Append($"/{k}");
             }
             var response = await _httpClient.PutAsJsonAsync(requestUrl.ToString(), item);
-            return await ReadResponse<T>(await _httpClient.PutAsJsonAsync<T>(requestUrl.ToString(), item));
+            return await ReadResponse<T>(await _httpClient.PutAsJsonAsync(requestUrl.ToString(), item));
         }
 
         protected async Task<U> ReadResponse<U>(HttpResponseMessage response)

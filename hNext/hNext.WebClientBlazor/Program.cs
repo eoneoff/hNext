@@ -45,6 +45,7 @@ namespace hNext.WebClientBlazor
             builder.Services.AddSingleton<ViewModels.AppStateViewModel>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IRepository<Patient>, PatientsRepository>();
+            builder.Services.AddScoped<IRepository<Region>, RegionsRepository>();
 
             await builder.Build().RunAsync();
         }
