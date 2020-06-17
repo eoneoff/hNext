@@ -1,0 +1,15 @@
+﻿@typeparam TItem
+@inherits ValidatableFormComponentViewModel<TItem>
+
+<EditForm Model="Model" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <ContextWatcher @ref="contextWatcher" />
+    @ChildContent(Model)
+    @if (!HideButtons)
+    {
+        <div class="d-flex flex-row justify-content-between mt-3">
+            <button type="submit" class="btn btn-success" disabled="@Unchanged">@(string.IsNullOrEmpty(OkButtonText) ? Localizer[nameof(Resources.Save)] : OkButtonText)</button>
+            <button type="button" class="btn btn-danger" @onclick="OnCancel">@(string.IsNullOrEmpty(CancelButtonText) ? Localizer[nameof(Resources.Cancel)] : CancelButtonText)</button>
+        </div>
+    }
+</EditForm>

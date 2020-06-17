@@ -1,5 +1,6 @@
 ﻿using hNext.IRepository;
 using hNext.Model;
+using hNext.WebClientBlazor.Shared;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,8 @@ namespace hNext.WebClientBlazor.ViewModels
         protected bool showError = false;
         protected string errorText = "Error";
 
+        protected ModalDialogComponent PatientEditor;
+
         protected override async Task OnInitializedAsync()
         {
             if (!State.State.ContainsKey(nameof(Patient))) State.State[nameof(Patient)] = new Patient();
@@ -81,6 +84,7 @@ namespace hNext.WebClientBlazor.ViewModels
             finally
             {
                 loading = false;
+                SelectedPatient = new Patient();
             }
         }
 

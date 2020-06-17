@@ -2,6 +2,10 @@
 
 @inherits PatientsPageComponentViewModel
 
+    <ModalDialogComponent @ref="PatientEditor">
+        <PersonEditorComponent/>
+    </ModalDialogComponent>
+    
     <div class="f-flex flex-column flex-grow-1 mt-2">
         @if(showError)
         {
