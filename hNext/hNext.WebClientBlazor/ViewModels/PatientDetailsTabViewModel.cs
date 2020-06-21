@@ -7,20 +7,16 @@ using System.Threading.Tasks;
 
 namespace hNext.WebClientBlazor.ViewModels
 {
-    public class PatientDetailsTabComponentViewModel : ComponentBase
+    public class PatientDetailsTabViewModel : ComponentBase
     {
         [Inject]
         protected AppStateViewModel State { get; set; }
 
-        protected Patient Patient
-        {
-            get => State.State["Patient"] as Patient;
-            set => State.State["Patient"] = value;
-        }
+        protected Patient Patient => State.GetData<Patient>();
 
         protected override void OnInitialized()
         {
-            if (!State.State.ContainsKey(nameof(Patient))) State.State[nameof(Patient)] = new Patient();
+            State.Subscribe<Patient>(StateHasChanged);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace hNext.WebClientBlazor.ViewModels
 {
-    public class ValidatableFormComponentViewModel<TItem>:ComponentBase
+    public class ValidatableFormViewModel<TItem>:ComponentBase
     {
         protected ContextWatcher contextWatcher;
 

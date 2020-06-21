@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace hNext.WebClientBlazor.ViewModels
 {
-    public class PatientsPageComponentViewModel : ComponentBase
+    public class PatientsPageViewModel : ComponentBase
     {
         [Inject]
         public AppStateViewModel State { get; set; }
@@ -54,18 +54,17 @@ namespace hNext.WebClientBlazor.ViewModels
         protected IEnumerable<Patient> FoundPatients { get; set; } = new List<Patient>();
         protected Patient SelectedPatient
         {
-            get => State.State[nameof(Patient)] as Patient;
-            set => State.State[nameof(Patient)] = value;
+            get => State.GetData<Patient>();
+            set => State.SetData(value);
         }
         protected bool loading = false;
         protected bool showError = false;
-        protected string errorText = "Error";
+        protected string errorText;
 
-        protected ModalDialogComponent PatientEditor;
+        protected ModalDialog PatientEditor;
 
         protected override async Task OnInitializedAsync()
         {
-            if (!State.State.ContainsKey(nameof(Patient))) State.State[nameof(Patient)] = new Patient();
             Regions = await RegionsRepository.Get();
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace hNext.WebClientBlazor.ViewModels
 {
-    public class ValidatableFormFieldComponentViewModel:ComponentBase
+    public class ValidatableFormFieldViewModel:ComponentBase
     {
         [Parameter]
         public bool Wide { get; set; } = true;
