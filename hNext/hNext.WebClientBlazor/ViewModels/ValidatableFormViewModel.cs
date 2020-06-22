@@ -37,6 +37,6 @@ namespace hNext.WebClientBlazor.ViewModels
         [Parameter]
         public string CancelButtonText { get; set; }
 
-        public bool Validate() => contextWatcher.Validate();
+        public bool Valid => contextWatcher.Valid;
     }
 }

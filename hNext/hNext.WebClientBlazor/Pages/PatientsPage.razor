@@ -2,9 +2,9 @@
 
 @inherits PatientsPageViewModel
 
-    <ModalDialogComponent @ref="PatientEditor">
-        <PersonEditor/>
-    </ModalDialogComponent>
+    <ModalDialog @ref="PatientEditorDialog" OnConfirm="SavePersonClicked" CloseOnOk="false">
+        <PersonEditor @ref="PersonEditor" Person="PersonToEdit" Wide="true"/>
+    </ModalDialog>
     
     <div class="f-flex flex-column flex-grow-1 mt-2">
         @if(showError)
@@ -80,7 +80,7 @@
                     }
                     @Localizer[nameof(Resources.Search)]
                 </button>
-                <button type="button" class="btn btn-primary mr-md-2" @onclick="CreateNewPatient" disabled="@loading">@Localizer[nameof(Resources.NewPatient)]</button>
+                <button type="button" class="btn btn-primary mr-md-2" @onclick="CreateNewPatientClicked" disabled="@loading">@Localizer[nameof(Resources.NewPatient)]</button>
             </div>
         </form>
         <div class="mt-2 table-responsive-vertical">

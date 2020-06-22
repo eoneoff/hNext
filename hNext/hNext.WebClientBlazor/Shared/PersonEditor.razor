@@ -1,47 +1,47 @@
 ﻿@inherits PersonEditorViewModel
 
-<ValidatableForm class="d-flex modal-window flex-column" :style="{zIndex: level*1000}" Model="Person">
+<ValidatableForm @ref="Form" Model="Person" HideButtons="HideButtons">
     <div class="show-panel modal-window-show-panel flex-column">
         <div class="">
             <div class="row mx-0">
                 <div class="col-lg-6 d-flex flex-column justify-content-lg-between">
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.FamilyName)]" Id="familyname">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="6" Label="@Localizer[nameof(Resources.FamilyName)]" Id="familyname">
                         <ValidationMessage For="@(()=> Person.FamilyName)" />
                         <InputText Id="familyname" Class="form-control" @bind-Value="Person.FamilyName" />
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.FirstName)]" Id="firstname">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="6" Label="@Localizer[nameof(Resources.FirstName)]" Id="firstname">
                         <ValidationMessage For="()=>Person.FirstName" />
                         <InputText Id="firstname" Class="form-control" @bind-Value="Person.FirstName" />
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.Patronimic)]" Id="patronimic">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="6" Label="@Localizer[nameof(Resources.Patronimic)]" Id="patronimic">
                         <InputText Class="form-control" @bind-Value="Person.Patronimic" Id="patronimic" />
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.Gender)]" Id="gender">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="6" Label="@Localizer[nameof(Resources.Gender)]" Id="gender">
                         <ValidationMessage For="()=>Person.GenderId" />
-                        <InputSelect @bind-Value="Person.GenderId" Clas="custom-select" Id="gender">
-                            <option value="">@Localizer[nameof(Resources.SelectGender)]</option>
+                        <InputSelect @bind-Value="Person.GenderId" Class="custom-select" Id="gender">
+                            <option value="0">@Localizer[nameof(Resources.SelectGender)]</option>
                             @foreach (var gender in Genders)
                             {
                                 <option value="gender.Id">@gender.Name</option>
                             }
                         </InputSelect>
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.DateOfBirth)]" Id="dateofbirth">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="6" Label="@Localizer[nameof(Resources.DateOfBirth)]" Id="dateofbirth">
                         <InputDate Class="form-control" Id="dateofbirth" @bind-Value="Person.DateOfBirth" />
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.CountryOfBirth)]" Id="countryofbirth">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="6" Label="@Localizer[nameof(Resources.CountryOfBirth)]" Id="countryofbirth">
                         <InputSelect @bind-Value="Person.CountryOfBirthId" Class="custom-select" Id="countryofbirth">
-                            <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
+                            <option value="0">@Localizer[nameof(Resources.SelectCountry)]</option>
                             @foreach (var country in Countries)
                             {
                                 <option value="@country.Id">@country.Name</option>
                             }
                         </InputSelect>
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.PlaceOfBirth)]" Id="placeofbirth">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="6" Label="@Localizer[nameof(Resources.PlaceOfBirth)]" Id="placeofbirth">
                         @if (FilteredPlacesOfBirth.Count() > 0)
                         {
-                            <input type="text" @bind-value="FilteredPlacesOfBirth" @bind-value:event="oninput" class="form-control" id="placeofbirth" />
+                            <input type="text" @bind-value="PlaceOfBirthName" @bind-value:event="oninput" class="form-control" id="placeofbirth" />
                         }
                         else
                         {
@@ -58,40 +58,40 @@
                             </InputSelect>
                         }
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.TaxId)]" Id="taxid">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="6" Label="@Localizer[nameof(Resources.TaxId)]" Id="taxid">
                         <InputText Class="form-control" Id="taxid" @bind-Value="Person.TaxId" />
                     </ValidatableFormField>
                 </div>
                 <div class="col-lg-6 d-flex flex-column justify-content-lg-between">
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.Country)]" Id="country">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="4" Label="@Localizer[nameof(Resources.Country)]" Id="country">
                         <ValidationMessage For="() => Person.Address.CountryId" />
                         <InputSelect @bind-Value="Person.Address.CountryId" Id="country" Class="custom-select">
-                            <option value="">@Localizer[nameof(Resources.SelectCountry)]</option>
+                            <option value="0">@Localizer[nameof(Resources.SelectCountry)]</option>
                             @foreach (var country in Countries)
                             {
                                 <option value="@country.Id">@country.Name</option>
                             }
                         </InputSelect>
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.Region)]" Id="region">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="4" Label="@Localizer[nameof(Resources.Region)]" Id="region">
                         <InputSelect @bind-Value="Person.Address.RegionId" Class="custom-select" Id="region">
-                            <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
+                            <option value="0">@Localizer[nameof(Resources.SelectRegion)]</option>
                             @foreach (var region in Regions)
                             {
                                 <option value="@region.Id" @key="region.Id">@region.Name</option>
                             }
                         </InputSelect>
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.District)]" Id="district">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="4" Label="@Localizer[nameof(Resources.District)]" Id="district">
                         <InputSelect @bind-Value="Person.Address.DistrictId" Class="custom-select" Id="district">
-                            <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
+                            <option value="0">@Localizer[nameof(Resources.SelectDistrict)]</option>
                             @foreach (var district in Districts)
                             {
                                 <option value="@district.Id" @key="district.Id">@district.Name</option>
                             }
                         </InputSelect>
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@(Person?.Address?.City?.CityType?.Name ?? Localizer[nameof(Resources.City)])" Id="city">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="4" Label="@(Person?.Address?.City?.CityType?.Name ?? Localizer[nameof(Resources.City)])" Id="city">
                         <ValidationMessage For="()=>Person.Address.CityId" />
                         @if (FilteredCities.Count() > 50)
                         {
@@ -99,8 +99,8 @@
                         }
                         else
                         {
-                            <InputSelect @bind-Value="Person?.Address?.CityId" Class="custom-select" Id="city">
-                                <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
+                            <InputSelect @bind-Value="Person.Address.CityId" Class="custom-select" Id="city">
+                                <option value="0">@Localizer[nameof(Resources.SelectCity)]</option>
                                 @if (Cities.Count() > 0)
                                     {
                                     <option value="-1">>@Localizer[nameof(Resources.ResetSearch)]</option>
@@ -112,15 +112,15 @@
                             </InputSelect>
                         }
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@(Person?.Address?.Street?.StreetType?.Name ?? Localizer[nameof(Resources.Street)])" Id="street">
+                    <ValidatableFormField Wide="@Wide" LabelWidth="4" Label="@(Person?.Address?.Street?.StreetType?.Name ?? Localizer[nameof(Resources.Street)])" Id="street">
                         @if (FilteredStreets.Count() > 50)
                         {
                             <input class="form-control" @bind-value="StreetName" @bind-value:event="oninput" id="street" />
                         }
                         else
                         {
-                            <InputSelect @bind-Value="Person?.Address?.StreetId" Class="custom-select" Id="street">
-                                <option value="">@Localizer[nameof(Resources.SelectStreet)]</option>
+                            <InputSelect @bind-Value="Person.Address.StreetId" Class="custom-select" Id="street">
+                                <option value="0">@Localizer[nameof(Resources.SelectStreet)]</option>
                                 @if (Streets.Count() > 0)
                                     {
                                     <option value="-1">>@Localizer[nameof(Resources.ResetSearch)]</option>
@@ -132,24 +132,17 @@
                             </InputSelect>
                         }
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.Building)]" Id="building">
-                        <InputText @bind-Value="Person?.Address?.Building" Class="form-control" Id="buiding" />
+                    <ValidatableFormField Wide="@Wide" LabelWidth="4" Label="@Localizer[nameof(Resources.Building)]" Id="building">
+                        <InputText @bind-Value="Person.Address.Building" Class="form-control" Id="buiding" />
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.Apartment)]" Id="apartment">
-                        <InputText @bind-Value="Person?.Address?.Apartment" Class="form-control" Id="apartment" />
+                    <ValidatableFormField Wide="@Wide" LabelWidth="4" Label="@Localizer[nameof(Resources.Apartment)]" Id="apartment">
+                        <InputText @bind-Value="Person.Address.Apartment" Class="form-control" Id="apartment" />
                     </ValidatableFormField>
-                    <ValidatableFormField Wide="@Wide" Label="@Localizer[nameof(Resources.Zip)]" Id="zip">
-                        <InputText @bind-Value="Person?.Address?.Zip" Class="form-control" Id="zip" />
+                    <ValidatableFormField Wide="@Wide" LabelWidth="4" Label="@Localizer[nameof(Resources.Zip)]" Id="zip">
+                        <InputText @bind-Value="Person.Address.Zip" Class="form-control" Id="zip" />
                     </ValidatableFormField>
                 </div>
             </div>
         </div>
-        @if (ShowButtons)
-        {
-            <div class="d-flex flex-nowrap mt-2">
-                <button type="submit" class="btn btn-primary">@Localizer[nameof(Resources.Save)]</button>
-                <button type="button" class="btn btn-danger ml-auto" >@Localizer[nameof(Resources.Cancel)]</button>
-            </div>
-        }
     </div>
 </ValidatableForm>

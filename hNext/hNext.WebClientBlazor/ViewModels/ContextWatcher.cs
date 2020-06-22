@@ -12,6 +12,6 @@ namespace hNext.WebClientBlazor.ViewModels
         [CascadingParameter]
         protected EditContext EditContext { get; set; }
 
-        public bool Validate() => EditContext?.Validate() ?? false;
+        public bool Valid => EditContext?.Validate() ?? false;
     }
 }

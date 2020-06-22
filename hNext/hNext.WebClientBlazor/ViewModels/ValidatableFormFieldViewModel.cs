@@ -22,5 +22,8 @@ namespace hNext.WebClientBlazor.ViewModels
 
         [Parameter]
         public string Class { get; set; }
+
+        [Parameter]
+        public int LabelWidth { get; set; } = 3;
     }
 }

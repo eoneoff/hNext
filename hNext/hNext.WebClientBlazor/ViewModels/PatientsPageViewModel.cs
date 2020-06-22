@@ -57,11 +57,15 @@ namespace hNext.WebClientBlazor.ViewModels
             get => State.GetData<Patient>();
             set => State.SetData(value);
         }
+
+        protected Person PersonToEdit { get; set; }
+
         protected bool loading = false;
         protected bool showError = false;
         protected string errorText;
 
-        protected ModalDialog PatientEditor;
+        protected ModalDialog PatientEditorDialog;
+        protected PersonEditor PersonEditor;
 
         protected override async Task OnInitializedAsync()
         {
@@ -87,9 +91,18 @@ namespace hNext.WebClientBlazor.ViewModels
             }
         }
 
-        protected async void CreateNewPatient()
+        protected void CreateNewPatientClicked()
         {
+            PersonToEdit = new Person { Address = new Address() };
+            PatientEditorDialog.Show();
+        }
 
+        protected void SavePersonClicked()
+        {
+            if(PersonEditor.Valid)
+            {
+
+            }
         }
     }
 }

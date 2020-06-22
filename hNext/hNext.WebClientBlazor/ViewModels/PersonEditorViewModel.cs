@@ -1,5 +1,6 @@
 ﻿using hNext.IRepository;
 using hNext.Model;
+using hNext.WebClientBlazor.Shared;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace hNext.WebClientBlazor.ViewModels
         [Parameter]
         public bool Wide { get; set; } = false;
         [Parameter]
-        public bool ShowButtons { get; set; } = false;
+        public bool HideButtons { get; set; } = true;
 
         protected IEnumerable<Gender> Genders { get; set; } = new List<Gender>();
         protected IEnumerable<Country> Countries { get; set; } = new List<Country>();
@@ -40,6 +41,9 @@ namespace hNext.WebClientBlazor.ViewModels
         protected IEnumerable<Street> Streets { get; set; } = new List<Street>();
         protected string StreetName { get; set; } = string.Empty;
         protected IEnumerable<Street> FilteredStreets => Streets.Where(s => s.Name.ToLower().StartsWith(StreetName.ToLower()));
+
+        protected ValidatableForm<Person> Form;
+        public bool Valid => Form.Valid;
 
         protected async override Task OnInitializedAsync()
         {

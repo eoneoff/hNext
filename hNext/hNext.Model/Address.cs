@@ -15,6 +15,7 @@ namespace hNext.Model
 
         [Required(ErrorMessageResourceType = typeof(Resources),
             ErrorMessageResourceName = nameof(Resources.SelectCountry))]
+        [Range(1, int.MaxValue, ErrorMessageResourceType = typeof(Resources), ErrorMessageResourceName = nameof(Resources.SelectCountry))]
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Country))]
         public int CountryId { get; set; }
@@ -29,6 +30,7 @@ namespace hNext.Model
 
         [Required(ErrorMessageResourceType = typeof(Resources),
             ErrorMessageResourceName =nameof(Resources.SelectCity))]
+        [Range(1, int.MaxValue, ErrorMessageResourceType = typeof(Resources), ErrorMessageResourceName = nameof(Resources.SelectCity))]
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.City))]
         public int CityId { get; set; }
