@@ -40,13 +40,15 @@ namespace hNext.WebClientBlazor
             builder.Services.AddSingleton(sp =>
             {
                 var configuration = sp.GetRequiredService<IConfiguration>();
-                return new HttpClient { BaseAddress = new Uri(configuration["ApiServer"]) };
+                return new HttpClient { BaseAddress = new Uri(configuration["ApiServer"]), Timeout = System.Threading.Timeout.InfiniteTimeSpan };
              });
             builder.Services.AddSingleton<ViewModels.AppStateViewModel>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IRepository<Patient>, PatientsRepository>();
             builder.Services.AddScoped<IRepository<Country>, CountryRepository>();
             builder.Services.AddScoped<IRepository<Region>, RegionsRepository>();
+            builder.Services.AddScoped<IRepository<District>, DistrictsRepository>();
+            builder.Services.AddScoped<IRepository<City>, CityRepository>();
 
             await builder.Build().RunAsync();
         }

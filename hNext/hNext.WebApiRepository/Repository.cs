@@ -14,9 +14,10 @@ namespace hNext.WebApiRepository
         protected static Dictionary<string, string> ApiKeys = new Dictionary<string, string>
         {
             {nameof(Person), "people"},
-            {nameof(Region), "regions" },
             {nameof(Gender), "genders" },
             {nameof(Country), "countries" },
+            {nameof(Region), "regions"},
+            {nameof(District), "districts"},
             {nameof(City), "cities" }
         };
 

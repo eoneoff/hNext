@@ -31,7 +31,7 @@
             <div class="form-group row flex-md-nowrap flex-fill">
                 <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1">@Localizer[nameof(Resources.Region)]</label>
                 <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
-                    <select class="custom-select" @bind="RegionId" disabled="@(loading || Regions.Count() == 0)">
+                    <select class="custom-select" @bind="RegionId" disabled="@(loading || !Regions.Any())">
                         <option value="">@Localizer[nameof(Resources.SelectRegion)]</option>
                         @foreach(var region in Regions)
                         {
@@ -43,7 +43,7 @@
             <div class="form-group row flex-md-nowrap flex-fill">
                 <label class="col-md-auto col-form-label text-md-right pr-0 ml-md-1">@Localizer[nameof(Resources.District)]</label>
                 <div class="col-md-auto mr-md-2 flex-grow-1 pl-2">
-                    <select class="custom-select" asp-for="Search.DistrictId" @bind="SearchModel.DistrictId" disabled="@(loading || Districts.Count() == 0)">
+                    <select class="custom-select" asp-for="DistrictId" @bind="SearchModel.DistrictId" disabled="@(loading || !Districts.Any())">
                         <option value="">@Localizer[nameof(Resources.SelectDistrict)]</option>
                         @foreach(var district in Districts)
                         {
@@ -61,7 +61,7 @@
                     }
                     else
                     {
-                        <select class="custom-select" @bind="SearchModel.CityId" disabled="@(loading || Cities.Count() == 0)">
+                        <select class="custom-select" @bind="CityId" disabled="@(loading || !Cities.Any())">
                             <option value="">@Localizer[nameof(Resources.SelectCity)]</option>
                             <option value="-1" v-if="cities.length">@Localizer[nameof(Resources.ResetSearch)]</option>
                             @foreach(var city in FilteredCities)

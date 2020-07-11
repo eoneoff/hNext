@@ -37,6 +37,8 @@ namespace hNext.WebClientBlazor.ViewModels
                     Districts = new List<District>();
                     Cities = new List<City>();
                     CityName = string.Empty;
+                    Districts = null;
+                    CityId = null;
                     cancelDistrictsLoading?.Cancel();
                     cancelCitiesLoading?.Cancel();
                     cancelDistrictsLoading = new CancellationTokenSource();
@@ -44,6 +46,36 @@ namespace hNext.WebClientBlazor.ViewModels
                     Task.Run(async () => Districts = await (RegionsRepository as IRegionsRepository).GetDistricts(id), cancelDistrictsLoading.Token).ContinueWith(t => StateHasChanged(), cancelDistrictsLoading.Token);
                     Task.Run(async () => Cities = await (RegionsRepository as IRegionsRepository).GetCities(id), cancelCitiesLoading.Token).ContinueWith(t => StateHasChanged(), cancelCitiesLoading.Token);
                 }
+            }
+        }
+        protected int? DistrictId
+        {
+            get => SearchModel.DistrictId;
+            set
+            {
+                SearchModel.DistrictId = value;
+                if(value is int id)
+                {
+                    Cities = new List<City>();
+                    CityName = string.Empty;
+                    CityId = null;
+                    cancelCitiesLoading?.Cancel();
+                    cancelCitiesLoading = new CancellationTokenSource();
+                    Task.Run(async () => Cities = await (RegionsRepository as IRegionsRepository).GetCities(id), cancelCitiesLoading.Token).ContinueWith(t => StateHasChanged(), cancelCitiesLoading.Token);
+                }
+            }
+        }
+        protected int? CityId
+        {
+            get => SearchModel.CityId;
+            set
+            {
+                if (value == -1)
+                {
+                    SearchModel.CityId = null;
+                    CityName = string.Empty;
+                }
+                else SearchModel.CityId = value;
             }
         }
         protected IEnumerable<Region> Regions { get; set; } = new List<Region>();
